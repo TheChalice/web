@@ -33,13 +33,10 @@ angular.module("console.timeline", [])
                   var arr = [];
                   for (var i = 0; i < data.length; i++) {
                     $scope.data.items.push({name:data[i]})
-                    $http.get('/registry/api/repositories/manifests',
-                        {params: {repo_name: $scope.name,tag:data[i]}})
-                        .success(function (datalis) {
-                          console.log('datalis', datalis)
-                          // $scope.data.items[0].list=datalis;/
-                          arr.push(datalis)
-                        }).then(function () {
+                    platformone.query({id:$scope.name,tag:data[i]}, function (datalis) {
+                      console.log('datalis', datalis)
+                      // $scope.data.items[0].list=datalis;/
+                      arr.push(datalis);
                       if (arr.length == data.length) {
                         for (var i = 0; i < arr.length; i++) {
                           arr[i].mysort = arr[i].Created;
@@ -66,6 +63,39 @@ angular.module("console.timeline", [])
                         $rootScope.loading = false;
                       }
                     })
+                    //$http.get('/registry/api/repositories/manifests',
+                    //    {params: {repo_name: $scope.name,tag:data[i]}})
+                    //    .success(function (datalis) {
+                    //      console.log('datalis', datalis)
+                    //      // $scope.data.items[0].list=datalis;/
+                    //      arr.push(datalis)
+                    //    }).then(function () {
+                    //  if (arr.length == data.length) {
+                    //    for (var i = 0; i < arr.length; i++) {
+                    //      arr[i].mysort = arr[i].Created;
+                    //      arr[i].mysort = (new Date(arr[i].mysort)).getTime()
+                    //    }
+                    //    arr.sort(function (x, y) {
+                    //      return x.mysort > y.mysort ? -1 : 1;
+                    //    });
+                    //
+                    //    // console.log(arr);
+                    //    if (arr.length == 0) {
+                    //      $rootScope.testq='finsh';
+                    //    }
+                    //    var namecopy = $scope.name;
+                    //    console.log('namecopy', namecopy)
+                    //    // namecopy=namecopy.split('/')[0];
+                    //    // console.log('namecopy',namecopy)
+                    //    for (var i = 0; i < arr.length; i++) {
+                    //      $scope.data.items[i].list=arr[i];
+                    //      $scope.data.items[i].bsi=namecopy+':'+$scope.data.items[i].name;
+                    //    }
+                    //    // console.log($scope.data.items[0].bsi);
+                    //    // console.log('*&*&*&*&*&*&',$scope.data)
+                    //    $rootScope.loading = false;
+                    //  }
+                    //})
                   }
                   // if (data.length == arr.length) {
                   //
