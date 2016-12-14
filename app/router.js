@@ -10,7 +10,7 @@ define([
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
             //$urlRouterProvider.otherwise("/home/index");
-            $urlRouterProvider.otherwise("/console/dashboard");
+            $urlRouterProvider.otherwise("/console/dashboard/");
             $stateProvider
                 //home
                 .state('home', {
@@ -165,6 +165,9 @@ define([
 
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
                                 console.log('user', user);
+                                $rootScope.user = user;
+                                $rootScope.namespace = user.metadata.name;
+                                Cookie.set('namespace', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
                                     return creatproject.create({'metadata':{
                                         name:user.metadata.name
