@@ -105,6 +105,7 @@ define([
             };
             return Ws;
         }])
+
         .factory('User', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var User = $resource(GLOBAL.host + '/users/:name', {name: '@name',region: '@region'}, {
                 create: {method: 'POST'}
@@ -118,6 +119,7 @@ define([
             });
             return Project;
         }])
+
         .factory('Build', ['$resource', '$rootScope', '$ws', '$log', 'Cookie', 'GLOBAL', function ($resource, $rootScope, $ws, $log, Cookie, GLOBAL) {
             var Build = $resource(GLOBAL.host + '/namespaces/:namespace/builds/:name?region=:region', {
                 name: '@name',
@@ -135,6 +137,7 @@ define([
             });
             return Build;
         }])
+
         .factory('BuildConfig', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var BuildConfig = $resource(GLOBAL.host + '/namespaces/:namespace/buildconfigs/:name?region=:region', {
                 name: '@name',
@@ -334,66 +337,74 @@ define([
             return Secret;
         }])
 
-        .factory('Metrics', ['$resource', function ($resource) {
+        .factory('Metrics', ['$resource','GLOBAL', function ($resource,GLOBAL) {
             var Metrics = {};
-            Metrics.mem = $resource('/hawkular/metrics/gauges/:gauges/data',
+            Metrics.mem = $resource(GLOBAL.host_hawkular+'/gauges/:gauges/data',
                 {gauges: '@gauges', buckets: '@buckets', start: '@start'});
-            Metrics.cpu = $resource('/hawkular/metrics/counters/:counters/data', {
+            Metrics.cpu = $resource(GLOBAL.host_hawkular+'/counters/:counters/data', {
                 counters: '@counters',
                 buckets: '@buckets',
                 start: '@start'
             });
-            Metrics.mem.all = $resource('/hawkular/metrics/gauges/data', {tags: '@tags', buckets: '@buckets'});
-            Metrics.cpu.all = $resource('/hawkular/metrics/counters/data', {tags: '@tags', buckets: '@buckets'});
+            Metrics.mem.all = $resource(GLOBAL.host_hawkular+'/gauges/data', {tags: '@tags', buckets: '@buckets'});
+            Metrics.cpu.all = $resource(GLOBAL.host_hawkular+'/counters/data', {tags: '@tags', buckets: '@buckets'});
             return Metrics;
         }])
-        .factory('Owner', ['$resource', function ($resource) {
-            var Owner = $resource('/v1/repos/github/owner', {namespace: '@namespace', cache: '@cache'}, {
+
+        .factory('Owner', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var Owner = $resource(GLOBAL.host_repos+'/github/owner', {namespace: '@namespace', cache: '@cache'}, {
                 'query': {method: 'GET'}
             });
             return Owner;
         }])
-        .factory('Org', ['$resource', function ($resource) {
-            var Org = $resource('/v1/repos/github/orgs', {
+
+        .factory('Org', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var Org = $resource(GLOBAL.host_repos+'/github/orgs', {
                 cache: 'false'
             });
             return Org;
         }])
-        .factory('Branch', ['$resource', function ($resource) {
-            var Branch = $resource('/v1/repos/github/users/:users/repos/:repos', {
+
+        .factory('Branch', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var Branch = $resource(GLOBAL.host_repos+'/github/users/:users/repos/:repos', {
                 users: '@users',
                 repos: '@repos'
             }, {});
             return Branch;
         }])
-        .factory('WebhookLabget', ['$resource', function ($resource) {
-            var WebhookLabget = $resource('/v1/repos/source/gitlab/webhooks?namespace=:namespace&build=:build', {
+
+        .factory('WebhookLabget', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var WebhookLabget = $resource(GLOBAL.host_repos+'/source/gitlab/webhooks?namespace=:namespace&build=:build', {
                 namespace: '@namespace',
                 build: '@build'
             }, {});
             return WebhookLabget;
         }])
-        .factory('WebhookGitget', ['$resource', function ($resource) {
-            var WebhookGitget = $resource('/v1/repos/source/github/webhooks?namespace=:namespace&build=:build', {
+
+        .factory('WebhookGitget', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var WebhookGitget = $resource(GLOBAL.host_repos+'/source/github/webhooks?namespace=:namespace&build=:build', {
                 namespace: '@namespace',
                 build: '@build'
             }, {})
             return WebhookGitget;
         }])
-        .factory('WebhookLab', ['$resource', function ($resource) {
-            var WebhookLab = $resource('/v1/repos/source/gitlab/webhooks', {}, {
+
+        .factory('WebhookLab', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var WebhookLab = $resource(GLOBAL.host_repos+'/source/gitlab/webhooks', {}, {
                 check: {method: 'POST'}
             });
             return WebhookLab;
         }])
-        .factory('WebhookHub', ['$resource', function ($resource) {
-            var WebhookHub = $resource('/v1/repos/source/github/webhooks', {}, {
+
+        .factory('WebhookHub', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var WebhookHub = $resource(GLOBAL.host_repos+'/source/github/webhooks', {}, {
                 check: {method: 'POST'}
             });
             return WebhookHub;
         }])
-        .factory('WebhookLabDel', ['$resource', function ($resource) {
-            var WebhookLabDel = $resource('/v1/repos/source/gitlab/webhooks?host=:host&namespace=:namespace&build=:build&repo=:repo', {
+
+        .factory('WebhookLabDel', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var WebhookLabDel = $resource(GLOBAL.host_repos+'/source/gitlab/webhooks?host=:host&namespace=:namespace&build=:build&repo=:repo', {
                 host: '@host',
                 namespace: '@namespace',
                 build: '@build',
@@ -403,8 +414,9 @@ define([
             });
             return WebhookLabDel;
         }])
-        .factory('WebhookHubDel', ['$resource', function ($resource) {
-            var WebhookHubDel = $resource('/v1/repos/source/github/webhooks?namespace=:namespace&build=:build&user=:user&repo=:repo', {
+
+        .factory('WebhookHubDel', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var WebhookHubDel = $resource(GLOBAL.host_repos+'/source/github/webhooks?namespace=:namespace&build=:build&user=:user&repo=:repo', {
                 namespace: '@namespace',
                 build: '@build',
                 user: '@user',
@@ -414,51 +426,61 @@ define([
             });
             return WebhookHubDel;
         }])
-        .factory('platform', ['$resource', function ($resource) {
-            var platform = $resource('/registry/api/repositories?project_id=:id', {id: '@id'});
+
+        .factory('labOwner', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var labOwner = $resource(GLOBAL.host_repos+'/gitlab/owner', {}, {});
+            return labOwner;
+        }])
+
+        .factory('psgitlab', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var psgitlab = $resource(GLOBAL.host_repos+'/gitlab', {}, {
+                create: {method: 'POST'}
+            });
+            return psgitlab;
+        }])
+
+        .factory('laborgs', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var laborgs = $resource(GLOBAL.host_repos+'/gitlab/orgs', {}, {});
+            return laborgs;
+        }])
+
+        .factory('labBranch', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var labBranch = $resource(GLOBAL.host_repos+'/gitlab/:repo/branches', {repo: '@repo'}, {});
+            return labBranch;
+        }])
+
+        .factory('platform', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var platform = $resource(GLOBAL.host_registry+'/repositories?project_id=:id', {id: '@id'});
             return platform;
         }])
-        .factory('platformlist', ['$resource', function ($resource) {
-            var platformlist = $resource('/registry/api/repositories/tags?repo_name=:id', {id: '@id'});
+
+        .factory('platformlist', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var platformlist = $resource(GLOBAL.host_registry+'/repositories/tags?repo_name=:id', {id: '@id'});
             return platformlist;
         }])
-        .factory('platformone', ['$resource', function ($resource) {
-            var platformone = $resource('/registry/api/repositories/manifests?repo_name=:id&tag=:tag', {
+
+        .factory('platformone', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var platformone = $resource(GLOBAL.host_registry+'/repositories/manifests?repo_name=:id&tag=:tag', {
                 id: '@id',
                 tag: '@tag'
             });
             return platformone;
         }])
-        .factory('labOwner', ['$resource', function ($resource) {
-            var labOwner = $resource('/v1/repos/gitlab/owner', {}, {});
-            return labOwner;
-        }])
-        .factory('psgitlab', ['$resource', function ($resource) {
-            var psgitlab = $resource('/v1/repos/gitlab', {}, {
-                create: {method: 'POST'}
-            });
-            return psgitlab;
-        }])
-        .factory('laborgs', ['$resource', function ($resource) {
-            var laborgs = $resource('/v1/repos/gitlab/orgs', {}, {});
-            return laborgs;
-        }])
-        .factory('labBranch', ['$resource', function ($resource) {
-            var labBranch = $resource('/v1/repos/gitlab/:repo/branches', {repo: '@repo'}, {});
-            return labBranch;
-        }])
-        .factory('registration', ['$resource', function ($resource) {
-            var registration = $resource('/lapi/signup', {}, {
+
+        .factory('registration', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var registration = $resource(GLOBAL.host_lapi+'/signup', {}, {
                 regist: {method: 'POST'}
             });
             return registration;
         }])
-        .factory('profile', ['$resource', function ($resource) {
-            var profile = $resource('/lapi/user/profile', {}, {});
+
+        .factory('profile', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var profile = $resource(GLOBAL.host_lapi+'/user/profile', {}, {});
             return profile;
         }])
-        .factory('pwdModify', ['$resource', function ($resource) {
-            var pwdModify = $resource('/lapi/password_modify', {
+
+        .factory('pwdModify', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var pwdModify = $resource(GLOBAL.host_lapi+'/password_modify', {
                 old_password: '@oldpassword',
                 new_password: '@newpassword'
             }, {
@@ -466,73 +488,100 @@ define([
             })
             return pwdModify;
         }])
-        .factory('deletepod', ['$resource', function ($resource) {
-            var deletepod = $resource('/lapi/v1/namespaces/:namespace/pods', {namespace: '@namespace'}, {
+
+        .factory('deletepod', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var deletepod = $resource(GLOBAL.host_lapi+'/v1/namespaces/:namespace/pods', {namespace: '@namespace'}, {
                 delete: {method: 'DELETE'}
             })
             return deletepod;
         }])
 
-        .factory('orgList', ['$resource', function ($resource) {
-            var orgList = $resource('/lapi/v1/orgs/:namespace/roles', {namespace: '@namespace'}, {})
+        .factory('orgList', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var orgList = $resource(GLOBAL.host_lapi+'/v1/orgs/:namespace/roles', {namespace: '@namespace'}, {})
             return orgList;
         }])
-        //.factory('orgList', ['$resource', function ($resource) {
-        //    var orgList = $resource('/lapi/orgs', {}, {})
-        //    return orgList;
-        //}])
-        //
-        .factory('createOrg', ['$resource', function ($resource) {
-            var createOrg = $resource('/lapi/v1/orgs?region=:region', {region: '@region'}, {
+
+        .factory('createOrg', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var createOrg = $resource(GLOBAL.host_lapi+'/v1/orgs?region=:region', {region: '@region'}, {
                 create: {method: 'POST'}
             })
             return createOrg;
         }])
-        .factory('addperpleOrg', ['$resource', function ($resource) {
-            var addperpleOrg = $resource('/lapi/v1/orgs/:namespace/invite?region=:region', {namespace:'@namespace',region:'@region'}, {
+
+        .factory('addperpleOrg', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var addperpleOrg = $resource(GLOBAL.host_lapi+'/v1/orgs/:namespace/invite?region=:region', {namespace:'@namespace',region:'@region'}, {
                 put: {method: 'PUT'}
             })
             return addperpleOrg;
         }])
-        .factory('delperpleOrg', ['$resource', function ($resource) {
-            var delperpleOrg = $resource('/lapi/v1/orgs/:namespace/remove?region=:region', {namespace:'@namespace',region:'@region'}, {
+
+        .factory('delperpleOrg', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var delperpleOrg = $resource(GLOBAL.host_lapi+'/v1/orgs/:namespace/remove?region=:region', {namespace:'@namespace',region:'@region'}, {
                 put: {method: 'PUT'}
             })
             return delperpleOrg;
         }])
-        .factory('loadOrg', ['$resource', function ($resource) {
-            var loadOrg = $resource('/lapi/orgs/:org', {org: '@org'}, {})
+
+        .factory('loadOrg', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var loadOrg = $resource(GLOBAL.host_lapi+'/orgs/:org', {org: '@org'}, {})
             return loadOrg;
         }])
-        .factory('invitation', ['$resource', function ($resource) {
-            var invitation = $resource('/lapi/orgs/:orgs/invite', {org: '@org'}, {
+
+        .factory('invitation', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var invitation = $resource(GLOBAL.host_lapi+'/orgs/:orgs/invite', {org: '@org'}, {
                 invite: {method: 'PUT'}
             })
             return invitation;
         }])
-        .factory('remove', ['$resource', function ($resource) {
-            var remove = $resource('/lapi/orgs/:org/remove', {org: '@org'}, {
+
+        .factory('remove', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var remove = $resource(GLOBAL.host_lapi+'/orgs/:org/remove', {org: '@org'}, {
                 delete: {method: 'PUT'}
             })
             return remove;
         }])
-        .factory('privileged', ['$resource', function ($resource) {
-            var privileged = $resource('/lapi/orgs/:org/privileged', {org: '@org'}, {
+
+        .factory('privileged', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var privileged = $resource(GLOBAL.host_lapi+'/orgs/:org/privileged', {org: '@org'}, {
                 privileged: {method: 'PUT'}
             })
             return privileged;
         }])
-        .factory('acception', ['$resource', function ($resource) {
-            var acception = $resource('/lapi/orgs/:org/accept', {org: '@org'}, {
+
+        .factory('acception', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var acception = $resource(GLOBAL.host_lapi+'/orgs/:org/accept', {org: '@org'}, {
                 accept: {method: 'PUT'}
             })
             return acception;
         }])
-        .factory('leave', ['$resource', function ($resource) {
-            var leave = $resource('/lapi/orgs/:org/leave', {org: '@org'}, {
+
+        .factory('leave', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var leave = $resource(GLOBAL.host_lapi+'/orgs/:org/leave', {org: '@org'}, {
                 left: {method: 'PUT'}
             })
             return leave;
+        }])
+
+        .factory('delvolume', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var delvolume = $resource(GLOBAL.host_lapi+'/v1/namespaces/:namespace/volumes/:name', {
+                namespace: '@namespace',
+                name: '@name'
+            }, {
+                del: {method: 'DELETE'}
+            })
+            return delvolume;
+        }])
+
+        .factory('volume', ['$resource','GLOBAL', function ($resource,GLOBAL) {
+            var volume = $resource(GLOBAL.host_lapi+'/v1/namespaces/:namespace/volumes', {namespace: '@namespace'}, {
+                create: {method: 'POST'}
+            })
+            return volume;
+        }])
+
+        .factory('newBackingService', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {
+            var newBackingService = $resource(GLOBAL.host_lapi+'/v1/backingservices/:name', {name: '@name'}, {});
+            return newBackingService;
         }])
 
         .factory('configmaps', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
@@ -612,6 +661,7 @@ define([
             })
             return deleteSecret;
         }])
+
         .factory('delSecret', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var delSecret = $resource(GLOBAL.host_k8s + '/namespaces/:namespace/secrets?region=:region', {
                     namespace: '@namespace',
@@ -633,15 +683,7 @@ define([
             })
             return persistent;
         }])
-        .factory('delvolume', ['$resource', function ($resource) {
-            var delvolume = $resource('/lapi/v1/namespaces/:namespace/volumes/:name', {
-                namespace: '@namespace',
-                name: '@name'
-            }, {
-                del: {method: 'DELETE'}
-            })
-            return delvolume;
-        }])
+
         .factory('serviceaccounts', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var serviceaccounts = $resource(GLOBAL.host_k8s + '/namespaces/:namespace/serviceaccounts/deployer?region=:region', {
                 namespace: '@namespace',
@@ -649,14 +691,9 @@ define([
             }, {})
             return serviceaccounts;
         }])
-        .factory('volume', ['$resource', function ($resource) {
-            var volume = $resource('/lapi/v1/namespaces/:namespace/volumes', {namespace: '@namespace'}, {
-                create: {method: 'POST'}
-            })
-            return volume;
-        }])
-        .factory('saas', ['$resource', function ($resource) {
-            var saas = $resource('/saas/v1/apps/:id', {
+
+        .factory('saas', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var saas = $resource(GLOBAL.host_saas + '/apps/:id', {
                 id: '@id',
                 orderby: '@orderby',
                 category: '@category',
@@ -668,96 +705,93 @@ define([
             })
             return saas;
         }])
-        .factory('newBackingService', ['$resource', 'GLOBAL', function ($resource) {
-            var newBackingService = $resource('/lapi/v1/backingservices/:name', {name: '@name'}, {});
-            return newBackingService;
-        }])
 
-        .factory('account', ['$resource', 'GLOBAL', function ($resource) {//登陆检测套餐
-            var account = $resource('/payment/v1/account?size=100', {}, {});
+        .factory('account', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//登陆检测套餐
+            var account = $resource(GLOBAL.host_payment+'/account?size=100', {}, {});
             return account;
         }])
-        .factory('balance', ['$resource', 'GLOBAL', function ($resource) {//余额查询
-            var balance = $resource('/payment/v1/balance', {}, {});
+
+        .factory('balance', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//余额查询
+            var balance = $resource(GLOBAL.host_payment+'/balance', {}, {});
             return balance;
         }])
-        .factory('market', ['$resource', 'GLOBAL', function ($resource) {//套餐
-            var market = $resource('/payment/v1/market', {}, {});
+
+        .factory('market', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//套餐
+            var market = $resource(GLOBAL.host_payment+'/market', {}, {});
             return market;
         }])
-        .factory('amounts', ['$resource', 'GLOBAL', function ($resource) {//订单详情
-            var amounts = $resource('/payment/v1/amounts', {}, {});
+
+        .factory('amounts', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//订单详情
+            var amounts = $resource(GLOBAL.host_payment+'/amounts', {}, {});
             return amounts;
         }])
-        .factory('checkout', ['$resource', 'GLOBAL', function ($resource) {//选择套餐
-            var checkout = $resource('/payment/v1/checkout?drytry=:drytry&region=:region', {drytry:'@drytry',region: '@region'}, {
+
+        .factory('checkout', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//选择套餐
+            var checkout = $resource(GLOBAL.host_payment+'/checkout?drytry=:drytry&region=:region', {drytry:'@drytry',region: '@region'}, {
                 create: {method: 'POST'}
             });
             return checkout;
         }])
-        .factory('recharge', ['$resource', 'GLOBAL', function ($resource) {//充值
-            var recharge = $resource('/payment/v1/recharge', {}, {
+
+        .factory('recharge', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//充值
+            var recharge = $resource(GLOBAL.host_payment+'/recharge', {}, {
                 create: {method: 'POST'}
             });
             return recharge;
         }])
 
-        .factory('redeem', ['$resource', 'GLOBAL', function ($resource) {//充值优惠卷
-            var redeem = $resource('/payment/v1/redeem?region=:region', {region: '@region'}, {
+        .factory('redeem', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//充值优惠卷
+            var redeem = $resource(GLOBAL.host_payment+'/redeem?region=:region', {region: '@region'}, {
                 create: {method: 'POST'}
             });
             return redeem;
         }])
-        //.factory('recharge2', ['$resource', 'GLOBAL', function ($resource) {//充值
-        //    var recharge = $resource('http://datafoundry.recharge.app.dataos.io/charge/v1/recharge', {}, {
-        //        create: {method: 'POST'}
-        //    });
-        //    return recharge;
-        //}])
-        .factory('orders', ['$resource', 'GLOBAL', function ($resource) {//获取订单
-            var orders = $resource('/payment/v1/orders', {}, {});
+
+        .factory('orders', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取订单
+            var orders = $resource(GLOBAL.host_payment+'/orders', {}, {});
             return orders;
         }])
-        .factory('delorders', ['$resource', 'GLOBAL', function ($resource) {//获取订单
-            var delorders = $resource('/payment/v1/orders/:id', {id:'@id'}, {
+
+        .factory('delorders', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取订单
+            var delorders = $resource(GLOBAL.host_payment+'/orders/:id', {id:'@id'}, {
                 delete: {method: 'DELETE'},
             });
             return delorders;
         }])
 
-        .factory('regions', ['$resource', 'GLOBAL', function ($resource) {//获取区
-            var regions = $resource('/payment/v1/regions', {}, {});
+        .factory('regions', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取区
+            var regions = $resource(GLOBAL.host_payment+'/regions', {}, {});
             return regions;
         }])
 
-        .factory('coupon', ['$resource', 'GLOBAL', function ($resource) {//获取充值卡面额
-            var regions = $resource('/payment/v1/coupon/:id', {id:'@id'}, {});
+        .factory('coupon', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取充值卡面额
+            var regions = $resource(GLOBAL.host_payment+'/coupon/:id', {id:'@id'}, {});
             return regions;
         }])
 
-        .factory('repositories', ['$resource', 'GLOBAL', function ($resource) {//数据集成 公开数据集
-            var repositories = $resource('/integration/v1/repos', {}, {});
+        .factory('repositories', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//数据集成 公开数据集
+            var repositories = $resource(GLOBAL.host_integration+'/repos', {}, {});
             return repositories;
         }])
 
-        .factory('repository', ['$resource', 'GLOBAL', function ($resource) {//数据集成 公开数据集详情
-            var repository = $resource('/integration/v1/repos/:reponame', {}, {});
+        .factory('repository', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//数据集成 公开数据集详情
+            var repository = $resource(GLOBAL.host_integration+'/repos/:reponame', {}, {});
             return repository;
         }])
 
-        .factory('dataitem', ['$resource', 'GLOBAL', function ($resource) {//数据集成 公开数据集详情预览
-            var dataitem = $resource('/integration/v1/repos/:reponame/items/:itemname', {}, {});
+        .factory('dataitem', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//数据集成 公开数据集详情预览
+            var dataitem = $resource(GLOBAL.host_integration+'/repos/:reponame/items/:itemname', {}, {});
             return dataitem;
         }])
 
-        .factory('inservice', ['$resource', 'GLOBAL', function ($resource) {//数据集成 公开数据集详情预览
-            var inservice = $resource('/integration/v1/services', {}, {
+        .factory('inservice', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//数据集成 公开数据集详情预览
+            var inservice = $resource(GLOBAL.host_integration+'/services', {}, {
             });
             return inservice;
         }])
 
-        .factory('instance', ['$resource', 'GLOBAL', function ($resource) {//数据集成 公开数据集详情预览
-            var instance = $resource('/integration/v1/instance/:id', {id:'@id'}, {
+        .factory('instance', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//数据集成 公开数据集详情预览
+            var instance = $resource(GLOBAL.host_integration+'/instance/:id', {id:'@id'}, {
                 create: {method: 'POST'}
             });
             return instance;
