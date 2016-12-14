@@ -285,6 +285,14 @@ define([
             });
             return BackingServiceInstanceBd;
         }])
+        .factory('creatproject', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var creatproject = $resource(GLOBAL.host + '/projectrequests', {
+
+            }, {
+                create: {method: 'POST'}
+            });
+            return creatproject;
+        }])
 
         .factory('BackingService', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var BackingService = $resource(GLOBAL.host + '/namespaces/:namespace/backingservices/:name?region=:region', {

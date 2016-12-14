@@ -145,7 +145,7 @@ define([
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
                             return $ocLazyLoad.load('views/console/console.js')
                         }],
-                        user: ['regions', 'Cookie', '$rootScope', 'User', function (regions, Cookie, $rootScope, User) {
+                        user: ['creatproject','regions', 'Cookie', '$rootScope', 'User', function (creatproject,regions, Cookie, $rootScope, User) {
                             if ($rootScope.user) {
                                 return $rootScope.user;
                             }
@@ -162,15 +162,19 @@ define([
                             } else {
 
                             }
-                            console.log('region', region);
-                            return User.get({name: '~', region: Cookie.get('region')}).$promise;
+
+                            User.get({name: '~', region: Cookie.get('region')}, function (user) {
+                                console.log('user', user);
+                                if (user.metadata&&user.metadata.name) {
+                                    return creatproject.create({'metadata':{
+                                        name:user.metadata.name
+                                    }}).$promise
+                                }
+
+                            })
+                            //return User.get({name: '~', region: Cookie.get('region')}).$promise;
                         }]
-                        //account: ['$rootScope', 'account', function ($rootScope, account) {
-                        //  if ($rootScope.account) {
-                        //    return $rootScope.account;
-                        //  }
-                        //  return account.get().$promise;
-                        //}]
+
                     },
                     abstract: true
 
