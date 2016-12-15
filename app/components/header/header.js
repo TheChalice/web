@@ -88,17 +88,17 @@ angular.module("console.header", [
 
                     loadProject()
 
-                    regions.query({}, function (data) {
-                        //console.log('regions', data);
-                        $scope.regions = data;
-                        $scope.copyregions = angular.copy(data);
-                        angular.forEach(data, function (region, i) {
-                            if (region.identification === $rootScope.region) {
-                                $scope.curregion = region.region_describe;
-                            }
-
-                        })
-                    })
+                    //regions.query({}, function (data) {
+                    //    //console.log('regions', data);
+                    //    $scope.regions = data;
+                    //    $scope.copyregions = angular.copy(data);
+                    //    angular.forEach(data, function (region, i) {
+                    //        if (region.identification === $rootScope.region) {
+                    //            $scope.curregion = region.region_describe;
+                    //        }
+                    //
+                    //    })
+                    //})
 
                     $scope.$watch('curregion', function (n, o) {
                         if (n === o) {

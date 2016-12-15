@@ -1621,39 +1621,39 @@ define(['angular'], function (angular) {
                         return config;
                     }
                     //$rootScope.region=
-                    var tokens = Cookie.get('df_access_token');
-                    var regions = Cookie.get('region');
-                    var token='';
-                    //console.log(tokens);
-
-                    if (tokens&&regions) {
-                        var tokenarr = tokens.split(',');
-                        var region = regions.split('-')[2];
-                        //if (/^\/lapi\/v1\/orgs/.test(config.url)) {
-                        //    console.log(config.url);
-                        //}
-                        if (/^\/lapi\/v1\/orgs/.test(config.url) || /^\/oapi/.test(config.url) || /^\/api/.test(config.url)||/^\/payment/.test(config.url)) {
-                            token = tokenarr[region-1];
-                        }else {
-                            token = tokenarr[0];
-                        }
-
-                        //console.log('tokenarr', tokenarr[region-1]);
-                    }else {
-                        //console.log('token错误');
-                    }
+                    //var tokens = Cookie.get('df_access_token');
+                    //var regions = Cookie.get('region');
+                    //var token='';
+                    ////console.log(tokens);
+                    //
+                    //if (tokens&&regions) {
+                    //    var tokenarr = tokens.split(',');
+                    //    var region = regions.split('-')[2];
+                    //    //if (/^\/lapi\/v1\/orgs/.test(config.url)) {
+                    //    //    console.log(config.url);
+                    //    //}
+                    //    if (/^\/lapi\/v1\/orgs/.test(config.url) || /^\/oapi/.test(config.url) || /^\/api/.test(config.url)||/^\/payment/.test(config.url)) {
+                    //        token = tokenarr[region-1];
+                    //    }else {
+                    //        token = tokenarr[0];
+                    //    }
+                    //
+                    //    //console.log('tokenarr', tokenarr[region-1]);
+                    //}else {
+                    //    //console.log('token错误');
+                    //}
                     //console.log(tokens,token, regions);
-                    if (config.headers && token) {
-                        config.headers["Authorization"] = "Bearer " + token;
-                    }
+                    //if (config.headers && token) {
+                    //    config.headers["Authorization"] = "Bearer " + token;
+                    //}
 
                     if (/^\/hawkular/.test(config.url)) {
                         config.headers["Hawkular-Tenant"] = $rootScope.namespace;
                     }
-                    if (/^\/registry/.test(config.url)) {
-                        var Auth = localStorage.getItem("Auth")
-                        config.headers["Authorization"] = "Basic " + Auth;
-                    }
+                    //if (/^\/registry/.test(config.url)) {
+                    //    var Auth = localStorage.getItem("Auth")
+                    //    config.headers["Authorization"] = "Basic " + Auth;
+                    //}
                     if (config.method == 'PATCH') {
                         config.headers["Content-Type"] = "application/merge-patch+json";
                     }

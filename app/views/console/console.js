@@ -18,12 +18,8 @@ angular.module('console', [
             if (region) {
                 $rootScope.region = region;
             } else {
-                regions.query({}, function (data) {
-                    //console.log('regions', data);
-                    //$scope.regions = data;
-                    $rootScope.region = data[0].identification;
-                    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
-                })
+                $rootScope.region = 'cn-north-1';
+                Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
             }
             if (namespace) {
                 $rootScope.namespace = namespace;
