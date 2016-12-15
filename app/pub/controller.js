@@ -8,13 +8,13 @@ define(['angular'], function (angular) {
 
             $rootScope.$on(AUTH_EVENTS.loginNeeded, function () {
                 $log.info(AUTH_EVENTS.loginNeeded);
-                Cookie.clear('namespace');
-                Cookie.clear('df_access_token');
-                Cookie.clear('region');
-                $rootScope.region = '';
-                $rootScope.user = '';
-                $rootScope.namespace = "";
-                $state.go('home.index');
+                //Cookie.clear('namespace');
+                //Cookie.clear('df_access_token');
+                //Cookie.clear('region');
+                //$rootScope.region = '';
+                //$rootScope.user = '';
+                //$rootScope.namespace = "";
+                $state.go('console.dashboard');
             });
             $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
                 $log.info(AUTH_EVENTS.loginSuccess);

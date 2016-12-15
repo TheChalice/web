@@ -10,7 +10,7 @@ define([
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
             //$urlRouterProvider.otherwise("/home/index");
-            $urlRouterProvider.otherwise("/console/dashboard/");
+            $urlRouterProvider.otherwise("/console/dashboard");
             $stateProvider
                 //home
                 .state('home', {
@@ -150,18 +150,18 @@ define([
                                 return $rootScope.user;
                             }
                             //$rootScope.region=
-                            var region = Cookie.get('region');
-                            if (!region) {
-                                regions.query({}, function (data) {
-                                    //console.log('regions', data);
-                                    //$scope.regions = data;
-                                    $rootScope.region = data[0].identification;
-                                    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
-                                    return User.get({name: '~', region: Cookie.get('region')}).$promise;
-                                })
-                            } else {
-
-                            }
+                            //var region = Cookie.get('region');
+                            //if (!region) {
+                            //    //regions.query({}, function (data) {
+                            //    //    //console.log('regions', data);
+                            //    //    //$scope.regions = data;
+                            //    //    $rootScope.region = data[0].identification;
+                            //    //    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
+                            //    //    return User.get({name: '~', region: Cookie.get('region')}).$promise;
+                            //    //})
+                            //} else {
+                            //
+                            //}
 
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
                                 //console.log('user', user);
@@ -214,7 +214,7 @@ define([
                     }
                 })
                 .state('console.dashboard', {
-                    url: '/dashboard/:useorg',
+                    url: '/dashboard',
                     templateUrl: 'views/dashboard/dashboard.html',
                     controller: 'dashboardCtrl',
                     params: {},
