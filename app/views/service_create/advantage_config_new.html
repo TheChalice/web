@@ -1,18 +1,19 @@
 <div class="service-config">
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" style="font-weight: bold;font-size: 16px;background:none;font-weight:normal;">
             高级配置
         </div>
+        <hr style="visibility:visible;margin:8px 0"  />
         <div class="panel-body" style="padding: 30px 40px;">
             <div class="row">
                 <div class="col-md-2" style="padding-top: 8px;">
-                    <h3>服务高可用</h3>
+                    <h3 style="font-weight:normal;">服务高可用</h3>
                 </div>
                 <div class="col-md-10">
                     <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input ng-model="dc.spec.replicas" min="0" max="10" style="width: 80px;display: inline-block;"
                            type="number" class="form-control">
-                    <hr>
+                    <hr style="visibility:visible;"/>
                     <div ng-if="false">
                         <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <c-checkbox checked="rubustCheck"></c-checkbox>
@@ -29,7 +30,7 @@
                                                                           style="width: 80px;display: inline-block;"
                                                                           type="text" class="form-control"></span>
                         </div>
-                        <hr>
+                        <hr style="visibility:visible;"/>
                     </div>
                     <label style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <div class="dropdown dropdown-select" style="width: 200px;">
@@ -49,11 +50,11 @@
                     </div>
                 </div>
             </div>
-            <hr style="margin-top: 20px;">
+            <hr style="margin-top: 20px;visibility:visible;">
 
             <div class="row">
                 <div class="col-md-2" style="padding-top: 5px">
-                    <h3>路由设置</h3>
+                    <h3 style="font-weight:normal;">路由设置</h3>
                 </div>
                 <div class="col-md-10">
                     <c-checkbox ng-if="portsArr.length>0" checked="grid.route"></c-checkbox>
@@ -273,11 +274,11 @@
                     </div>
                 </div>
             </div>
-            <hr style="margin-top: 20px;">
+            <hr style="margin-top: 20px;visibility:visible;">
 
             <div class="row">
                 <div class="col-md-2">
-                    <h3>后端服务绑定</h3>
+                    <h3 style="font-weight:normal;">后端服务绑定</h3>
                 </div>
                 <div class="col-md-10" ng-if="!bsi.items.length">
                     <span>无</span>
@@ -295,7 +296,7 @@
                                 <div class="col-md-6" ng-repeat="item in bsi.items">
                                     <div class="tabandimage" ng-class="{'selected': item.bind}"
                                          ng-click="item.bind = !item.bind">
-                                        <i class="faa faa-image" style="float: left;margin-right: 10px;"></i>
+                                        <i class="faa faa-image faa-zn-size" style="float: left;margin-right: 10px;"></i>
                                         <i class="faa faa-image-mark" ng-show="item.bind"></i>
                                         <p style="margin: 10px 0 5px 0;">{{item.metadata.name}}</p>
                                         <p>{{item.spec.provisioning.backingservice_name}}</p>
@@ -306,11 +307,11 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr style="margin-top: 20px;visibility:visible;">
 
             <div class="row">
                 <div class="col-md-2">
-                    <h3>环境变量设置</h3>
+                    <h3 style="font-weight:normal;">环境变量设置</h3>
                 </div>
                 <div class="col-md-10">
                     <a href="javascript:;" class="href-add" ng-click="addEnv()">
@@ -322,17 +323,22 @@
                         <!--<div class="panel-heading">-->
                         <!--环境变量设置-->
                         <!--</div>-->
-                        <div class="panel-body" style="padding-bottom: 0;">
+
+                        <div class="panel-body" style="padding-bottom: 20px;">
                             <span ng-if="envs.length > 0">
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col-md-5">键</div>
+                                    <div class="col-md-7">值</div>
+                                </div>
                         <div class="row key-value-bar" style="margin-bottom: 15px" ng-repeat="env in envs">
                             <div class="col-md-5">
-                                <div style="float: left;line-height: 36px;">键&nbsp;&nbsp;</div>
+
                                 <div style="overflow: hidden">
                                     <input ng-model="env.name" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div style="float: left;line-height: 36px;">值&nbsp;&nbsp;</div>
+
                                 <div style="overflow: hidden">
                                     <input ng-model="env.value" type="text" class="form-control">
                                 </div>
@@ -349,11 +355,11 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr style="margin-top: 20px;visibility:visible;">
 
             <div class="row">
                 <div class="col-md-2">
-                    <h3>自动部署</h3>
+                    <h3 style="font-weight:normal">自动部署</h3>
                 </div>
                 <div class="col-md-5">
                     <label ng-class="{'active': grid.configChange}" ng-click="grid.configChange=!grid.configChange"
@@ -363,10 +369,10 @@
                     </label>
                 </div>
             </div>
-            <hr>
+            <hr style="margin-top: 20px;visibility:visible;">
             <div class="row">
                 <div class="col-md-2" style="padding-top: 5px">
-                    <h3>配额限制</h3>
+                    <h3 style="font-weight:normal;">配额限制</h3>
                 </div>
                 <div class="col-md-10">
                     <c-checkbox checked="quota.doquota"></c-checkbox>
@@ -410,7 +416,7 @@
                     </div>
                 </div>
             </div>
-            <hr style="margin-top: 20px;">
+            <hr style="margin-top: 20px;visibility:visible;">
         </div>
     </div>
 </div>
@@ -433,6 +439,9 @@
     }
     #btnout:hover {
         color: black;
+    }
+    .faa-zn-size{
+        background-size:contain;
     }
 
 

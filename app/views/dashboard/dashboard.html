@@ -9,11 +9,11 @@
         <div class="firstline">
             <div class="block block-left col-md-6 bg-color" style="width:49%">
                 <h2>账户信息</h2>
-                <hr style="visibility:visible; margin-right:10px"/>
+                <hr style="visibility:visible; margin-right:10px;margin-bottom:10px;"/>
                 <table class="table info">
                     <thead class="thead-default">
                     <tr style="width: 100%;">
-                        <th colspan="5" style="font-weight: normal">{{projectname}}</th>
+                        <th colspan="5" style="font-weight: normal;font-size:18px">{{projectname}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -21,7 +21,7 @@
                         <td class="col-md-4">
                             <p><span>{{balance.balance}}</span>元</p>
                             <p>账户余额</p>
-                            <a href="javascript:;" id="recharge" class="btn btn-green" style="width:80px;border-radius: 15px;background: #5c72e9">充值</a>
+                            <a ui-sref="console.pay" id="recharge" class="btn btn-green" style="width:80px; height:30px;border-radius: 14.5px; line-height:15px;background: #5b73e8">充值</a>
                         </td>
                         <td class="col-md-4">
                             <p><span>{{plans.price}}</span>元/月</p>
@@ -37,9 +37,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="block block-right col-md-6 bg-color" style="width:49%;margin-left:2%; min-height:289px;" >
+            <div class="block block-right col-md-6 bg-color" style="width:49%;margin-left:2%; min-height:288px;" >
                 <h2>资源统计</h2>
-                <hr style="visibility:visible; margin-right:10px"/>
+                <hr style="visibility:visible; margin-right:10px ;margin-bottom:10px;"/>
                 <div class="row">
                     <div class="col-md-6" >
                         <highchart ng-show="isdata.CpuorMem" config="pieConfigCpu"></highchart>
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="secondline col-md-12 bg-color" style="margin-top: 25px;" ng-show="isdata.charts">
+        <div class="secondline col-md-12 bg-color" style="margin-top: 36px;" ng-show="isdata.charts">
             <h2>资源监测</h2>
             <hr style="visibility:visible; margin-right:10px"/>
             <div style="width: 100%;">
@@ -124,7 +124,7 @@
             text-align: center;
         }
         .dashboard h2 {
-            font-size: 14px;
+            font-size: 20px;
             font-weight: bold;
         }
         .dashboard .info {

@@ -38,16 +38,19 @@ a {
 #cnzz_stat_icon_1260628917 {
     display: none;
 }
+
+/*.nav>li>a:focus, .nav>li>a:hover{background:none!important}*/
 /*按钮*/
 .btn {
-    border-radius: 30px;
+    /*border-radius: 30px;*/
     color: #fff;
+
 }
 
 .btn:hover {
     color: #fff;
 }
-.btn-orange-radius{border-radius:0px;}
+.btn-orange-radius{border-radius:30px;}
 
 .btn-disabled, .btn-disabled:hover {
     background: #e6e9f2;
@@ -55,7 +58,8 @@ a {
 }
 
 .btn-green {
-    background-color: #55c45f;
+    /*background-color: #55c45f;*/
+    background-color: #5c72e9;/*16 12-14 by zn for zhongxin */
     color:#fff;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
@@ -63,7 +67,9 @@ a {
 }
 
 .btn-green:hover {
-    background-color: #469450;color:#fff;
+    /*background-color: #469450;*/color:#fff;
+
+    background-color: #6b5ce9;/*16 12-14 by zn for zhongxin */
 }
 
 .btn-gray {
@@ -163,11 +169,10 @@ a {
 }
 
 .panel-default .panel-heading .panel-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: #393f4f;
 }
-
 /*图标*/
 .icon25, .icon20, .icon12 {
     display: inline-block;
@@ -351,6 +356,8 @@ a {
     background: transparent;
     color: #e5993a;
     font-size:16px;
+    /*中信项目 jiasx*/
+    color:#333;
 }
 
 .tab-default li.active .nav-link,
@@ -524,9 +531,12 @@ a {
 .fa-orange {
     color: #f6a540;
 }
-
+/*loading效果 jiasx*/
 .fa-green {
     color: #55c45f;
+    /*中信项目 jiasx*/
+    color:#5c72e9;
+
 }
 
 .fa-red {
@@ -570,10 +580,13 @@ a {
     height: 60px;
     margin-bottom: 15px;
     cursor: pointer;
+
 }
 
 .tabandimage.selected {
-    border: 1px solid #f6a540;
+    border: 1px solid #4960e6;
+    background-color:#4960e6;
+    color:#fff;
 }
 
 /*.tabandimage:active{*/
@@ -755,18 +768,20 @@ a {
 
 
 .faa-image {
-    background-position: -44px -789px;
+    /*background-position: -44px -789px;*/
+    background-image:url(../img/tg03.png);
     width: 60px;
     height: 60px;
 }
 
 .faa-image-mark {
-    background-position: -189px -737px;
-    width: 25px;
-    height: 25px;
+    /*background-position: -189px -737px;*/
+    background-image: url(../img/tg02.png); /*by zn for zhongxin*/
+    width: 22px;
+    height: 22px;
     position: absolute;
     left: 0;
-    top: 0;
+    top: -2px;
 }
 
 .faa-check {
@@ -776,7 +791,9 @@ a {
 }
 
 .active > .faa-check {
-    background-position: -41px -220px;
+    /*background-position: -41px -220px;*/
+    background-image:url(../img/tg06.png);
+    background-position: 0 0; /*by zn for zhongxin*/
 }
 
 .faa-price {
@@ -842,8 +859,9 @@ a {
 
 .service-config h3 {
     font-size: 14px;
-    font-weight: normal;
+    font-weight: bold;
     margin: 0 0 20px 0;
+    color:black;
 }
 
 .service-config h4 {
@@ -1445,20 +1463,20 @@ a {
 /*镜像仓库*/
 .nav-link i{display:inline-block;width:21px;height:21px;vertical-align:bottom;background-size:contain;}
 .myimage{width:20px;height:20px;background:url(../../pub/img/myimage.png) no-repeat;}
-.active .myimage,.nav-link:hover i.myimage{background:url(../../pub/img/myimageh.png) no-repeat;background-size:contain}
+.active .myimage,.nav-link:hover i.myimage{background:url(../../pub/img/myimage.png) no-repeat;background-size:contain}
 .registimage{background:url(../../pub/img/registimage.png) no-repeat;}
-.active .registimage,.nav-link:hover i.registimage{background:url(../../pub/img/registimageh.png) no-repeat;background-size:contain}
+.active .registimage,.nav-link:hover i.registimage{background:url(../../pub/img/registimage.png) no-repeat;background-size:contain}
 .imagecenter{background:url(../../pub/img/imagecenter.png) no-repeat;}
-.active .imagecenter,.nav-link:hover i.imagecenter{background:url(../../pub/img/imagecenterh.png) no-repeat;background-size:contain}
+.active .imagecenter,.nav-link:hover i.imagecenter{background:url(../../pub/img/imagecenter.png) no-repeat;background-size:contain}
 /*后端服务*/
 .fa2-bs{background-image:url(../img/fa2-bs.png)}
-.active .fa2-bs,.fa2-bs.active,.fa2-bs:hover,.nav-link:hover .fa2-bs{background-image:url(../img/fa2-bsh.png);background-size:contain}
+.active .fa2-bs,.fa2-bs.active,.fa2-bs:hover,.nav-link:hover .fa2-bs{background-image:url(../img/fa2-bs.png);background-size:contain}
 .fa2-bsi{background-image:url(../img/fa2-bsi.png)}
-.active .fa2-bsi,.fa2-bsi.active,.fa2-bsi:hover,.nav-link:hover .fa2-bsi{background-image:url(../img/fa2-bsih.png);background-size:contain}
+.active .fa2-bsi,.fa2-bsi.active,.fa2-bsi:hover,.nav-link:hover .fa2-bsi{background-image:url(../img/fa2-bsi.png);background-size:contain}
 .diy_service{background-image:url(../img/diy_service.png)}
-.active .diy_service,.diy_service.active,.diy_service:hover,.nav-link:hover .diy_service{background-image:url(../img/diy_service_hover.png);background-size:contain}
-.data_service{background-image:url(../img/data_service.png)}
-.active .data_service,.data_service.active,.data_service:hover,.nav-link:hover .data_service{background-image:url(../img/data_service_hover.png);background-size:contain}
+.active .diy_service,.diy_service.active,.diy_service:hover,.nav-link:hover .diy_service{background-image:url(../img/diy_service.png);background-size:contain}
+.data_service{background-image:url(../img/data_service.png);height:18px!important;}
+.active .data_service,.data_service.active,.data_service:hover,.nav-link:hover .data_service{background-image:url(../img/data_service.png);background-size:contain}
 /*数据集成*/
 .fa2-public{background-image:url(../img/fa2-public.png);}
 .active .fa2-public,.fa2-public.active,.fa2-public:hover,.nav-link:hover .fa2-public{background-image:url(../img/fa2-public-act.png);background-size:contain;}
@@ -1481,7 +1499,10 @@ a {
 .tab-default li .nav-link:hover .icon20-paper,.uib-tab.active .icon20-paper{background-image:url(../img/ser-texth.png);background-size:contain}
 /*服务部署*/
 .faa-edit{background:url(../img/ser-edit.png) no-repeat}
-.active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edith.png);background-size:contain}
+.active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edit.png);background-size:contain}
+
+.faa-edited{background:url(../img/ser-edited.png) no-repeat}
+.active .faa-edited,.faa-edit.active,.faa-edited:hover,.nav-link:hover .faa-edited{background-image:url(../img/ser-edited.png);background-size:contain}
 .faa-target{background:url(../img/ser-target.png) no-repeat}
 .active .faa-target,.faa-target.active,.faa-target:hover,.nav-link:hover .faa-target{background-image:url(../img/ser-targeth.png);background-size:contain}
 .faa-text{background:url(../img/ser-text.png) no-repeat}
@@ -1502,3 +1523,10 @@ a {
 input:focus{border-color: #5b73eb!important;}
 /*20161214 jiasx add*/
 .fa-info-circle:before{margin-right:3px;}
+/*按钮颜色设置*/
+.build-jia{
+    background:#5c72e9;
+}
+.build-jia:hover{
+    background:#6b5ce9;
+}

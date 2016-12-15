@@ -14,7 +14,7 @@
                     <i class="fa fa-plus fa-lg"></i>
                     <span class="hidden-xs"> 新建服务</span>
                 </a>
-                <a class="btn" ng-click="reload()" style="background-color: #57d1ea;display:inline-block;">
+                <a class="btn build-jia" ng-click="reload()" style="display:inline-block;">
                     <!-- height: 34px;width: 36px;padding: 5px 5px; jias 20161027 change-->
                     <i class="fa fa-refresh fa-lg"></i>
                 </a>
@@ -53,7 +53,7 @@
                     </td>
                     <td><span uib-tooltip="{{dc.metadata.creationTimestamp  | timescon}}">{{dc.metadata.creationTimestamp | dateRelative}}</span></td>
                     <td>{{dc.ismn}}</td>
-                    <td><span style="color: #f6a540">{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</td>
+                    <td><span style="color: #5c72e9">{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</td>
                     <td>
                         <a class="href-orange" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank">{{dc.route.spec.host}}</a>
                         <a class="href-orange" style="color: #5B6177;cursor: no-drop;" ng-if="dc.ismn!=='正常'" target="_blank">{{dc.route.spec.host}}</a>

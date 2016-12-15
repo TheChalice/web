@@ -10,9 +10,10 @@
     padding: 23px 30px;
     font-size:14px;
 }
-#sidebar ul > li.active > a,#sidebar ul > li.active > a:focus,#sidebar ul > li > a:hover,#sidebar ul > li > a:active {
+#sidebar ul.nav-pills > li.active > a,#sidebar ul.nav-pills > li.active > a:focus,#sidebar ul.nav-pills > li > a:hover,#sidebar ul.nav-pills > li > a:active {
     background: #2c4d66!important;
 }
+.nav-jia-pills>li>a:focus, .nav-jia-pills>li>a:hover{background:#2c4d66!important;}
 #sidebar ul > li > a > i {
     display: none;
 }

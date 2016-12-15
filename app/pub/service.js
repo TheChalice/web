@@ -1028,6 +1028,7 @@ define(['angular'], function (angular) {
                                     $scope.images = res;
                                 })
                             } else if (idx == 1) {
+
                                 $http.get('/registry/api/projects', {
                                     params: {is_public: 0}
                                 }).success(function (data) {
