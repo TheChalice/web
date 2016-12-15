@@ -25,11 +25,13 @@ define([
                 var host = wsscheme + location.host;
 
                 // var host = wsscheme;
-                var tokens = Cookie.get('df_access_token');
+                //var tokens = Cookie.get('df_access_token');
                 var regions = Cookie.get('region');
-                var tokenarr = tokens.split(',');
+
+                //var tokenarr = tokens.split(',');
                 var region = regions.split('-')[2];
-                var token = tokenarr[region-1];
+                var token = '';
+                //var token = tokenarr[region-1];
                 if (params.api == 'k8s') {
                     host = host + GLOBAL.host_wss_k8s;
 
