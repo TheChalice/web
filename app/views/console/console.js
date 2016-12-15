@@ -28,7 +28,7 @@ angular.module('console', [
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
-            console.log('$rootScope.user',$rootScope.user);
+            console.log('$rootScope.user',$rootScope.user.metadata.name);
             var loadProject = function () {
                 //$log.info("load project");
                 Project.get({region: $rootScope.region}, function (data) {
@@ -36,7 +36,7 @@ angular.module('console', [
                     //console.log('Project', Project);
                     //var newprojects = [];
                     angular.forEach(data.items, function (item, i) {
-                        //console.log($rootScope.user.metadata.name);
+                        console.log($rootScope.user.metadata.name);
                         if (item.metadata.name === $rootScope.user.metadata.name) {
                             //console.log($rootScope.user.metadata.name);
                             data.items.splice(i, 1);
