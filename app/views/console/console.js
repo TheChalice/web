@@ -29,7 +29,7 @@ angular.module('console', [
                 $rootScope.namespace = namespace;
             } else {
                 $rootScope.namespace = user.metadata.name;
-                Cookie.set('namespace', name, 10 * 365 * 24 * 3600 * 1000);
+                Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
 
@@ -52,6 +52,7 @@ angular.module('console', [
                     data.items.sort(function (x, y) {
                         return x.sortname > y.sortname ? 1 : -1;
                     });
+
                     angular.forEach(data.items, function (project, i) {
                         if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
                             //console.log(project.metadata.annotations['openshift.io/display-name']);

@@ -164,10 +164,12 @@ define([
                             }
 
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
-                                console.log('user', user);
+                                //console.log('user', user);
                                 $rootScope.user = user;
                                 $rootScope.namespace = user.metadata.name;
-                                Cookie.set('namespace', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
+                                Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                                $rootScope.region = 'cn-north-1';
+                                Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
                                     return creatproject.create({'metadata':{
                                         name:user.metadata.name
