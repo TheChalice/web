@@ -1,7 +1,7 @@
 dist=dist
 
 echo "[build]"
-npm run build > /dev/null
+npm run build 
 
 echo "[prepare]"
 mkdir -p $dist/vendor

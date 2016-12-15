@@ -2,8 +2,8 @@ FROM openresty/openresty
 
 MAINTAINER Zonesan <chaizs@asiainfo.com>
 
-ADD usr /
-ADD app conf release.sh bower.json package.json /datafoundry-citic/
+ADD usr /usr
+ADD . /datafoundry-citic
 
 WORKDIR /datafoundry-citic
 
@@ -12,10 +12,8 @@ WORKDIR /datafoundry-citic
 # Install node & bower depends
 # Set bower root allow
 
-#sed -i s#dl-cdn.alpinelinux.org#mirrors.aliyun.com/alpine#g /etc/apk/repositories && \
-#sed -i 's/http\:\/\/dl-cdn.alpinelinux.org/https\:\/\/alpine.global.ssl.fastly.net/g' /etc/apk/repositories && \
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk add --update nodejs git && \
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+RUN apk add --update nodejs git && \
     npm install -g bower && \
     echo '{ "allow_root": true }' > /root/.bowerrc && \
     git config --global url."https://".insteadOf git:// && \
