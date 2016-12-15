@@ -8,7 +8,7 @@
 
 .apply_data_main{width:80%;}
 .apply_data_list{margin-bottom: 15px;width:24%;margin-left:40px;}
-.panel_border.active{border:2px solid #f6a540!important;}
+.panel_border.active{border:2px solid #5c72e9!important;}
 
 @media (min-width: 1920px) {
     .apply_data_list{width:22%;margin-left:40px;}

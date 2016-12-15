@@ -157,7 +157,7 @@ ul,li,ol{
 }
 
 #user {
-    margin-top: 40px;
+    /*margin-top: 40px;*/
 }
 
 /*.nav-tabs > li {*/
@@ -334,3 +334,10 @@ article .peie {
 .invitation:hover {
     color: #469450;
 }
+.tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
+    border:0;
+    border-bottom:2px solid #5c72e9;
+    color:#333;
+}
+.tab-jia-default .tab-content{border: 0;padding:30px 0;}
+.tab-jia-default li .nav-link:hover{color:#333;}

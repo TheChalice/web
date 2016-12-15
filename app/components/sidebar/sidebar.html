@@ -1,37 +1,42 @@
 <div id="sidebar">
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked nav-jia-pills">
         <li ui-sref-active="active">
             <a ui-sref="console.dashboard">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;仪表盘
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;-->
+                仪表盘
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.build_create')||$state.includes('console.build_detail')}">
             <a ui-sref="console.build">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-build"></span>&nbsp;&nbsp;代码构建
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-build"></span>&nbsp;&nbsp;-->
+                代码构建
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.image_detail')}">
             <a ui-sref="console.image">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-repository"></span>&nbsp;&nbsp;镜像仓库
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-repository"></span>&nbsp;&nbsp;-->
+                镜像仓库
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.service_create')||$state.includes('console.service_detail')}">
             <a ui-sref="console.service">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-deployment"></span>&nbsp;&nbsp;服务部署
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-deployment"></span>&nbsp;&nbsp;-->
+                服务部署
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.apply_instance')}">
             <a ui-sref="console.backing_service">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-service"></span>&nbsp;&nbsp;后端服务
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-service"></span>&nbsp;&nbsp;-->
+                后端服务
             </a>
         </li>
 
@@ -45,15 +50,17 @@
          -->
         <li ui-sref-active="active">
             <a ui-sref="console.resource_management">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-resource"></span>&nbsp;&nbsp;资源管理
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-resource"></span>&nbsp;&nbsp;-->
+                资源管理
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.Integration')}">
             <a ui-sref="console.Integration">
-                <i class="fa fa-caret-left"></i>
-                <span class="icon25 icon25-Integration"></span>&nbsp;&nbsp;数据集成
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-Integration"></span>&nbsp;&nbsp;-->
+                数据集成
             </a>
         </li>
     </ul>

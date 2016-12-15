@@ -46,19 +46,18 @@
 
             </div>
         </section>
-        <div class="text-right" ng-if="grid.total > 10">
-            <uib-pagination class="pagination"
+        <div class="text-center" ng-if="grid.total > 10">
+                <uib-pagination class="pagination"
                             ng-model="grid.page"
                             total-items="grid.total"
                             items-per-page="grid.size"
                             class="pagination-sm"
-                            boundary-links="true"
+                            boundary-links="false"
                             max-size="12"
                             rotate="true"
-                            previous-text="上一页"
-                            next-text="下一页"
-                            first-text="首页"
-                            last-text="末页">
+                            previous-text="<"
+                            next-text=">"
+                            >
             </uib-pagination>
         </div>
     </div>

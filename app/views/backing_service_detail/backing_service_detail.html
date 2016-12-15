@@ -19,21 +19,21 @@
             </div>
         </div>
 
-        <uib-tabset class="tab-default" active="grid.active">
+        <uib-tabset class="tab-default tab-jia-default" active="grid.active" style="border:0px;">
             <uib-tab index="1">
                 <uib-tab-heading>
                     <i class="faa faa-edit"></i>&nbsp;&nbsp;服务信息
                 </uib-tab-heading>
-                <p style="font-size: 12px;color: #5a6378;line-height: 20px;">
+                <p style="font-size: 14px;color: #666;line-height: 20px;margin-left:30px;">
                     {{data.spec.metadata.longDescription}}
                 </p>
-                <h3 style="font-size: 14px;color: #5a6378;margin-top: 36px;">套餐列表</h3>
-                <div ng-include="'views/backing_service_detail/plan.html'"></div>
+                <h3 style="font-size: 16px;color: #333;margin-top: 36px;margin-left:30px;margin-bottom:20px;">套餐列表</h3>
+                <div ng-include="'views/backing_service_detail/plan.html'" style="margin-left:30px;"></div>
             </uib-tab>
 
             <uib-tab index="2">
                 <uib-tab-heading>
-                    <i class="faa faa-edit"></i>&nbsp;&nbsp;已申请的实例
+                    <i class="faa faa-edited"></i>&nbsp;&nbsp;已申请的实例
                 </uib-tab-heading>
                 <div ng-include="'views/backing_service_detail/applied_instance.html'"></div>
             </uib-tab>

@@ -3,7 +3,7 @@
     .blank_block{margin-bottom:0;}
     .blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
 </style>
-<div class="resource_management">
+<div class="resource_management" style="background:#fff;padding:20px 40px 40px;">
     <div class="loader" ng-show="!persistents">
         <div class="loader-inner ball-clip-rotate-multiple">
             <div></div>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div ng-show="persistents">
-        <uib-tabset class="tab-default" active="check">
+        <uib-tabset class="tab-default tab-back-zn-default " active="check">
             <uib-tab index="1" >
                 <uib-tab-heading style="width:180px">
                     <i class="constantlyvolume"></i>&nbsp;&nbsp;持久化卷
@@ -56,7 +56,7 @@
                                 </div>
                             </tr>
                             <tr ng-repeat="item in persistents">
-                                <td style="border-bottom: 1px solid #CCCCCC;color:#f6a540;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;"><a class="listitem" uib-tooltip="{{item.metadata.name}}" tooltip-placement="top" ui-sref="console.constantly_detail({name:item.metadata.name})">{{item.metadata.name}}</a>
+                                <td style="border-bottom: 1px solid #CCCCCC;color:#4960e6;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;"><a class="listitem" uib-tooltip="{{item.metadata.name}}" tooltip-placement="top" ui-sref="console.constantly_detail({name:item.metadata.name})">{{item.metadata.name}}</a>
                                 </td>
                                 <td style="border-bottom: 1px solid #CCCCCC;"> <span class="icon12 icon12-{{item.status.phase}}"
                                                                                      ng-class="{'fa-spin':item.status.phase == 'Pending','fa-unspin':item.status.phase == 'Bound'}"></span>
@@ -78,13 +78,12 @@
                     </div>
                 </div>
 
-                <div class="text-right" ng-if="grid.rmtotal > 10" style="margin-top: 30px;">
+                <div class="text-center" ng-if="grid.rmtotal > 10" style="margin-top: 30px;">
                     <uib-pagination class="pagination pagination-sm" ng-model="grid.rmpage" total-items="grid.rmtotal"
-                                    items-per-page="grid.size" boundary-links="true" max-size="12" rotate="true"
-                                    previous-text="上一页"
-                                    next-text="下一页"
-                                    first-text="首页"
-                                    last-text="末页">
+                                    items-per-page="grid.size" boundary-links="false" max-size="12" rotate="true"
+                                    previous-text="<"
+                                    next-text=">"
+                                   >
                     </uib-pagination>
 
                 </div>
@@ -136,7 +135,7 @@
                             <tr ng-repeat="items in configitems">
                                 <td style="border-bottom: 1px solid #CCCCCC;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">
 
-                                    <a ui-sref="console.config_detail({name: items.metadata.name})" uib-tooltip="{{items.metadata.name}}" tooltip-placement="top" style="color:#f6a540">{{items.metadata.name}}</a>
+                                    <a ui-sref="console.config_detail({name: items.metadata.name})" uib-tooltip="{{items.metadata.name}}" tooltip-placement="top" style="color:#4960e6">{{items.metadata.name}}</a>
                                 </td>
                                 <td style="border-bottom: 1px solid #CCCCCC;"><span
                                         uib-tooltip="{{items.metadata.creationTimestamp  | timescon}}">{{items.metadata.creationTimestamp | dateRelative}} </span>
@@ -151,13 +150,12 @@
                     </div>
                 </div>
 
-                <div class="text-right" ng-if="grid.total > 10" style="margin-top: 30px;">
+                <div class="text-center" ng-if="grid.total > 10" style="margin-top: 30px;">
                     <uib-pagination class="pagination pagination-sm" ng-model="grid.page" total-items="grid.total"
-                                    items-per-page="grid.size" boundary-links="true" max-size="12" rotate="true"
-                                    previous-text="上一页"
-                                    next-text="下一页"
-                                    first-text="首页"
-                                    last-text="末页">
+                                    items-per-page="grid.size" boundary-links="false" max-size="12" rotate="true"
+                                    previous-text="<"
+                                    next-text=">"
+                                    >
                     </uib-pagination>
 
                 </div>
@@ -206,7 +204,7 @@
                             <tr ng-repeat="items in secretitems">
                                 <td style="border-bottom: 1px solid #CCCCCC;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">
                                     <a class="listitem" uib-tooltip="{{items.metadata.name}}" tooltip-placement="top" ui-sref="console.secret_detail({name:items.metadata.name})"
-                                       style="color:#f6a540">
+                                       style="color:#4960e6">
                                         {{items.metadata.name}}
                                     </a>
                                 </td>
@@ -223,13 +221,11 @@
                     </div>
                 </div>
 
-                <div class="text-right" ng-if="secrets.total > 10" style="margin-top: 30px;">
+                <div class="text-center" ng-if="secrets.total > 10" style="margin-top: 30px;">
                     <uib-pagination class="pagination pagination-sm" ng-model="secrets.page" total-items="secrets.total"
-                                    items-per-page="secrets.size" boundary-links="true" max-size="12" rotate="true"
-                                    previous-text="上一页"
-                                    next-text="下一页"
-                                    first-text="首页"
-                                    last-text="末页">
+                                    items-per-page="secrets.size" boundary-links="false" max-size="12" rotate="true"
+                                    previous-text="<"
+                                    next-text=">">
                     </uib-pagination>
 
                 </div>
@@ -238,7 +234,25 @@
     </div>
 
     <style>
-        .listitem {color: #e5993a;}
+        .listitem {color: #4960e6;}
         .listitem:hover{color:#5a6378;}
+
+        .tab-back-zn-default {
+            padding:20px 40px 40px;
+            background:#fff;
+        }
+
+        .tab-back-zn-default  .tab-content{
+            border:none;
+        }
+        .tab-back-zn-default .nav-tabs{
+            border:none;
+            border-bottom:1px solid #c9c9c9;
+        }
+        .tab-back-zn-default li.active .nav-link, .tab-default li.active .nav-link:focus, .tab-default li.active .nav-link:hover{
+            border:none;
+            border-bottom:2px solid #4960e6;
+            color:#333;
+        }
     </style>
 </div>

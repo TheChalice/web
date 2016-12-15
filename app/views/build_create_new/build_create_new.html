@@ -1,3 +1,17 @@
+<style>
+    .build-jia-default{border:none;}
+    .build-jia-default .panel-jia-heading{background:none;border-bottom:1px solid #f2f2f2;margin-left:21px;margin-right:21px;}
+    .panel-jia-title{color:#333;}
+    .tab-jia-default .tab-content{padding:30px 20px;height:auto;overflow:hidden;}
+    .panel-block-jia-body{padding:22px 52px 52px;}
+    .form-jia-line{padding-bottom:16px;border-bottom:1px solid #f2f2f2;}
+    .view-jia-tit{color:#5c72e9;}
+    .view-jia-tit:hover{color:#4960e6}
+    .tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
+        color:#5c72e9;padding:10px 23px;
+    }
+
+</style>
 <div class="buildcreat">
     <!--<div class="loader" ng-if="!labusername">-->
         <!--<div class="loader-inner ball-clip-rotate-multiple">-->
@@ -8,14 +22,14 @@
     <div>
         <form class="form-horizontal" name="frm">
             <div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <span class="panel-title">新建构建</span>
+                <div class="panel panel-default build-jia-default">
+                    <div class="panel-heading panel-jia-heading">
+                        <span class="panel-title panel-jia-title">新建构建</span>
                     </div>
-                    <div class="panel-body">
-                        <div class="form-group">
+                    <div class="panel-body panel-block-jia-body">
+                        <div class="form-group form-jia-line">
                             <label class="col-sm-2 control-label text-left"
-                                   style="color: #5a6378; font-size:14px; text-align: left;">构建名称</label>
+                                   style="color: #333; font-size:14px;font-weight:normal;text-align: left;">构建名称</label>
                             <div class="col-sm-10" style="padding-right: 40px">
                                 <input ng-model="buildConfig.metadata.name"
                                        ng-blur="nameblur()"
@@ -24,7 +38,7 @@
                                        type="text" name="name" class="form-control"
                                        required
                                        placeholder="例如：datafoundry"
-                                       style="width: 613px;ime-mode:disabled">
+                                       style="ime-mode:disabled">
                                 <small ng-if="namerr.nil" class="fa fa-info-circle err-tip">请输入正确构建名称
                                 </small>
                                 <small ng-if="namerr.rexed" class="fa fa-info-circle err-tip">请输入4~30位名称,名称只能包含英文、数字以及“-”
@@ -34,10 +48,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" style="color: #5a6378; font-size:14px; text-align: left;">代码URL</label>
+                        <div class="form-group form-jia-line">
+                            <label class="col-sm-2 control-label" style="color: #5a6378; font-size:14px; text-align: left;font-weight:normal;">代码URL</label>
                             <div class="col-sm-10">
-                                <uib-tabset class="tab-default" active="check">
+                                <uib-tabset class="tab-default tab-jia-default" active="check">
                                     <!--gitlab-->
                                     <uib-tab index="1" heading="代码仓库" ng-click="checkdTab(1)">
                                         <div class="tabinfo" style="height: 50px">
@@ -46,9 +60,8 @@
                                                 <i class="fa fa-green fa-lg fa-refresh"></i>
                                             </a>
                                             <img style="float: left;margin-right: 20px;"
-                                                 src="views/build_create_new/img/images02_178.png">
-                                <span style="font-size:12px; height: 20px">DataFoundry 提供的代码仓库
-                                    （<a href="https://code.dataos.io" target="view_window">https://code.dataos.io</a>）是可靠的自托管的 Git 项目仓库，
+                                                 src="views/build_create_new/img/nginx_tu.png">
+                                <span style="font-size:12px; height: 20px">DataFoundry 提供的代码仓库（<a href="https://code.dataos.io" target="view_window" class="view-jia-tit">https://code.dataos.io</a>）是可靠的自托管的 Git 项目仓库，
                                     可通过Web 界面进行访问公开的或者私人项目。</span>
                                         </div>
                                     </uib-tab>
@@ -72,7 +85,7 @@
                                     <!--</uib-tab>-->
                                     <uib-tab index="3" heading="其他Git" ng-click="checkdTab(4)">
                                         <form class="form-horizontal">
-                                            <p style="font-size: 12px; margin-left: 72px;padding-bottom: 10px">如果是私有代码库，需要输入用户名口令。</p>
+                                            <p style="font-size: 12px;padding-bottom: 10px">如果是私有代码库，需要输入用户名口令。</p>
                                             <div class="form-group">
                                                 <label for="address" class="col-md-3 control-label require" style="text-align: left; font-size: 12px; font-weight: normal">仓库地址</label>
                                                 <div class="col-md-9">
@@ -104,7 +117,7 @@
                                 </uib-tabset>
 
                                 <div class="is-box" ng-hide="grid.ishide">
-                                    <div class="panel panel-default first col-md-4" style="margin-right: 30px">
+                                    <div class="panel panel-default first col-md-4" style="margin-right:36px">
                                         <div class="panel-heading">
                                             <img src="views/build_create_new/img/user.png">
                                             用户/组织
@@ -121,7 +134,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default col-md-4" style="margin-right: 30px;position: relative;">
+                                    <div class="panel panel-default col-md-4" style="margin-right:36px;position: relative;">
                                         <div class="panel-heading">
                                             <img src="views/build_create_new/img/project.png">
                                             项目
@@ -174,7 +187,7 @@
                                 </div>
                                 <!--gitlab pannel-->
                                 <div class="is-box" ng-show="grid.labcon">
-                                    <div class="panel panel-default first col-sm-4" style="margin-right: 30px">
+                                    <div class="panel panel-default first col-sm-4" style="margin-right:36px">
                                         <div class="panel-heading">
                                             <img src="views/build_create_new/img/user.png">
                                             用户/组织
@@ -192,7 +205,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default second col-sm-4" style="margin-right: 30px;position: relative;">
+                                    <div class="panel panel-default second col-sm-4" style="margin-right:36px;position: relative;">
                                         <div class="panel-heading">
                                             <img src="views/build_create_new/img/project.png">
                                             项目
@@ -287,7 +300,7 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label text-left"
-                                   style="color: #5a6378; font-size:14px; text-align: left; ">构建超时时长</label>
+                                   style="color: #5a6378; font-size:14px; text-align: left;font-weight:normal; ">构建超时时长</label>
                             <div class="col-sm-10">
                                 <input onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();" ng-model="completionDeadlineMinutes" name="cdm" min="1" max="60"
                                        style="width: 80px;display: inline-block;" type="text" class="form-control">
@@ -299,11 +312,11 @@
                             </div>
                         </div>
                     </div>
-
+                    <a class="btn btn-block"
+                       ng-class="{'btn-orange':true}"
+                       ng-click="frm.$valid && create()" style="margin-bottom:30px;margin-left:52px;margin-right:52px;width:auto;border-radius:0;">开始构建</a>
                 </div>
-                <a class="btn btn-block"
-                   ng-class="{'btn-orange':true}"
-                   ng-click="frm.$valid && create()">开始构建</a>
+
             </div>
 
             <!--<a class="btn btn-block" ng-class="{'btn-orange':frm.$valid, 'btn-disabled': frm.$invalid}" ng-disabled="frm.$invalid" ng-click="frm.$valid && create()"><i class="fa fa-spinner fa-spin" ng-if="creating">&nbsp;</i>开始构建</a>-->
@@ -340,7 +353,7 @@
 
     .is-box .panel .panel-heading {
         width: 100%;
-        background-color: #e6e9f2;
+        background-color: #f7f7f7;
     }
 
     .col-sm-10 {
@@ -428,6 +441,6 @@
         }
     }
     .form-group input{
-        width:105%;
+        width:100%;
     }
 </style>

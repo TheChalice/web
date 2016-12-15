@@ -40,7 +40,7 @@
     float: left;
 }
 .payactive{
-    border-color: #f6a540;
+    border-color: #5c72e9;
     background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
 }
 .payactive .paybg{
@@ -69,7 +69,9 @@
 .pay_top_one{margin-bottom:20px;}
 .pay_one_l,.pay_two_l{font-size:14px;color:#5a6378;}
 .pay_one_r{font-size:14px;color:#666;padding-left:30px;}
-.pay_two_r{font-size:18px;color:#f6a540;padding-left:30px;}
+.pay_two_r{font-size:18px;color:#5c72e9;padding-left:30px;}
 .pay_two_money{font-size:12px;color:#666;font-style:normal;}
 .charge_tit{display:block;float:left;height:46px;line-height:46px;margin-right:34px;}
 .charge_notice{font-size:12px;color:#f00;padding-left:10px;cursor:pointer;}
+.plan_jia_charge{background:#5c72e9}
+.plan_jia_charge:hover{background:#6b5ce9;}

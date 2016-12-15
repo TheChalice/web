@@ -192,20 +192,15 @@
                                    </div>
 
                             </div>
-                            <div class="text-right" ng-if="grid.imagecentertotal > 8">
+                            <div class="text-center" ng-if="grid.imagecentertotal > 8">
                                    <uib-pagination
                                            ng-model="grid.imagecenterpage"
                                            total-items="grid.imagecentertotal"
                                            items-per-page="grid.size"
                                            class="pagination-sm"
-                                           boundary-links="true"
-                                           boundary-link-numbers="true"
+                                           boundary-links="false"
                                            max-size="3"
                                            force-ellipses="'3'"
-                                           previous-text="上一页"
-                                           next-text="下一页"
-                                           first-text="首页"
-                                           last-text="末页"
                                            rotate="true">
                                    </uib-pagination>
                             </div>

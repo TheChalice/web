@@ -38,15 +38,19 @@ a {
 #cnzz_stat_icon_1260628917 {
     display: none;
 }
+
+/*.nav>li>a:focus, .nav>li>a:hover{background:none!important}*/
 /*按钮*/
 .btn {
-    border-radius: 2px;
+    /*border-radius: 30px;*/
     color: #fff;
+
 }
 
 .btn:hover {
     color: #fff;
 }
+.btn-orange-radius{border-radius:30px;}
 
 .btn-disabled, .btn-disabled:hover {
     background: #e6e9f2;
@@ -54,7 +58,8 @@ a {
 }
 
 .btn-green {
-    background-color: #55c45f;
+    /*background-color: #55c45f;*/
+    background-color: #5c72e9;/*16 12-14 by zn for zhongxin */
     color:#fff;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
@@ -62,7 +67,9 @@ a {
 }
 
 .btn-green:hover {
-    background-color: #469450;color:#fff;
+    /*background-color: #469450;*/color:#fff;
+
+    background-color: #6b5ce9;/*16 12-14 by zn for zhongxin */
 }
 
 .btn-gray {
@@ -77,25 +84,25 @@ a {
 }
 
 .btn-skyblue {
-    background-color: #57d1ea;
+    background-color: #5c72e9;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
     transition:all 1s;
 }
 
 .btn-skyblue:hover {
-    background-color: #418b9e;
+    background-color: #6b5ce9;
 }
 
 .btn-orange {
-    background-color: #f6a540;
+    background-color: #5b73eb;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
     transition:all 1s;
 }
 
 .btn-orange:hover {
-    background-color: #e5993a;
+    background-color:#4960e6;
 }
 
 .btn-Iknow {
@@ -162,11 +169,10 @@ a {
 }
 
 .panel-default .panel-heading .panel-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: #393f4f;
 }
-
 /*图标*/
 .icon25, .icon20, .icon12 {
     display: inline-block;
@@ -350,6 +356,8 @@ a {
     background: transparent;
     color: #e5993a;
     font-size:16px;
+    /*中信项目 jiasx*/
+    color:#333;
 }
 
 .tab-default li.active .nav-link,
@@ -358,7 +366,9 @@ a {
     border: 1px solid #c9c9c9;
     border-bottom: none;
     border-radius: 2px 2px 0 0;
-    color: #e5993a;
+    color: #333;
+
+
 }
 
 .tab-default .tab-content {
@@ -375,17 +385,17 @@ a {
 
 /*a标签默认样式*/
 .href-orange {
-    color: #f6a540;
+    color: #5b73eb;
     text-decoration: none;
 }
 
 .href-orange:hover {
-    color: #e5993a;
+    color: #5b73eb;
     text-decoration: none;
 }
 
 .href-orange:active {
-    color: #e5993a;
+    color: #5b73eb;
     text-decoration: none;
 }
 
@@ -520,10 +530,15 @@ a {
 /*图标颜色*/
 .fa-orange {
     color: #f6a540;
+    /*中信项目 jiasx*/
+    color:#5c72e9;
 }
-
+/*loading效果 jiasx*/
 .fa-green {
     color: #55c45f;
+    /*中信项目 jiasx*/
+    color:#5c72e9;
+
 }
 
 .fa-red {
@@ -536,9 +551,26 @@ a {
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
-    background-color: #f6a540;
-    border-color: #f6a540;
+    background-color: #5b74e8;
+    border-color: #5b74e8;
 }
+.pagination-sm > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;
+}
+.pagination-sm > li > a:hover{
+    color:black;
+}
+
+.pagination-sm > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination-sm > .disabled > a:hover{
+    background:#f7f7f7;
+}
+
 
 /*service_create advantage_config.html tabandimage*/
 .tabandimage {
@@ -550,10 +582,13 @@ a {
     height: 60px;
     margin-bottom: 15px;
     cursor: pointer;
+
 }
 
 .tabandimage.selected {
-    border: 1px solid #f6a540;
+    border: 1px solid #4960e6;
+    background-color:#4960e6;
+    color:#fff;
 }
 
 /*.tabandimage:active{*/
@@ -571,6 +606,8 @@ a {
     height: 8px;
     border-radius: 4px;
     background: #f6a540;
+    /*中信项目 jiasx*/
+    background:#5c72e9;
 }
 
 .timeline ul {
@@ -735,18 +772,21 @@ a {
 
 
 .faa-image {
-    background-position: -44px -789px;
+    /*background-position: -44px -789px;*/
+    background-image:url(../img/tg03.png);
     width: 60px;
     height: 60px;
+     background-size:contain;
 }
 
 .faa-image-mark {
-    background-position: -189px -737px;
-    width: 25px;
-    height: 25px;
+    /*background-position: -189px -737px;*/
+    background-image: url(../img/tg02.png); /*by zn for zhongxin*/
+    width: 22px;
+    height: 22px;
     position: absolute;
     left: 0;
-    top: 0;
+    top: -2px;
 }
 
 .faa-check {
@@ -756,7 +796,9 @@ a {
 }
 
 .active > .faa-check {
-    background-position: -41px -220px;
+    /*background-position: -41px -220px;*/
+    background-image:url(../img/tg06.png);
+    background-position: 0 0; /*by zn for zhongxin*/
 }
 
 .faa-price {
@@ -822,8 +864,9 @@ a {
 
 .service-config h3 {
     font-size: 14px;
-    font-weight: normal;
+    font-weight: bold;
     margin: 0 0 20px 0;
+    color:black;
 }
 
 .service-config h4 {
@@ -850,10 +893,16 @@ a {
 .service-config .href-add {
     color: #55c45f;
     text-decoration: none;
+    /*中信项目 jiasx*/
+    color:#333;
 }
+
+.service-config .fa-lg{color:#5c72e9;}
 
 .service-config .href-add:hover {
     color: #469450;
+    /*中信项目 jiasx*/
+    color:#333;
 }
 
 .service-config .container-box {
@@ -1102,7 +1151,6 @@ a {
 .plan label .faa {
     position: relative;
     top: -1px;
-
 }
 
 .plan .panel-heading {
@@ -1116,6 +1164,8 @@ a {
 
 .panel-xxx.active {
     border-color: #f6a540;
+    /*中信项目 jiasx*/
+    border-color:#e6e6e6;
 }
 
 .icon20-144 {
@@ -1147,7 +1197,7 @@ a {
 
 /*green adding button*/
 .href-add {
-    color: #55c45f;
+    color: #4960e6;
     text-decoration: none;
 }
 
@@ -1172,20 +1222,20 @@ a {
 }
 
 .secret_detail .add a {
-    color: #55c45f;
+    color: #5c72e9;
 }
 
 .secret_detail .add a:hover {
-    color: #469450;
+    color: #6b5ce9;
 }
 
 .secret_detail.href-add {
-    color: #55c45f;
+    color: #5c72e9;
     text-decoration: none;
 }
 
 .secret_detail.href-add:hover {
-    color: #469450;
+    color: #6b5ce9;
 }
 
 @media (min-width: 768px) {
@@ -1364,7 +1414,7 @@ a {
     position: absolute;
     left: 50%;
     top: 50%;
-    border: 4px solid #f8b551;
+    border: 4px solid #5c72e9;
     border-bottom-color: transparent;
     border-top-color: transparent;
     border-radius: 100%;
@@ -1382,7 +1432,7 @@ a {
     height: 30px;
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
-    border-color: #f8b551 transparent #f8b551 transparent;
+    border-color: #5c72e9 transparent #5c72e9 transparent;
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
 }
@@ -1418,20 +1468,20 @@ a {
 /*镜像仓库*/
 .nav-link i{display:inline-block;width:21px;height:21px;vertical-align:bottom;background-size:contain;}
 .myimage{width:20px;height:20px;background:url(../../pub/img/myimage.png) no-repeat;}
-.active .myimage,.nav-link:hover i.myimage{background:url(../../pub/img/myimageh.png) no-repeat;background-size:contain}
+.active .myimage,.nav-link:hover i.myimage{background:url(../../pub/img/myimage.png) no-repeat;background-size:contain}
 .registimage{background:url(../../pub/img/registimage.png) no-repeat;}
-.active .registimage,.nav-link:hover i.registimage{background:url(../../pub/img/registimageh.png) no-repeat;background-size:contain}
+.active .registimage,.nav-link:hover i.registimage{background:url(../../pub/img/registimage.png) no-repeat;background-size:contain}
 .imagecenter{background:url(../../pub/img/imagecenter.png) no-repeat;}
-.active .imagecenter,.nav-link:hover i.imagecenter{background:url(../../pub/img/imagecenterh.png) no-repeat;background-size:contain}
+.active .imagecenter,.nav-link:hover i.imagecenter{background:url(../../pub/img/imagecenter.png) no-repeat;background-size:contain}
 /*后端服务*/
 .fa2-bs{background-image:url(../img/fa2-bs.png)}
-.active .fa2-bs,.fa2-bs.active,.fa2-bs:hover,.nav-link:hover .fa2-bs{background-image:url(../img/fa2-bsh.png);background-size:contain}
+.active .fa2-bs,.fa2-bs.active,.fa2-bs:hover,.nav-link:hover .fa2-bs{background-image:url(../img/fa2-bs.png);background-size:contain}
 .fa2-bsi{background-image:url(../img/fa2-bsi.png)}
-.active .fa2-bsi,.fa2-bsi.active,.fa2-bsi:hover,.nav-link:hover .fa2-bsi{background-image:url(../img/fa2-bsih.png);background-size:contain}
+.active .fa2-bsi,.fa2-bsi.active,.fa2-bsi:hover,.nav-link:hover .fa2-bsi{background-image:url(../img/fa2-bsi.png);background-size:contain}
 .diy_service{background-image:url(../img/diy_service.png)}
-.active .diy_service,.diy_service.active,.diy_service:hover,.nav-link:hover .diy_service{background-image:url(../img/diy_service_hover.png);background-size:contain}
-.data_service{background-image:url(../img/data_service.png)}
-.active .data_service,.data_service.active,.data_service:hover,.nav-link:hover .data_service{background-image:url(../img/data_service_hover.png);background-size:contain}
+.active .diy_service,.diy_service.active,.diy_service:hover,.nav-link:hover .diy_service{background-image:url(../img/diy_service.png);background-size:contain}
+.data_service{background-image:url(../img/data_service.png);height:18px!important;}
+.active .data_service,.data_service.active,.data_service:hover,.nav-link:hover .data_service{background-image:url(../img/data_service.png);background-size:contain}
 /*数据集成*/
 .fa2-public{background-image:url(../img/fa2-public.png);}
 .active .fa2-public,.fa2-public.active,.fa2-public:hover,.nav-link:hover .fa2-public{background-image:url(../img/fa2-public-act.png);background-size:contain;}
@@ -1454,7 +1504,10 @@ a {
 .tab-default li .nav-link:hover .icon20-paper,.uib-tab.active .icon20-paper{background-image:url(../img/ser-texth.png);background-size:contain}
 /*服务部署*/
 .faa-edit{background:url(../img/ser-edit.png) no-repeat}
-.active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edith.png);background-size:contain}
+.active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edit.png);background-size:contain}
+
+.faa-edited{background:url(../img/ser-edited.png) no-repeat}
+.active .faa-edited,.faa-edit.active,.faa-edited:hover,.nav-link:hover .faa-edited{background-image:url(../img/ser-edited.png);background-size:contain}
 .faa-target{background:url(../img/ser-target.png) no-repeat}
 .active .faa-target,.faa-target.active,.faa-target:hover,.nav-link:hover .faa-target{background-image:url(../img/ser-targeth.png);background-size:contain}
 .faa-text{background:url(../img/ser-text.png) no-repeat}
@@ -1472,4 +1525,13 @@ a {
 .active .accountbg,.nav-link:hover i.accountbg{background:url(../../pub/img/account_hover.png) no-repeat;background-size:contain}
 /*************************图标替换 20161123 jia end***************/
 /*输入框获取焦点*/
-input:focus{border-color: #f8b551!important;}
+input:focus{border-color: #5b73eb!important;}
+/*20161214 jiasx add*/
+.fa-info-circle:before{margin-right:3px;}
+/*按钮颜色设置*/
+.build-jia{
+    background:#5c72e9;
+}
+.build-jia:hover{
+    background:#6b5ce9;
+}

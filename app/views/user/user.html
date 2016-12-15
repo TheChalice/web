@@ -7,7 +7,7 @@
             </div>
         </div>
         <div ng-show="curUserInfo && myamounts">
-            <uib-tabset class="tab-default" active="check">
+            <uib-tabset class="tab-default tab-zn-default" active="check">
                 <uib-tab index="1" ng-if="false">
 
                     <uib-tab-heading>
@@ -407,19 +407,18 @@
 
                         </section>
                     </div>
-                    <div class="text-right" ng-if="grid.total > 10">
+                    <div class="text-center" ng-if="grid.total > 10">
                         <uib-pagination class="pagination"
                                         ng-model="grid.page"
                                         total-items="grid.total"
                                         items-per-page="grid.size"
                                         class="pagination-sm"
-                                        boundary-links="true"
+                                        boundary-links="false"
                                         max-size="12"
                                         rotate="true"
-                                        previous-text="上一页"
-                                        next-text="下一页"
-                                        first-text="首页"
-                                        last-text="末页">
+                                        previous-text="<"
+                                        next-text=">"
+                                        >
                         </uib-pagination>
                     </div>
 
@@ -524,13 +523,13 @@
         }
 
         #updatepwd {
-            color: #f6a540;
+            color: #5c72e9;
             margin-top: 5px;
             cursor: pointer;
         }
 
         #updatepwd:hover {
-            color: #e5993a;
+            color: #6b5ce9;
         }
 
         #inactivation {
@@ -544,5 +543,22 @@
         .blank_mag_tit{margin-bottom:0;}
         .blank_mg_block{font-size:14px;border:1px solid #ccc;padding-top:10px;padding-bottom:10px;margin-top:14px;
             color:#5a6378;vertical-align:middle;}
+        .tab-zn-default{
+            padding:20px 40px 40px;
+            background:#fff;
+        }
+        .tab-zn-default .tab-content{
+            border:none;
+            background:#fff;
+        }
+        .tab-zn-default .nav-tabs{
+            border:none;
+            background:#fff;
+        }
+        .tab-zn-default li.active .nav-link, .tab-zn-default li.active .nav-link:focus, .tab-zn-default li.active .nav-link:hover{
+
+            border:none;
+            border-bottom:2px solid #4960e6;
+        }
     </style>
 </div>
