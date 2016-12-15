@@ -1,15 +1,9 @@
-FROM openresty/openresty
+FROM alpine:latest
 
-MAINTAINER Zonesan <chaizs@asiainfo.com>
+# Copy code
+COPY . /data/datafoundry/
 
-ADD usr /
-ADD app /datafoundry-citic
-ADD conf /datafoundry-citic
-ADD release.sh /datafoundry-citic
-ADD bower.json /datafoundry-citic
-ADD package.json /datafoundry-citic
-
-WORKDIR /datafoundry-citic
+WORKDIR /data/datafoundry
 
 # Install nginx & node
 # Install Bower
@@ -17,12 +11,13 @@ WORKDIR /datafoundry-citic
 # Set bower root allow
 
 #sed -i s#dl-cdn.alpinelinux.org#mirrors.aliyun.com/alpine#g /etc/apk/repositories && \
-#sed -i 's/http\:\/\/dl-cdn.alpinelinux.org/https\:\/\/alpine.global.ssl.fastly.net/g' /etc/apk/repositories && \
+#ed -i 's/http\:\/\/dl-cdn.alpinelinux.org/https\:\/\/alpine.global.ssl.fastly.net/g' /etc/apk/repositories && \
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk add --update nodejs git && \
+    apk add --update nginx nodejs git && \
     npm install -g bower && \
     echo '{ "allow_root": true }' > /root/.bowerrc && \
     git config --global url."https://".insteadOf git:// && \
+    cp nginx.conf /etc/nginx/nginx.conf && \
     npm install && \
     bower install && \
     ./release.sh && \
@@ -32,5 +27,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 EXPOSE 80 
 
-
-ENTRYPOINT ["/usr/local/bin/start.sh"]
+#ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["./start.sh"]
