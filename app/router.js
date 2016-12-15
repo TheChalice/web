@@ -166,6 +166,7 @@ define([
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
                                 //console.log('user', user);
                                 $rootScope.user = user;
+                                //console.log('$rootScope.user', user);
                                 $rootScope.namespace = user.metadata.name;
                                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
                                 $rootScope.region = 'cn-north-1';
