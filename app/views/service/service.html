@@ -1,4 +1,4 @@
-<div id="service">
+<div id="service" style="background:#fff;padding:20px 40px 40px;">
 
     <div class="loader" ng-if="!items">
         <div class="loader-inner ball-clip-rotate-multiple">
@@ -70,7 +70,7 @@
 
                 </tr>
             </table>
-            <div class="text-right" ng-if="grid.total > 10">
+            <div class="text-center" style="text-align:center;" ng-if="grid.total > 10">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"
                                 total-items="grid.total"

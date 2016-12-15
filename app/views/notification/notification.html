@@ -1,4 +1,4 @@
-<div id="user">
+<div id="user" style="background:#fff;padding:20px 40px 40px;">
     <div class="loader" ng-show="!sitenotify">
         <div class="loader-inner ball-clip-rotate-multiple">
             <div></div>
@@ -58,19 +58,18 @@
                                 </ul>
                             </div>
 
-                            <div class="text-right" ng-if="grid.total > 10">
+                            <div class="text-center" ng-if="grid.total > 10">
                                 <uib-pagination class="pagination"
                                                 ng-model="grid.page"
                                                 total-items="grid.total"
                                                 items-per-page="grid.size"
                                                 class="pagination-sm"
-                                                boundary-links="true"
+                                                boundary-links="false"
                                                 max-size="12"
                                                 rotate="true"
-                                                previous-text="上一页"
-                                                next-text="下一页"
-                                                first-text="首页"
-                                                last-text="末页">
+                                                previous-text="<"
+                                                next-text=">"
+                                                >
                                 </uib-pagination>
                             </div>
                         </section>
@@ -126,19 +125,18 @@
                                 </ul>
                             </div>
 
-                            <div class="text-right" ng-if="grid.total > 10">
+                            <div class="text-center" ng-if="grid.total > 10">
                                 <uib-pagination class="pagination"
                                                 ng-model="grid.page"
                                                 total-items="grid.total"
                                                 items-per-page="grid.size"
                                                 class="pagination-sm"
-                                                boundary-links="true"
+                                                boundary-links="false"
                                                 max-size="12"
                                                 rotate="true"
-                                                previous-text="上一页"
-                                                next-text="下一页"
-                                                first-text="首页"
-                                                last-text="末页">
+                                                previous-text="<"
+                                                next-text=">"
+                                            >
                                 </uib-pagination>
                             </div>
                         </section>
@@ -196,19 +194,18 @@
                                 </ul>
                             </div>
 
-                            <div class="text-right" ng-if="grid.total > 10">
+                            <div class="text-center" ng-if="grid.total > 10">
                                 <uib-pagination class="pagination"
                                                 ng-model="grid.page"
                                                 total-items="grid.total"
                                                 items-per-page="grid.size"
                                                 class="pagination-sm"
-                                                boundary-links="true"
+                                                boundary-links="false"
                                                 max-size="12"
                                                 rotate="true"
-                                                previous-text="上一页"
-                                                next-text="下一页"
-                                                first-text="首页"
-                                                last-text="末页">
+                                                previous-text="<"
+                                                next-text=">"
+                                        >
                                 </uib-pagination>
                             </div>
                         </section>

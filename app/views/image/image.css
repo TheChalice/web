@@ -106,3 +106,20 @@
 .tab-image-jia-defautl .thumbnail .thumb-content{background:#f7f7f7;}
 .tab-image-jia-defautl .thumbnail{border:1px solid #e6e6e6;}
 .tab-image-jia-defautl .thumbnail .caption{border-top:1px solid #e6e6e6;}
+
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;padding:6px 12px;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
+}

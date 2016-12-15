@@ -20,7 +20,7 @@
 
     text-align: center;
     border:1px solid #eaebef;
-    border-radius: 2px;
+    border-radius: 30px;
     color: #333;
 }
 .inscard {
@@ -30,9 +30,11 @@
     padding-left: 10px;
 }
 .backing-service .sc .btn.active {
-    border-color: #f6a540;
-    font-weight: bold;
-    background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
+    border-color: #5b73eb;
+    background-color: #5b73eb;
+    /*font-weight: bold;*/
+    /*background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;*/
+    color:#fff;
 }
 .h2-border::after {
     content: '';
@@ -90,13 +92,32 @@
 .dh_detail_two{font-size:14px;,color:#5a6378;line-height:26px;text-align:justify;}
 .dh_more{width:98px;height:36px;line-height:36px;display:block;text-align:center;font-size:14px;color:#fff;margin-top:20px;
     -webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;margin:0 auto;}
-.dh_more:link,.dh_more:visited{background:#55c45f;color:#fff;}
-.dh_more:hover{background:#469450;color:#fff;}
+.dh_more:link,.dh_more:visited{color:#fff;}
+.dh_more:hover{background:#6b5ce9;color:#fff;}
 .dh_new_logo{width:230px;height:60px;margin-bottom:26px;}
 
 /*数据为空时状态*/
 .blank_block{margin-bottom:0;}
 .blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
 
+.tab-back-zn-default{
+    padding:20px 40px 40px;
+    background:#fff;
 
+}
+.tab-back-zn-default  .tab-content{
+
+    border:none;
+    background-color: #fff;
+}
+
+.tab-back-zn-default li.active .nav-link, .tab-back-zn-default li.active .nav-link:focus, .tab-back-zn-default li.active .nav-link:hover{
+    border:none;
+    border-bottom:2px solid #4960e6;
+    color:#333;
+
+}
+.tab-back-zn-default .nav-tabs{
+    background:#fff;
+}
 

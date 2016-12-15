@@ -84,14 +84,14 @@ a {
 }
 
 .btn-skyblue {
-    background-color: #57d1ea;
+    background-color: #5c72e9;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
     transition:all 1s;
 }
 
 .btn-skyblue:hover {
-    background-color: #418b9e;
+    background-color: #6b5ce9;
 }
 
 .btn-orange {
@@ -366,7 +366,7 @@ a {
     border: 1px solid #c9c9c9;
     border-bottom: none;
     border-radius: 2px 2px 0 0;
-    color: #e5993a;
+    color: #333;
 
 
 }
@@ -530,6 +530,8 @@ a {
 /*图标颜色*/
 .fa-orange {
     color: #f6a540;
+    /*中信项目 jiasx*/
+    color:#5c72e9;
 }
 /*loading效果 jiasx*/
 .fa-green {
@@ -604,6 +606,8 @@ a {
     height: 8px;
     border-radius: 4px;
     background: #f6a540;
+    /*中信项目 jiasx*/
+    background:#5c72e9;
 }
 
 .timeline ul {
@@ -772,6 +776,7 @@ a {
     background-image:url(../img/tg03.png);
     width: 60px;
     height: 60px;
+     background-size:contain;
 }
 
 .faa-image-mark {
@@ -1192,7 +1197,7 @@ a {
 
 /*green adding button*/
 .href-add {
-    color: #55c45f;
+    color: #4960e6;
     text-decoration: none;
 }
 
@@ -1217,20 +1222,20 @@ a {
 }
 
 .secret_detail .add a {
-    color: #55c45f;
+    color: #5c72e9;
 }
 
 .secret_detail .add a:hover {
-    color: #469450;
+    color: #6b5ce9;
 }
 
 .secret_detail.href-add {
-    color: #55c45f;
+    color: #5c72e9;
     text-decoration: none;
 }
 
 .secret_detail.href-add:hover {
-    color: #469450;
+    color: #6b5ce9;
 }
 
 @media (min-width: 768px) {
@@ -1409,7 +1414,7 @@ a {
     position: absolute;
     left: 50%;
     top: 50%;
-    border: 4px solid #f8b551;
+    border: 4px solid #5c72e9;
     border-bottom-color: transparent;
     border-top-color: transparent;
     border-radius: 100%;
@@ -1427,7 +1432,7 @@ a {
     height: 30px;
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
-    border-color: #f8b551 transparent #f8b551 transparent;
+    border-color: #5c72e9 transparent #5c72e9 transparent;
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
 }

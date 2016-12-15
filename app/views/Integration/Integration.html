@@ -6,7 +6,7 @@
         </div>
     </div>
 <div ng-show="repos">
-    <uib-tabset class="tab-default" active="check">
+    <uib-tabset class="tab-default tab-back-zn-default" active="check">
         <uib-tab index="1" style="width:auto;">
             <uib-tab-heading style="width:468px">
                 <i class="fa2 fa2-public"></i>&nbsp;&nbsp;公开数据集
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+                <div class="input-group col-sm-4  searchbar" style="margin-bottom: 10px;">
                     <input type="text"
                            class="form-control"
 
@@ -79,7 +79,7 @@
                                         <div ng-if="!item.image_url" class="imageholder" style="background-image:url('components/bscard/img/images01_03.png');">
                                             <p class='hui'>{{item.label}}</p>
                                         </div>
-                                        <div ng-if="item.image_url" class="imageholder" style="background-image:url('{{item.image_url}}');background-color: #EAEBEF;">
+                                        <div ng-if="item.image_url" class="imageholder" style="background-image:url('{{item.image_url}}');">
                                             <p class='hui'>{{item.label}}</p>
 
                                         </div>
@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="row" style='margin: 0;'>
-                <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+                <div class="input-group col-sm-4  searchbar" style="margin-bottom: 10px;margin-left:-18px">
                     <input type="text"
                            class="form-control"
 
@@ -150,7 +150,7 @@
                 <div class="row">
                     <div class="h2-border" ng-show="items.items.length" style="margin-bottom: 15px;">
                         <span class='biaoti'>{{items.class}}</span>
-                        <i class='xian'></i>
+                        <!--<i class='xian'></i>-->
                     </div>
                     <!--<h2 id=t{{items.id}} class="h2-border" ng-show="items.showTab"-->
                     <!--style="margin-bottom: 15px;">-->
@@ -180,7 +180,7 @@
                                         <div ng-if="item.image_url" class="imageholder" style="background-image:url('{{item.image_url}}');">
                                             <p class='hui inscard'style="">{{item.provider}}</p>
                                         </div>
-                                        <div ng-if="!item.image_url" class="imageholder" style="background-image:url('components/bscard/img/images01_03.png');background-color: #EAEBEF;">
+                                        <div ng-if="!item.image_url" class="imageholder" style="background-image:url('components/bscard/img/images01_03.png');">
                                             <p class='hui inscard'style="">{{item.provider}}</p>
 
                                         </div>

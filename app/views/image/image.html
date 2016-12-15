@@ -12,7 +12,7 @@
                     <i class="noticebg myimage"></i>&nbsp;&nbsp;构建镜像
                 </uib-tab-heading>
                 <div class="row image_jia_btn" style="margin-bottom: 30px;">
-                    <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+                    <div class="input-group col-sm-4 searchbar" style="margin-left:14px;">
                         <input type="text" class="form-control" ng-model="txt"
                                ng-focus="showTip=true;" placeholder="搜索镜像" ng-keyup="search('all', txt)">
                     <span class="input-group-btn">
@@ -29,20 +29,19 @@
                          ng-if="testlist.length===0"><p class="blank_block"><img src="pub/img/df_cion.png"><span class="blank_tit"> {{text1}}</span></p></div>
 
                 </div>
-                <div class="text-right" style="text-align:center;" ng-if="grid.total > 8">
+                <div class="text-center" style="text-align:center;" ng-if="grid.total > 8">
                     <uib-pagination
                             ng-model="grid.page"
                             ng-show='fyshow'
                             total-items="grid.total"
                             items-per-page="grid.size"
                             class="pagination-sm"
-                            boundary-links="true"
+                            boundary-links="false"
                             max-size="12"
                             rotate="true"
-                            previous-text="上一页"
-                            next-text="下一页"
-                            first-text="首页"
-                            last-text="末页">
+                            previous-text="<"
+                            next-text=">"
+                            >
                     </uib-pagination>
                 </div>
             </uib-tab>
@@ -52,7 +51,7 @@
                 </uib-tab-heading>
                 <div>
                     <div class="row image_jia_btn" style="margin-bottom: 30px;">
-                        <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+                        <div class="input-group col-sm-4 searchbar" style="margin-left:14px;">
                             <input type="text" class="form-control" ng-model="txxt" ng-focus="showTip=true;"
                                    placeholder="搜索镜像" ng-keydown="searchreg('all', txxt,$event)">
                     <span class="input-group-btn">
@@ -95,7 +94,7 @@
                         <div style="text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;" ng-if="repertorys.length===0"><p class="blank_block"><img src="pub/img/df_cion.png"><span class="blank_tit"> {{text2}}</span></p></div>
 
                     </div>
-                    <div class="text-right" style="text-align:center;" ng-if="grid.repertorystotal > 8">
+                    <div class="text-center" style="text-align:center;" ng-if="grid.repertorystotal > 8">
                         <uib-pagination
                                 ng-model="grid.repertoryspage"
                                 total-items="grid.repertorystotal"
@@ -195,7 +194,7 @@
                     </div>
                 </div>
                 <div style="text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;" ng-if="imagecenter.length===0"><p class="blank_block"><img src="pub/img/df_cion.png"><span class="blank_tit"> {{text3}}</span></p></div>
-                <div class="text-right" style="text-align:center;" ng-if="grid.imagecentertotal > 8">
+                <div class="text-center" style="text-align:center;" ng-if="grid.imagecentertotal > 8">
                     <uib-pagination
                             ng-model="grid.imagecenterpage"
                             total-items="grid.imagecentertotal"
@@ -229,7 +228,7 @@
                         <c-card></c-card>
                     </div>
                 </div>
-                <div class="text-right" style="text-align:center;" ng-if="grid.total > 10">
+                <div class="text-center" style="text-align:center;" ng-if="grid.total > 10">
                     <uib-pagination
                             ng-model="grid.page"
                             ng-show='fyshow'
