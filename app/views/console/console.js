@@ -113,7 +113,7 @@ angular.module('console', [
             //    }
             //})
 
-            $rootScope.user = user;
+            //$rootScope.user = user;
 
 
             //$scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
