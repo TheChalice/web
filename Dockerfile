@@ -3,11 +3,7 @@ FROM openresty/openresty
 MAINTAINER Zonesan <chaizs@asiainfo.com>
 
 ADD usr /
-ADD app /datafoundry-citic
-ADD conf /datafoundry-citic
-ADD release.sh /datafoundry-citic
-ADD bower.json /datafoundry-citic
-ADD package.json /datafoundry-citic
+ADD app conf release.sh bower.json package.json /datafoundry-citic/
 
 WORKDIR /datafoundry-citic
 
