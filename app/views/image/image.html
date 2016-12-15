@@ -45,53 +45,55 @@
                     </uib-pagination>
                 </div>
             </uib-tab>
-            <uib-tab index="2">
-                <uib-tab-heading>
-                    <i class="noticebg registimage"></i>&nbsp;&nbsp;私有镜像
-                </uib-tab-heading>
-                <div>
-                    <div class="row image_jia_btn" style="margin-bottom: 30px;">
-                        <div class="input-group col-sm-4 searchbar" style="margin-left:14px;">
-                            <input type="text" class="form-control" ng-model="txxt" ng-focus="showTip=true;"
-                                   placeholder="搜索镜像" ng-keydown="searchreg('all', txxt,$event)">
-                    <span class="input-group-btn">
-                        <a class="btn" ng-click="searchreg('all', txxt)"></a>
-                    </span>
-                        </div>
-                    </div>
-                    <div class="row image_jia_btn">
-                        <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in repertorys">
-                            <div class="thumbnail">
-                                <div class="thumb-content">
-                                    <div class="thumb-slide">
-                                        <div class="thumb-op">
-                                            <p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{item.lasttag.Created | dateRelative}}</p>
-                                            <p><i class="fa fa-flag-o"></i>&nbsp;&nbsp;<!--{{gitStore[item.spec.output.to.name]["ref"]}} - -->
-                                                {{item.lasttag.Parent | limitTo: 7}}</p>
-                                            <p class="thumb-btn">
-                                                <a class="btn btn-green"
-                                                   ng-if='item.canbuid'
-                                                   href="javascript:;"
-                                                   ui-sref="console.service_create({image:item.name+':latest'+':registryjump'})">部署最新版本</a>
-                                                <a class="btn btn-gray"
-                                                   ng-if='!item.canbuid'
-                                                   href="javascript:;"
-                                                   disabled='ture'>暂无最新版本</a>
+            <!--<uib-tab index="2">-->
+                <!--<uib-tab-heading>-->
+                    <!--<i class="noticebg registimage"></i>&nbsp;&nbsp;私有镜像-->
+                <!--</uib-tab-heading>-->
+                <!--<div>-->
+                    <!--<div class="row image_jia_btn" style="margin-bottom: 30px;">-->
+                        <!--<div class="input-group col-sm-4 col-sm-offset-8 searchbar">-->
+                            <!--<input type="text" class="form-control" ng-model="txxt" ng-focus="showTip=true;"-->
+                                   <!--placeholder="搜索镜像" ng-keydown="searchreg('all', txxt,$event)">-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<a class="btn" ng-click="searchreg('all', txxt)"></a>-->
+                    <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row image_jia_btn">-->
+                        <!--<div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in repertorys">-->
+                            <!--<div class="thumbnail">-->
+                                <!--<div class="thumb-content">-->
+                                    <!--<div class="thumb-slide">-->
+                                        <!--<div class="thumb-op">-->
+                                            <!--<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{item.lasttag.Created | dateRelative}}</p>-->
+                                            <!--<p><i class="fa fa-flag-o"></i>&nbsp;&nbsp;&lt;!&ndash;{{gitStore[item.spec.output.to.name]["ref"]}} - &ndash;&gt;-->
+                                                <!--{{item.lasttag.Parent | limitTo: 7}}</p>-->
+                                            <!--<p class="thumb-btn">-->
+                                                <!--<a class="btn btn-green"-->
+                                                   <!--ng-if='item.canbuid'-->
+                                                   <!--href="javascript:;"-->
+                                                   <!--ui-sref="console.service_create({image:item.name+':latest'+':registryjump'})">部署最新版本</a>-->
+                                                <!--<a class="btn btn-gray"-->
+                                                   <!--ng-if='!item.canbuid'-->
+                                                   <!--href="javascript:;"-->
+                                                   <!--disabled='ture'>暂无最新版本</a>-->
 
-                                            </p>
-                                        </div>
-                                        <img src="components/card/img/image.png" alt="image">
-                                    </div>
-                                </div>
-                                <div class="caption">
-                                    <a class="href-orange" style='white-space:nowrap;overflow: hidden;text-overflow: ellipsis' ui-sref="console.image_regstry({name:item.name,bc:item.name})">{{item.name}}</a>
-                                </div>
 
-                            </div>
-                            <!--<c-card></c-card>-->
-                        </div>
+                                            <!--</p>-->
+                                        <!--</div>-->
+                                        <!--<img src="components/card/img/image.png" alt="image">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="caption">-->
+                                    <!--<a class="href-orange" style='white-space:nowrap;overflow: hidden;text-overflow: ellipsis' ui-sref="console.image_regstry({name:item.name,bc:item.name})">{{item.name}}</a>-->
+                                <!--</div>-->
 
-                        <div style="text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;" ng-if="repertorys.length===0"><p class="blank_block"><img src="pub/img/df_cion.png"><span class="blank_tit"> {{text2}}</span></p></div>
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<c-card></c-card>&ndash;&gt;-->
+                        <!--</div>-->
+
+                        <!--<div style="text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;" ng-if="repertorys.length===0"><p class="blank_block"><img src="pub/img/df_cion.png"><span class="blank_tit"> {{text2}}</span></p></div>-->
+
 
                     </div>
                     <div class="text-center" style="text-align:center;" ng-if="grid.repertorystotal > 8">
@@ -151,20 +153,80 @@
                     <!--</a>-->
                     <!--</li>-->
                     <!--</ul>-->
+
                     <!--</div>-->
+                    <!--<div class="text-right" ng-if="grid.repertorystotal > 8">-->
+                        <!--<uib-pagination-->
+                                <!--ng-model="grid.repertoryspage"-->
+                                <!--total-items="grid.repertorystotal"-->
+                                <!--items-per-page="grid.size"-->
+                                <!--class="pagination-sm"-->
+                                <!--boundary-links="true"-->
+                                <!--boundary-link-numbers="true"-->
+                                <!--max-size="3"-->
+                                <!--force-ellipses="'3'"-->
+                                <!--rotate="true"-->
+                                <!--previous-text="上一页"-->
+                                <!--next-text="下一页"-->
+                                <!--first-text="首页"-->
+                                <!--last-text="末页">-->
+                        <!--</uib-pagination>-->
                     <!--</div>-->
+                    <!--&lt;!&ndash;列表样式&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="panel-group" role="tablist" aria-multiselectable="true" style="margin-bottom: 0;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="panel panel-default" style='margin-bottom: 30px;box-shadow: none; border-radius: 2px;'&ndash;&gt;-->
+                    <!--&lt;!&ndash;ng-repeat="bsisv in newtext" ng-show='bsisv.items'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div href="#{{bsisv.name}}" data-toggle="collapse" class="panel-heading"&ndash;&gt;-->
+                    <!--&lt;!&ndash;style='background:#f7f8fb;padding: 14px 30px 15px 23px;' role="tab" aria-expanded='true'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<h4 class="panel-title">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a href="#{{bsisv.name}}" data-toggle="collapse"&ndash;&gt;-->
+                    <!--&lt;!&ndash;class="accordion-toggle" aria-expanded='true'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="fa pull-right icon25 icon25-collapse"&ndash;&gt;-->
+                    <!--&lt;!&ndash;style="color: #5a6378; margin-top: -4px" uib-tooltip="查看"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="label label-default"&ndash;&gt;-->
+                    <!--&lt;!&ndash;style='font-size: 14px;background:#f7f8fb; color: #5a6378;'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a href="#{{bsisv.name}}" data-toggle="collapse"&ndash;&gt;-->
+                    <!--&lt;!&ndash;class="accordion-toggle"&ndash;&gt;-->
+                    <!--&lt;!&ndash;style='font-size: 14px; color: #5a6378;'>{{bsisv.name}}</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span uib-tooltip="{{bsisv.creation_time | timescon}}"&ndash;&gt;-->
+                    <!--&lt;!&ndash;style='position: absolute;font-weight: 400; margin-top: 4px; left: 50%; text-align: center; font-size: 12px; color: #5a6378;'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;创建时间:&nbsp;{{bsisv.creation_time | dateRelative}}&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</h4>&ndash;&gt;-->
+
                     <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="row">-->
-                    <!--<div class="col-sm-3 col-xs-6" ng-repeat="item in [1]">-->
-                    <!--<c-card item="item" gitStore="gitStore"></c-card>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                </div>
-            </uib-tab>
+                    <!--&lt;!&ndash;<div id="{{bsisv.name}}" class="panel-collapse"&ndash;&gt;-->
+                    <!--&lt;!&ndash;ng-class="{'collapse':opened}"&ndash;&gt;-->
+                    <!--&lt;!&ndash;role="tabpanel" aria-expanded='true'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="panel-body" style='padding-top: 20px;'>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12" ng-repeat="item in bsisv.items">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<c-card item="item" gitStore="gitStore"></c-card>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;<ul class="list-group col-xs-12" style='margin: 0;box-shadow:none;padding-left: 30px; padding-right: 30px;' ng-repeat="item in bsisv.items">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li class="list-group-item">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="href-orange"&ndash;&gt;-->
+                    <!--&lt;!&ndash;ui-sref="console.image_detail({name:item, bc:item})">&ndash;&gt;-->
+                    <!--&lt;!&ndash;{{item}}&ndash;&gt;-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="col-sm-3 col-xs-6" ng-repeat="item in [1]">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<c-card item="item" gitStore="gitStore"></c-card>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</uib-tab>-->
             <uib-tab index="3">
                 <uib-tab-heading>
                     <i class="noticebg imagecenter"></i>&nbsp;&nbsp;公共镜像

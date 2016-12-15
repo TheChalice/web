@@ -18,21 +18,17 @@ angular.module('console', [
             if (region) {
                 $rootScope.region = region;
             } else {
-                regions.query({}, function (data) {
-                    //console.log('regions', data);
-                    //$scope.regions = data;
-                    $rootScope.region = data[0].identification;
-                    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
-                })
+                $rootScope.region = 'cn-north-1';
+                Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
             }
             if (namespace) {
                 $rootScope.namespace = namespace;
             } else {
                 $rootScope.namespace = user.metadata.name;
-                Cookie.set('namespace', name, 10 * 365 * 24 * 3600 * 1000);
+                Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
-
+            console.log('$rootScope.user',$rootScope.user.metadata.name);
             var loadProject = function () {
                 //$log.info("load project");
                 Project.get({region: $rootScope.region}, function (data) {
@@ -40,7 +36,7 @@ angular.module('console', [
                     //console.log('Project', Project);
                     //var newprojects = [];
                     angular.forEach(data.items, function (item, i) {
-                        //console.log($rootScope.user.metadata.name);
+                        console.log($rootScope.user.metadata.name);
                         if (item.metadata.name === $rootScope.user.metadata.name) {
                             //console.log($rootScope.user.metadata.name);
                             data.items.splice(i, 1);
@@ -52,6 +48,7 @@ angular.module('console', [
                     data.items.sort(function (x, y) {
                         return x.sortname > y.sortname ? 1 : -1;
                     });
+
                     angular.forEach(data.items, function (project, i) {
                         if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
                             //console.log(project.metadata.annotations['openshift.io/display-name']);
@@ -116,7 +113,7 @@ angular.module('console', [
             //    }
             //})
 
-            $rootScope.user = user;
+            //$rootScope.user = user;
 
 
             //$scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {

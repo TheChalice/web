@@ -535,63 +535,63 @@ angular.module('console.image', [
 
 
             // 请求仓库镜像
-            if ($rootScope.namespace.indexOf('org') == -1) {
-                $http.get('/registry/api/projects', {
-                    timeout: end.promise,
-                    params: {is_public: 0}
-                }).success(function (data) {
-                    $scope.newtext = data;
-
-                    //console.log('regstr',data);
-
-                    $scope.arr = [];
-                    $scope.repertorys = []
-                    $scope.repertoryspoj = []
-                    $scope.tipnum = 0
-                    //for (var i = 0; i < data.length; i++) {
-                    //  data[i].mysort = data[i].creation_time;
-                    //  data[i].mysort = (new Date(data[i].mysort)).getTime()
-                    //}
-                    ////时间冒泡排序写法
-                    //data.sort(function (x, y) {
-                    //  return x.mysort > y.mysort ? -1 : 1;
-                    //});
-                    if (data) {
-                        angular.forEach(data, function (repertory, i) {
-                            $http.get('/registry/api/repositories', {
-                                    timeout: end.promise,
-                                    params: {project_id: repertory.project_id}
-                                })
-                                .success(function (images) {
-                                    //$scope.tipnum += images.length
-                                    $scope.arr.push(images);
-                                    if ($scope.arr.length == data.length) {
-                                        //console.log('regstr',$scope.arr);
-                                        angular.forEach($scope.arr, function (items, k) {
-                                            angular.forEach(items, function (item, j) {
-                                                $scope.repertoryspoj.push(item);
-                                            })
-                                        })
-                                        //console.log('regstr', $scope.repertoryspoj);
-                                        $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
-                                        $scope.grid.repertorystotal = $scope.repertoryspoj.length;
-                                        repertorysrefresh(1)
-
-                                    }
-
-                                })
-                        })
-
-
-                    }
-
-
-                }).error(function (data) {
-                    // $log.info('error',data)
-                    //$rootScope.user = null;
-                    // console.log('error', $rootScope)
-                });
-            }
+            //if ($rootScope.namespace.indexOf('org') == -1) {
+            //    $http.get('/registry/api/projects', {
+            //        timeout: end.promise,
+            //        params: {is_public: 0}
+            //    }).success(function (data) {
+            //        $scope.newtext = data;
+            //
+            //        //console.log('regstr',data);
+            //
+            //        $scope.arr = [];
+            //        $scope.repertorys = []
+            //        $scope.repertoryspoj = []
+            //        $scope.tipnum = 0
+            //        //for (var i = 0; i < data.length; i++) {
+            //        //  data[i].mysort = data[i].creation_time;
+            //        //  data[i].mysort = (new Date(data[i].mysort)).getTime()
+            //        //}
+            //        ////时间冒泡排序写法
+            //        //data.sort(function (x, y) {
+            //        //  return x.mysort > y.mysort ? -1 : 1;
+            //        //});
+            //        if (data) {
+            //            angular.forEach(data, function (repertory, i) {
+            //                $http.get('/registry/api/repositories', {
+            //                        timeout: end.promise,
+            //                        params: {project_id: repertory.project_id}
+            //                    })
+            //                    .success(function (images) {
+            //                        //$scope.tipnum += images.length
+            //                        $scope.arr.push(images);
+            //                        if ($scope.arr.length == data.length) {
+            //                            //console.log('regstr',$scope.arr);
+            //                            angular.forEach($scope.arr, function (items, k) {
+            //                                angular.forEach(items, function (item, j) {
+            //                                    $scope.repertoryspoj.push(item);
+            //                                })
+            //                            })
+            //                            //console.log('regstr', $scope.repertoryspoj);
+            //                            $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
+            //                            $scope.grid.repertorystotal = $scope.repertoryspoj.length;
+            //                            repertorysrefresh(1)
+            //
+            //                        }
+            //
+            //                    })
+            //            })
+            //
+            //
+            //        }
+            //
+            //
+            //    }).error(function (data) {
+            //        // $log.info('error',data)
+            //        //$rootScope.user = null;
+            //        // console.log('error', $rootScope)
+            //    });
+            //}
             //镜像中心
             $scope.serviceper = [{name: 'DataFoundry', class: 'df'}, {name: 'DockerHub', class: 'doc'}]
 

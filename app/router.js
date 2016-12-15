@@ -9,7 +9,8 @@ define([
     return angular.module('myApp.router', ['ui.router', 'oc.lazyLoad'])
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise("/home/index");
+            //$urlRouterProvider.otherwise("/home/index");
+            $urlRouterProvider.otherwise("/console/dashboard");
             $stateProvider
                 //home
                 .state('home', {
@@ -144,32 +145,42 @@ define([
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
                             return $ocLazyLoad.load('views/console/console.js')
                         }],
-                        user: ['regions', 'Cookie', '$rootScope', 'User', function (regions, Cookie, $rootScope, User) {
+                        user: ['creatproject','regions', 'Cookie', '$rootScope', 'User', function (creatproject,regions, Cookie, $rootScope, User) {
                             if ($rootScope.user) {
                                 return $rootScope.user;
                             }
                             //$rootScope.region=
-                            var region = Cookie.get('region');
-                            if (!region) {
-                                regions.query({}, function (data) {
-                                    //console.log('regions', data);
-                                    //$scope.regions = data;
-                                    $rootScope.region = data[0].identification;
-                                    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
-                                    return User.get({name: '~', region: Cookie.get('region')}).$promise;
-                                })
-                            } else {
+                            //var region = Cookie.get('region');
+                            //if (!region) {
+                            //    //regions.query({}, function (data) {
+                            //    //    //console.log('regions', data);
+                            //    //    //$scope.regions = data;
+                            //    //    $rootScope.region = data[0].identification;
+                            //    //    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
+                            //    //    return User.get({name: '~', region: Cookie.get('region')}).$promise;
+                            //    //})
+                            //} else {
+                            //
+                            //}
 
-                            }
-                            console.log('region', region);
-                            return User.get({name: '~', region: Cookie.get('region')}).$promise;
+                            User.get({name: '~', region: Cookie.get('region')}, function (user) {
+                                //console.log('user', user);
+                                $rootScope.user = user;
+                                //console.log('$rootScope.user', user);
+                                $rootScope.namespace = user.metadata.name;
+                                Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                                $rootScope.region = 'cn-north-1';
+                                Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
+                                if (user.metadata&&user.metadata.name) {
+                                    return creatproject.create({'metadata':{
+                                        name:user.metadata.name
+                                    }}).$promise
+                                }
+
+                            })
+                            //return User.get({name: '~', region: Cookie.get('region')}).$promise;
                         }]
-                        //account: ['$rootScope', 'account', function ($rootScope, account) {
-                        //  if ($rootScope.account) {
-                        //    return $rootScope.account;
-                        //  }
-                        //  return account.get().$promise;
-                        //}]
+
                     },
                     abstract: true
 
@@ -204,7 +215,7 @@ define([
                     }
                 })
                 .state('console.dashboard', {
-                    url: '/dashboard/:useorg',
+                    url: '/dashboard',
                     templateUrl: 'views/dashboard/dashboard.html',
                     controller: 'dashboardCtrl',
                     params: {},
