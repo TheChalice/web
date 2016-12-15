@@ -99,6 +99,7 @@ angular.module("console.header", [
 
                         })
                     })
+
                     $scope.$watch('curregion', function (n, o) {
                         if (n === o) {
                             return
@@ -248,6 +249,7 @@ angular.module("console.header", [
                             //跳转购买套餐
                         }
                     })
+
                     $scope.createOrg = function () {
                         Addmodal.open('创建组织', '组织名称', '', '', 'org').then(function (res) {
                             //orgList.get({}, function (org) {
@@ -388,6 +390,7 @@ angular.module("console.header", [
                     //})
                     //console.log('$rootScope',$rootScope);
                     $rootScope.huancun = {}
+
                     $scope.logout = function () {
                         Cookie.clear('df_access_token');
                         Cookie.clear('namespace');

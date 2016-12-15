@@ -501,6 +501,7 @@ define(['angular'], function (angular) {
                 }).result;
             };
         }])
+
         .service('Alert', ['$uibModal', function ($uibModal) {
             this.open = function (title, txt, err, regist, active) {
                 return $uibModal.open({
