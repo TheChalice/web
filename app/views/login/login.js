@@ -4,13 +4,13 @@ angular.module('home.login', [])
         function (regions, ModalRegist, $interval, $state, $rootScope, AuthService, $scope, $log, $stateParams) {
             //console.log("+_+_+_+_+_+_+_+", $stateParams);
             $rootScope.credentials={};
-            regions.query({}, function (data) {
-                //console.log('regions', data);
-                $scope.regionlist = data;
-                $scope.copyregionlist=angular.copy(data);
-                $rootScope.credentials.region=data[0].identification;
-                $scope.curregion=data[0].region_describe
-            })
+            //regions.query({}, function (data) {
+            //    //console.log('regions', data);
+            //    $scope.regionlist = data;
+            //    $scope.copyregionlist=angular.copy(data);
+            //    $rootScope.credentials.region=data[0].identification;
+            //    $scope.curregion=data[0].region_describe
+            //})
             $('.loginname').focus();
             //$rootScope.credentials = {
             //    region:'cn-north-1'
