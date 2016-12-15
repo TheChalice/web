@@ -1,4 +1,4 @@
-<div class="backing-service">
+<div class="backing-service back-jia-service" style="background:#fff;padding:20px 40px 40px;">
     <div class="loader" ng-show="!market">
         <div class="loader-inner ball-clip-rotate-multiple">
             <div></div>
@@ -6,12 +6,12 @@
         </div>
     </div>
     <div ng-show="market">
-        <uib-tabset class="tab-default" active="check">
+        <uib-tabset class="tab-default tab-back-jia-default" active="check">
             <uib-tab index="1" style="width:auto;">
                 <uib-tab-heading style="width:468px">
                     <i class="fa2 fa2-bs"></i>&nbsp;&nbsp;后端服务市场
                 </uib-tab-heading>
-                <div class="tabs row" style='padding-left: 12px;position: relative;'>
+                <div class="tabs" style='padding-left:30px;position: relative;'>
                     <div class='col-mb-1' style='margin-right: 20px;'>
                         <label>服务分类</label>
                     </div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+                    <div class="input-group col-sm-4 searchbar" style="float:left;margin-top:28px;margin-bottom:32px;margin-left:46px;">
                         <input type="text"
                                class="form-control"
                                placeholder="搜索后端服务名称"
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class='change' ng-repeat='items in market'>
+                <div class='change' ng-repeat='items in market' style="margin-left:46px;margin-right:46px;">
                     <div class="row">
                         <div class="h2-border" ng-show="items.item.length"
                              style="margin-bottom: 15px;">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="row" style='margin: 0;'>
-                    <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+                    <div class="input-group col-sm-4 searchbar" style="margin-bottom:20px;">
                         <input type="text"
                                class="form-control"
                                placeholder="搜索后端服务名称"
@@ -210,6 +210,7 @@
         /*margin-bottom: 5px;*/
         position: absolute;
         top: 50%;
+        display:none;
     }
 
     .h2-border .biaoti {
@@ -239,6 +240,11 @@
 
     .fw:last-child .btn {
         /*width: 85px;*/
+    }
+    .back-jia-service .tab-content{border:none;}
+    .tab-back-jia-default .tab-content{border:0;padding:30px 0;}
+    .tab-back-jia-default li.active .nav-link, .tab-back-jia-default li.active .nav-link:focus, .tab-back-jia-default li.active .nav-link:hover{
+        border:0;border-bottom:2px solid #5c72e9;color:#333;
     }
 
     /*#t0:after {*/

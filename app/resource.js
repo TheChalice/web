@@ -715,7 +715,7 @@ define([
             })
             return saas;
         }])
-
+        
         .factory('account', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//登陆检测套餐
             var account = $resource(GLOBAL.host_payment+'/account?size=100', {}, {});
             return account;

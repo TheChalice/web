@@ -1,19 +1,19 @@
-<div class="plan">
+<div class="plan plan_jia">
     <div class="panel panel-default panel-xxx" ng-repeat="item in data.spec.plans" ng-class="{'active': grid.checked == $index}"  ng-click="grid.checked = $index">
         <div class="panel-heading">
             <span class="panel-title">{{item.name}}</span>
             <!--<button ng-if="!grid.update" class="btn btn-orange pull-right" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">申请实例</button>-->
-            <button ng-if="data.biancheng" class="btn btn-orange pull-right" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">申请实例</button>
-            <button ng-if="data.bianhui" class="btn btn-disabled pull-right" style='cursor:default;'>申请实例</button>
+            <button ng-if="data.biancheng" class="btn btn-orange pull-right btn-orange-radius" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">申请实例</button>
+            <button ng-if="data.bianhui" class="btn btn-disabled pull-right btn-orange-radius" style='cursor:default;'>申请实例</button>
 
             <!--<button ng-if="grid.update" class="btn btn-orange pull-right" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">马上升级</button>-->
         </div>
-        <div class="panel-body">
+        <div class="panel-body panel-jia-body">
             <table class=""
                    style="border:0 none;padding:0px;margin:0px;width:100%;"
                    border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td class="col-md-5" style="border-right: 1px solid #c9c9c9;" valign="top">
+                <td class="col-md-4" style="border-right: 1px solid #e6e6e6;" valign="top">
                     <label>
                         <i class="faa faa-price">
                         </i>&nbsp;&nbsp;价格</label>
@@ -25,13 +25,13 @@
                             </i>
                     </p>
                 </td>
-                <td class="col-md-3" style="border-right: 1px solid #c9c9c9;" valign="top">
+                <td class="col-md-4" style="border-right: 1px solid #e6e6e6;padding-left:30px;" valign="top">
                     <label><i class="faa faa-content"></i>&nbsp;&nbsp;内容</label>
                     <p ng-repeat="bl in item.metadata.bullets">
                            {{bl}}
                     </p>
                 </td>
-                <td class="col-md-4" valign="top">
+                <td class="col-md-4" valign="top" style="padding-left:30px;">
                     <label><i class="faa faa-description"></i>&nbsp;&nbsp;描述</label>
                     <p>{{item.description}}</p>
                 </td>
@@ -44,5 +44,11 @@
     .btn.active, .btn:active {
         box-shadow: inset 0 0px 0px rgba(0,0,0,.125);
     }
+    /*中信项目 20161214 jia */
+    .panel-jia-body label{font-size:14px;color:#666;font-weight:normal;}
+    .panel-jia-body p{font-size:14px;color:#666;margin-bottom:3px;}
+    .plan_jia .panel-heading{ background:#fff;border-bottom:1px solid #e6e6e6;}
+    .plan_jia .panel-heading .panel-title{color:#666;font-weight: normal;}
+
 
 </style>

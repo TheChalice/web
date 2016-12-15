@@ -300,3 +300,21 @@ article .peie {
 .user_search{padding:4px 16px;background:#0E5186;display:inline-block;margin-left:10px;color:#fff;font-size:12px;cursor:pointer;}
 .user_search:hover{ background:#0B9EFB;}
 .user_list{padding-left:0px;padding-right:0;margin-top:10px;}
+
+
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;padding:6px 12px;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
+}
