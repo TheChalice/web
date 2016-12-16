@@ -1,5 +1,55 @@
 <div id="sidebar">
     <ul class="nav nav-pills nav-stacked nav-jia-pills">
+        <li class="side_pass">
+            <a href="javascript:void(0);">
+                <!--<i class="fa fa-caret-left"></i>-->
+                <!--<span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;-->
+                大数据PaaS平台
+            </a>
+        </li>
+        <li class="side_change">
+
+                <div class="sidebar_jia_per">
+                    <div uib-dropdown on-toggle="toggled(open)">
+
+                        <a href="javascript:;" id="user-menu" class="sidebar_jia_block" uib-dropdown-toggle>
+                            <span class="sidebar_current" style="display:inline-block;">当前项目：</span>
+                            <span class="header_jia_per_tit" title="{{projectname}}">{{projectname}}</span>
+                            <b class="h_caret sidebar_h_caret"></b>
+                        </a>
+                        <ul class="projectname" uib-dropdown-menu
+                            aria-labelledby="user-menu" style="max-height: 338px;border-top:0;border-right:0;overflow:auto;min-height:156px;top:0px;left:187px;z-index:9999;background: #f7fafc;border-radius:0;">
+                            <!--personal account-->
+                            <li ng-if="projects" class='personal'>
+                                <a href="javascript:;" ng-click='gotomy()' ui-sref='console.user'>
+                                    <span>查看[ 个人账户 ]</span>
+                                </a>
+                            </li>
+
+
+                            <li ng-repeat="project in projects">
+                                <a href="javascript:;"
+                                   ng-click="setNamespace(project.metadata.name)">
+                        <span class="df_set_name" title="{{project.metadata.annotations['openshift.io/display-name'] || project.metadata.name}}">
+                            切换项目 [ {{project.metadata.annotations['openshift.io/display-name'] || project.metadata.name}} ]
+                        </span>
+                                </a>
+                            </li>
+                            <li>
+
+                                <a href="javascript:;" ng-click="createOrg()">创建组织</a>
+                            </li>
+                            <!--<li style="border-bottom: none;">-->
+                                <!--<a href="javascript:;" ng-click="logout()">退出登录</a>-->
+                            <!--</li>-->
+                        </ul>
+
+                    </div>
+                </div>
+
+
+        </li>
+
         <li ui-sref-active="active">
             <a ui-sref="console.dashboard">
                 <!--<i class="fa fa-caret-left"></i>-->

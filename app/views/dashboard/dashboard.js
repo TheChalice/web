@@ -4,8 +4,8 @@ angular.module('console.dashboard', [
             files: []
         }
     ])
-    .controller('dashboardCtrl', ['Project', 'recharge', 'balance', '$http', '$log', '$rootScope', '$scope', 'Metrics', 'MetricsService', 'Pod', 'DeploymentConfig', 'BackingServiceInstance', 'account', 'market',
-        function (Project, recharge, balance, $http, $log, $rootScope, $scope, Metrics, MetricsService, Pod, DeploymentConfig, BackingServiceInstance, account, market) {
+    .controller('dashboardCtrl', ['resourcequotas','Project', 'recharge', 'balance', '$http', '$log', '$rootScope', '$scope', 'Metrics', 'MetricsService', 'Pod', 'DeploymentConfig', 'BackingServiceInstance', 'account', 'market',
+        function (resourcequotas,Project, recharge, balance, $http, $log, $rootScope, $scope, Metrics, MetricsService, Pod, DeploymentConfig, BackingServiceInstance, account, market) {
             $scope.cpuData = [];
             $scope.memData = [];
             $scope.isdata = {};
@@ -363,9 +363,9 @@ angular.module('console.dashboard', [
                             $scope.memData[i] = Math.round(item * 10000) / 10000
                         }
                     })
-                    $scope.memData
+                    //$scope.memData
                     // console.log('$scope.memData',$scope.memData)
-                    $http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region=' + $rootScope.region).success(function (data, status, headers, config) {
+                    resourcequotas.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (data) {
                         if (data.items[0]) {
                             // console.log($scope.cpuData);
                             // console.log($scope.memData);
@@ -502,12 +502,11 @@ angular.module('console.dashboard', [
                             }
 
                         }
-                        // console.log('配额', data);
-
-                    }).error(function (data, status, headers, config) {
+                    }, function (err) {
                         $scope.pieConfigCpu = setPieChart('CPU', 'N/A', 0);
                         $scope.pieConfigMem = setPieChart('内存', 'N/A', 0);
-                    });
+                    })
+
                 }, function (res) {
                     $log.info('metrics mem all err', res);
                     $scope.pieConfigCpu = setPieChart('CPU', 'N/A', 0);

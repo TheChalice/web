@@ -14,6 +14,7 @@
     background: #2c4d66!important;
 }
 .nav-jia-pills>li>a:focus, .nav-jia-pills>li>a:hover{background:#2c4d66!important;}
+
 #sidebar ul > li > a > i {
     display: none;
 }
@@ -88,3 +89,19 @@
 .icon25 {
     color: #5a6378;
 }
+/*20161216 jia add 当前项目*/
+.nav-jia-pills>li.side_pass>a:focus,.nav-jia-pills>li.side_change>a:focus{background:none!important;}
+.sidebar_jia_per{display:inline-block;}
+.side_change{color:#fff;font-size:14px;}
+.side_change:hover{background:#2c4d66!important}
+.sidebar_jia_per span{color:#fff;font-size:14px;display:inline-block;}
+.header_jia_per_tit{white-space:nowrap;text-overflow:ellipsis;overflow: hidden;width:52px;vertical-align:bottom;}
+.nav .open>a.sidebar_jia_block, .nav .open>a.sidebar_jia_block:focus, .nav .open>a.sidebar_jia_block:hover{background:none;border:0;}
+.sidebar_jia_per .dropdown-menu > li > a{background:#2c4d66;line-height:normal;height:auto;}
+.sidebar_jia_per .dropdown-menu > li > a:hover{background:#28475e;}
+.sidebar_jia_per .projectname>.personal>a>span{line-height:normal;height:auto;color:#fff;}
+.sidebar_jia_per .dropdown-menu > li > a{line-height:normal!important;height:auto!important;padding:11px 25px!important;}
+.sidebar_jia_per .projectname  > li{height:40px;line-height:40px;}
+.sidebar_jia_per .projectname  > li:hover{height:40px;line-height:40px;}
+.sidebar_jia_block{padding:23px 10px 23px 30px;display:block;}
+.sidebar_h_caret{border-left:6px dashed;border-top:6px solid transparent;border-bottom:6px solid transparent;}
