@@ -34,8 +34,6 @@ define([
                 //var token = tokenarr[region-1];
                 if (params.api == 'k8s') {
                     host = host + GLOBAL.host_wss_k8s;
-
-
                     // host=host+'dev.dataos.io:8443/api/v1';
                 } else {
                     //var token = tokenarr[0];
