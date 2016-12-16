@@ -1,4 +1,4 @@
-FROM datafoundry-citic-base
+FROM registry.dataos.io/guestbook/datafoundry-citic-base
 
 # Copy code
 COPY . /datafoundry-citic
