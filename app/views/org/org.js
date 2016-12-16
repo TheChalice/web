@@ -139,23 +139,23 @@ angular.module('console.user', [
             //})
         }
         loadProject();
-        $scope.deletezz = function () {
-            if ($scope.rootmembers.length == 1 && $scope.norootmembers.length == 0) {
-                Confirm.open("删除组织", "您确定要删除组织吗？", "此操作不可撤销", "stop").then(function () {
-                    $http.delete('/lapi/orgs/' + $stateParams.useorg, {}).success(function (item) {
-                        //console.log('the org has been deelted', item);
-                        $rootScope.delOrgs = true;
-                        //$rootScope.isorg = false;
-                        loadProject();
-                        $rootScope.namespace = $rootScope.user.metadata.name;
-                        $state.go('console.user', {index: 4});
-                        //console.user()
-                    })
-                })
-            } else {
-                Confirm.open("离开组织", "删除组织失败", "组织内还有其他成员，您需要先移除其他成员", null, true)
-            }
-        }
+        //$scope.deletezz = function () {
+        //    if ($scope.rootmembers.length == 1 && $scope.norootmembers.length == 0) {
+        //        Confirm.open("删除组织", "您确定要删除组织吗？", "此操作不可撤销", "stop").then(function () {
+        //            $http.delete('/lapi/orgs/' + $stateParams.useorg, {}).success(function (item) {
+        //                //console.log('the org has been deelted', item);
+        //                $rootScope.delOrgs = true;
+        //                //$rootScope.isorg = false;
+        //                loadProject();
+        //                $rootScope.namespace = $rootScope.user.metadata.name;
+        //                $state.go('console.user', {index: 4});
+        //                //console.user()
+        //            })
+        //        })
+        //    } else {
+        //        Confirm.open("离开组织", "删除组织失败", "组织内还有其他成员，您需要先移除其他成员", null, true)
+        //    }
+        //}
 
         $scope.addpeople = function () {
             Addmodal.open('邀请新成员', '用户名', '', $stateParams.useorg, 'people').then(function (res) {
@@ -243,37 +243,37 @@ angular.module('console.user', [
             if ($scope.rootmembers.length == 1) {
                 Toast.open('最后一名管理员无法被降权')
             } else {
-                $http.put('/lapi/orgs/' + $stateParams.useorg + '/privileged', {
-                    member_name: $scope.rootmembers[idx].member_name,
-                    privileged: false
-                }).success(function (data) {
-                    //console.log('test api changetomember', data);
-                    $scope.rootmembers[idx].privileged = false;
-                    var b = $scope.rootmembers[idx];
-                    $scope.rootmembers.splice(idx, 1);
-                    //console.log('test changetomemeber', $scope.rootmembers, idx);
-                    $scope.norootmembers.push(b);
-
-                }).error(function (err) {
-                    //Toast.open(err.message)
-                })
+                //$http.put('/lapi/orgs/' + $stateParams.useorg + '/privileged', {
+                //    member_name: $scope.rootmembers[idx].member_name,
+                //    privileged: false
+                //}).success(function (data) {
+                //    //console.log('test api changetomember', data);
+                //    $scope.rootmembers[idx].privileged = false;
+                //    var b = $scope.rootmembers[idx];
+                //    $scope.rootmembers.splice(idx, 1);
+                //    //console.log('test changetomemeber', $scope.rootmembers, idx);
+                //    $scope.norootmembers.push(b);
+                //
+                //}).error(function (err) {
+                //    //Toast.open(err.message)
+                //})
             }
 
         }
 
         $scope.changetoadmin = function (idx) {
-            $http.put('/lapi/orgs/' + $stateParams.useorg + '/privileged', {
-                member_name: $scope.norootmembers[idx].member_name,
-                privileged: true
-            }).success(function (data) {
-                //console.log('test member', data);
-                //  start from inx and delete one item
-                $scope.norootmembers[idx].privileged = true;
-                var a = $scope.norootmembers[idx];
-                $scope.norootmembers.splice(idx, 1);
-                //console.log('test api changetoadmin',$scope.norootmembers, idx);
-                $scope.rootmembers.push(a);
-            })
+            //$http.put('/lapi/orgs/' + $stateParams.useorg + '/privileged', {
+            //    member_name: $scope.norootmembers[idx].member_name,
+            //    privileged: true
+            //}).success(function (data) {
+            //    //console.log('test member', data);
+            //    //  start from inx and delete one item
+            //    $scope.norootmembers[idx].privileged = true;
+            //    var a = $scope.norootmembers[idx];
+            //    $scope.norootmembers.splice(idx, 1);
+            //    //console.log('test api changetoadmin',$scope.norootmembers, idx);
+            //    $scope.rootmembers.push(a);
+            //})
         }
         loadOrg();
     }])

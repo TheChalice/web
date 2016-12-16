@@ -274,11 +274,11 @@ angular.module('console.user', ['kubernetesUI',
 
         })
         $scope.sendemail = function (item) {
-            $http.post('/lapi/send_verify_email', {}).success(function () {
-                //alert('激活邮件已发送!')
-                Toast.open('激活邮件发送成功！');
-                //console.log('test send email', item);
-            })
+            //$http.post('/lapi/send_verify_email', {}).success(function () {
+            //    //alert('激活邮件已发送!')
+            //    Toast.open('激活邮件发送成功！');
+            //    //console.log('test send email', item);
+            //})
         }
 
         loadInfo();

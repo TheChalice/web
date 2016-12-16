@@ -349,9 +349,9 @@ angular.module("console.header", [
                         "components/sidebar/img/repository-active.png",
                         "components/sidebar/img/resource-active.png",
                         "components/sidebar/img/service-active.png",
-                        "pub/img/myimageh.png",
-                        "pub/img/registimageh.png",
-                        "pub/img/imagecenterh.png",
+                        //"pub/img/myimageh.png",
+                        //"pub/img/registimageh.png",
+                        //"pub/img/imagecenterh.png",
                         "pub/img/myimage.png",
                         "pub/img/registimage.png",
                         "pub/img/imagecenter.png"

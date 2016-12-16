@@ -182,6 +182,13 @@ define([
             //暂未使用
             return ImageStreamImage;
         }])
+        .factory('resourcequotas', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var resourcequotas = $resource(GLOBAL.host_k8s + '/namespaces/:namespace/resourcequotas', {
+                namespace: '@namespace',
+            });
+            //暂未使用
+            return resourcequotas;
+        }])
 
         .factory('ImageStreamTag', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var ImageStreamTag = $resource(GLOBAL.host + '/namespaces/:namespace/imagestreamtags/:name?region=:region', {
