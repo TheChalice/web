@@ -511,7 +511,12 @@ define([
         }])
 
         .factory('deletepod', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var deletepod = $resource(GLOBAL.host_lapi + '/v1/namespaces/:namespace/pods', {namespace: '@namespace'}, {
+            var deletepod = $resource(GLOBAL.host_lapi + '/v1/namespaces/:namespace/pods?labelSelector=deploymentconfig%3D:name&region=:region',
+                {
+                    name:'@name',
+                    region:'@region',
+                    namespace: '@namespace'
+                }, {
                 delete: {method: 'DELETE'}
             })
             return deletepod;
