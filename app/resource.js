@@ -51,21 +51,18 @@ define([
                         '&tailLines=1000' +
                         '&limitBytes=10485760' +
                         '&container=' + params.pod +
-                        '&region=' + $rootScope.region +
-                        '&access_token=' + token;
+                        '&region=' + $rootScope.region
                 } else if (params.app) {
                     var url = host + '/namespaces/' + params.namespace + '/' + params.type + params.name +
                         '?watch=true' +
                         '&resourceVersion=' + params.resourceVersion +
                         '&labelSelector=' + params.app +
-                        '&region=' + $rootScope.region +
-                        '&access_token=' + token;
+                        '&region=' + $rootScope.region
                 } else {
                     var url = host + '/namespaces/' + params.namespace + '/' + params.type + params.name +
                         '?watch=true' +
                         '&resourceVersion=' + params.resourceVersion +
-                        '&region=' + $rootScope.region +
-                        '&access_token=' + token;
+                        '&region=' + $rootScope.region
                 }
                 if (params.protocols) {
                     $ws({
