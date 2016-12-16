@@ -946,7 +946,8 @@ define(['angular'], function (angular) {
                     backdrop: 'static',
                     templateUrl: 'pub/tpl/modal_choose_image.html',
                     size: 'default modal-lg',
-                    controller: ['$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist', function ($rootScope, $scope, $uibModalInstance, images, ImageStreamTag, ImageStream, $http, platformlist) {
+                    controller: ['platform','regpro','$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist',
+                        function (platform,regpro,$rootScope, $scope, $uibModalInstance, images, ImageStreamTag, ImageStream, $http, platformlist) {
                         //console.log('images', images);
                         $scope.grid = {
                             cat: 0,
@@ -1017,6 +1018,7 @@ define(['angular'], function (angular) {
                         });
 
                         $scope.images = images;
+
                         $scope.selectCat = function (idx) {
                             $scope.imageTags = {};
                             $scope.images = {};
@@ -1028,43 +1030,43 @@ define(['angular'], function (angular) {
                                     $scope.images = res;
                                 })
                             } else if (idx == 1) {
+                                regpro.query({is_public: 0}, function (data) {
 
-                                $http.get('/registry/api/projects', {
-                                    params: {is_public: 0}
-                                }).success(function (data) {
                                     for (var i = 0; i < data.length; i++) {
-                                        $http.get('/registry/api/repositories', {params: {project_id: data[i].project_id}})
-                                            .success(function (res) {
-                                                if (res) {
-                                                    for (var j = 0; j < res.length; j++) {
-                                                        var str = {
-                                                            'name': res[j]
-                                                        }
-                                                        $scope.test.items.push(str);
+                                        platform.query({id: data[i].project_id}, function (res) {
+                                            console.log('newchange', res);
+                                            if (res) {
+                                                for (var j = 0; j < res.length; j++) {
+                                                    var str = {
+                                                        'name': res[j]
                                                     }
-                                                    $scope.images = $scope.test;
+                                                    $scope.test.items.push(str);
                                                 }
-                                            })
-                                    }
+                                                $scope.images = $scope.test;
+                                            }
+                                        })
 
+                                    }
                                 })
+
                             } else if (idx == 2) {
                                 //////镜像中心
-                                $http.get('/registry/api/repositories', {params: {project_id: 1}})
-                                    .success(function (data) {
-                                        var arr2 = data;
-                                        $http.get('/registry/api/repositories', {params: {project_id: 58}})
-                                            .success(function (msg) {
-                                                arr2 = arr2.concat(msg);
-                                                for (var j = 0; j < arr2.length; j++) {
-                                                    var str2 = {
-                                                        'name': arr2[j]
-                                                    }
-                                                    $scope.imgcon.items.push(str2);
-                                                }
-                                                $scope.images = $scope.imgcon;
-                                            })
+                                platform.query({id: 1}, function (data) {
+                                    var arr2 = data;
+                                    platform.query({id: 58}, function (msg) {
+                                        arr2 = arr2.concat(msg);
+                                        for (var j = 0; j < arr2.length; j++) {
+                                            var str2 = {
+                                                'name': arr2[j]
+                                            }
+                                            $scope.imgcon.items.push(str2);
+                                        }
+                                        $scope.images = $scope.imgcon;
+
+
                                     })
+                                })
+
                                 $scope.images = $scope.imgcon
                                 //console.log(' $scope.imgcon $scope.imgcon $scope.imgcon', $scope.imgcon)
                             }
@@ -1112,23 +1114,24 @@ define(['angular'], function (angular) {
                                 })
                             } else if ($scope.grid.cat == 2) {
                                 $scope.grid.image = idx;
-                                $http.get('/registry/api/repositories/tags', {params: {repo_name: $scope.imgcon.items[idx].name}})
-                                    .success(function (tagmsg) {
-                                        $scope.imgcon.items[idx].status = {};
-                                        $scope.imgcon.items[idx].status.tags = [];
-                                        for (var i = 0; i < tagmsg.length; i++) {
-                                            var tagmsgobj = {
-                                                'tag': tagmsg[i],
-                                                'items': tagmsg,
-                                                'ist': {
-                                                    'imagesname': $scope.imgcon.items[idx].name + '/' + tagmsg[i],
-                                                    'ispublicimage': true,
-                                                }
-                                            };
-                                            $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
-                                        }
-                                        $scope.imageTags = $scope.imgcon.items[idx].status.tags;
-                                    });
+                                platformlist.query({id: $scope.imgcon.items[idx].name}, function (tagmsg) {
+                                    console.log('tagmsg');
+                                    $scope.imgcon.items[idx].status = {};
+                                    $scope.imgcon.items[idx].status.tags = [];
+                                    for (var i = 0; i < tagmsg.length; i++) {
+                                        var tagmsgobj = {
+                                            'tag': tagmsg[i],
+                                            'items': tagmsg,
+                                            'ist': {
+                                                'imagesname': $scope.imgcon.items[idx].name + '/' + tagmsg[i],
+                                                'ispublicimage': true,
+                                            }
+                                        };
+                                        $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
+                                    }
+                                    $scope.imageTags = $scope.imgcon.items[idx].status.tags;
+                                })
+
                             }
                         };
 

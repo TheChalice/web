@@ -4,8 +4,8 @@ angular.module('console.build_create_new', [
             files: []
         }
     ])
-    .controller('BuildcCtrl', ['randomWord', '$rootScope', '$scope', '$state', '$log', 'Owner', 'Org', 'Branch', 'labOwner', 'psgitlab', 'laborgs', 'labBranch', 'ImageStream', 'BuildConfig', 'Alert', '$http', 'Cookie', '$base64', 'secretskey',
-        function (randomWord, $rootScope, $scope, $state, $log, Owner, Org, Branch, labOwner, psgitlab, laborgs, labBranch, ImageStream, BuildConfig, Alert, $http, Cookie, $base64, secretskey) {
+    .controller('BuildcCtrl', ['createdeploy','randomWord', '$rootScope', '$scope', '$state', '$log', 'Owner', 'Org', 'Branch', 'labOwner', 'psgitlab', 'laborgs', 'labBranch', 'ImageStream', 'BuildConfig', 'Alert', '$http', 'Cookie', '$base64', 'secretskey',
+        function (createdeploy,randomWord, $rootScope, $scope, $state, $log, Owner, Org, Branch, labOwner, psgitlab, laborgs, labBranch, ImageStream, BuildConfig, Alert, $http, Cookie, $base64, secretskey) {
             $('input[ng-model="buildConfig.metadata.name"]').focus();
             $scope.labrunning = false;
             $scope.runninghub = false;
@@ -345,10 +345,16 @@ angular.module('console.build_create_new', [
                     "host": ht,
                     "project_id": pjId
                 }
-                $http.post('/v1/repos/gitlab/authorize/deploy', objJson, {headers: {'namespace': $rootScope.namespace}}).success(function (data) {
+
+                createdeploy.create({'namespace': $rootScope.namespace},objJson, function (data) {
                     $scope.grid.labsecret = data.msg.secret;
                     createBuildConfig(data.msg.secret)
                 })
+                
+                //$http.post('/v1/repos/gitlab/authorize/deploy', objJson, {headers: {'namespace': $rootScope.namespace}}).success(function (data) {
+                //    $scope.grid.labsecret = data.msg.secret;
+                //    createBuildConfig(data.msg.secret)
+                //})
             };
 
             $scope.chooseUser = null;

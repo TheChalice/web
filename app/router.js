@@ -114,7 +114,6 @@ define([
                         }]
                     }
                 })
-
                 .state('login', {
                     url: '/login/:type/:name',
                     templateUrl: 'views/login/login.html',
@@ -135,7 +134,6 @@ define([
                         }]
                     }
                 })
-
                 .state('console', {
                     url: '/console',
                     templateUrl: 'views/console/console.html',
@@ -162,6 +160,7 @@ define([
 
                             }
                             console.log('region', region);
+
                             return User.get({name: '~', region: Cookie.get('region')}).$promise;
                         }]
                         //account: ['$rootScope', 'account', function ($rootScope, account) {

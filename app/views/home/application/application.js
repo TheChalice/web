@@ -28,7 +28,8 @@ angular.module('home.application', [
 
         };
     })
-    .controller('applicationCtrl', ['$scope', '$log', '$state', '$rootScope', 'saas', '$http', '$filter', function ($scope, $log, $state, $rootScope, saas, $http, $filter) {
+    .controller('applicationCtrl', ['platformone','$scope', '$log', '$state', '$rootScope', 'saas', '$http', '$filter',
+        function (platformone,$scope, $log, $state, $rootScope, saas, $http, $filter) {
         //$scope.grid = {
         //    active : 1,
         //    hotimglist :1,
@@ -149,18 +150,24 @@ angular.module('home.application', [
                 $scope.imagecenter = $scope.grid.cenimagecopy.slice(skip, skip + $scope.grid.size);
                 $scope.grid.imagecentertotal = $scope.grid.cenimagecopy.length;
                 angular.forEach($scope.imagecenter, function (image, k) {
-                    $http.get('/registry/api/repositories/manifests', {
-                            //timeout: end.promise,
-                            params: {
-                                repo_name: image.name,
-                                tag: 'latest'
-                            }
-                        })
-                        .success(function (docdata) {
-                            image.lasttag = docdata;
-                        }).error(function (err) {
+                    platformone.get({id: image.name, tag: 'latest'}, function (docdata) {
+                        //console.log('docdata', docdata);
+                        image.lasttag = docdata;
+                    }, function (err) {
                         image.canbuid = false;
                     })
+                    //$http.get('/registry/api/repositories/manifests', {
+                    //        //timeout: end.promise,
+                    //        params: {
+                    //            repo_name: image.name,
+                    //            tag: 'latest'
+                    //        }
+                    //    })
+                    //    .success(function (docdata) {
+                    //        image.lasttag = docdata;
+                    //    }).error(function (err) {
+                    //    image.canbuid = false;
+                    //})
 
                 })
 
@@ -168,36 +175,48 @@ angular.module('home.application', [
                 $scope.imagecenter = $scope.typeimagecenter.slice(skip, skip + $scope.grid.size);
                 $scope.grid.imagecentertotal = $scope.typeimagecenter.length;
                 angular.forEach($scope.imagecenter, function (image, k) {
-                    $http.get('/registry/api/repositories/manifests', {
-                            //timeout: end.promise,
-                            params: {
-                                repo_name: image.name,
-                                tag: 'latest'
-                            }
-                        })
-                        .success(function (docdata) {
-                            image.lasttag = docdata;
-                        }).error(function (err) {
+                    platformone.get({id: image.name, tag: 'latest'}, function (docdata) {
+                        //console.log('docdata', docdata);
+                        image.lasttag = docdata;
+                    }, function (err) {
                         image.canbuid = false;
                     })
+                    //$http.get('/registry/api/repositories/manifests', {
+                    //        //timeout: end.promise,
+                    //        params: {
+                    //            repo_name: image.name,
+                    //            tag: 'latest'
+                    //        }
+                    //    })
+                    //    .success(function (docdata) {
+                    //        image.lasttag = docdata;
+                    //    }).error(function (err) {
+                    //    image.canbuid = false;
+                    //})
 
                 })
             } else {
                 $scope.imagecenter = $scope.imagecentercopy.slice(skip, skip + $scope.grid.size);
                 $scope.grid.imagecentertotal = $scope.imagecentercopy.length;
                 angular.forEach($scope.imagecenter, function (image, k) {
-                    $http.get('/registry/api/repositories/manifests', {
-                            //timeout: end.promise,
-                            params: {
-                                repo_name: image.name,
-                                tag: 'latest'
-                            }
-                        })
-                        .success(function (docdata) {
-                            image.lasttag = docdata;
-                        }).error(function (err) {
+                    platformone.get({id: image.name, tag: 'latest'}, function (docdata) {
+                        //console.log('docdata', docdata);
+                        image.lasttag = docdata;
+                    }, function (err) {
                         image.canbuid = false;
                     })
+                    //$http.get('/registry/api/repositories/manifests', {
+                    //        //timeout: end.promise,
+                    //        params: {
+                    //            repo_name: image.name,
+                    //            tag: 'latest'
+                    //        }
+                    //    })
+                    //    .success(function (docdata) {
+                    //        image.lasttag = docdata;
+                    //    }).error(function (err) {
+                    //    image.canbuid = false;
+                    //})
 
                 })
 
