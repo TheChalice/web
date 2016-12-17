@@ -79,17 +79,22 @@ define([
                         //$rootScope.payment=data;
                 account.get({namespace: $rootScope.namespace, region: $rootScope.region,status:"consuming"}, function (data) {
                         //console.log('套餐', data);
+
                         if (data.purchased) {
                             //跳转dashboard
 
                         } else {
-                            if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan'||toState.name.indexOf('home')!==-1) {
-                                //$rootScope.projects=false;
-                                //alert(1)
-                            }else {
+                            console.log('app90',toState);
+                            if (toState&&toState.name) {
+                                if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan'||toState.name.indexOf('home')!==-1) {
+                                    //$rootScope.projects=false;
+                                    //alert(1)
+                                }else {
 
-                                $state.go('console.noplan');
+                                    $state.go('console.noplan');
+                                }
                             }
+
 
                             //跳转购买套餐
                         }
