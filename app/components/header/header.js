@@ -15,8 +15,11 @@ angular.module("console.header", [
                 function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams) {
                     ///////分区
                     //$scope.curregion = $rootScope.region;
-                    console.log('$rootScope.user',$rootScope.user);
-                    console.log('$rootScope.namespace',$rootScope.namespace);
+                    //console.log('$rootScope.user',$rootScope.user);
+                    //console.log('$rootScope.namespace',$rootScope.namespace);
+                    //if ($rootScope.user.metadata.name) {
+                    //
+                    //}
                     //$scope.checkregion = function (res, id) {
                     //    $scope.curregion = res;
                     //    $rootScope.namespace=$rootScope.user.metadata.name

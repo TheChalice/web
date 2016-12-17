@@ -108,7 +108,7 @@ define([
 
 
                 }
-                switch (toState.name) {
+                switch (toState&&toState.name) {
                     case 'home.index':
                         $rootScope.whereclick = '首页'
                         break;
@@ -136,8 +136,11 @@ define([
 
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 //更新header标题
-                $rootScope.console.state = toState.name;
-                $rootScope.transfering = false;
+                if (toState && toState.name) {
+                    $rootScope.console.state = toState.name;
+                    $rootScope.transfering = false;
+                }
+
             });
         }]);
 

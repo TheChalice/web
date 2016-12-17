@@ -12,10 +12,10 @@ angular.module('console', [
     .controller('ConsoleCtrl', ['sessiontoken','regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
         function (sessiontoken,regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
             //$('html').css('overflow', 'auto');
-            sessiontoken.get({},function (user) {
-                console.log(user);
-
-            })
+            //sessiontoken.get({},function (user) {
+            //    console.log(user);
+            //
+            //})
 
             $log.info('Console', $state.current.name);
             var namespace = Cookie.get('namespace');
