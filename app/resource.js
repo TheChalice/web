@@ -182,6 +182,7 @@ define([
             //暂未使用
             return ImageStreamImage;
         }])
+
         .factory('resourcequotas', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var resourcequotas = $resource(GLOBAL.host_k8s + '/namespaces/:namespace/resourcequotas', {
                 namespace: '@namespace',
@@ -294,6 +295,7 @@ define([
             });
             return BackingServiceInstanceBd;
         }])
+
         .factory('creatproject', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var creatproject = $resource(GLOBAL.host + '/projectrequests', {
 
@@ -389,6 +391,7 @@ define([
             }, {});
             return Branch;
         }])
+
         .factory('createdeploy', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var createdeploy = $resource(GLOBAL.host_repos + '/gitlab/authorize/deploy?namespace=:namespace', {
                 namespace:'@namespace'
@@ -478,6 +481,7 @@ define([
             var platform = $resource(GLOBAL.host_registry + '/repositories?project_id=:id', {id: '@id'});
             return platform;
         }])
+
         .factory('regpro', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var regpro = $resource(GLOBAL.host_registry + '/projects', {});
             return regpro;
@@ -745,8 +749,6 @@ define([
             })
             return saas;
         }])
-
-
 
         .factory('account', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {//登陆检测套餐
             var account = $resource(GLOBAL.host_payment + '/account?size=100', {}, {});
