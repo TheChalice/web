@@ -105,10 +105,10 @@ define([
             return Ws;
         }])
 
-        .factory('sessiontocken', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var sessiontocken = $resource('/sessiontocken', {
+        .factory('sessiontoken', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var sessiontoken = $resource('/sessiontoken', {
             }, {});
-            return sessiontocken;
+            return sessiontoken;
         }])
 
 

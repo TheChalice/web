@@ -9,12 +9,13 @@ angular.module('console', [
             ]
         }
     ])
-    .controller('ConsoleCtrl', ['sessiontocken','regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
-        function (sessiontocken,regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
+    .controller('ConsoleCtrl', ['sessiontoken','regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
+        function (sessiontoken,regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
             //$('html').css('overflow', 'auto');
-            sessiontocken.get({},function (user) {
+            sessiontoken.get({},function (user) {
                 console.log(user);
             })
+
             $log.info('Console', $state.current.name);
             var namespace = Cookie.get('namespace');
             var region = Cookie.get('region');
