@@ -187,9 +187,9 @@ angular.module('console.user', ['kubernetesUI',
             clearTimeout(a);
         }
         var loadInfo = function () {
-            profile.get({}, function (data) {
-                $scope.curUserInfo = data;
-            })
+            //profile.get({}, function (data) {
+            //    $scope.curUserInfo = data;
+            //})
         }
 
         //var loadOrg = function () {

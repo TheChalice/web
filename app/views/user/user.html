@@ -1,12 +1,12 @@
 <div id="user" style="padding:20px 40px 40px;background:#fff;">
     <div class="resource_management">
-        <div class="loader" ng-show="!curUserInfo || !myamounts">
+        <div class="loader" ng-show="!myamounts">
             <div class="loader-inner ball-clip-rotate-multiple">
                 <div></div>
                 <div></div>
             </div>
         </div>
-        <div ng-show="curUserInfo && myamounts">
+        <div ng-show="myamounts">
             <uib-tabset class="tab-default tab-zn-default" active="check">
                 <uib-tab index="1" ng-if="false">
 
@@ -228,7 +228,7 @@
                     </div>
 
                 </uib-tab>
-                <uib-tab index="3">
+                <uib-tab index="3" ng-if="false">
                     <uib-tab-heading>
                         <i class="usersbg"></i>&nbsp;&nbsp;用户信息
                     </uib-tab-heading>
