@@ -15,20 +15,22 @@ angular.module("console.header", [
                 function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams) {
                     ///////分区
                     //$scope.curregion = $rootScope.region;
-                    $scope.checkregion = function (res, id) {
-                        $scope.curregion = res;
-                        $rootScope.namespace=$rootScope.user.metadata.name
-                        Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
-                        $rootScope.region = id
-                        Cookie.set('region', id, 10 * 365 * 24 * 3600 * 1000);
-                       // console.log($state.current.name);
-                        if ($state.current.name === 'console.dashboard') {
-                            $state.reload();
-                        } else {
-                            $state.go('console.dashboard');
-                        }
-                        //$state.reload();
-                    }
+                    console.log('$rootScope.user',$rootScope.user);
+                    console.log('$rootScope.namespace',$rootScope.namespace);
+                    //$scope.checkregion = function (res, id) {
+                    //    $scope.curregion = res;
+                    //    $rootScope.namespace=$rootScope.user.metadata.name
+                    //    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                    //    $rootScope.region = id
+                    //    Cookie.set('region', id, 10 * 365 * 24 * 3600 * 1000);
+                    //   // console.log($state.current.name);
+                    //    if ($state.current.name === 'console.dashboard') {
+                    //        $state.reload();
+                    //    } else {
+                    //        $state.go('console.dashboard');
+                    //    }
+                    //    //$state.reload();
+                    //}
                     $scope.$watch('namespace', function (n, o) {
                         if (n === o) {
                             return
