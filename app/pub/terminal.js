@@ -111,8 +111,13 @@ define(['angular'], function (angular) {
                             command.forEach(function(arg) {
                                 url += "&command=" + encodeURIComponent(arg);
                             });
+                            var tokens = Cookie.get('df_access_token');
+                            var regions = Cookie.get('region');
+                            var tokenarr = tokens.split(',');
+                            var region = regions.split('-')[2];
+                            var token = tokenarr[region-1];
 
-                            url += "&access_token=" + Cookie.get('df_access_token');
+                            url += "&access_token=" + token;
 
                             var first = true;
                             spinner.removeClass("hidden");

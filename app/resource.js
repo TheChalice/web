@@ -105,6 +105,13 @@ define([
             return Ws;
         }])
 
+        .factory('sessiontocken', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var sessiontocken = $resource('/sessiontocken', {
+            }, {});
+            return sessiontocken;
+        }])
+
+
         .factory('User', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var User = $resource(GLOBAL.host + '/users/:name', {name: '@name', region: '@region'}, {
                 create: {method: 'POST'}

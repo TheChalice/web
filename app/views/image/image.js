@@ -566,90 +566,90 @@ angular.module('console.image', [
 
             // 请求仓库镜像
 
-            if ($rootScope.namespace.indexOf('org') == -1) {
-                regpro.query({is_public: 0}, function (data) {
-                    $scope.newtext = data;
-                    $scope.arr = [];
-                    $scope.repertorys = []
-                    $scope.repertoryspoj = []
-                    $scope.tipnum = 0
-                    if (data) {
-                        angular.forEach(data, function (repertory, i) {
-                            platform.query({id:repertory.project_id}, function (images) {
-                                $scope.arr.push(images);
-                                if ($scope.arr.length == data.length) {
-                                    //console.log('regstr',$scope.arr);
-                                    angular.forEach($scope.arr, function (items, k) {
-                                        angular.forEach(items, function (item, j) {
-                                            $scope.repertoryspoj.push(item);
-                                        })
-                                    })
-                                    //console.log('regstr', $scope.repertoryspoj);
-                                    $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
-                                    $scope.grid.repertorystotal = $scope.repertoryspoj.length;
-                                    repertorysrefresh(1)
-
-                                }
-                            })
-                            //$http.get('/registry/api/repositories', {
-                            //        timeout: end.promise,
-                            //        params: {project_id: repertory.project_id}
-                            //    })
-                            //    .success(function (images) {
-                            //        //$scope.tipnum += images.length
-                            //        $scope.arr.push(images);
-                            //        if ($scope.arr.length == data.length) {
-                            //            //console.log('regstr',$scope.arr);
-                            //            angular.forEach($scope.arr, function (items, k) {
-                            //                angular.forEach(items, function (item, j) {
-                            //                    $scope.repertoryspoj.push(item);
-                            //                })
-                            //            })
-                            //            //console.log('regstr', $scope.repertoryspoj);
-                            //            $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
-                            //            $scope.grid.repertorystotal = $scope.repertoryspoj.length;
-                            //            repertorysrefresh(1)
-                            //
-                            //        }
-                            //
-                            //    })
-                        })
-
-
-                    }
-                })
-                regpro.query({is_public: 0}, function (data) {
-                    $scope.newtext = data;
-                    $scope.arr = [];
-                    $scope.repertorys = []
-                    $scope.repertoryspoj = []
-                    $scope.tipnum = 0
-                    if (data) {
-                        angular.forEach(data, function (repertory, i) {
-                            platform.query({id:repertory.project_id}, function (images) {
-                                $scope.arr.push(images);
-                                if ($scope.arr.length == data.length) {
-                                    //console.log('regstr',$scope.arr);
-                                    angular.forEach($scope.arr, function (items, k) {
-                                        angular.forEach(items, function (item, j) {
-                                            $scope.repertoryspoj.push(item);
-                                        })
-                                    })
-                                    //console.log('regstr', $scope.repertoryspoj);
-                                    $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
-                                    $scope.grid.repertorystotal = $scope.repertoryspoj.length;
-                                    repertorysrefresh(1)
-
-                                }
-                            })
-
-                        })
-
-
-                    }
-                })
-
-            }
+            //if ($rootScope.namespace.indexOf('org') == -1) {
+            //    regpro.query({is_public: 0}, function (data) {
+            //        $scope.newtext = data;
+            //        $scope.arr = [];
+            //        $scope.repertorys = []
+            //        $scope.repertoryspoj = []
+            //        $scope.tipnum = 0
+            //        if (data) {
+            //            angular.forEach(data, function (repertory, i) {
+            //                platform.query({id:repertory.project_id}, function (images) {
+            //                    $scope.arr.push(images);
+            //                    if ($scope.arr.length == data.length) {
+            //                        //console.log('regstr',$scope.arr);
+            //                        angular.forEach($scope.arr, function (items, k) {
+            //                            angular.forEach(items, function (item, j) {
+            //                                $scope.repertoryspoj.push(item);
+            //                            })
+            //                        })
+            //                        //console.log('regstr', $scope.repertoryspoj);
+            //                        $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
+            //                        $scope.grid.repertorystotal = $scope.repertoryspoj.length;
+            //                        repertorysrefresh(1)
+            //
+            //                    }
+            //                })
+            //                //$http.get('/registry/api/repositories', {
+            //                //        timeout: end.promise,
+            //                //        params: {project_id: repertory.project_id}
+            //                //    })
+            //                //    .success(function (images) {
+            //                //        //$scope.tipnum += images.length
+            //                //        $scope.arr.push(images);
+            //                //        if ($scope.arr.length == data.length) {
+            //                //            //console.log('regstr',$scope.arr);
+            //                //            angular.forEach($scope.arr, function (items, k) {
+            //                //                angular.forEach(items, function (item, j) {
+            //                //                    $scope.repertoryspoj.push(item);
+            //                //                })
+            //                //            })
+            //                //            //console.log('regstr', $scope.repertoryspoj);
+            //                //            $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
+            //                //            $scope.grid.repertorystotal = $scope.repertoryspoj.length;
+            //                //            repertorysrefresh(1)
+            //                //
+            //                //        }
+            //                //
+            //                //    })
+            //            })
+            //
+            //
+            //        }
+            //    })
+            //    regpro.query({is_public: 0}, function (data) {
+            //        $scope.newtext = data;
+            //        $scope.arr = [];
+            //        $scope.repertorys = []
+            //        $scope.repertoryspoj = []
+            //        $scope.tipnum = 0
+            //        if (data) {
+            //            angular.forEach(data, function (repertory, i) {
+            //                platform.query({id:repertory.project_id}, function (images) {
+            //                    $scope.arr.push(images);
+            //                    if ($scope.arr.length == data.length) {
+            //                        //console.log('regstr',$scope.arr);
+            //                        angular.forEach($scope.arr, function (items, k) {
+            //                            angular.forEach(items, function (item, j) {
+            //                                $scope.repertoryspoj.push(item);
+            //                            })
+            //                        })
+            //                        //console.log('regstr', $scope.repertoryspoj);
+            //                        $scope.repertoryscopy = angular.copy($scope.repertoryspoj)
+            //                        $scope.grid.repertorystotal = $scope.repertoryspoj.length;
+            //                        repertorysrefresh(1)
+            //
+            //                    }
+            //                })
+            //
+            //            })
+            //
+            //
+            //        }
+            //    })
+            //
+            //}
 
             //镜像中心
             $scope.serviceper = [{name: 'DataFoundry', class: 'df'}, {name: 'DockerHub', class: 'doc'}]

@@ -111,6 +111,8 @@ angular.module('console.build_create_new', [
                     $scope.namerr.rexed = false;
                 }
             })
+            $scope.check=2
+
             $scope.$watch('check', function (n, o) {
                 if (n === o) {
                     return
@@ -443,17 +445,18 @@ angular.module('console.build_create_new', [
                 labproject: null,
                 labbranch: null,
                 gitlabbox: false,
-                ishide: true,
+                ishide: false,
                 labcon: false,
                 labsecret: "",
                 cdm: false,
                 creatlaberr: '',
-                isfirst: 1
+                isfirst: 2
             };
 
             var thisowner = null;
 
             $scope.checkdTab = function (val) {
+                console.log('val', val);
                 if (val == 1) {
                     if (!$scope.labowner) {
                         $scope.grid.labcon = true;
@@ -739,7 +742,7 @@ angular.module('console.build_create_new', [
 
             $scope.loadOwner();
 
-
+            $scope.checkdTab(2)
             $scope.create = function() {
                 $scope.creating = true;
                 console.log('check',$scope.check);

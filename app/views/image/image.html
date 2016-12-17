@@ -45,38 +45,40 @@
                     </uib-pagination>
                 </div>
             </uib-tab>
-            <!--<uib-tab index="2">-->
-                <!--<uib-tab-heading>-->
-                    <!--<i class="noticebg registimage"></i>&nbsp;&nbsp;私有镜像-->
-                <!--</uib-tab-heading>-->
-                <!--<div>-->
-                    <!--<div class="row image_jia_btn" style="margin-bottom: 30px;">-->
-                        <!--<div class="input-group col-sm-4 col-sm-offset-8 searchbar">-->
-                            <!--<input type="text" class="form-control" ng-model="txxt" ng-focus="showTip=true;"-->
-                                   <!--placeholder="搜索镜像" ng-keydown="searchreg('all', txxt,$event)">-->
-                    <!--<span class="input-group-btn">-->
-                        <!--<a class="btn" ng-click="searchreg('all', txxt)"></a>-->
-                    <!--</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="row image_jia_btn">-->
-                        <!--<div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in repertorys">-->
-                            <!--<div class="thumbnail">-->
-                                <!--<div class="thumb-content">-->
-                                    <!--<div class="thumb-slide">-->
-                                        <!--<div class="thumb-op">-->
-                                            <!--<p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{item.lasttag.Created | dateRelative}}</p>-->
-                                            <!--<p><i class="fa fa-flag-o"></i>&nbsp;&nbsp;&lt;!&ndash;{{gitStore[item.spec.output.to.name]["ref"]}} - &ndash;&gt;-->
-                                                <!--{{item.lasttag.Parent | limitTo: 7}}</p>-->
-                                            <!--<p class="thumb-btn">-->
-                                                <!--<a class="btn btn-green"-->
-                                                   <!--ng-if='item.canbuid'-->
-                                                   <!--href="javascript:;"-->
-                                                   <!--ui-sref="console.service_create({image:item.name+':latest'+':registryjump'})">部署最新版本</a>-->
-                                                <!--<a class="btn btn-gray"-->
-                                                   <!--ng-if='!item.canbuid'-->
-                                                   <!--href="javascript:;"-->
-                                                   <!--disabled='ture'>暂无最新版本</a>-->
+
+            <uib-tab index="2" ng-if="false">
+                <uib-tab-heading>
+                    <i class="noticebg registimage"></i>&nbsp;&nbsp;私有镜像
+                </uib-tab-heading>
+                <div>
+                    <div class="row image_jia_btn" style="margin-bottom: 30px;">
+                        <div class="input-group col-sm-4 searchbar" style="margin-left:14px;">
+                            <input type="text" class="form-control" ng-model="txxt" ng-focus="showTip=true;"
+                                   placeholder="搜索镜像" ng-keydown="searchreg('all', txxt,$event)">
+                    <span class="input-group-btn">
+                        <a class="btn" ng-click="searchreg('all', txxt)"></a>
+                    </span>
+                        </div>
+                    </div>
+                    <div class="row image_jia_btn">
+                        <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in repertorys">
+                            <div class="thumbnail">
+                                <div class="thumb-content">
+                                    <div class="thumb-slide">
+                                        <div class="thumb-op">
+                                            <p><i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{item.lasttag.Created | dateRelative}}</p>
+                                            <p><i class="fa fa-flag-o"></i>&nbsp;&nbsp;<!--{{gitStore[item.spec.output.to.name]["ref"]}} - -->
+                                                {{item.lasttag.Parent | limitTo: 7}}</p>
+                                            <p class="thumb-btn">
+                                                <a class="btn btn-green"
+                                                   ng-if='item.canbuid'
+                                                   href="javascript:;"
+                                                   ui-sref="console.service_create({image:item.name+':latest'+':registryjump'})">部署最新版本</a>
+                                                <a class="btn btn-gray"
+                                                   ng-if='!item.canbuid'
+                                                   href="javascript:;"
+                                                   disabled='ture'>暂无最新版本</a>
+
 
 
                                             <!--</p>-->

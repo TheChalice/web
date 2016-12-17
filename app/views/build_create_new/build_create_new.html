@@ -53,18 +53,18 @@
                             <div class="col-sm-10">
                                 <uib-tabset class="tab-default tab-jia-default" active="check">
                                     <!--gitlab-->
-                                    <uib-tab index="1" heading="代码仓库" ng-click="checkdTab(1)">
-                                        <div class="tabinfo" style="height: 50px">
-                                            <a class="btn pull-right" ng-class="{'running':labrunning}" uib-tooltip="同步代码源"
-                                               ng-click="loadlabOwner()" style="margin-top: -5px; margin-right: -10px">
-                                                <i class="fa fa-green fa-lg fa-refresh"></i>
-                                            </a>
-                                            <img style="float: left;margin-right: 20px;"
-                                                 src="views/build_create_new/img/images02_178.png">
-                                <span style="font-size:12px; height: 20px">DataFoundry 提供的代码仓库（<a href="https://code.dataos.io" target="view_window" class="view-jia-tit">https://code.dataos.io</a>）是可靠的自托管的 Git 项目仓库，
-                                    可通过Web 界面进行访问公开的或者私人项目。</span>
-                                        </div>
-                                    </uib-tab>
+                                    <!--<uib-tab index="1" ng-if="false" heading="代码仓库" ng-click="checkdTab(1)">-->
+                                        <!--<div class="tabinfo" style="height: 50px">-->
+                                            <!--<a class="btn pull-right" ng-class="{'running':labrunning}" uib-tooltip="同步代码源"-->
+                                               <!--ng-click="loadlabOwner()" style="margin-top: -5px; margin-right: -10px">-->
+                                                <!--<i class="fa fa-green fa-lg fa-refresh"></i>-->
+                                            <!--</a>-->
+                                            <!--<img style="float: left;margin-right: 20px;"-->
+                                                 <!--src="views/build_create_new/img/images02_178.png">-->
+                                <!--<span style="font-size:12px; height: 20px">DataFoundry 提供的代码仓库（<a href="https://code.dataos.io" target="view_window" class="view-jia-tit">https://code.dataos.io</a>）是可靠的自托管的 Git 项目仓库，-->
+                                    <!--可通过Web 界面进行访问公开的或者私人项目。</span>-->
+                                        <!--</div>-->
+                                    <!--</uib-tab>-->
                                     <!--github-->
                                     <uib-tab index="2" heading="GitHub" ng-click="checkdTab(2)">
                                         <div class="tabinfo" style="height: 50px">
@@ -117,6 +117,7 @@
                                 </uib-tabset>
 
                                 <div class="is-box" ng-hide="grid.ishide">
+
                                     <div class="panel panel-default first col-md-4" style="margin-right:36px">
                                         <div class="panel-heading">
                                             <img src="views/build_create_new/img/user.png">
@@ -186,7 +187,7 @@
                                     <small ng-if="frm.branch.$viewValue != '' && frm.branch.$invalid">请选择一个分支</small>
                                 </div>
                                 <!--gitlab pannel-->
-                                <div class="is-box" ng-show="grid.labcon">
+                                <div class="is-box" ng-if="false" ng-show="grid.labcon">
                                     <div class="panel panel-default first col-sm-4" style="margin-right:36px">
                                         <div class="panel-heading">
                                             <img src="views/build_create_new/img/user.png">
