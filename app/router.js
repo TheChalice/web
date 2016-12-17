@@ -172,7 +172,7 @@ define([
                                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
                                     sessiontoken.get({},function (user) {
-                                        console.log('token',user['access_token']);
+                                        console.log('token',user);
                                         var token = user['access_token'];
 
                                         if (user['access_token']) {
