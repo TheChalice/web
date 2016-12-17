@@ -51,18 +51,21 @@ define([
                         '&tailLines=1000' +
                         '&limitBytes=10485760' +
                         '&container=' + params.pod +
-                        '&region=' + $rootScope.region
+                        '&region=' + $rootScope.region +
+                        '&access_token=' + Cookie.get('df_access_token');
                 } else if (params.app) {
                     var url = host + '/namespaces/' + params.namespace + '/' + params.type + params.name +
                         '?watch=true' +
                         '&resourceVersion=' + params.resourceVersion +
                         '&labelSelector=' + params.app +
-                        '&region=' + $rootScope.region
+                        '&region=' + $rootScope.region +
+                        '&access_token=' + Cookie.get('df_access_token');
                 } else {
                     var url = host + '/namespaces/' + params.namespace + '/' + params.type + params.name +
                         '?watch=true' +
                         '&resourceVersion=' + params.resourceVersion +
-                        '&region=' + $rootScope.region
+                        '&region=' + $rootScope.region +
+                        '&access_token=' + Cookie.get('df_access_token');
                 }
                 if (params.protocols) {
                     $ws({

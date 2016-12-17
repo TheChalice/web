@@ -14,6 +14,7 @@ angular.module('console', [
             //$('html').css('overflow', 'auto');
             sessiontoken.get({},function (user) {
                 console.log(user);
+
             })
 
             $log.info('Console', $state.current.name);

@@ -143,7 +143,8 @@ define([
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
                             return $ocLazyLoad.load('views/console/console.js')
                         }],
-                        user: ['creatproject','regions', 'Cookie', '$rootScope', 'User', function (creatproject,regions, Cookie, $rootScope, User) {
+                        user: ['sessiontoken','creatproject','regions', 'Cookie', '$rootScope', 'User',
+                            function (sessiontoken,creatproject,regions, Cookie, $rootScope, User) {
                             if ($rootScope.user) {
                                 return $rootScope.user;
                             }
@@ -170,9 +171,21 @@ define([
                                 $rootScope.region = 'cn-north-1';
                                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
-                                    return creatproject.create({'metadata':{
-                                        name:user.metadata.name
-                                    }}).$promise
+                                    sessiontoken.get({},function (user) {
+                                        console.log(user);
+                                        if (user.indexOf("Bearer ") === 0) {
+                                            user = user.split(' ')[1];
+                                            console.log('user', user);
+                                            Cookie.set('df_access_token', user, 10 * 365 * 24 * 3600 * 1000);
+                                        }
+
+                                        //Cookie.set('access_token', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
+                                        return creatproject.create({'metadata':{
+                                            name:user.metadata.name
+                                        }}).$promise
+
+                                    })
+
                                 }
 
                             })
