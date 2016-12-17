@@ -47,7 +47,8 @@
     background-image: url("../../pub/img/pay02_hover.png");
 }
 .payactive .paybg1{
-    background-image: url("../../pub/img/pay01_hover.png");
+    background: url("../../pub/img/pay01_hover.png") no-repeat;
+    width:22px;height:18px;margin-top:6px;margin-right:10px;margin-left:16px;
 }
 .payinput{
     width: 300px;
