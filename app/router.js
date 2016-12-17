@@ -172,11 +172,12 @@ define([
                                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
                                     sessiontoken.get({},function (user) {
-                                        console.log(user);
-                                        if (user.indexOf("Bearer ") === 0) {
-                                            user = user.split(' ')[1];
-                                            console.log('user', user);
-                                            Cookie.set('df_access_token', user, 10 * 365 * 24 * 3600 * 1000);
+                                        console.log('token',user['access_token']);
+                                        var token = user['access_token'];
+
+                                        if (user['access_token']) {
+                                            console.log('usertoken', token);
+                                            Cookie.set('df_access_token', token, 10 * 365 * 24 * 3600 * 1000);
                                         }
 
                                         //Cookie.set('access_token', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
