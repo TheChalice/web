@@ -195,15 +195,15 @@
 
 
 .df_h_com{width:20px;height:20px;display:inline-block;vertical-align:text-bottom;background-size:contain;margin-right:6px;float:left;}
-.df_h_news{background-image: url(img/df_news.png);}
-.df_h_area{background-image: url(img/df_area.png);}
-.df_area_active{background-image: url(img/df_area_active.png);margin-top:14px;}
-.df_h_per{background-image: url(img/df_person.png);margin-left:-1px;}
-.df_o_per{background-image: url(img/df_org.png);}
-.df_person_active{background-image: url(img/df_person_active.png);margin-top:16px;margin-left:-2px;}
-.df_q_active{background-image: url(img/df_q_active.png);margin-top:16px;}
-.df_qed_active{background-image: url(img/df_qed_active.png);margin-top:16px;}
-.df_quit{background-image: url(img/df_quit.png);margin-top:16px;}
+.df_h_news{background-image: url(img/news.png);}
+.df_h_area{background-image: url(img/area.png);}
+.df_area_active{background-image: url(img/area_active.png);margin-top:14px;}
+.df_h_per{background-image: url(img/person.png);margin-left:-1px;}
+.df_o_per{background-image: url(img/org.png);}
+.df_person_active{background-image: url(img/person_active.png);margin-top:16px;margin-left:-2px;}
+.df_q_active{background-image: url(img/q_active.png);margin-top:16px;}
+.df_qed_active{background-image: url(img/qed_active.png);margin-top:16px;}
+.df_quit{background-image: url(img/quit.png);margin-top:16px;}
 
 
 
