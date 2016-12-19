@@ -33,7 +33,16 @@ angular.module('console', [
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
-            console.log('$rootScope.user',$rootScope.user.metadata.name);
+            if ($rootScope.user) {
+                console.log('$rootScope.user',$rootScope.user.metadata.name);
+            }else {
+                $rootScope.user={
+                    metadata:{
+                        name:Cookie.get('namespace')
+                    }
+                }
+            }
+
             var loadProject = function () {
                 //$log.info("load project");
                 Project.get({region: $rootScope.region}, function (data) {
