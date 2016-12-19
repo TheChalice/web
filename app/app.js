@@ -49,8 +49,8 @@ define([
             host_payment: './payment/v1',
             host_integration: './integration/v1',
             host_hawkular: './hawkular/metrics',
-            host_wss: '/ws/oapi/v1',
-            host_wss_k8s: '/ws/api/v1',
+            host_wss: 'ws/oapi/v1',
+            host_wss_k8s: 'ws/api/v1',
             login_uri: '/login',
             signin_uri: '/signin',
             host_webhooks: 'https://dev.dataos.io:8443/oapi/v1'
@@ -85,28 +85,28 @@ define([
 
                     //console.log('套餐', data);
                     //$rootScope.payment=data;
-                    account.get({namespace: $rootScope.namespace, region: $rootScope.region,status:"consuming"}, function (data) {
-                        //console.log('套餐', data);
-
-                        if (data.purchased) {
-                            //跳转dashboard
-
-                        } else {
-                            //console.log('app90',toState);
-                            if (toState&&toState.name) {
-                                if (toState.name === 'console.plan' || toState.name === 'console.pay'|| toState.name === 'console.dashboard' || toState.name === 'console.noplan') {
-                                    //$rootScope.projects=false;
-                                    //alert(1)
-                                }else {
-
-                                    $state.go('console.noplan');
-                                }
-                            }
-
-
-                            //跳转购买套餐
-                        }
-                    })
+                    //account.get({namespace: $rootScope.namespace, region: $rootScope.region,status:"consuming"}, function (data) {
+                    //    //console.log('套餐', data);
+                    //
+                    //    if (data.purchased) {
+                    //        //跳转dashboard
+                    //
+                    //    } else {
+                    //        //console.log('app90',toState);
+                    //        if (toState&&toState.name) {
+                    //            if (toState.name === 'console.plan' || toState.name === 'console.pay'|| toState.name === 'console.dashboard' || toState.name === 'console.noplan') {
+                    //                //$rootScope.projects=false;
+                    //                //alert(1)
+                    //            }else {
+                    //
+                    //                $state.go('console.noplan');
+                    //            }
+                    //        }
+                    //
+                    //
+                    //        //跳转购买套餐
+                    //    }
+                    //})
 
                     if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
                         //$rootScope.projects=false;
