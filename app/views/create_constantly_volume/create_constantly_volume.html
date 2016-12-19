@@ -48,6 +48,8 @@
                     <label class="col-sm-2 control-label text-left" style="margin-top: 10px; color: #5a6378; font-size:14px; text-align: left; font-weight: normal;">持久化卷名称</label>
                     <div class="col-sm-10" style="padding-right: 40px; ">
                         <input type="text"
+                               ng-blur="isEmpty()"
+                               ng-focus="empty()"
                                name="username"
                                class="form-control"
                                ng-model="volume.name"
