@@ -73,7 +73,8 @@ define([
         .run(['$rootScope', 'account', '$state', function ($rootScope, account, $state) {
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 $rootScope.transfering = true;
-                if ($rootScope.namespace && $rootScope.region) {
+                console.log('toState', toState);
+                if (toState&&$rootScope.namespace && $rootScope.region) {
 
                         //console.log('套餐', data);
                         //$rootScope.payment=data;
@@ -99,6 +100,7 @@ define([
                             //跳转购买套餐
                         }
                     })
+
                     if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
                             //$rootScope.projects=false;
                             //alert(1)
