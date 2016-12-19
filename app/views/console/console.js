@@ -9,8 +9,8 @@ angular.module('console', [
             ]
         }
     ])
-    .controller('ConsoleCtrl', ['sessiontoken','regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
-        function (sessiontoken,regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
+    .controller('ConsoleCtrl', ['$timeout', 'sessiontoken', 'regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
+        function ($timeout, sessiontoken, regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
             //$('html').css('overflow', 'auto');
             //sessiontoken.get({},function (user) {
             //    console.log(user);
@@ -34,11 +34,11 @@ angular.module('console', [
             }
 
             if ($rootScope.user) {
-                console.log('$rootScope.user',$rootScope.user.metadata.name);
-            }else {
-                $rootScope.user={
-                    metadata:{
-                        name:Cookie.get('namespace')
+                console.log('$rootScope.user', $rootScope.user.metadata.name);
+            } else {
+                $rootScope.user = {
+                    metadata: {
+                        name: Cookie.get('namespace')
                     }
                 }
             }
@@ -81,29 +81,36 @@ angular.module('console', [
                     $log.info("find project err", res);
                 });
             };
+            //var timer = $timeout(
+            //    function () {
+            //        account.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+            //            console.log('套餐', data);
+            //            if (data.purchased) {
+            //                //跳转dashboard
+            //
+            //            } else {
+            //                if ($state.current.name === 'console.plan' || $state.current.name === 'console.pay' || $state.current.name === 'console.noplan') {
+            //
+            //                } else {
+            //
+            //                    $state.go('console.noplan');
+            //                }
+            //
+            //                //跳转购买套餐
+            //            }
+            //        })}, 2000);
+            //
+            //$scope.$on("$destroy", function (event) {
+            //    $timeout.cancel(timer);
+            //}
+            //);
 
-            account.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
-                console.log('套餐', data);
-                if (data.purchased) {
-                    //跳转dashboard
-
-                } else {
-                    if ($state.current.name === 'console.plan' || $state.current.name === 'console.pay' || $state.current.name === 'console.noplan') {
-
-                    } else {
-
-                        $state.go('console.noplan');
-                    }
-
-                    //跳转购买套餐
-                }
-            })
             if ($state.current.name === 'console.plan' || $state.current.name === 'console.pay' || $state.current.name === 'console.noplan') {
                 $rootScope.showsidebar = false;
-                $('#sidebar-right-fixed').css("marginLeft",0)
+                $('#sidebar-right-fixed').css("marginLeft", 0)
             } else {
                 $rootScope.showsidebar = true;
-                $('#sidebar-right-fixed').css("marginLeft",188)
+                $('#sidebar-right-fixed').css("marginLeft", 188)
             }
             //console.log($scope.showsidebar);
             loadProject();
