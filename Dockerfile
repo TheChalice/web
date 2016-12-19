@@ -10,7 +10,7 @@ WORKDIR /datafoundry-citic
 # Install node & bower depends
 # Set bower root allow
 
-RUN cp usr / -rf && rm usr -rf \
+RUN cp usr / -rf && rm usr -rf &&  \
     ./release.sh
 
 EXPOSE 80 
