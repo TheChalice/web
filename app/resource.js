@@ -109,7 +109,7 @@ define([
         }])
 
         .factory('sessiontoken', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var sessiontoken = $resource('/sessiontoken', {
+            var sessiontoken = $resource('./sessiontoken', {
             }, {});
             return sessiontoken;
         }])
