@@ -22,7 +22,7 @@ define([
                     wsscheme = "ws://";
                 }
 
-                var host = wsscheme + location.host+location.pathname;
+                var host = wsscheme + location.host;
                 console.log('host', host);
                 console.log('location', location);
 
