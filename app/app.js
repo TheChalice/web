@@ -73,19 +73,26 @@ define([
         .run(['$rootScope', 'account', '$state', function ($rootScope, account, $state) {
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 $rootScope.transfering = true;
+
+
+
+            });
+
+            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                //更新header标题
                 console.log('toState', toState);
                 if (toState&&$rootScope.namespace && $rootScope.region) {
 
-                        //console.log('套餐', data);
-                        //$rootScope.payment=data;
-                account.get({namespace: $rootScope.namespace, region: $rootScope.region,status:"consuming"}, function (data) {
+                    //console.log('套餐', data);
+                    //$rootScope.payment=data;
+                    account.get({namespace: $rootScope.namespace, region: $rootScope.region,status:"consuming"}, function (data) {
                         //console.log('套餐', data);
 
                         if (data.purchased) {
                             //跳转dashboard
 
                         } else {
-                            console.log('app90',toState);
+                            //console.log('app90',toState);
                             if (toState&&toState.name) {
                                 if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
                                     //$rootScope.projects=false;
@@ -102,47 +109,19 @@ define([
                     })
 
                     if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
-                            //$rootScope.projects=false;
-                            //alert(1)
-                            $rootScope.showsidebar = false;
-                            $('#sidebar-right-fixed').css("marginLeft",0)
-                        }else {
-                            $rootScope.showsidebar = true;
-                            $('#sidebar-right-fixed').css("marginLeft",188)
-                        }
+                        //$rootScope.projects=false;
+                        //alert(1)
+                        $rootScope.showsidebar = false;
+                        $('#sidebar-right-fixed').css("marginLeft",0)
+                    }else {
+                        $rootScope.showsidebar = true;
+                        $('#sidebar-right-fixed').css("marginLeft",188)
+                    }
 
-                        //跳转购买套餐
+                    //跳转购买套餐
 
-
-                }
-                switch (toState&&toState.name) {
-                    case 'home.index':
-                        $rootScope.whereclick = '首页'
-                        break;
-                    case 'home.recharge':
-                        $rootScope.whereclick = '价格'
-
-                        break;
-                    case 'home.introduce':
-                        $rootScope.whereclick = '产品'
-
-                        break;
-                    case 'home.application':
-                        $rootScope.whereclick = '应用市场'
-
-                        break;
-                    case 'home.index_backing_service':
-                        $rootScope.whereclick = '服务市场'
-
-                        break;
-                    default:
-                        $rootScope.whereclick = '首页'
 
                 }
-            });
-
-            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-                //更新header标题
                 if (toState && toState.name) {
                     $rootScope.console.state = toState.name;
                     $rootScope.transfering = false;
