@@ -245,7 +245,7 @@ overflow: hidden;width:100px;color:#333;}
 }
 .projectname::-webkit-scrollbar * {background:transparent; }
 .projectname::-webkit-scrollbar-thumb {
-    background:#3c698c !important;
+    background:#c6c6c6 !important;
     border-radius: 10px;
 }
 .projectname{background:transparent!important;
