@@ -94,7 +94,7 @@ define([
                         } else {
                             //console.log('app90',toState);
                             if (toState&&toState.name) {
-                                if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
+                                if (toState.name === 'console.plan' || toState.name === 'console.pay'|| toState.name === 'console.dashboard' || toState.name === 'console.noplan') {
                                     //$rootScope.projects=false;
                                     //alert(1)
                                 }else {

@@ -186,6 +186,7 @@ define([
                                                     return creatproject.create({'metadata':{
                                                         name:user.metadata.name
                                                     }}).$promise
+                                                    
                                                 }, function (err) {
                                                     $state.reload();
                                                 })
