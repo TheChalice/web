@@ -29,7 +29,7 @@ angular.module('console', [
             if (namespace) {
                 $rootScope.namespace = namespace;
             } else {
-                $rootScope.namespace = user.metadata.name;
+                $rootScope.namespace = $rootScope.user.metadata.name;
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 

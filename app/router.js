@@ -143,25 +143,11 @@ define([
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
                             return $ocLazyLoad.load('views/console/console.js')
                         }],
-                        user: ['sessiontoken','creatproject','regions', 'Cookie', '$rootScope', 'User',
-                            function (sessiontoken,creatproject,regions, Cookie, $rootScope, User) {
+                        user: ['$state','checkout','account','sessiontoken','creatproject','regions', 'Cookie', '$rootScope', 'User',
+                            function ($state,checkout,account,sessiontoken,creatproject,regions, Cookie, $rootScope, User) {
                             if ($rootScope.user) {
                                 return $rootScope.user;
                             }
-                            //$rootScope.region=
-                            //var region = Cookie.get('region');
-                            //if (!region) {
-                            //    //regions.query({}, function (data) {
-                            //    //    //console.log('regions', data);
-                            //    //    //$scope.regions = data;
-                            //    //    $rootScope.region = data[0].identification;
-                            //    //    Cookie.set('region', data[0].identification, 10 * 365 * 24 * 3600 * 1000);
-                            //    //    return User.get({name: '~', region: Cookie.get('region')}).$promise;
-                            //    //})
-                            //} else {
-                            //
-                            //}
-
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
                                 //console.log('user', user);
                                 $rootScope.user = user;
@@ -172,23 +158,57 @@ define([
                                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
                                     sessiontoken.get({},function (user) {
-                                        console.log('token',user);
                                         var token = user['access_token'];
 
                                         if (user['access_token']) {
-                                            console.log('usertoken', token);
+                                            //console.log('usertoken', token);
                                             Cookie.set('df_access_token', token, 10 * 365 * 24 * 3600 * 1000);
                                         }
+                                        account.get({namespace:$rootScope.namespace,region:$rootScope.region}, function (data) {
+                                            //console.log('套餐', data);
+                                            //$rootScope.payment=data;
+                                            //$rootScope.loding = false;
+                                            //if (data.purchased) {
+                                            //
+                                            //    $state.go('console.dashboard');
+                                            //    //跳转dashboard
+                                            //}else {
+                                            //    $state.go('console.noplan');
+                                            //    //跳转购买套餐
+                                            //}
+                                            if (!data.subscriptions) {
+                                                checkout.create({
+                                                    drytry:0,
+                                                    plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
+                                                    namespace: $rootScope.namespace,
+                                                    region:$rootScope.region
+                                                }, function (data) {
+                                                    return creatproject.create({'metadata':{
+                                                        name:user.metadata.name
+                                                    }}).$promise
+                                                }, function (err) {
+                                                    $state.reload();
+                                                })
+                                            }
 
-                                        //Cookie.set('access_token', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
-                                        return creatproject.create({'metadata':{
-                                            name:user.metadata.name
-                                        }}).$promise
 
+                                            //Cookie.set('access_token', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
+                                           
+                                        }, function (err) {
+                                            $state.reload();
+                                        })
+                                        //console.log('token',user);
+
+                                       
+
+                                    }, function (err) {
+                                        $state.reload();
                                     })
 
                                 }
 
+                            }, function (err) {
+                                $state.reload();
                             })
                             //return User.get({name: '~', region: Cookie.get('region')}).$promise;
                         }]
