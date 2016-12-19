@@ -81,8 +81,9 @@ angular.module('console', [
                     $log.info("find project err", res);
                 });
             };
-            account.get({namespace: $rootScope.namespace, region: $rootScope.region,status:"consuming"}, function (data) {
-                //console.log('套餐', data);
+
+            account.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                console.log('套餐', data);
                 if (data.purchased) {
                     //跳转dashboard
 
