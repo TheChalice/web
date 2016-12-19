@@ -86,7 +86,7 @@ define([
                         } else {
                             console.log('app90',toState);
                             if (toState&&toState.name) {
-                                if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan'||toState.name.indexOf('home')!==-1) {
+                                if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
                                     //$rootScope.projects=false;
                                     //alert(1)
                                 }else {
