@@ -23,6 +23,8 @@ define([
                 }
 
                 var host = wsscheme + location.host;
+                console.log('host', host);
+                console.log('location', location);
 
                 // var host = wsscheme;
                 //var tokens = Cookie.get('df_access_token');
