@@ -78,14 +78,14 @@ angular.module('console.dashboard', [
                 namespace: $rootScope.namespace,
                 region: $rootScope.region,
             }, function (reso) {
-                console.log('accountall',reso);
+
                 if (!reso.subscriptions) {
                     checkout.create({
                         drytry:0,
                         plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
                         namespace: $rootScope.namespace,
                         region:$rootScope.region
-                        
+
                     }, function (data) {
                         console.log('data', data);
 
@@ -93,6 +93,7 @@ angular.module('console.dashboard', [
                             namespace: $rootScope.namespace,
                             region: $rootScope.region,
                         }, function (res) {
+                            console.log('accountall',reso);
                             market.get({region: $rootScope.region, type: 'resources'}, function (data) {
                                 //console.log('eeeeeeeeeeee',data);
                                 $scope.plans = {
