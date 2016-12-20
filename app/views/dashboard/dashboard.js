@@ -85,6 +85,7 @@ angular.module('console.dashboard', [
                         plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
                         namespace: $rootScope.namespace,
                         region:$rootScope.region
+                        
                     }, function (data) {
                         console.log('data', data);
 
