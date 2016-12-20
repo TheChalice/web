@@ -4,8 +4,8 @@ angular.module('console.dashboard', [
             files: []
         }
     ])
-    .controller('dashboardCtrl', ['resourcequotas','Project', 'recharge', 'balance', '$http', '$log', '$rootScope', '$scope', 'Metrics', 'MetricsService', 'Pod', 'DeploymentConfig', 'BackingServiceInstance', 'account', 'market',
-        function (resourcequotas,Project, recharge, balance, $http, $log, $rootScope, $scope, Metrics, MetricsService, Pod, DeploymentConfig, BackingServiceInstance, account, market) {
+    .controller('dashboardCtrl', ['checkout','resourcequotas','Project', 'recharge', 'balance', '$http', '$log', '$rootScope', '$scope', 'Metrics', 'MetricsService', 'Pod', 'DeploymentConfig', 'BackingServiceInstance', 'account', 'market',
+        function (checkout,resourcequotas,Project, recharge, balance, $http, $log, $rootScope, $scope, Metrics, MetricsService, Pod, DeploymentConfig, BackingServiceInstance, account, market) {
             $scope.cpuData = [];
             $scope.memData = [];
             $scope.isdata = {};
@@ -77,66 +77,85 @@ angular.module('console.dashboard', [
             account.get({
                 namespace: $rootScope.namespace,
                 region: $rootScope.region,
-            }, function (res) {
-                console.log('accountall',res);
+            }, function (reso) {
+                console.log('accountall',reso);
+                if (!reso.subscriptions) {
+                    checkout.create({
+                        drytry:0,
+                        plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
+                        namespace: $rootScope.namespace,
+                        region:$rootScope.region
+                    }, function (data) {
+                        console.log('data', data);
 
-                market.get({region: $rootScope.region, type: 'resources'}, function (data) {
-                    //console.log('eeeeeeeeeeee',data);
-                    $scope.plans = {
-                        cpu: "",
-                        ram: "",
-                        price: '',
-                        planName: ''
-                    }
-
-                    if (res.subscriptions.length > 1) {
                         account.get({
                             namespace: $rootScope.namespace,
                             region: $rootScope.region,
-                            status:"consuming"
-                        }, function (resin) {
-                            angular.forEach(resin.subscriptions, function (item, k) {
-                                if (item.type === "resources") {
-                                    angular.forEach(data.plans, function (plan, i) {
-                                        if (item.plan_id === plan.plan_id) {
-                                            $scope.plans.cpu =plan.description;
-                                            $scope.plans.ram = plan.description2;
-                                            $scope.plans.price = plan.price
-                                            $scope.plans.planName = plan.plan_name;
-                                        }
-                                    })
+                        }, function (res) {
+                            market.get({region: $rootScope.region, type: 'resources'}, function (data) {
+                                //console.log('eeeeeeeeeeee',data);
+                                $scope.plans = {
+                                    cpu: "",
+                                    ram: "",
+                                    price: '',
+                                    planName: ''
                                 }
+                                if (res.subscriptions.length > 1) {
+                                    account.get({
+                                        namespace: $rootScope.namespace,
+                                        region: $rootScope.region,
+                                        status:"consuming"
+                                    }, function (resin) {
+                                        angular.forEach(resin.subscriptions, function (item, k) {
+                                            if (item.type === "resources") {
+                                                angular.forEach(data.plans, function (plan, i) {
+                                                    if (item.plan_id === plan.plan_id) {
+                                                        $scope.plans.cpu =plan.description;
+                                                        $scope.plans.ram = plan.description2;
+                                                        $scope.plans.price = plan.price
+                                                        $scope.plans.planName = plan.plan_name;
+
+                                                    }
+                                                })
+                                            }
+
+                                        })
+                                    })
+                                }else {
+
+                                    $scope.plans.cpu =res.subscriptions[0].description;
+                                    $scope.plans.ram = res.subscriptions[0].description2;
+                                    $scope.plans.price = res.subscriptions[0].price
+                                    $scope.plans.planName = res.subscriptions[0].plan_name;
+
+                                }
+
+
+
+                                //for(var i = 0 ; i < data.plans.length; i++){
+                                //
+                                //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
+                                //        $scope.plans.cpu = data.plans[i].description;
+                                //        $scope.plans.ram = data.plans[i].description2;
+                                //        $scope.plans.price = data.plans[i].price
+                                //        $scope.plans.planName = data.plans[i].plan_name;
+                                //    }
+                                //}
 
                             })
                         })
-                    }else {
-
-                        $scope.plans.cpu =res.subscriptions[0].description;
-                        $scope.plans.ram = res.subscriptions[0].description2;
-                        $scope.plans.price = res.subscriptions[0].price
-                        $scope.plans.planName = res.subscriptions[0].plan_name;
-
-                    }
+                    })
+                }
+                //$scope.balance=res.balance;
 
 
 
-                    //for(var i = 0 ; i < data.plans.length; i++){
-                    //
-                    //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
-                    //        $scope.plans.cpu = data.plans[i].description;
-                    //        $scope.plans.ram = data.plans[i].description2;
-                    //        $scope.plans.price = data.plans[i].price
-                    //        $scope.plans.planName = data.plans[i].plan_name;
-                    //    }
-                    //}
-
-                })
             })
 
-            balance.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
-                $scope.balance = data
-                //console.log('balance', data);
-            });
+            //balance.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+            //    $scope.balance = data
+            //    //console.log('balance', data);
+            //});
 
             var setChart = function () {
                 return {

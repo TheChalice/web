@@ -77,6 +77,10 @@ angular.module('console', [
                     $log.info("find project err", res);
                 });
             };
+
+
+
+
             //var timer = $timeout(
             //    function () {
             //        account.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {

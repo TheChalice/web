@@ -165,7 +165,7 @@ define([
                                             //console.log('usertoken', token);
                                             Cookie.set('df_access_token', token, 10 * 365 * 24 * 3600 * 1000);
                                         }
-                                        account.get({namespace:$rootScope.namespace,region:$rootScope.region}, function (data) {
+                                        //account.get({namespace:$rootScope.namespace,region:$rootScope.region}, function (data) {
                                             //console.log('套餐', data);
                                             //$rootScope.payment=data;
                                             //$rootScope.loding = false;
@@ -177,28 +177,29 @@ define([
                                             //    $state.go('console.noplan');
                                             //    //跳转购买套餐
                                             //}
-                                            if (!data.subscriptions) {
-                                                checkout.create({
-                                                    drytry:0,
-                                                    plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
-                                                    namespace: $rootScope.namespace,
-                                                    region:$rootScope.region
-                                                }, function (data) {
+                                            //if (!data.subscriptions) {
+                                                //checkout.create({
+                                                //    drytry:0,
+                                                //    plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
+                                                //    namespace: $rootScope.namespace,
+                                                //    region:$rootScope.region
+                                                //}, function (data) {
+                                                //    console.log(1);
                                                     return creatproject.create({'metadata':{
                                                         name:user.metadata.name
                                                     }}).$promise
                                                     
-                                                }, function (err) {
-                                                    $state.reload();
-                                                })
-                                            }
+                                                //}, function (err) {
+                                                //    $state.reload();
+                                                //})
+                                            //}
 
 
                                             //Cookie.set('access_token', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
-                                           
-                                        }, function (err) {
-                                            $state.reload();
-                                        })
+                                        //
+                                        //}, function (err) {
+                                        //    $state.reload();
+                                        //})
                                         //console.log('token',user);
 
                                        
