@@ -79,6 +79,7 @@ angular.module('console.dashboard', [
                 region: $rootScope.region,
             }, function (res) {
                 console.log('accountall',res);
+
                 market.get({region: $rootScope.region, type: 'resources'}, function (data) {
                     //console.log('eeeeeeeeeeee',data);
                     $scope.plans = {
@@ -87,19 +88,36 @@ angular.module('console.dashboard', [
                         price: '',
                         planName: ''
                     }
-                    angular.forEach(res.subscriptions, function (item, k) {
-                        if (item.type === "resources") {
-                            angular.forEach(data.plans, function (plan, i) {
-                                if (item.plan_id === plan.plan_id) {
-                                    $scope.plans.cpu =plan.description;
-                                    $scope.plans.ram = plan.description2;
-                                    $scope.plans.price = plan.price
-                                    $scope.plans.planName = plan.plan_name;
-                                }
-                            })
-                        }
 
-                    })
+                    if (res.subscriptions.length > 1) {
+                        account.get({
+                            namespace: $rootScope.namespace,
+                            region: $rootScope.region,
+                            status:"consuming"
+                        }, function (resin) {
+                            angular.forEach(resin.subscriptions, function (item, k) {
+                                if (item.type === "resources") {
+                                    angular.forEach(data.plans, function (plan, i) {
+                                        if (item.plan_id === plan.plan_id) {
+                                            $scope.plans.cpu =plan.description;
+                                            $scope.plans.ram = plan.description2;
+                                            $scope.plans.price = plan.price
+                                            $scope.plans.planName = plan.plan_name;
+                                        }
+                                    })
+                                }
+
+                            })
+                        })
+                    }else {
+
+                        $scope.plans.cpu =res.subscriptions[0].description;
+                        $scope.plans.ram = res.subscriptions[0].description2;
+                        $scope.plans.price = res.subscriptions[0].price
+                        $scope.plans.planName = res.subscriptions[0].plan_name;
+
+                    }
+
 
 
                     //for(var i = 0 ; i < data.plans.length; i++){
