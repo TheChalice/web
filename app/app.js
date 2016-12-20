@@ -49,8 +49,8 @@ define([
             host_payment: './payment/v1',
             host_integration: './integration/v1',
             host_hawkular: './hawkular/metrics',
-            host_wss: 'ws/oapi/v1',
-            host_wss_k8s: 'ws/api/v1',
+            host_wss: './ws/oapi/v1',
+            host_wss_k8s: './ws/api/v1',
             login_uri: '/login',
             signin_uri: '/signin',
             host_webhooks: 'https://dev.dataos.io:8443/oapi/v1'
