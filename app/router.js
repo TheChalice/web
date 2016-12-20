@@ -143,7 +143,7 @@ define([
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
                             return $ocLazyLoad.load('views/console/console.js')
                         }],
-                        user: ['$state','checkout','account','sessiontoken','creatproject','regions', 'Cookie', '$rootScope', 'User',
+                        newuser: ['$state','checkout','account','sessiontoken','creatproject','regions', 'Cookie', '$rootScope', 'User',
                             function ($state,checkout,account,sessiontoken,creatproject,regions, Cookie, $rootScope, User) {
                             if ($rootScope.user) {
                                 return $rootScope.user;
@@ -151,8 +151,9 @@ define([
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
                                 //console.log('user', user);
                                 $rootScope.user = user;
-                                //console.log('$rootScope.user', user);
+                                console.log('$rootScope.user', user);
                                 $rootScope.namespace = user.metadata.name;
+                                console.log('$rootScope.namespace', user);
                                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
                                 $rootScope.region = 'cn-north-1';
                                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
@@ -212,6 +213,10 @@ define([
                                 $state.reload();
                             })
                             //return User.get({name: '~', region: Cookie.get('region')}).$promise;
+                        }],
+                        user: ['regions', 'Cookie', '$rootScope', 'User', function (regions, Cookie, $rootScope, User) {
+
+                            return User.get({name: '~', region: Cookie.get('region')}).$promise;
                         }]
                     },
                     abstract: true

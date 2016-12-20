@@ -77,9 +77,8 @@ angular.module('console.dashboard', [
             account.get({
                 namespace: $rootScope.namespace,
                 region: $rootScope.region,
-                status: "consuming"
             }, function (res) {
-                //console.log('lalallalalalllallal',res);
+                console.log('accountall',res);
                 market.get({region: $rootScope.region, type: 'resources'}, function (data) {
                     //console.log('eeeeeeeeeeee',data);
                     $scope.plans = {

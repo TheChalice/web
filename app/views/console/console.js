@@ -9,14 +9,18 @@ angular.module('console', [
             ]
         }
     ])
-    .controller('ConsoleCtrl', ['$timeout', 'sessiontoken', 'regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
-        function ($timeout, sessiontoken, regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
+    .controller('ConsoleCtrl', ['newuser','$timeout', 'sessiontoken', 'regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
+        function (newuser,$timeout, sessiontoken, regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
             //$('html').css('overflow', 'auto');
             //sessiontoken.get({},function (user) {
             //    console.log(user);
             //
             //})
-
+            if ($rootScope.user) {
+                console.log('$rootScope.user', $rootScope.user.metadata.name);
+            } else {
+                $rootScope.user = user;
+            }
             $log.info('Console', $state.current.name);
             var namespace = Cookie.get('namespace');
             var region = Cookie.get('region');
@@ -33,15 +37,7 @@ angular.module('console', [
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
-            if ($rootScope.user) {
-                console.log('$rootScope.user', $rootScope.user.metadata.name);
-            } else {
-                $rootScope.user = {
-                    metadata: {
-                        name: Cookie.get('namespace')
-                    }
-                }
-            }
+
 
             var loadProject = function () {
                 //$log.info("load project");
