@@ -145,6 +145,8 @@ angular.module('console.dashboard', [
                             })
                         })
                     })
+                }else {
+                    $scope.balance=reso.balance
                 }
                 //$scope.balance=res.balance;
 
