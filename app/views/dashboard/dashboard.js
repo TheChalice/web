@@ -73,7 +73,12 @@ angular.module('console.dashboard', [
             }, function (res) {
                 $log.info("find project err", res);
             });
-
+            $scope.plans = {
+                cpu: "",
+                ram: "",
+                price: '',
+                planName: ''
+            }
             account.get({
                 namespace: $rootScope.namespace,
                 region: $rootScope.region,
@@ -94,12 +99,7 @@ angular.module('console.dashboard', [
                             console.log('accountall',reso);
                             market.get({region: $rootScope.region, type: 'resources'}, function (data) {
                                 //console.log('eeeeeeeeeeee',data);
-                                $scope.plans = {
-                                    cpu: "",
-                                    ram: "",
-                                    price: '',
-                                    planName: ''
-                                }
+
                                 if (res.subscriptions.length > 1) {
                                     account.get({
                                         namespace: $rootScope.namespace,
@@ -146,6 +146,53 @@ angular.module('console.dashboard', [
                         })
                     })
                 }else {
+                    $scope.balance=reso.balance;
+                    market.get({region: $rootScope.region, type: 'resources'}, function (data) {
+                        //console.log('eeeeeeeeeeee',data);
+
+                        if (reso.subscriptions.length > 1) {
+                            account.get({
+                                namespace: $rootScope.namespace,
+                                region: $rootScope.region,
+                                status:"consuming"
+                            }, function (resin) {
+                                angular.forEach(resin.subscriptions, function (item, k) {
+                                    if (item.type === "resources") {
+                                        angular.forEach(data.plans, function (plan, i) {
+                                            if (item.plan_id === plan.plan_id) {
+                                                $scope.plans.cpu =plan.description;
+                                                $scope.plans.ram = plan.description2;
+                                                $scope.plans.price = plan.price
+                                                $scope.plans.planName = plan.plan_name;
+
+                                            }
+                                        })
+                                    }
+
+                                })
+                            })
+                        }else {
+
+                            $scope.plans.cpu =reso.subscriptions[0].description;
+                            $scope.plans.ram = reso.subscriptions[0].description2;
+                            $scope.plans.price = reso.subscriptions[0].price
+                            $scope.plans.planName = reso.subscriptions[0].plan_name;
+
+                        }
+
+
+
+                        //for(var i = 0 ; i < data.plans.length; i++){
+                        //
+                        //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
+                        //        $scope.plans.cpu = data.plans[i].description;
+                        //        $scope.plans.ram = data.plans[i].description2;
+                        //        $scope.plans.price = data.plans[i].price
+                        //        $scope.plans.planName = data.plans[i].plan_name;
+                        //    }
+                        //}
+
+                    })
                     $scope.balance=reso.balance
                 }
                 //$scope.balance=res.balance;
