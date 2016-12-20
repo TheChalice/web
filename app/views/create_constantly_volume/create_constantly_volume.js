@@ -60,13 +60,35 @@ angular.module('console.create_constantly_volume', [
             if (n == o) {
                 return
             }
-            if (n && n!=="") {
-                $scope.err.blank = false;
-                $scope.err.valid = false;
+            var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 
+            if (n&&!r.test(n)) {
+                //alert(2)
+                $scope.err.valid = true;
+                return
+            }else{
+                $scope.err.valid = false;
             }
         })
+        $scope.empty=function(){
+            if ( $scope.volume.name==='') {
 
+                //alert(1)
+                $scope.err.blank = false;
+                return
+            }
+        }
+        $scope.isEmpty=function(){
+            if ( $scope.volume.name==='') {
+
+                //alert(1)
+                $scope.err.blank = true;
+                return
+            } else {
+                $scope.err.blank = false;
+            }
+
+        }
         $scope.creat = function () {
             var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 

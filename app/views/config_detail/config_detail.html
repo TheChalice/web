@@ -1,4 +1,4 @@
-<div class="config-detail">
+<div class="config-detail" style="background:#fff;padding:20px 38px 38px;">
     <div class="loader" ng-show="!volume">
         <div class="loader-inner ball-clip-rotate-multiple">
             <div></div>
@@ -108,7 +108,7 @@
                         </ul>
                         <div class="col-md-12" style="margin-bottom: 20px;padding: 0;"
                              ng-repeat="item in volume.configitems">
-                            <input class="col-md-5 key" type="text" placeholder="KEY" ng-model="item.key">
+                            <input class="col-md-5 key" type="text" placeholder="KEY" ng-model="item.key" style="background:none;border:1px solid #c9c9c9">
                             <div class="col-md-1"></div>
                             <textarea class="col-md-5 key" style="padding-left: 10px;border: 1px solid #c9c9c9;"
                                       type="text" placeholder="VALUE" ng-model="item.value"></textarea>
