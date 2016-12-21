@@ -53,7 +53,8 @@ define([
             host_wss_k8s: './ws/api/v1',
             login_uri: '/login',
             signin_uri: '/signin',
-            host_webhooks: 'https://dev.dataos.io:8443/oapi/v1'
+            host_webhooks: 'https://dev.dataos.io:8443/oapi/v1',
+            service_url:'.app.dataos.io'
         })
         .constant('AUTH_EVENTS', {
             loginNeeded: 'auth-login-needed',

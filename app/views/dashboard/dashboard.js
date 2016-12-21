@@ -83,6 +83,7 @@ angular.module('console.dashboard', [
                 namespace: $rootScope.namespace,
                 region: $rootScope.region,
             }, function (reso) {
+
                 if (!reso.subscriptions) {
                     checkout.create({
                         drytry:0,
@@ -99,7 +100,6 @@ angular.module('console.dashboard', [
                             console.log('accountall',reso);
                             market.get({region: $rootScope.region, type: 'resources'}, function (data) {
                                 //console.log('eeeeeeeeeeee',data);
-
                                 if (res.subscriptions.length > 1) {
                                     account.get({
                                         namespace: $rootScope.namespace,

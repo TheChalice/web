@@ -9,8 +9,8 @@ angular.module('console.service.detail', [
             ]
         }
     ])
-    .controller('ServiceDetailCtrl', ['deletepod','resourcequotas','$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'ContainerModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey',
-        function (deletepod,resourcequotas,$sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, ContainerModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey) {
+    .controller('ServiceDetailCtrl', ['GLOBAL','deletepod','resourcequotas','$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'ContainerModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey',
+        function (GLOBAL,deletepod,resourcequotas,$sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, ContainerModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey) {
             //获取服务列表
             $scope.servicepoterr = false;
             $scope.quota = {
@@ -33,7 +33,8 @@ angular.module('console.service.detail', [
                 tlsshow: false,
                 tlsset: 'none',
                 httpset: 'Allow',
-                suffix: '.' + $rootScope.namespace + '.app.dataos.io',
+                suffix: '.' + $rootScope.namespace + GLOBAL.service_url,
+                //suffix: '.' + $rootScope.namespace + '.app.dataos.io',
                 isimageChange: true,
                 imagePullSecrets: false
             };
@@ -762,11 +763,11 @@ angular.module('console.service.detail', [
                             //alert(1)
                             var arr=hoststr.split('.')
                             if (arr[arr.length - 4] === $rootScope.namespace) {
-                                $scope.grid.suffix='.' + $rootScope.namespace + '.app.dataos.io';
+                                $scope.grid.suffix='.' + $rootScope.namespace + GLOBAL.service_url;
                                // $scope.grid.host = $scope.dc.route.spec.host.replace('.app.dataos.io', '');
                             }else {
 
-                                $scope.grid.suffix='.app.dataos.io';
+                                $scope.grid.suffix=GLOBAL.service_url;
                             }
                             $scope.grid.host = $scope.dc.route.spec.host.replace($scope.grid.suffix, '');
 
