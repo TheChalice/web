@@ -177,7 +177,7 @@ angular.module('console.dashboard', [
                             $scope.plans.ram = reso.subscriptions[0].description2;
                             $scope.plans.price = reso.subscriptions[0].price
                             $scope.plans.planName = reso.subscriptions[0].plan_name;
-
+                            console.log('$scope.plans',$scope.plans);
                         }
 
 
