@@ -44,17 +44,19 @@ angular.module('console', [
             creatproject.create({'metadata': {
                 name:$rootScope.user.metadata.name
             }}, function (res) {
-                console.log('creatproject', $rootScope.user.metadata.name);
+                //console.log('creatproject', $rootScope.user.metadata.name);
+                loadProject();
+            }, function (err) {
                 loadProject();
             })
             var loadProject = function () {
                 //$log.info("load project");
                 Project.get({region: $rootScope.region}, function (data) {
                     //$rootScope.projects = data.items;
-                    //console.log('Project', Project);
+                    //console.log('consoleProject', data);
                     //var newprojects = [];
                     angular.forEach(data.items, function (item, i) {
-                        console.log($rootScope.user.metadata.name);
+                        //console.log($rootScope.user.metadata.name);
                         if (item.metadata.name === $rootScope.user.metadata.name) {
                             //console.log($rootScope.user.metadata.name);
                             data.items.splice(i, 1);
