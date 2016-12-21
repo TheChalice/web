@@ -54,7 +54,7 @@ define([
             login_uri: '/login',
             signin_uri: '/signin',
             host_webhooks: 'https://dev.dataos.io:8443/oapi/v1',
-            service_url:'.app.dataos.io'
+            service_url:'<ROUTER_DOMAIN_SUFFIX>'
         })
         .constant('AUTH_EVENTS', {
             loginNeeded: 'auth-login-needed',
