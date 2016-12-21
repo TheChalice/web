@@ -76,8 +76,8 @@ angular.module('console.dashboard', [
             $scope.plans = {
                 cpu: "",
                 ram: "",
-                price: '',
-                planName: ''
+                price: null,
+                planName: null
             }
             account.get({
                 namespace: $rootScope.namespace,
