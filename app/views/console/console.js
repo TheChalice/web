@@ -9,13 +9,14 @@ angular.module('console', [
             ]
         }
     ])
-    .controller('ConsoleCtrl', ['newuser','$timeout', 'sessiontoken', 'regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
-        function (newuser,$timeout, sessiontoken, regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
+    .controller('ConsoleCtrl', ['creatproject','newuser','$timeout', 'sessiontoken', 'regions', 'account', '$http', '$rootScope', '$scope', '$log', 'AUTH_EVENTS', 'User', 'user', 'Project', 'Cookie', '$state',
+        function (creatproject,newuser,$timeout, sessiontoken, regions, account, $http, $rootScope, $scope, $log, AUTH_EVENTS, User, user, Project, Cookie, $state) {
             //$('html').css('overflow', 'auto');
             //sessiontoken.get({},function (user) {
             //    console.log(user);
             //
             //})
+
             if ($rootScope.user) {
                 console.log('$rootScope.user', $rootScope.user.metadata.name);
             } else {
@@ -27,18 +28,25 @@ angular.module('console', [
             if (region) {
                 $rootScope.region = region;
             } else {
+                console.log('noregion');
                 $rootScope.region = 'cn-north-1';
                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
             }
             if (namespace) {
                 $rootScope.namespace = namespace;
             } else {
+                console.log('nonamespace');
                 $rootScope.namespace = $rootScope.user.metadata.name;
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
-
-
+            console.log('creatproject.user', $rootScope.user.metadata.name);
+            creatproject.create({'metadata': {
+                name:$rootScope.user.metadata.name
+            }}, function (res) {
+                console.log('creatproject', $rootScope.user.metadata.name);
+                loadProject();
+            })
             var loadProject = function () {
                 //$log.info("load project");
                 Project.get({region: $rootScope.region}, function (data) {
@@ -113,7 +121,7 @@ angular.module('console', [
                 $('#sidebar-right-fixed').css("marginLeft", 188)
             }
             //console.log($scope.showsidebar);
-            loadProject();
+
 
             //account.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
             //    //console.log('套餐', data);

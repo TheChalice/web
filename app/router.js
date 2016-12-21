@@ -151,9 +151,9 @@ define([
                             User.get({name: '~', region: Cookie.get('region')}, function (user) {
                                 //console.log('user', user);
                                 $rootScope.user = user;
-                                console.log('$rootScope.user', user);
+                                //console.log('$rootScope.user', user);
                                 $rootScope.namespace = user.metadata.name;
-                                console.log('$rootScope.namespace', user);
+                                //console.log('$rootScope.namespace', user);
                                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
                                 $rootScope.region = 'cn-north-1';
                                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
@@ -185,9 +185,7 @@ define([
                                                 //    region:$rootScope.region
                                                 //}, function (data) {
                                                 //    console.log(1);
-                                                    return creatproject.create({'metadata':{
-                                                        name:user.metadata.name
-                                                    }}).$promise
+                                        return User.get({name: '~', region: Cookie.get('region')}).$promise;
                                                     
                                                 //}, function (err) {
                                                 //    $state.reload();
