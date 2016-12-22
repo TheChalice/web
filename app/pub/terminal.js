@@ -93,7 +93,7 @@ define(['angular'], function (angular) {
                                 url += pod.metadata.selfLink;
                             else
                                 url += pod;
-                            console.log('url', url);
+
                             url += "/exec";
 
                             if (url.indexOf('?') === -1)
@@ -134,7 +134,7 @@ define(['angular'], function (angular) {
                                 term.write('\x1b[31m' + message + '\x1b[m\r\n');
                                 scope.$apply(disconnect);
                             }
-
+                            console.log('url', url);
                             $q.when(kubernetesContainerSocket(url, "base64.channel.k8s.io"),
                                 function resolved(socket) {
                                     ws = socket;
