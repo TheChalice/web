@@ -1650,8 +1650,12 @@ define(['angular'], function (angular) {
                     //if (config.headers && token) {
                     //    config.headers["Authorization"] = "Bearer " + token;
                     //}
+                    console.log('config.url out', config.url);
+
 
                     if (/^\/hawkular/.test(config.url)) {
+                        console.log('config.url in', config.url);
+                        console.log('$rootScope.namespace', $rootScope.namespace);
                         config.headers["Hawkular-Tenant"] = $rootScope.namespace;
                     }
                     //if (/^\/registry/.test(config.url)) {
