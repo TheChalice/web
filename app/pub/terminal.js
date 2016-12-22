@@ -93,6 +93,7 @@ define(['angular'], function (angular) {
                                 url += pod.metadata.selfLink;
                             else
                                 url += pod;
+                            console.log('url', url);
                             url += "/exec";
 
                             if (url.indexOf('?') === -1)
