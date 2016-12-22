@@ -316,8 +316,8 @@ angular.module('console.dashboard', [
                     percentstr = '<b style="color:#5a6378; font-size: 14px">已用' + percent + '%</b>';
                 }
                 //配额
-                var subTitle = '<b style="font-size:14px;color:#f6a540;">' + tp + '</b><br>' +
-                        '<span style="color:#9fa7b7; font-size:14px;">' + dec + '</span><br>' + percentstr
+                var subTitle = '<b style="font-size:14px;color:#a5a6bb;">' + tp + '</b><br>' +
+                        '<span style="color:#333333; font-size:14px;">' + dec + '</span><br>' + percentstr
                     ;
                 return {
                     options: {
@@ -511,12 +511,12 @@ angular.module('console.dashboard', [
                             if (memnums == 100 || cpunums == 100) {
                                 if (memnums == 100 && cpunums != 100) {
                                     $scope.pieConfigMem = setPieChart('内存', data.items[0].spec.hard['limits.memory'], memnums, true, 'red');
-                                    $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu'] + 'G/Hz', cpunums, true, '#f6a540');
+                                    $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu'] + 'Cores', cpunums, true, '#f6a540');
                                 } else if (cpunums == 100 && memnums != 100) {
-                                    $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu'] + 'G/Hz', cpunums, true, 'red');
+                                    $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu'] + 'Cores', cpunums, true, 'red');
                                     $scope.pieConfigMem = setPieChart('内存', data.items[0].spec.hard['limits.memory'], memnums, true, '#f6a540');
                                 } else {
-                                    $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu'] + 'G/Hz', cpunums, true, 'red');
+                                    $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu'] + 'Cores', cpunums, true, 'red');
                                     $scope.pieConfigMem = setPieChart('内存', data.items[0].spec.hard['limits.memory'], memnums, true, 'red');
 
                                 }
