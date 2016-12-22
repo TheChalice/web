@@ -1653,7 +1653,7 @@ define(['angular'], function (angular) {
                     console.log('config.url out', config.url);
 
 
-                    if (/^\/hawkular/.test(config.url)) {
+                    if (/^\.\/hawkular/.test(config.url)) {
                         console.log('config.url in', config.url);
                         console.log('$rootScope.namespace', $rootScope.namespace);
                         config.headers["Hawkular-Tenant"] = $rootScope.namespace;
