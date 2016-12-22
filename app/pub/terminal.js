@@ -13,7 +13,7 @@ define(['angular'], function (angular) {
                         if (window.location.protocol != "https:") {
                             wsscheme = "ws://";
                         }
-                        url = wsscheme + window.location.host + '/ws' + url;
+                        url = wsscheme + window.location.host +window.location.pathname +'/ws' + url;
                     }
                     return new window.WebSocket(url, protocols);
                 };
