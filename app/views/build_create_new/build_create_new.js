@@ -742,7 +742,7 @@ angular.module('console.build_create_new', [
 
             $scope.loadOwner();
 
-            $scope.checkdTab(2)
+            $scope.checkdTab(3)
             $scope.create = function() {
                 $scope.creating = true;
                 console.log('check',$scope.check);
