@@ -352,7 +352,7 @@ angular.module('console.build_create_new', [
                     $scope.grid.labsecret = data.msg.secret;
                     createBuildConfig(data.msg.secret)
                 })
-                
+
                 //$http.post('/v1/repos/gitlab/authorize/deploy', objJson, {headers: {'namespace': $rootScope.namespace}}).success(function (data) {
                 //    $scope.grid.labsecret = data.msg.secret;
                 //    createBuildConfig(data.msg.secret)
@@ -742,7 +742,8 @@ angular.module('console.build_create_new', [
 
             $scope.loadOwner();
 
-            $scope.checkdTab(4)
+            //$scope.checkdTab(4);
+
             $scope.create = function() {
                 $scope.creating = true;
                 console.log('check',$scope.check);
