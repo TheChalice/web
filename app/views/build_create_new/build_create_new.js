@@ -111,7 +111,7 @@ angular.module('console.build_create_new', [
                     $scope.namerr.rexed = false;
                 }
             })
-            $scope.check=2
+            $scope.check=1
 
             $scope.$watch('check', function (n, o) {
                 if (n === o) {
@@ -188,7 +188,7 @@ angular.module('console.build_create_new', [
                     if (res.data.code == 409) {
                         Alert.open('错误', "构建名称重复", true);
                     } else {
-                       // Alert.open('错误', res.data.message, true);
+                        // Alert.open('错误', res.data.message, true);
                     }
                 });
             }
@@ -444,7 +444,7 @@ angular.module('console.build_create_new', [
                 labusers: null,
                 labproject: null,
                 labbranch: null,
-                gitlabbox: false,
+                gitlabbox: true,
                 ishide: false,
                 labcon: false,
                 labsecret: "",
@@ -809,7 +809,7 @@ angular.module('console.build_create_new', [
                         }
                         $scope.creating = false;
                     } else {
-                       // Alert.open('错误', res.data.message, true);
+                        // Alert.open('错误', res.data.message, true);
                         $scope.creating = false;
                     }
                 });
