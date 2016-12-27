@@ -600,6 +600,16 @@ define([
                         }]
                     }
                 })
+                .state('console.admin', {
+                    url: '/admin',
+                    templateUrl: 'views/admin/admin.html',
+                    controller: 'adminCtrl',
+                    resolve: {
+                        dep: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('views/admin/admin.js')
+                        }]
+                    }
+                })
                 .state('console.pay', {
                     url: '/pay',
                     params: {

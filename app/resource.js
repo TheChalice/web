@@ -124,6 +124,13 @@ define([
             return User;
         }])
 
+        .factory('hasuser', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var hasuser = $resource(GLOBAL.host + '/users', {region: '@region'}, {
+                //create: {method: 'POST'}
+            });
+            return hasuser;
+        }])
+
         .factory('Project', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var Project = $resource(GLOBAL.host + '/projects/:name?region=:region', {
                 name: '@name',
@@ -805,6 +812,18 @@ define([
                 create: {method: 'POST'}
             });
             return redeem;
+        }])
+        .factory('addcard', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {//生成卡
+            var addcard = $resource(GLOBAL.host_payment + '/coupon?region=:region', {region: '@region'}, {
+                create: {method: 'POST'}
+            });
+            return addcard;
+        }])
+        .factory('directrecharge', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {//充钱
+            var directrecharge = $resource(GLOBAL.host_payment + '/directrecharge?region=:region', {region: '@region'}, {
+                create: {method: 'POST'}
+            });
+            return directrecharge;
         }])
 
         .factory('orders', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {//获取订单
