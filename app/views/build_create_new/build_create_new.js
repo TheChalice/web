@@ -195,60 +195,60 @@ angular.module('console.build_create_new', [
             }
             //console.log('随机数',randomWord.word(false,25).length,randomWord.word(false,25));
             var createBuildConfig = function (labsecret) {
-                if ($scope.grid.ishide == false) {
-                    $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
-                    $scope.buildConfig.spec.source.git.ref = $scope.branch[$scope.grid.branch].name;
-                    $scope.buildConfig.spec.source.sourceSecret.name = $scope.owner.secret;
-                    $scope.buildConfig.spec.source.git.uri = $scope.usernames[$scope.grid.user].repos[$scope.grid.project].clone_url;
-                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.branch[$scope.grid.branch].name;
-                    $scope.buildConfig.metadata.annotations.repo = $scope.usernames[$scope.grid.user].repos[$scope.grid.project].name;
-                    $scope.buildConfig.metadata.annotations.user = $scope.usernames[$scope.grid.user].login;
+                //if ($scope.grid.ishide == false) {
+                //    $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
+                //    $scope.buildConfig.spec.source.git.ref = $scope.branch[$scope.grid.branch].name;
+                //    $scope.buildConfig.spec.source.sourceSecret.name = $scope.owner.secret;
+                //    $scope.buildConfig.spec.source.git.uri = $scope.usernames[$scope.grid.user].repos[$scope.grid.project].clone_url;
+                //    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.branch[$scope.grid.branch].name;
+                //    $scope.buildConfig.metadata.annotations.repo = $scope.usernames[$scope.grid.user].repos[$scope.grid.project].name;
+                //    $scope.buildConfig.metadata.annotations.user = $scope.usernames[$scope.grid.user].login;
+                //    createBC();
+                //} else if ($scope.grid.labcon == true) {
+                //
+                //    $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
+                //    $scope.buildConfig.spec.source.git.ref = $scope.labBranchData.msg[$scope.grid.labbranch].name;
+                //    $scope.buildConfig.spec.source.sourceSecret.name = labsecret;
+                //    //console.log($scope.labusername,$scope.grid.labusers);
+                //    $scope.buildConfig.spec.source.git.uri = $scope.labobjs[$scope.grid.labproject].ssh_url_to_repo;
+                //    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.labBranchData.msg[$scope.grid.labbranch].name;
+                //    $scope.buildConfig.metadata.annotations.repo = $scope.labobjs[$scope.grid.labproject].id.toString();
+                //    createBC();
+                //} else if ($scope.grid.ishide == true && $scope.grid.labcon == false) {
+
+                $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
+                $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
+                $scope.buildConfig.spec.triggers = [];
+                //console.log(secret);
+                var baseun = $base64.encode($scope.gitUsername);
+                var basepwd = $base64.encode($scope.gitPwd);
+                $scope.secret = {
+                    "kind": "Secret",
+                    "apiVersion": "v1",
+                    "metadata": {
+                        "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                    },
+                    "data": {
+                        username: baseun,
+                        password: basepwd
+
+                    },
+                    "type": "Opaque"
+                }
+                secretskey.create({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, $scope.secret, function (item) {
+                    //alert(11111)
+                    $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
                     createBC();
-                } else if ($scope.grid.labcon == true) {
-
-                    $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
-                    $scope.buildConfig.spec.source.git.ref = $scope.labBranchData.msg[$scope.grid.labbranch].name;
-                    $scope.buildConfig.spec.source.sourceSecret.name = labsecret;
-                    //console.log($scope.labusername,$scope.grid.labusers);
-                    $scope.buildConfig.spec.source.git.uri = $scope.labobjs[$scope.grid.labproject].ssh_url_to_repo;
-                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.labBranchData.msg[$scope.grid.labbranch].name;
-                    $scope.buildConfig.metadata.annotations.repo = $scope.labobjs[$scope.grid.labproject].id.toString();
-                    createBC();
-                } else if ($scope.grid.ishide == true && $scope.grid.labcon == false) {
-
-                    $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
-                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
-                    $scope.buildConfig.spec.triggers = [];
-                    //console.log(secret);
-                    var baseun = $base64.encode($scope.gitUsername);
-                    var basepwd = $base64.encode($scope.gitPwd);
-                    $scope.secret = {
-                        "kind": "Secret",
-                        "apiVersion": "v1",
-                        "metadata": {
-                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
-                        },
-                        "data": {
-                            username: baseun,
-                            password: basepwd
-
-                        },
-                        "type": "Opaque"
-                    }
-                    secretskey.create({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region
-                    }, $scope.secret, function (item) {
-                        //alert(11111)
+                }, function (res) {
+                    if (res.status == 409) {
                         $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
                         createBC();
-                    }, function (res) {
-                        if (res.status == 409) {
-                            $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
-                            createBC();
-                        }
-                    })
-                }
+                    }
+                })
+                //}
             };
 
 
@@ -792,13 +792,13 @@ angular.module('console.build_create_new', [
                 };
                 ImageStream.create({namespace: $rootScope.namespace,region:$rootScope.region}, imageStream, function (res) {
                     $log.info("imageStream", res);
-                    if($scope.grid.labcon == true){
-                        getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
-                    }else if($scope.grid.ishide == false){
-                        createBuildConfig();
-                    }else if($scope.grid.ishide == true && $scope.grid.labcon == false){
-                        createBuildConfig('a');
-                    }
+                    //if($scope.grid.labcon == true){
+                    //    getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
+                    //}else if($scope.grid.ishide == false){
+                    //    createBuildConfig();
+                    //}else if($scope.grid.ishide == true && $scope.grid.labcon == false){
+                    createBuildConfig('a');
+                    //}
 
                 },function(res){
                     $log.info("err", res);
