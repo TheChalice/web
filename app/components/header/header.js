@@ -56,10 +56,7 @@ angular.module("console.header", [
                             var nprojects=angular.copy(data.items)
                             angular.forEach(data.items, function (item, i) {
                                 //console.log('project.namespace', $rootScope.namespace);
-                                if (item.metadata.name === $rootScope.namespace) {
-                                    $scope.projectname = item.metadata.annotations['openshift.io/display-name'] === '' ? item.metadata.name : item.metadata.annotations['openshift.io/display-name'];
-                                     console.log('project.namespace',$scope.projectname);
-                                }
+                                data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
                             })
                             angular.forEach(nprojects, function (item, i) {
                                 //console.log($rootScope.user.metadata.name);
@@ -418,13 +415,13 @@ angular.module("console.header", [
                         //$scope.checked = namespace;
                         //$rootScope.huancun.name = namespace;
                         //console.log('$scope.checked', $scope.checked);
-                        if (namespace) {
-                            $state.go('console.org', {
-                                useorg: namespace
-                            });
-                        } else {
-                            $state.go('console.dashboard');
-                        }
+                        //if (namespace) {
+                        //    $state.go('console.org', {
+                        //        useorg: namespace
+                        //    });
+                        //} else {
+                        $state.go('console.dashboard');
+                        //}
                     }
                     // setting timer
                     $scope.checkInbox = function () {

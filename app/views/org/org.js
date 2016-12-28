@@ -159,29 +159,15 @@ angular.module('console.user', [
 
         $scope.addpeople = function () {
             Addmodal.open('邀请新成员', '用户名', '', $stateParams.useorg, 'people').then(function (res) {
-                //console.log('test org member', res);
                 Toast.open('邀请消息发送成功!');
-                //alert('11111')
-                //$http.put('/lapi/orgs/'+$stateParams.useorg+'/invite', {
-                //  member_name: res,
-                //  privileged: false
-                //}).success(function(item){
-                //  console.log('test invitation', item)
-                //  if(item.privileged){
-                //    $scope.rootmembers.push(item)
-                //  }else{
-                //    $scope.norootmembers.push(item)
-                //  }
-                //   loadOrg();
-                //  console.log('adding new memeber',item)
-                //})
+                loadOrg();
             })
         }
         $scope.remove = function (idx) {
             Confirm.open("移除", "您确定要删除：" + $scope.rootmembers[idx].name + "吗？", null, "").then(function () {
                 //console.log('test root members before remove',$scope.rootmembers )
                 delperpleOrg.put({namespace: $rootScope.namespace, region: $rootScope.region}, {
-                    member_name: $scope.rootmembers[idx].member_name
+                    member_name: $scope.rootmembers[idx].name
                 }, function (data) {
                     Toast.open('删除成功');
                     loadOrg();

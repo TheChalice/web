@@ -11,8 +11,31 @@
         <p class="modal-msg" style="text-align: left;font-size: 14px;color: #5a6378;">{{txt}} <small class="modal-tip" style="float: right;" ng-if="tip">
             <span class="icon12 icon12-tip" ng-if="tip"></span>{{tip}}
         </small></p>
+        <div class="row">
+            <div class="col-md-12" style="">
+                <div ng-show="isaddpeople==='org'">
+                    <input type="text" class="form-control" ng-model="orgName">
+                </div>
+                <div  ng-show="isaddpeople==='people'">
+                    <div class="col-md-7" style="padding-left: 0;">
+                        <div>
+                            <input type="text" class="form-control" ng-model="orgName">
 
-        <input type="text" class="form-control" ng-model="orgName">
+                        </div>
+                    </div>
+                    <div class="col-md-5" style="margin-top: 5px;text-align: left">
+                        <label ng-class="{'active': level}" ng-click="level=!level"
+                               style="cursor: pointer;">
+                            <i class="faa faa-check"></i>
+                            &nbsp;&nbsp;设为管理员
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
     <div class="modal-footer">
         <button class="btn btn-gray cancel" ng-click="cancel()">取消</button>

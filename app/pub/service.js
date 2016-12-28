@@ -52,6 +52,7 @@ define(['angular'], function (angular) {
                     '14090': '组织已存在',
                     '14091': '该用户已存在',
                     '14092': '该用户在LDAP已存在',
+                    '1409': '重复条目',
                     '2049': '原密码错误'
                 }
                 return errcode[code] || '内部错误，请通过DaoVoice联系管理员'
@@ -426,6 +427,8 @@ define(['angular'], function (angular) {
                     size: 'default',
                     controller: ['addperpleOrg','createOrg','$state', '$rootScope', '$scope', '$uibModalInstance', 'loadOrg', '$http',
                         function (addperpleOrg,createOrg,$state, $rootScope, $scope, $uibModalInstance, loadOrg, $http) {
+                            $scope.isaddpeople=isaddpeople;
+                            $scope.level=false;
                             $scope.title = title;
                             $scope.txt = txt;
                             $scope.tip = tip;
@@ -441,11 +444,12 @@ define(['angular'], function (angular) {
                                         } else {
                                             addperpleOrg.put({namespace: $rootScope.namespace,region:$rootScope.region}, {
                                                 member_name: $scope.orgName,
-                                                admin: false
+                                                admin: $scope.level
                                             }, function (item) {
                                                 $uibModalInstance.close(item);
                                             }, function (err) {
-                                                $scope.tip = errcode.open(res.code)
+                                                //console.log('err.code', err);
+                                                $scope.tip = errcode.open(err.data.code)
                                             })
 
                                         }

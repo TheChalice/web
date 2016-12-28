@@ -312,17 +312,16 @@
                         <!--</div>-->
                     </div>
                 </uib-tab>
-                <uib-tab index="4" ng-if="false">
+                <uib-tab index="4">
                     <uib-tab-heading>
-                        <i class="orgbg"></i>&nbsp;&nbsp;组织管理
+                        <i class="orgbg"></i>&nbsp;&nbsp;项目管理
                     </uib-tab-heading>
                     <div class="row">
                         <!--<a style="margin-right:20px;" class="btn btn-green" id="creation"-->
-                           <!--href="javascript:;">-->
-                            <!--<i class="fa fa-plus fa-lg"></i>-->
-                            <!--<span class="hidden-xs" ng-click="addOrg()">创建组织</span>-->
+                        <!--href="javascript:;">-->
+                        <!--<i class="fa fa-plus fa-lg"></i>-->
+                        <!--<span class="hidden-xs" ng-click="addOrg()">创建组织</span>-->
                         <!--</a>-->
-
                     </div>
                     <div class="row">
                         <!--<div class="h2-border row" style="margin-top:30px;">-->
@@ -335,18 +334,17 @@
                                          style="">
                                 </div>
                                 <div class="caption">
-                                    <p class="ng-binding">{{org.metadata.annotations['openshift.io/display-name'] ||org.metadata.name}}</p>
+                                    <p class="ng-binding" ng-click="checkoutorg(org.metadata.name)" style='white-space:nowrap;overflow: hidden;text-overflow: ellipsis;padding-left: 5px;padding-right: 5px; cursor: pointer;'>
+                                        <a class="href-orange">{{org.metadata.annotations['openshift.io/display-name'] ||org.metadata.name}}</a>
+                                    </p>
                                     <!--<a ng-click="leaveOrg($index,org.id,org.name,org.privileged)"-->
-                                       <!--class="btn btn-orange ng-scope" id="leaveorg" style="width: 120px;"-->
-                                       <!--href="javascript:;">离开组织</a>-->
+                                    <!--class="btn btn-orange ng-scope" id="leaveorg" style="width: 120px;"-->
+                                    <!--href="javascript:;">离开组织</a>-->
                                 </div>
                             </div>
                             <div style="text-align: center;background: #fff;position:relative" ng-if="!projects"><p class="blank_mg_block"><img src="pub/img/df_cion.png"><span class="blank_mag_tit"> 您还没有任何组织管理数据</span></p></div>
                         </div>
-
-
                     </div>
-
                 </uib-tab>
                 <uib-tab index="5">
                     <uib-tab-heading>
