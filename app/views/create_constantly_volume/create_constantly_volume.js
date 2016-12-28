@@ -139,12 +139,14 @@ angular.module('console.create_constantly_volume', [
             }, function (err) {
                 $scope.loaded = false;
                 if (err.data.code === 3316) {
-
                     Tip.open('提示', '账户可用余额不足。', '充值', true).then(function () {
                         $state.go('console.pay');
                     })
-                } else {
+                } else if(err.data.code === 3316) {
+                    Tip.open('提示', '名称重复', '知道了', true).then(function () {
 
+                    })
+                }else {
                     Tip.open('提示', '支付失败,请重试', '知道了', true).then(function () {
 
                     })
