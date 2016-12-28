@@ -856,7 +856,7 @@ angular.module('console.backing_service', [
                 angular.forEach(bindings, function (binding, i) {
                     angular.forEach(binds, function (bind, j) {
                         if (binding.bind_deploymentconfig === bind.bind_deploymentconfig) {
-                            $scope.myservice[id].item[idx].spec.binding[j].delete = true;
+                            binds[j].delete = true;
                         }
                     })
                     var bindObj = {
