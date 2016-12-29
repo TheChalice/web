@@ -89,12 +89,13 @@ angular.module('console.plan', [
                                     region:$rootScope.region
                                 }, function (data) {
                                     //console.log(data);
+                                    canbuy = true
                                     Tip.open('提示', '购买成功！', false, true, true).then(function () {
                                         $state.go('console.dashboard')
                                     })
 
                                 }, function (err) {
-
+                                    canbuy = true
                                     if (err.data.code === 3316) {
                                         Tip.open('提示', '账户可用余额不足', '充值', true).then(function () {
                                             $state.go('console.pay');
@@ -109,6 +110,7 @@ angular.module('console.plan', [
                             })
 
                         }, function (err) {
+                            canbuy = true
                             console.log('data',err);
                         })
 
