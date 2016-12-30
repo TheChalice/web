@@ -224,13 +224,33 @@
                     <uib-tab-heading>
                         <i class="orgbg"></i>&nbsp;&nbsp;项目设置
                     </uib-tab-heading>
-                    <div class="row" style="margin-bottom: 30px;">
-                        <h5 class='col-md-12 buy' style='margin-bottom: 10px;'><span class=pull-left>{{myorgname}}</span>
+                    <div class="row" style="margin-bottom: 30px;" ng-show="mydisorgname||myorgname">
+                        <h5 class='col-md-12 buy' style='margin-bottom: 10px;position: relative;'>
+                            <span ng-show="!settingname" style="font-size: 25px;">{{mydisorgname}}</span>
+                            <a  href="javascript:;"  ng-show="mydisorgname" ng-click="changename()" style="font-weight: normal;line-height: 40px; color: #5c72e9;">修改</a>
+                            <a  href="javascript:;"  ng-show="mydisorgname===''" ng-click="setting()" style="font-weight: normal;line-height: 40px; color: #5c72e9;">设置</a>
+                            <div id=gradient ng-show="settingname" class="col-md-12" style="position: absolute;left: 15px;top: 0; background: #FFFFFF;">
+                                <div class="col-md-9" style="padding-left: 0;">
+                                    <input type="text" ng-model=mysetname
+                                           ng-disabled="disable"
+                                           class="form-control input-block onbehalf-money"
+                                           style="display: inline-block;font-size: 25px;padding-left: 5px;">
+                                </div>
+
+                                <div class="col-md-3">
+                                    <a class="btn gradient" ng-disabled="disable" ng-click="changenamed(mysetname)" style="width:80px; height:30px;border-radius: 14px; line-height:15px;">修改</a>
+                                    <a class="btn btn-gray" ng-click="cancel()" style="width:80px; height:30px;border-radius: 14px; line-height:15px;">取消</a>
+
+                                </div>
+                            </div>
                             <!--<a uib-tooltip="删除组织" href='javascript:;' ng-click='deletezz()' class='recycle pull-left'></a>-->
                         </h5>
+                        <div class="col-md-12" style="padding-left: 30px;">
+                            <p ng-show="myorgname" style="font-size: 15px;padding-left: 5px;">({{myorgname}})</p></div>
                         <!--<p class='creattime'><span uib-tooltip="{{orgcon.creation_time | timescon}}">创建于&nbsp;{{orgcon.creation_time | dateRelative}}</span></p>-->
-                        <div class=content style="padding:20px 0px;line-height: 40px;">
-                            <p>成员信息
+                        <div class="col-md-12 content" style="padding:20px 0px;line-height: 40px;">
+                            <p>
+                                成员信息
                                 <span style="cursor: pointer;" ng-click="addpeople()">
                                   <a href="javascript:;" style="line-height: 40px; color: #55c45f">
                                       <i class="fa fa-plus-circle fa-lg" style="margin-left: 15px;color:#5c72e9"></i>
@@ -325,10 +345,10 @@
                                                     <!--</ul>-->
                                                     <!--</div>-->
                                                     <!--<a href="javascript:;"-->
-                                                       <!--ng-click='leave()'-->
-                                                       <!--style='width: 80px;margin-right: -35px;'-->
-                                                       <!--ng-if='member.name===user.metadata.name'-->
-                                                       <!--class='btn btn-orange btns' id="leavefmem">离开组织</a>-->
+                                                    <!--ng-click='leave()'-->
+                                                    <!--style='width: 80px;margin-right: -35px;'-->
+                                                    <!--ng-if='member.name===user.metadata.name'-->
+                                                    <!--class='btn btn-orange btns' id="leavefmem">离开组织</a>-->
                                                     <span href="javascript:;"
                                                           style='width: 45px; visibility: hidden'
                                                           ng-if='member.name===user.metadata.name'

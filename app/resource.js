@@ -136,7 +136,8 @@ define([
                 name: '@name',
                 region: '@region'
             }, {
-                create: {method: 'POST'}
+                create: {method: 'POST'},
+                put:{method: 'PUT'}
             });
             return Project;
         }])

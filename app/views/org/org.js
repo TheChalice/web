@@ -92,40 +92,65 @@ angular.module('console.user', [
             //}).error(function(data,header,config,status){
             //});
         }
+        $scope.changename= function (name) {
+            $scope.savename = $scope.mydisorgname;
+            //$scope.mydisorgname='';
+            $scope.settingname=true;
+            $scope.mysetname=$scope.mydisorgname
+            //var obj= angular.copy($scope.myproject);
+            //console.log($scope.mysetname,name);
+        }
+        $scope.setting= function () {
+            $scope.settingname=true;
 
+            //$scope.savename = $scope.mydisorgname;
+            // $scope.mydisorgname='';
+        }
+        $scope.cancel= function () {
+            $scope.settingname=false;
+
+            //$scope.savename = $scope.mydisorgname;
+            // $scope.mydisorgname='';
+        }
+        $scope.changenamed= function (name) {
+            //console.log('$scope.myproject', $scope.myproject);
+            //var obj= angular.copy($scope.myproject);
+            //console.log($scope.mysetname,name);
+            //obj.metadata.annotations['openshift.io/display-name']=name;
+            //console.log(obj);
+            $scope.disable=true;
+            Project.get({region: $rootScope.region,name:$scope.myorgname}, function (poj) {
+                poj.metadata.annotations['openshift.io/display-name']=name;
+                Project.put({region: $rootScope.region,name:$scope.myorgname},poj, function (data) {
+                    $scope.mydisorgname=data.metadata.annotations['openshift.io/display-name'];
+                    $rootScope.changedisplayname=data.metadata.annotations['openshift.io/display-name'];
+                    $scope.settingname=false;
+                    //console.log('data', data);
+                    $scope.disable=false;
+                }, function (err) {
+                    $scope.disable=false;
+                })
+            }, function (err) {
+                $scope.disable=false;
+            })
+        }
         //load project
         var loadProject = function () {
             Project.get({region: $rootScope.region}, function (data) {
                 //$rootScope.projects = data.items;
                 //console.log('Project', Project);
                 //var newprojects = [];
-                angular.forEach(data.items, function (item, i) {
-                    //console.log($rootScope.user.metadata.name);
-                    if (item.metadata.name === $rootScope.user.metadata.name) {
-                        //console.log($rootScope.user.metadata.name);
-                        data.items.splice(i, 1);
-                    } else {
-                        data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
-                    }
-
-                })
                 data.items.sort(function (x, y) {
                     return x.sortname > y.sortname ? 1 : -1;
                 });
                 angular.forEach(data.items, function (project, i) {
                     if (project.metadata.name === $rootScope.namespace) {
-                        $scope.myorgname =project.metadata.annotations['openshift.io/display-name']||project.metadata.name;
+                        $scope.myproject=project;
+                        $scope.mydisorgname = project.metadata.annotations['openshift.io/display-name'];
+                        $scope.myorgname = project.metadata.name;
                     }
-                    if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
-                        //console.log(project.metadata.annotations['openshift.io/display-name']);
-                        //data.items.push(project);
-                        data.items.unshift(project);
 
-                        data.items.splice(i + 1, 1);
-                    }
                 });
-
-                $rootScope.projects = data.items;
                 //console.log(data.items);
 
 

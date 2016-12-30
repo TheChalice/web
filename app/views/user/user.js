@@ -79,30 +79,20 @@ angular.module('console.user', ['kubernetesUI',
                 //console.log('Project', Project);
                 //var newprojects = [];
                 angular.forEach(data.items, function (item, i) {
-                    //console.log($rootScope.user.metadata.name);
-                    if (item.metadata.name === $rootScope.user.metadata.name) {
-                        //console.log($rootScope.user.metadata.name);
-                        data.items.splice(i, 1);
-                    } else {
-                        data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
-                    }
+                    //    //console.log($rootScope.user.metadata.name);
+                    //    if (item.metadata.name === $rootScope.user.metadata.name) {
+                    //        //console.log($rootScope.user.metadata.name);
+                    //        data.items.splice(i, 1);
+                    //    } else {
+                    data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
+                    //}
 
                 })
                 data.items.sort(function (x, y) {
                     return x.sortname > y.sortname ? 1 : -1;
                 });
-                angular.forEach(data.items, function (project, i) {
-                    if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
-                        //console.log(project.metadata.annotations['openshift.io/display-name']);
-                        //data.items.push(project);
-                        data.items.unshift(project);
-
-                        data.items.splice(i + 1, 1);
-                    }
-                });
-                $rootScope.projects = data.items;
                 //console.log(data.items);
-
+                //$scope.orgproject=data.items
 
                 //$log.info("load project success", data);
             }, function (res) {

@@ -48,7 +48,20 @@ angular.module("console.header", [
                         }
 
                     })
+                    $scope.$watch('changedisplayname', function (n,o) {
+                        if (n === o) {
+                            return
+                        }
+                        //console.log($rootScope.changedisplayname);
 
+                        //if (n === $rootScope.user.metadata.name) {
+                        //    $scope.orgimage = false;
+                        //} else {
+                        //    $scope.orgimage = true;
+                        //}
+                        loadProject()
+
+                    })
                     var loadProject = function () {
                         //$log.info("load project");
                         Project.get({region: $rootScope.region}, function (data) {
