@@ -11,12 +11,25 @@ angular.module('console.user', [
 
         ]
     }
-]).controller('orgCtrl', ['delperpleOrg', 'orgList', '$log', 'Project', '$http', '$rootScope', '$state', '$cacheFactory', 'loadOrg', 'Addmodal', 'Confirm', '$scope', '$stateParams', 'invitation', 'leave', 'Toast',
-    function (delperpleOrg, orgList, $log, Project, $http, $rootScope, $state, $cacheFactory, loadOrg, Addmodal, Confirm, $scope, $stateParams, invitation, leave, Toast) {
+]).controller('orgCtrl', ['amounts','delperpleOrg', 'orgList', '$log', 'Project', '$http', '$rootScope', '$state', '$cacheFactory', 'loadOrg', 'Addmodal', 'Confirm', '$scope', '$stateParams', 'invitation', 'leave', 'Toast',
+    function (amounts,delperpleOrg, orgList, $log, Project, $http, $rootScope, $state, $cacheFactory, loadOrg, Addmodal, Confirm, $scope, $stateParams, invitation, leave, Toast) {
         $scope.grid = {
             st: null,
             et: null
         }
+        var refresh = function(page) {
+            var skip = (page - 1) * $scope.grid.size;
+            $scope.myamounts = $scope.amountdata.slice(skip, skip + $scope.grid.size);
+            $(document.body).animate({
+                scrollTop:0
+            },200);
+
+        };
+        $scope.$watch('grid.page', function(newVal, oldVal){
+            if (newVal != oldVal) {
+                refresh(newVal);
+            }
+        });
         //$rootScope.delOrgs = false;
         var loadOrg = function () {
             //console.log('test org name',$stateParams.useorg,$rootScope.namespace)
@@ -164,6 +177,28 @@ angular.module('console.user', [
             //})
         }
         loadProject();
+        amounts.get({size:500,page:1,namespace:$rootScope.namespace,status:'O',region:$rootScope.region}, function (data) {
+            console.log(data);
+            if (data.amounts) {
+                data.amounts.reverse()
+                angular.forEach(data.amounts, function (amount,i) {
+                    data.amounts[i].creation_time = amount.creation_time.replace(/Z/,$scope.clientTimeZone)
+                    if (amount.description === "recharge") {
+                        data.amounts[i].description='充值'
+                    }else {
+                        data.amounts[i].description='扣费'
+                    }
+                })
+
+                $scope.myamounts = data.amounts||[];
+                //console.log('creation_time',data.amounts[0].creation_time);
+                $scope.amountdata =angular.copy(data.amounts)
+                $scope.grid.total = data.amounts.length;
+                refresh(1);
+            }
+
+
+        })
         //$scope.deletezz = function () {
         //    if ($scope.rootmembers.length == 1 && $scope.norootmembers.length == 0) {
         //        Confirm.open("删除组织", "您确定要删除组织吗？", "此操作不可撤销", "stop").then(function () {
