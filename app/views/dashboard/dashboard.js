@@ -46,11 +46,9 @@ angular.module('console.dashboard', [
                     if (item.metadata.name === $rootScope.namespace) {
                         $scope.projectname = item.metadata.annotations['openshift.io/display-name'] === '' ? item.metadata.name : item.metadata.annotations['openshift.io/display-name'];
                     }
-                    if ($rootScope.user.metadata && item.metadata.name === $rootScope.user.metadata.name) {
-                        data.items.splice(i, 1);
-                    } else {
+
                         data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
-                    }
+
 
                 })
                 data.items.sort(function (x, y) {

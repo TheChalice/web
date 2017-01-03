@@ -1451,11 +1451,9 @@ define(['angular'], function (angular) {
                                 if (data.items[i].metadata.name == name) {
                                     $rootScope.namespace = name;
                                     angular.forEach(data.items, function (item, i) {
-                                        if (item.metadata.name === $rootScope.user.metadata.name) {
-                                            data.items.splice(i, 1);
-                                        } else {
+
                                             data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
-                                        }
+
 
                                     })
                                     data.items.sort(function (x, y) {
