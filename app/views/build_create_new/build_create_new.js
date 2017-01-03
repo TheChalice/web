@@ -9,9 +9,9 @@ angular.module('console.build_create_new', [
             $('input[ng-model="buildConfig.metadata.name"]').focus();
             $scope.labrunning = false;
             $scope.runninghub = false;
-            String.prototype.trim=function(){
-                return this.replace(/(^\s*)|(\s*$)/g, "");
-            }
+            //String.prototype.trim=function(){
+            //    return this
+            //}
 
             $scope.buildConfig = {
                 metadata: {
@@ -145,7 +145,7 @@ angular.module('console.build_create_new', [
                     return
                 }
                 if (n) {
-                    $scope.buildConfig.spec.source.git.uri=n.trim()
+                    $scope.buildConfig.spec.source.git.uri=n.replace(/(^\s*)|(\s*$)/g, "");
                     //n=
                     //console.log(n);
                     $scope.repoerr = false;
