@@ -317,11 +317,8 @@ angular.module("console.header", [
 
                     $scope.gotomy = function () {
                         //$scope.checked = $rootScope.user.metadata.name;
-
                         $rootScope.namespace = $rootScope.user.metadata.name;
                         Cookie.set('namespace', $rootScope.user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
-
-
                     }
 
                     //$scope.goto = function (ind) {
@@ -433,7 +430,13 @@ angular.module("console.header", [
                         //        useorg: namespace
                         //    });
                         //} else {
-                        $state.go('console.dashboard');
+                        console.log('$state.current.name', $state.current.name);
+                        if ($state.current.name === 'console.dashboard') {
+                            $state.reload();
+                        }else {
+                            $state.go('console.dashboard');
+                        }
+                        //$state.go('console.dashboard');
                         //}
                     }
                     // setting timer
