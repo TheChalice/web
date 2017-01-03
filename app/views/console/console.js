@@ -57,12 +57,9 @@ angular.module('console', [
                     //var newprojects = [];
                     angular.forEach(data.items, function (item, i) {
                         //console.log($rootScope.user.metadata.name);
-                        if (item.metadata.name === $rootScope.user.metadata.name) {
-                            //console.log($rootScope.user.metadata.name);
-                            data.items.splice(i, 1);
-                        } else {
+
                             data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
-                        }
+
 
                     })
                     data.items.sort(function (x, y) {
