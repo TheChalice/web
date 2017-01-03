@@ -199,7 +199,7 @@
 .df_h_area{background-image: url(img/area.png);}
 .df_area_active{background-image: url(img/area_active.png);margin-top:14px;}
 .df_h_per{background-image: url(img/person.png);margin-left:-1px;}
-.df_o_per{background-image: url(img/org.png);}
+.df_o_per{background-image: url(img/person.png);}
 .df_person_active{background-image: url(img/person_active.png);margin-top:16px;margin-left:-2px;}
 .df_q_active{background-image: url(img/q_active.png);margin-top:16px;}
 .df_qed_active{background-image: url(img/qed_active.png);margin-top:16px;}
