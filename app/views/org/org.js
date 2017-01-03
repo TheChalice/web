@@ -15,7 +15,9 @@ angular.module('console.user', [
     function (amounts,delperpleOrg, orgList, $log, Project, $http, $rootScope, $state, $cacheFactory, loadOrg, Addmodal, Confirm, $scope, $stateParams, invitation, leave, Toast) {
         $scope.grid = {
             st: null,
-            et: null
+            et: null,
+            page:1,
+            size:10
         }
         var refresh = function(page) {
             var skip = (page - 1) * $scope.grid.size;
@@ -178,7 +180,7 @@ angular.module('console.user', [
         }
         loadProject();
         amounts.get({size:500,page:1,namespace:$rootScope.namespace,status:'O',region:$rootScope.region}, function (data) {
-            console.log(data);
+            //console.log(data);
             if (data.amounts) {
                 data.amounts.reverse()
                 angular.forEach(data.amounts, function (amount,i) {
@@ -191,7 +193,7 @@ angular.module('console.user', [
                 })
 
                 $scope.myamounts = data.amounts||[];
-                //console.log('creation_time',data.amounts[0].creation_time);
+                console.log('$scope.myamounts',$scope.myamounts);
                 $scope.amountdata =angular.copy(data.amounts)
                 $scope.grid.total = data.amounts.length;
                 refresh(1);

@@ -229,7 +229,7 @@ article .peie {
     padding: 30px 0;
     margin: 0 30px;
     border: none;
-    border-bottom: 1px solid #eaebef;
+    /*border-bottom: 1px solid #eaebef;*/
 }
 .creattime {
     padding-left: 30px;
