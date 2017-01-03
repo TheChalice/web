@@ -69,6 +69,21 @@ angular.module('console.user', ['kubernetesUI',
             //console.log('套餐详情', data);
         })
 
+        $scope.checkoutorg= function (namespace) {
+            $rootScope.namespace = namespace;
+            Cookie.set('namespace', namespace, 10 * 365 * 24 * 3600 * 1000);
+            //$state.reload();
+            //$scope.change=true;
+            //$scope.checked = namespace;
+            //$rootScope.huancun.name = namespace;
+            //console.log('$scope.checked', $scope.checked);
+            $state.go('console.org', {useorg: namespace});
+            //if (namespace) {
+            //
+            //} else {
+            //$state.go('console.dashboard');
+            //}
+        }
         //load project
         var loadProject = function () {
             //$http.get('/oapi/v1/projects', {}).success(function (data) {
