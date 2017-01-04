@@ -337,6 +337,9 @@ article .peie {
 }
 .tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
     /*border:0;*/
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
     border-bottom:2px solid #5c72e9;
     color:#333;
 }
