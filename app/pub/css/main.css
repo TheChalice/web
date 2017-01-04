@@ -42,7 +42,7 @@ a {
 /*.nav>li>a:focus, .nav>li>a:hover{background:none!important}*/
 /*按钮*/
 
-.nav>li>a:focus{background:#fff!important;}
+/*.nav>li>a:focus{background:#fff!important;}*/
 .btn {
     /*border-radius: 30px;*/
     color: #fff;
