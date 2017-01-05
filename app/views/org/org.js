@@ -112,12 +112,17 @@ angular.module('console.user', [
             //$scope.mydisorgname='';
             $scope.settingname=true;
             $scope.mysetname=$scope.mydisorgname
+            setTimeout(function () {
+                $('#orgdisname').focus()
+            },100)
             //var obj= angular.copy($scope.myproject);
             //console.log($scope.mysetname,name);
         }
         $scope.setting= function () {
             $scope.settingname=true;
-
+            setTimeout(function () {
+                $('#orgdisname').focus()
+            },100)
             //$scope.savename = $scope.mydisorgname;
             // $scope.mydisorgname='';
         }
