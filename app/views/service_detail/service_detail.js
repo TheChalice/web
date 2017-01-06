@@ -9,8 +9,8 @@ angular.module('console.service.detail', [
             ]
         }
     ])
-    .controller('ServiceDetailCtrl', ['GLOBAL','deletepod','resourcequotas','$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'ContainerModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey',
-        function (GLOBAL,deletepod,resourcequotas,$sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, ContainerModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey) {
+    .controller('ServiceDetailCtrl', ['Alert','GLOBAL','deletepod','resourcequotas','$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'ContainerModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey',
+        function (Alert,GLOBAL,deletepod,resourcequotas,$sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, ContainerModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey) {
             //获取服务列表
             $scope.servicepoterr = false;
             $scope.quota = {
@@ -1342,31 +1342,74 @@ angular.module('console.service.detail', [
             };
 
             $scope.delete = function () {
-                //console.log('---------------',$scope.bsi.items);
-                var bindings = [];
-                for (var i = 0; i < $scope.bsi.items.length; i++) {
-                    if ($scope.bsi.items[i].bind) {
-                        bindings.push($scope.bsi.items[i]);
-                    }
-                }
-                //console.log('---------------++++++',bindings);
-                Confirm.open("删除服务", "您确定要删除服务吗？", "删除服务将解绑持久化卷和外部服务，此操作不能被撤销", 'recycle').then(function () {
-                    if ($scope.rcs.items.length > 0) {
-                        rmRcs($scope.dc.metadata.name);
+                BackingServiceInstance.get({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, function (res) {
 
-                    } else {
-                        rmDc($scope.dc.metadata.name);
+
+                    var dcbinds = [];
+                    //
+                    //for (var i = 0; i < res.items.length; i++) {
+                    //    if (!res.items[i].spec.binding) {
+                    //        continue;
+                    //    }
+                    //    for (var j = 0; j < res.items[i].spec.binding.length; j++) {
+                    //        binds.push(res.items[i].spec.binding[j].bind_deploymentconfig);
+                    //    }
+                    //}
+                    angular.forEach(res.items, function (binds,i) {
+                        if (binds.spec.binding) {
+                            angular.forEach(binds.spec.binding, function (bind,i) {
+                                dcbinds.push(bind.bind_deploymentconfig);
+                            })
+                        }
+                    })
+                    if (dcbinds.indexOf($scope.dc.metadata.name) === -1) {
+                        var bindings = [];
+                        for (var i = 0; i < $scope.bsi.items.length; i++) {
+                            if ($scope.bsi.items[i].bind) {
+                                bindings.push($scope.bsi.items[i]);
+                            }
+                        }
+                        //console.log('---------------++++++',bindings);
+                        Confirm.open("删除服务", "您确定要删除服务吗？", "删除服务将解绑持久化卷和外部服务，此操作不能被撤销", 'recycle').then(function () {
+                            if ($scope.rcs.items.length > 0) {
+                                rmRcs($scope.dc.metadata.name);
+
+                            } else {
+                                rmDc($scope.dc.metadata.name);
+                            }
+                            if (bindings.length > 0) {
+                                delBing(bindings);
+                            }
+                            // var labelSelector = 'deployment config='+$scope.dc.metadata.name;
+                            // deletepod.delete({namespace: $rootScope.namespace,labelSelector: labelSelector},function (data) {
+                            //   console.log(data)
+                            // })
+                            deleService();
+                            deleRoute();
+                        });
+                    }else {
+                        //Toast.open('删除失败,请先解绑后端服务实例')
+                        Alert.open("删除服务", '删除失败,请先解绑后端服务实例', '', true).then(function () {
+                            //$state.go('login');
+                        })
                     }
-                    if (bindings.length > 0) {
-                        delBing(bindings);
-                    }
-                    // var labelSelector = 'deployment config='+$scope.dc.metadata.name;
-                    // deletepod.delete({namespace: $rootScope.namespace,labelSelector: labelSelector},function (data) {
-                    //   console.log(data)
-                    // })
-                    deleService();
-                    deleRoute();
+                    //for (var i = 0; i < dcs.length; i++) {
+                    //    if (binds.indexOf(dcs[i].metadata.name) != -1) {
+                    //
+                    //    }
+                    //}
+
+                    //$scope.bsi = res;
+
+                }, function (res) {
+                    //todo 错误处理
+                    $log.info("loadBsi err", res);
                 });
+                //console.log('---------------',$scope.bsi.items);
+
             };
 
             $scope.getLog = function (idx) {
