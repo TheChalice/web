@@ -517,14 +517,17 @@ angular.module('console.backing_service', [
                         if ($scope.myservice[newid]) {
 
                             angular.forEach($scope.myservice[newid].item, function (item, i) {
-                                if (item.spec.binding.length !== data.object.spec.binding.length) {
-                                    if (item.metadata.name == data.object.metadata.name) {
-                                        data.object.show = item.show;
-
-                                        $scope.myservice[newid].item[i] = data.object;
-                                        $scope.$apply();
+                                if (item.spec.binding) {
+                                    //console.log(item.spec.binding.length);
+                                    if (item.spec.binding.length !== data.object.spec.binding.length) {
+                                        if (item.metadata.name == data.object.metadata.name) {
+                                            data.object.show = item.show;
+                                            $scope.myservice[newid].item[i] = data.object;
+                                            $scope.$apply();
+                                        }
                                     }
                                 }
+
 
                             })
                             // console.log('$scope.myservice[newid].item',$scope.myservice[newid].item.length)
@@ -817,17 +820,64 @@ angular.module('console.backing_service', [
 
             }
             //我的后端服务解除绑定一个服务
+            var unbindService= function (name, dcs,binddcs) {
+                //angular.forEach(dcs, function (binding, i) {
+                if (dcs.length > 0) {
+                    angular.forEach(binddcs, function (bind, j) {
+                        if (dcs[0].bind_deploymentconfig === bind.bind_deploymentconfig) {
+                            //$scope.myservice[id].item[idx].spec.binding[j].delete = true;
+                            binddcs[j].delete = true;
+                        }
+                    })
+                    var bindObj = {
+                        metadata: {
+                            name: name,
+                            annotations: {
+                                "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                            }
+                        },
+                        resourceName: dcs[0].bind_deploymentconfig,
+                        //bindResourceVersion: '',
+                        bindKind: 'DeploymentConfig'
+                    };
+                    // console.log(bindObj)
+                    BackingServiceInstanceBd.put({
+                            namespace: $rootScope.namespace,
+                            name: name,
+                            region: $rootScope.region
+                        },
+                        bindObj, function (res) {
+                            dcs.splice(0,1);
+                            unbindService(name,dcs,binddcs)
+                            //Toast.open('正在解除中,请稍等');
+                            // console.log('解绑定', res)
+                        }, function (res) {
+                            //todo 错误处理
+                            // Toast.open('操作失败');
+                            Toast.open(binding.bind_deploymentconfig+'解绑失败,请重试');
+                            //if (res.data.message.split(':')[1]) {
+                            //    Toast.open(res.data.message.split(':')[1].split(';')[0]);
+                            //} else {
+                            //    Toast.open(res.data.message);
+                            //}
+                            //$log.info("del bindings err", res);
+                        });
+                }
+
+                //});
+            }
             $scope.delBing = function (idx, id) {
 
 
-                console.log(id);
+                //console.log(id,"11111000");
+                //console.log('$scope.myservice2', $scope.myservice);
                 if (id === 'ins') {
                     insid = 'ture'
                     var name = $scope.insservice[idx].metadata.name;
                     var bindings = [];
                     var binds = $scope.insservice[idx].spec.binding || [];
                 } else if (id || id === 0) {
-                    //alert(1);
+
                     id = id.toString();
 
                     newid = id;
@@ -852,101 +902,77 @@ angular.module('console.backing_service', [
                     return;
                 }
                 //console.log($scope.myservice,bindings);
+                unbindService(name,bindings,binds)
 
-                angular.forEach(bindings, function (binding, i) {
-                    angular.forEach(binds, function (bind, j) {
-                        if (binding.bind_deploymentconfig === bind.bind_deploymentconfig) {
-                            binds[j].delete = true;
-                        }
-                    })
-                    var bindObj = {
-                        metadata: {
-                            name: name,
-                            annotations: {
-                                "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                            }
-                        },
-                        resourceName: binding.bind_deploymentconfig,
-                        bindResourceVersion: '',
-                        bindKind: 'DeploymentConfig'
-                    };
-                    // console.log(bindObj)
-                    BackingServiceInstanceBd.put({
-                            namespace: $rootScope.namespace,
-                            name: name,
-                            region: $rootScope.region
-                        },
-                        bindObj, function (res) {
-                            Toast.open('正在解除中,请稍等');
-                            // console.log('解绑定', res)
-                        }, function (res) {
-                            //todo 错误处理
-                            // Toast.open('操作失败');
-                            if (res.data.message.split(':')[1]) {
-                                Toast.open(res.data.message.split(':')[1].split(';')[0]);
-                            } else {
-                                Toast.open(res.data.message);
-                            }
-                            $log.info("del bindings err", res);
-                        });
-                });
             };
             //我的后端服务绑定一个服务
             var bindService = function (name, dcs, idx, id) {
-                var bindObj = {
-                    metadata: {
-                        name: name,
-                        annotations: {
-                            "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                        }
-                    },
-                    resourceName: '',
-                    bindResourceVersion: '',
-                    bindKind: 'DeploymentConfig'
-                };
-                for (var i = 0; i < dcs.length; i++) {
-                    bindObj.resourceName = dcs[i].metadata.name;
+                //var bindObj =;
+                //console.log('name', name);
+                //console.log('dcs', dcs);
+                if (dcs.length > 0) {
                     BackingServiceInstanceBd.create({
                             namespace: $rootScope.namespace,
                             name: name,
                             region: $rootScope.region
-                        }, bindObj,
+                        },  {
+                            metadata: {
+                                name: name,
+                                annotations: {
+                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                                }
+                            },
+                            resourceName: dcs[0].metadata.name,
+                            bindKind: 'DeploymentConfig'
+                        },
                         function (res) {
+                            dcs.splice(0,1)
+                            bindService(name, dcs)
+                            //Toast.open('正在绑定中,请稍等');
                         }, function (res) {
                             //todo 错误处理
                             // Toast.open('操作失败');
-                            if (res.data.message.split(':')[1]) {
-                                Toast.open(res.data.message.split(':')[1].split(';')[0]);
-                            } else {
-                                Toast.open(res.data.message);
-                            }
 
-                            $log.info("bind services " +
-                                "err", res);
+                            //if (res.data.message.split(':')[1]) {
+                            //    Toast.open(res.data.message.split(':')[1].split(';')[0]);
+                            //} else {
+                            Toast.open(dc.metadata.name+'绑定失败,请重试');
+                            //}
+                            //
+                            //$log.info("bind services " +
+                            //    "err", res);
                         });
                 }
+                //angular.forEach(dcs, function (dc,i) {
+                //bindObj.resourceName = ;
+
+
+                //})
+
             };
             $scope.bindModal = function (idx, id) {
 
                 //if (id) {
                 //    id=id.toString();
                 //}
+
                 if (id === 'ins') {
                     insid = 'ture'
                     var bindings = $scope.insservice[idx].spec.binding || [];
                     ServiceSelect.open(bindings).then(function (res) {
                         $log.info("selected service", res);
+                        Toast.open('正在绑定,请稍等')
                         if (res.length > 0) {
                             bindService($scope.insservice[idx].metadata.name, res, idx);
                         }
                     });
                 } else if (id || id === 0) {
                     id = id.toString();
-
                     newid = id;
                     var bindings = $scope.myservice[id].item[idx].spec.binding || [];
                     ServiceSelect.open(bindings).then(function (res) {
                         $log.info("selected service", res);
+                        Toast.open('正在绑定,请稍等')
                         if (res.length > 0) {
                             bindService($scope.myservice[id].item[idx].metadata.name, res, idx, id);
                         }
@@ -955,11 +981,13 @@ angular.module('console.backing_service', [
                     var bindings = $scope.diyservice[idx].spec.binding || [];
                     ServiceSelect.open(bindings).then(function (res) {
                         $log.info("selected service", res);
+                        Toast.open('正在绑定,请稍等')
                         if (res.length > 0) {
                             bindService($scope.diyservice[idx].metadata.name, res, idx);
                         }
                     });
                 }
+
 
             };
         }])
