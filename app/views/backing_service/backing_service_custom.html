@@ -39,8 +39,8 @@
         <div class="binding-services" uib-collapse="!item.show">
             <div style="padding: 30px;">
                 <h2>
-                    绑定服务
-                    <a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>
+                    <!--绑定服务-->
+                    <!--<a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>-->
                     <a href="javascript:;" class="btn btn-green" ng-click="bindModal($index)">新增绑定</a>
                 </h2>
                 <div class="panel-group" role="tablist" aria-multiselectable="true" style="margin-bottom: 0;">
@@ -62,6 +62,7 @@
                                 <span class="label label-default" uib-tooltip="{{bsisv.bound_time | timescon}}">
                                     <i class="fa2 fa2-time"></i>&nbsp;{{bsisv.bound_time | dateRelative}}
                                 </span>
+                                <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">解除绑定</a>
                             </h4>
                         </div>
                         <div id="{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"

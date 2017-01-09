@@ -40,8 +40,8 @@
             <div class="binding-services" uib-collapse="!item.show">
                 <div style="padding: 30px;">
                     <h2>
-                        绑定服务
-                        <a href="javascript:;" class="btn btn-orange" ng-click="delBing($index,items.id)">解除绑定</a>
+                        <!--绑定服务-->
+                        <!--<a href="javascript:;" class="btn btn-orange" ng-click="delBing($index,items.id)">解除绑定</a>-->
                         <a href="javascript:;" class="btn btn-gray" style="background-color:#fff;color: white" ng-if="item.status.phase==='Provisioning'">新增绑定</a>
                         <a href="javascript:;" class="btn btn-green" ng-if="item.status.phase!=='Provisioning'" ng-click="bindModal($index,items.id)">新增绑定</a>
                     </h2>
@@ -49,10 +49,11 @@
                         <div class="panel panel-default" ng-repeat="bsisv in item.spec.binding">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
-                                    <a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked"
-                                       style="cursor: pointer">
-                                        <i class="faa faa-check"></i>&nbsp;
-                                    </a>
+                                    <!--<a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked"-->
+                                       <!--style="cursor: pointer">-->
+                                        <!--<i class="faa faa-check"></i>&nbsp;-->
+                                    <!--</a>-->
+
                                     <a href="#{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"
                                        data-toggle="collapse"
                                        class="accordion-toggle">
@@ -65,7 +66,8 @@
                                     <i class="fa2 fa2-time"></i>&nbsp;{{bsisv.bound_time | dateRelative}}
                                 </span>
                                     <span style="margin-left: 10px;" ng-if="bsisv.delete" class="icon12 icon12-Bound fa-unspin"></span>
-                                    <!--<span>{{bsisv.delete}}</span>-->
+
+                                    <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">解除绑定</a>
                                 </h4>
                             </div>
                             <div id="{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"

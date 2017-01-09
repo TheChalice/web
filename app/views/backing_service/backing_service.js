@@ -504,7 +504,7 @@ angular.module('console.backing_service', [
 
 
                     // console.log('newid',newid)
-                    if (insid) {
+                    if (data.object.metadata.annotations && data.object.metadata.annotations['label'] == "integration") {
                         angular.forEach($scope.insservice, function (item, i) {
                             if (item.metadata.name == data.object.metadata.name) {
                                 data.object.show = item.show;
@@ -512,35 +512,32 @@ angular.module('console.backing_service', [
                                 $scope.$apply();
                             }
                         })
-                    } else if (newid) {
-
-                        if ($scope.myservice[newid]) {
-
-                            angular.forEach($scope.myservice[newid].item, function (item, i) {
-                                if (item.spec.binding) {
-                                    //console.log(item.spec.binding.length);
-                                    if (item.spec.binding.length !== data.object.spec.binding.length) {
-                                        if (item.metadata.name == data.object.metadata.name) {
-                                            data.object.show = item.show;
-                                            $scope.myservice[newid].item[i] = data.object;
-                                            $scope.$apply();
-                                        }
-                                    }
-                                }
-
-
-                            })
-                            // console.log('$scope.myservice[newid].item',$scope.myservice[newid].item.length)
-                            if ($scope.myservice[newid].item.length == '0') {
-                                $scope.myservice[newid].showTab = false;
-                                $scope.$apply();
-                            }
-                        }
-                    } else {
+                    } else if (data.object.metadata.annotations && data.object.metadata.annotations['USER-PROVIDED-SERVICE'] == "true") {
                         angular.forEach($scope.diyservice, function (item, i) {
                             if (item.metadata.name == data.object.metadata.name) {
                                 data.object.show = item.show;
                                 $scope.diyservice[i] = data.object;
+                                $scope.$apply();
+                            }
+                        })
+                    }else {
+                        angular.forEach($scope.myservice, function (bsis,i) {
+                            //console.log('bsis',bsis);
+                            angular.forEach(bsis.item, function (bsi,j) {
+                                //console.log(bsi);
+                                if (bsi.metadata.name === data.object.metadata.name) {
+                                    //console.log('bsi.metadata.name', bsi.metadata.name);
+                                    if (bsi.spec.binding.length !== data.object.spec.binding.length) {
+                                        //console.log('bsi',bsi);
+                                        data.object.show = bsi.show;
+                                        $scope.myservice[i].item[j] = data.object;
+                                        $scope.$apply();
+                                    }
+                                }
+                            })
+
+                            if (bsis.item.length == 0) {
+                                $scope.myservice[i].showTab = false;
                                 $scope.$apply();
                             }
                         })
@@ -688,6 +685,48 @@ angular.module('console.backing_service', [
             })
 
             //我的后端服务删除一个实例
+            $scope.delebind= function (bsi,dcname) {
+                console.log(bsi, dcname);
+                var name = bsi.metadata.name;
+                //var bindings = [];
+                var binds = bsi.spec.binding || [];
+                angular.forEach(binds, function (bind,i) {
+                    if (dcname === bind.bind_deploymentconfig) {
+                        binds[i].delete = true;
+                    }
+                })
+                var bindObj = {
+                    metadata: {
+                        name: name,
+                        annotations: {
+                            "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                        }
+                    },
+                    resourceName: dcname,
+                    bindResourceVersion: '',
+                    bindKind: 'DeploymentConfig'
+                };
+                // console.log(bindObj)
+                BackingServiceInstanceBd.put({
+                        namespace: $rootScope.namespace,
+                        name: name,
+                        region: $rootScope.region
+                    },
+                    bindObj, function (res) {
+                        Toast.open('正在解除中,请稍等');
+                        // console.log('解绑定', res)
+                    }, function (res) {
+                        //todo 错误处理
+                        // Toast.open('操作失败');
+                        //if (res.data.message.split(':')[1]) {
+                        //    Toast.open(res.data.message.split(':')[1].split(';')[0]);
+                        //} else {
+                        //    Toast.open(res.data.message);
+                        //}
+                        //$log.info("del bindings err", res);
+                    });
+
+            }
             var newid = null;
             var insid = null;
             $scope.delBsi = function (idx, id) {

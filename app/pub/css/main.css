@@ -1053,7 +1053,7 @@ a {
 
 .backing-service-instance .binding-services h2 .btn {
     margin-left: 15px;
-    float: right;
+    /*float: right;*/
 }
 
 .backing-service-instance .binding-services .panel {

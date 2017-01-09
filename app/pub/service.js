@@ -1325,7 +1325,15 @@ define(['angular'], function (angular) {
                                 }
                             }
                         }
-                        $log.info('curdatacurdata', curdata);
+                        $scope.dc={
+                            name:null,
+                            idx:null
+                        }
+                        $scope.selectDc= function (idx,name) {
+                            $scope.dc.idx=idx
+                            $scope.dc.name=name
+                        }
+                        //$log.info('curdatacurdata', curdata);
                         $scope.data = curdata;
                         $scope.items = curdata.items;
                         $scope.cancel = function () {
@@ -1334,10 +1342,11 @@ define(['angular'], function (angular) {
                         $scope.ok = function () {
                             var items = [];
                             for (var i = 0; i < $scope.data.items.length; i++) {
-                                if ($scope.data.items[i].checked) {
+                                if ($scope.dc.name===$scope.data.items[i].metadata.name) {
                                     items.push($scope.data.items[i]);
                                 }
                             }
+                            //items.push($scope.dc.name);
                             $uibModalInstance.close(items);
                         };
 
