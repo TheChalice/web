@@ -10,8 +10,8 @@
 .builder_tit{margin-top:30px;margin-bottom:20px;font-size:18px;text-align:center;position:relative;colr:#5a6378;}
 .home_back{width:100px;height:38px;margin:0 auto;line-height:38px;background:#f6a540;display:block;text-align:center;font-size:16px;color:#fff;
 -webkit-border-radius:3px;-webkit-transition:all 1s}
-.home_back:hover{color:#fff;background:#e5993a;}
-/*¼ÓÔØÐ§¹û*/
+.home_back:hover{color:#fff;background:#5b73eb;}
+/*ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½*/
 .load_ing>i{width:6px;height:6px;background-color:#5a6378;border-radius:100%;display:inline-block;-webkit-animation:
 bouncedelay 1.4s infinite ease-in-out;animation:bouncedelay 1.4s infinite ease-in-out;
     -webkit-animation-fill-mode:both;animation-fill-mode:both}

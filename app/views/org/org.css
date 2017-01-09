@@ -28,7 +28,7 @@
 }
 
 #tabbtn .tab-default li.active .head {
-    border: 1px solid #e5993a;
+    border: 1px solid #5b73eb;
     background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
 }
 
@@ -106,7 +106,7 @@ ul,li,ol{
 }
 
 .plan button:hover {
-    background: #e5993a;
+    background: #5b73eb;
 }
 
 .plan {
