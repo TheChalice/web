@@ -43,9 +43,11 @@ angular.module('console.create_constantly_volume', [
             }
         }
         //type=persistent_volume
+        $scope.getPlan=true;
         market.get({region:$rootScope.region,type:'volume'}, function (data) {
             console.log(data.plans);
-            $scope.plans = data.plans
+            $scope.plans = data.plans;
+             $scope.getPlan=false;
         })
         $scope.$watch('slider.value', function (n, o) {
             if (n == o) {
