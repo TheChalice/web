@@ -156,13 +156,14 @@ angular.module('console.resource_management', [
                     //$scope.rcs.items.push(data.object);
                 } else if (data.type == "MODIFIED") {
                     //console.log(data);
-                    angular.forEach($scope.persistents.items, function (item, i) {
+                    angular.forEach($scope.persistentdata, function (item, i) {
 
                         if (item.metadata.name == data.object.metadata.name) {
 
-                            $scope.persistents.items[i] = data.object
+                            $scope.persistentdata[i] = data.object;
                             //$scope.persistents.items[i].status.phase=data.object.status.phase
                             //$scope.persistents[i]=data.object;
+                            rmrefresh(1);
                             $scope.$apply();
                         }
                     })
