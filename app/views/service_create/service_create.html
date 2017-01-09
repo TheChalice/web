@@ -424,13 +424,13 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-sm-3">
-                                                                <input type="number" style="height:23px;" class="input-small" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                                                <input type="text" maxlength="5" style="height:23px;" class="input-small" onkeyup="value=value.replace(/[^\d]/g,'')"
                                                                        ng-class="{'input-error':port.conflict}"
                                                                        placeholder="例如：80"
                                                                        ng-model="port.containerPort">
                                                             </div>
                                                             <div class="col-sm-3">
-                                                                <input type="number" style="height:23px;" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                                                <input type="text" maxlength="5" style="height:23px;" onkeyup="value=value.replace(/[^\d]/g,'')"
                                                                        ng-model="port.hostPort"
                                                                        placeholder="例如：80"
                                                                        class="input-small"

@@ -402,7 +402,7 @@
                                         {{quota.unit}}
                                         <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <ul class="dropdown-menu" style="min-width:auto;" aria-labelledby="dropdownMenu1">
                                     <li><a ng-click="quota.unit='MB'">MB</a></li>
                                     <li><a ng-click="quota.unit='GB'">GB</a></li>
                                     </ul>
@@ -443,6 +443,7 @@
     .faa-zn-size{
         background-size:contain;
     }
+    .dropdown-menu > li > a{height:auto!important;line-height:30px!important;}
 
 
 </style>
