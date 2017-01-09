@@ -134,7 +134,7 @@ angular.module('console.service.create', [
 
             $scope.quota = {
                 doquota: false,
-                unit: 'MB',
+                unit: 'GB',
                 cpu: null,
                 memory: null
             }
