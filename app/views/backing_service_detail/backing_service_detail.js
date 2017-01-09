@@ -98,7 +98,48 @@ angular.module('console.backing_service_detail', [
       };
 
       loadBsi();
+        $scope.delebind= function (bsi,dcname) {
+          console.log(bsi, dcname);
+          var name = bsi.metadata.name;
+          //var bindings = [];
+          var binds = bsi.spec.binding || [];
+          angular.forEach(binds, function (bind,i) {
+            if (dcname === bind.bind_deploymentconfig) {
+              binds[i].delete = true;
+            }
+          })
+          var bindObj = {
+            metadata: {
+              name: name,
+              annotations: {
+                "dadafoundry.io/create-by": $rootScope.user.metadata.name
+              }
+            },
+            resourceName: dcname,
+            bindResourceVersion: '',
+            bindKind: 'DeploymentConfig'
+          };
+          // console.log(bindObj)
+          BackingServiceInstanceBd.put({
+                namespace: $rootScope.namespace,
+                name: name,
+                region: $rootScope.region
+              },
+              bindObj, function (res) {
+                Toast.open('正在解除中,请稍等');
+                // console.log('解绑定', res)
+              }, function (res) {
+                //todo 错误处理
+                // Toast.open('操作失败');
+                //if (res.data.message.split(':')[1]) {
+                //    Toast.open(res.data.message.split(':')[1].split(';')[0]);
+                //} else {
+                //    Toast.open(res.data.message);
+                //}
+                //$log.info("del bindings err", res);
+              });
 
+        }
       $scope.delBsi = function (idx) {
         //console.log('del$scope.bsi.items[idx]', $scope.bsi.items[idx].spec.binding);
         if ($scope.bsi.items[idx].spec.binding) {

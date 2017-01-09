@@ -27,8 +27,8 @@
         <div class="binding-services" uib-collapse="!item.show">
             <div style="padding: 30px;">
                 <h2>
-                    绑定服务
-                    <a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>
+                    <!--绑定服务-->
+                    <!--<a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>-->
                     <a href="javascript:;" class="btn btn-green" ng-click="bindModal($index)">新增绑定</a>
                 </h2>
 
@@ -36,9 +36,9 @@
                     <div class="panel panel-default" ng-repeat="bsisv in item.spec.binding">
                         <div class="panel-heading" role="tab">
                             <h4 class="panel-title">
-                                <a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked" style="cursor: pointer">
-                                    <i class="faa faa-check"></i>&nbsp;
-                                </a>
+                                <!--<a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked" style="cursor: pointer">-->
+                                    <!--<i class="faa faa-check"></i>&nbsp;-->
+                                <!--</a>-->
                                 <a href="#{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}" data-toggle="collapse" class="accordion-toggle">
                                     {{bsisv.bind_deploymentconfig}}
                                     <i class="fa pull-right" ng-class="{'fa-caret-up': status.open, 'fa-caret-down': !status.open}" style="color: #5a6378;"></i>
