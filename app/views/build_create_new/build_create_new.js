@@ -89,7 +89,13 @@ angular.module('console.build_create_new', [
             $scope.namefocus = function () {
                 $scope.namerr.nil = false
             }
+            BuildConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                //$log.info('buildConfigs', data.items);
+                $scope.buildConfiglist = data.items
 
+            }, function (res) {
+                //todo 错误处理
+            });
             var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
             $scope.$watch('buildConfig.metadata.name', function (n, o) {
                 if (n === o) {
