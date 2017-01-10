@@ -4,8 +4,8 @@ angular.module('console.build_create_new', [
             files: []
         }
     ])
-    .controller('BuildcCtrl', ['Toast','createdeploy','randomWord', '$rootScope', '$scope', '$state', '$log', 'Owner', 'Org', 'Branch', 'labOwner', 'psgitlab', 'laborgs', 'labBranch', 'ImageStream', 'BuildConfig', 'Alert', '$http', 'Cookie', '$base64', 'secretskey',
-        function (Toast,createdeploy,randomWord, $rootScope, $scope, $state, $log, Owner, Org, Branch, labOwner, psgitlab, laborgs, labBranch, ImageStream, BuildConfig, Alert, $http, Cookie, $base64, secretskey) {
+    .controller('BuildcCtrl', ['createdeploy','randomWord', '$rootScope', '$scope', '$state', '$log', 'Owner', 'Org', 'Branch', 'labOwner', 'psgitlab', 'laborgs', 'labBranch', 'ImageStream', 'BuildConfig', 'Alert', '$http', 'Cookie', '$base64', 'secretskey',
+        function (createdeploy,randomWord, $rootScope, $scope, $state, $log, Owner, Org, Branch, labOwner, psgitlab, laborgs, labBranch, ImageStream, BuildConfig, Alert, $http, Cookie, $base64, secretskey) {
             $('input[ng-model="buildConfig.metadata.name"]').focus();
             $scope.labrunning = false;
             $scope.runninghub = false;
@@ -814,7 +814,6 @@ angular.module('console.build_create_new', [
                 },function(res){
                     $log.info("err", res);
                     if (res.data.code == 409) {
-                        Toast.open('代码构建名称重复,请重新输入');
                         if($scope.grid.labcon == true){
                             getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
                         }else if($scope.grid.ishide == false){
