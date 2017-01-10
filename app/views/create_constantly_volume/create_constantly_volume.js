@@ -3,8 +3,8 @@ angular.module('console.create_constantly_volume', [
     {
         files: []
     }
-]).controller('createconvolumeCtrl', ['Tip','checkout','market','Toast','$state', '$rootScope', 'volume', '$scope',
-    function (Tip,checkout,market,Toast,$state, $rootScope, volume, $scope) {
+]).controller('createconvolumeCtrl', ['persistent','Tip','checkout','market','Toast','$state', '$rootScope', 'volume', '$scope',
+    function (persistent,Tip,checkout,market,Toast,$state, $rootScope, volume, $scope) {
         $scope.slider = {
             value: 0,
             options: {
@@ -58,18 +58,62 @@ angular.module('console.create_constantly_volume', [
 
             }
         })
-        $scope.$watch('volume.name', function (n, o) {
-            if (n == o) {
-                return
+        $scope.namerr = {
+            nil: false,
+            rexed: false,
+            repeated: false
+        }
+        $scope.nameblur = function () {
+            //console.log($scope.buildConfig.metadata.name);
+            if (!$scope.volume.name) {
+                $scope.namerr.nil = true
+            } else {
+                $scope.namerr.nil = false
             }
-            var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+        }
+        $scope.namefocus = function () {
+            $scope.namerr.nil = false
+        }
+        //secretskey.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (res) {
+        //    //console.log('-------loadsecrets', res);
+        //    $scope.secremnamearr=res.items;
+        //
+        //})
+        persistent.get({
+            namespace: $rootScope.namespace,
+            region: $rootScope.region
+        }, function (res) {
+            $scope.persmnamearr=res.items;
+        })
 
-            if (n&&!r.test(n)) {
-                //alert(2)
-                $scope.err.valid = true;
-                return
-            }else{
-                $scope.err.valid = false;
+        var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+
+        $scope.$watch('volume.name', function (n, o) {
+            if (n === o) {
+                return;
+            }
+            if (n && n.length > 0) {
+                if (rex.test(n)) {
+                    $scope.namerr.rexed = false;
+                    $scope.namerr.repeated=false;
+                    if ($scope.persmnamearr) {
+                        //console.log($scope.buildConfiglist);
+                        angular.forEach($scope.persmnamearr, function (bsiname, i) {
+                            //console.log(bsiname);
+                            if (bsiname.metadata.name === n) {
+                                //console.log(bsiname,n);
+                                $scope.namerr.repeated = true;
+
+                            }
+                            //console.log($scope.namerr.repeated);
+                        })
+                    }
+
+                } else {
+                    $scope.namerr.rexed = true;
+                }
+            } else {
+                $scope.namerr.rexed = false;
             }
         })
         $scope.empty=function(){
@@ -82,7 +126,6 @@ angular.module('console.create_constantly_volume', [
         }
         $scope.isEmpty=function(){
             if ( $scope.volume.name==='') {
-
                 //alert(1)
                 $scope.err.blank = true;
                 return
@@ -92,7 +135,11 @@ angular.module('console.create_constantly_volume', [
 
         }
         $scope.creat = function () {
+            if (!$scope.namerr.nil && !$scope.namerr.rexed && !$scope.namerr.repeated&&!$scope.timeouted) {
 
+            }else {
+                return
+            }
             var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 
             if ($scope.volume.name==='') {

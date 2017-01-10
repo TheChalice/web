@@ -98,12 +98,11 @@ angular.module('console.build_create_new', [
                 if (n && n.length > 0) {
                     if (r.test(n)) {
                         $scope.namerr.rexed = false;
+                        $scope.namerr.rexed = false;
                         if ($scope.buildConfiglist) {
                             angular.forEach($scope.buildConfiglist, function (build, i) {
                                 if (build.metadata.name === n) {
                                     $scope.namerr.rexed = true;
-                                } else {
-                                    $scope.namerr.rexed = false;
                                 }
                             })
                         }
@@ -157,20 +156,20 @@ angular.module('console.build_create_new', [
 
 
 
-            $scope.$watch('buildConfig.metadata.name', function (n, o) {
-                if (n == o) {
-                    return
-                }
-                if (n) {
-                    if (!r.test(n)) {
-                        //console.log('no');
-                        $scope.nameerr = true
-                    } else {
-                        //console.log('yes');
-                        $scope.nameerr = false
-                    }
-                }
-            })
+            //$scope.$watch('buildConfig.metadata.name', function (n, o) {
+            //    if (n == o) {
+            //        return
+            //    }
+            //    if (n) {
+            //        if (!r.test(n)) {
+            //            //console.log('no');
+            //            $scope.nameerr = true
+            //        } else {
+            //            //console.log('yes');
+            //            $scope.nameerr = false
+            //        }
+            //    }
+            //})
 
             var thisindex = 0;
 

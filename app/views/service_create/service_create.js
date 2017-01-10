@@ -1446,13 +1446,12 @@ angular.module('console.service.create', [
                     // console.log($scope.buildConfig.metadata.name);
                     if (r.test(n)) {
                         $scope.namerr.rexed = false;
+                        $scope.namerr.repeated = false;
                         if ($scope.serviceNameArr) {
                             //console.log($scope.serviceNameArr);
                             angular.forEach($scope.serviceNameArr, function (build, i) {
                                 if (build === n) {
                                     $scope.namerr.repeated = true;
-                                } else {
-                                    $scope.namerr.repeated = false;
                                 }
                             })
                         }

@@ -16,11 +16,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label text-left" style="margin-top: 10px; color: #5a6378; font-size:14px; text-align: left; font-weight: normal">配置卷名称</label>
                     <div class="col-sm-10" style="padding-right: 40px; ">
-                        <input ng-model="volume.metadata.name"  style="margin-top: 10px; width: 640px;" type="text" name="username" class="form-control" required
+                        <input ng-model="volume.metadata.name"
+                               style="margin-top: 10px; width: 640px;" type="text" name="username"
+                               ng-blur="nameblur()"
                                onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"
-                                ng-pattern="/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/" placeholder="创建一个配置卷名称">
-                        <small ng-if="frm.username.$dirty && frm.username.$error.required" class="fa fa-info-circle err-tip" style="margin-top: 20px;">名称不能为空</small>
-                        <small ng-if="frm.username.$dirty && frm.username.$error.pattern" class="fa fa-info-circle err-tip" style="margin-top: 20px;">名称只能包括小写字母/数字/短线,短线不能在开头或结尾位置</small>
+                               ng-focus="namefocus()"
+                               class="form-control" required
+                               placeholder="创建一个配置卷名称">
+                        <small ng-if="namerr.nil" class="fa fa-info-circle err-tip">请输入正确构建名称
+                        </small>
+                        <small ng-if="namerr.rexed" class="fa fa-info-circle err-tip">请输入4~30位名称,名称只能包含英文、数字以及“-”
+                        </small>
+                        <small ng-if="namerr.repeated" class="fa fa-info-circle err-tip">输入的名称已重复
+                        </small>
                     </div>
                 </div>
                 <div class="row">
