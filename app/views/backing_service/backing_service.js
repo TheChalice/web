@@ -527,12 +527,12 @@ angular.module('console.backing_service', [
                                 //console.log(bsi);
                                 if (bsi.metadata.name === data.object.metadata.name) {
                                     //console.log('bsi.metadata.name', bsi.metadata.name);
-                                    if (bsi.spec.binding.length !== data.object.spec.binding.length) {
+                                    //if (bsi.spec.binding.length !== data.object.spec.binding.length) {
                                         //console.log('bsi',bsi);
                                         data.object.show = bsi.show;
                                         $scope.myservice[i].item[j] = data.object;
                                         $scope.$apply();
-                                    }
+                                    //}
                                 }
                             })
 
@@ -686,13 +686,13 @@ angular.module('console.backing_service', [
 
             //我的后端服务删除一个实例
             $scope.delebind= function (bsi,dcname) {
-                console.log(bsi, dcname);
+                //console.log(bsi, dcname);
                 var name = bsi.metadata.name;
                 //var bindings = [];
                 var binds = bsi.spec.binding || [];
                 angular.forEach(binds, function (bind,i) {
                     if (dcname === bind.bind_deploymentconfig) {
-                        binds[i].delete = true;
+                        //binds[i].delete = true;
                     }
                 })
                 var bindObj = {
