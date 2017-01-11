@@ -148,7 +148,7 @@ angular.module('console.service.create', [
                 }
                 //console.log('端口',n);
             }, true)
-
+            var rex =/^[0-9]{0,}\.{0,1}\d{1,2}$/;
             $scope.$watch('quota', function (n, o) {
                 if (n === o) {
                     return;
@@ -162,17 +162,41 @@ angular.module('console.service.create', [
                         $scope.grid.megnum = null;
                         return;
                     }
+                    if (n.cpu.indexOf('.') !== 0) {
+                        //alert(1)
+                        if (rex.test(n.cpu)) {
+                            $scope.grid.cpunumerr = false;
+                            //console.log('合法');
+
+                        }else {
+                            $scope.grid.cpunumerr = true;
+                        }
+                    }else {
+                        $scope.grid.cpunumerr = true;
+                    }
                     $scope.grid.cpunullerr=false;
                     $scope.grid.memorynullerr=false;
                     //parseFloat($scope.quota.memory)
                     if (n && parseFloat(n.cpu) > parseFloat($scope.grid.cpunum)) {
-                        console.log('bug');
+                        //console.log('bug');
                         $scope.grid.cpuerr = true;
                     } else {
                         $scope.grid.cpuerr = false;
                     }
                     //console.log($scope.quota.unit);
                     if (n && n.memory) {
+                        if (n.memory.indexOf('.') !== 0) {
+                            //alert(1)
+                            if (rex.test(n.memory)) {
+                                $scope.grid.memorynumerr = false;
+                                //console.log('合法');
+
+                            }else {
+                                $scope.grid.memorynumerr = true;
+                            }
+                        }else {
+                            $scope.grid.memorynumerr = true;
+                        }
                         if ($scope.quota.unit === 'MB') {
                             if (parseFloat(n.memory) > ($scope.grid.megnum * 1000)) {
                                 $scope.grid.memoryerr = true;
