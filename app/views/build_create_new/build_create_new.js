@@ -58,7 +58,10 @@ angular.module('console.build_create_new', [
                     completionDeadlineSeconds: 1800
                 }
             };
-
+            $scope.sername={
+                name:null,
+                pwd:null
+            }
             //var loadBuildConfigs = function () {
             //    BuildConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
             //        $log.info('buildConfigs', data.items);
@@ -230,26 +233,60 @@ angular.module('console.build_create_new', [
                 $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
                 $scope.buildConfig.spec.triggers = [];
                 //console.log(secret);
-                var baseun = $base64.encode($scope.gitUsername);
-                var basepwd = $base64.encode($scope.gitPwd);
-                $scope.secret = {
-                    "kind": "Secret",
-                    "apiVersion": "v1",
-                    "metadata": {
-                        "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
-                    },
-                    "data": {
-                        username: baseun,
-                        password: basepwd
+                console.log($scope.sername);
+                if (!$scope.sername.name&&!$scope.sername.pwd) {
 
-                    },
-                    "type": "Opaque"
+                }else if(!$scope.sername.name&&$scope.sername.pwd){
+                    //var baseun = $base64.encode($scope.sername.name);
+                    var basepwd = $base64.encode($scope.sername.pwd);
+                    $scope.secret = {
+                        "kind": "Secret",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                        },
+                        "data": {
+                            password: basepwd
+
+                        },
+                        "type": "Opaque"
+                    }
+                }else if(!$scope.sername.pwd&&$scope.sername.name){
+                    var baseun = $base64.encode($scope.sername.name);
+                    //var basepwd = $base64.encode($scope.sername.pwd);
+                    $scope.secret = {
+                        "kind": "Secret",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                        },
+                        "data": {
+                            username: baseun,
+
+
+                        },
+                        "type": "Opaque"
+                    }
+                }else if($scope.sername.name && $scope.sername.pwd){
+                    var baseun = $base64.encode($scope.sername.name);
+                    var basepwd = $base64.encode($scope.sername.pwd);
+                    $scope.secret = {
+                        "kind": "Secret",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                        },
+                        "data": {
+                            username: baseun,
+                            password: basepwd
+
+                        },
+                        "type": "Opaque"
+                    }
                 }
-                if (!$scope.gitPwd || !$scope.gitUsername) {
-                    $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
-                    createBC();
-                }else {
+                console.log('$scope.secret',$scope.secret);
 
+                if ($scope.sername.name || $scope.sername.pwd) {
                     secretskey.create({
                         namespace: $rootScope.namespace,
                         region: $rootScope.region
@@ -263,6 +300,10 @@ angular.module('console.build_create_new', [
                             createBC();
                         }
                     })
+
+                }else {
+                    $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
+                    createBC();
                 }
                 //}
             };
