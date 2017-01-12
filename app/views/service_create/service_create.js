@@ -156,33 +156,35 @@ angular.module('console.service.create', [
                 if ($scope.grid.cpunum || $scope.grid.megnum) {
                     //console.log(n.cpu, $scope.grid.cpunum);
                     //console.log(n.memory, $scope.grid.megnum);
-                    console.log(n);
+                    //console.log(n);
                     if (!$scope.quota.doquota) {
                         $scope.grid.cpunum = null;
                         $scope.grid.megnum = null;
                         return;
                     }
-                    if (n.cpu.indexOf('.') !== 0) {
-                        //alert(1)
-                        if (rex.test(n.cpu)) {
-                            $scope.grid.cpunumerr = false;
-                            //console.log('合法');
-
+                    if (n.cpu) {
+                        if (n.cpu.indexOf('.') !== 0) {
+                            //alert(1)
+                            if (rex.test(n.cpu)) {
+                                $scope.grid.cpunumerr = false;
+                                //console.log('合法');
+                            }else {
+                                $scope.grid.cpunumerr = true;
+                            }
                         }else {
                             $scope.grid.cpunumerr = true;
                         }
-                    }else {
-                        $scope.grid.cpunumerr = true;
+                        $scope.grid.cpunullerr=false;
+                        $scope.grid.memorynullerr=false;
+                        //parseFloat($scope.quota.memory)
+                        if (n && parseFloat(n.cpu) > parseFloat($scope.grid.cpunum)) {
+                            //console.log('bug');
+                            $scope.grid.cpuerr = true;
+                        } else {
+                            $scope.grid.cpuerr = false;
+                        }
                     }
-                    $scope.grid.cpunullerr=false;
-                    $scope.grid.memorynullerr=false;
-                    //parseFloat($scope.quota.memory)
-                    if (n && parseFloat(n.cpu) > parseFloat($scope.grid.cpunum)) {
-                        //console.log('bug');
-                        $scope.grid.cpuerr = true;
-                    } else {
-                        $scope.grid.cpuerr = false;
-                    }
+
                     //console.log($scope.quota.unit);
                     if (n && n.memory) {
                         if (n.memory.indexOf('.') !== 0) {
@@ -190,7 +192,6 @@ angular.module('console.service.create', [
                             if (rex.test(n.memory)) {
                                 $scope.grid.memorynumerr = false;
                                 //console.log('合法');
-
                             }else {
                                 $scope.grid.memorynumerr = true;
                             }
