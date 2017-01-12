@@ -32,15 +32,16 @@ angular.module('console', [
                 $rootScope.region = 'cn-north-1';
                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
             }
+
             if (namespace) {
                 $rootScope.namespace = namespace;
             } else {
-                console.log('nonamespace');
+                //console.log('nonamespace');
                 $rootScope.namespace = $rootScope.user.metadata.name;
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
             }
 
-            console.log('creatproject.user', $rootScope.user.metadata.name);
+            //console.log('creatproject.user', $rootScope.user.metadata.name);
             creatproject.create({'metadata': {
                 name:$rootScope.user.metadata.name
             }}, function (res) {
@@ -49,6 +50,7 @@ angular.module('console', [
             }, function (err) {
                 loadProject();
             })
+
             var loadProject = function () {
                 //$log.info("load project");
                 Project.get({region: $rootScope.region}, function (data) {
@@ -77,8 +79,6 @@ angular.module('console', [
                     });
                     $rootScope.projects = data.items;
                     //console.log(data.items);
-
-
                     //$log.info("load project success", data);
                 }, function (res) {
                     $log.info("find project err", res);

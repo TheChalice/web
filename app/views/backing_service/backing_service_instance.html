@@ -53,7 +53,6 @@
                                        <!--style="cursor: pointer">-->
                                         <!--<i class="faa faa-check"></i>&nbsp;-->
                                     <!--</a>-->
-
                                     <a href="#{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"
                                        data-toggle="collapse"
                                        class="accordion-toggle">
@@ -65,9 +64,12 @@
                                 <span class="label label-default" uib-tooltip="{{bsisv.bound_time | timescon}}">
                                     <i class="fa2 fa2-time"></i>&nbsp;{{bsisv.bound_time | dateRelative}}
                                 </span>
-                                    <span style="margin-left: 10px;" ng-if="bsisv.delete" class="icon12 icon12-Bound fa-unspin"></span>
 
-                                    <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">解除绑定</a>
+                                    <span style="margin-left: 10px;" ng-if="bsisv.delete" class="icon12 icon12-Bound fa-unspin">
+                                    </span>
+                                    <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">
+                                        解除绑定
+                                    </a>
                                 </h4>
                             </div>
                             <div id="{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"
