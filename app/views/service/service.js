@@ -9,6 +9,9 @@ angular.module('console.service', [
     ])
     .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod',
         function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod) {
+            $(".service_close").on("click",function(){
+                $(".sevice_alert_jia").slideUp();
+            });
             $scope.grid = {
                 page: 1,
                 size: 10,
