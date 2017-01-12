@@ -38,9 +38,70 @@ angular.module('console.apply_instance', [
             };
             loadBs();
 
+            BackingServiceInstance.get({
+                namespace: $rootScope.namespace,
+                region: $rootScope.region
+            }, function (res) {
+                console.log('bsi',res.items);
+                $scope.bsinamearr=res.items;
+                //angular.forEach(res.items, function (item,i) {
+                //    $scope.bsinamearr.push(item.metadata.name)
+                //});
 
+            })
+            $scope.namerr = {
+                nil: false,
+                rexed: false,
+                repeated: false
+            }
+            $scope.nameblur = function () {
+                //console.log($scope.buildConfig.metadata.name);
+                if (!$scope.bsi.metadata.name) {
+                    $scope.namerr.nil = true
+                } else {
+                    $scope.namerr.nil = false
+                }
+            }
+            $scope.namefocus = function () {
+                $scope.namerr.nil = false
+            }
+
+
+            var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            $scope.$watch('bsi.metadata.name', function (n, o) {
+                if (n === o) {
+                    return;
+                }
+                if (n && n.length > 0) {
+                    if (r.test(n)) {
+                        $scope.namerr.rexed = false;
+                        $scope.namerr.repeated=false;
+                        if ($scope.bsinamearr) {
+                            //console.log($scope.buildConfiglist);
+                            angular.forEach($scope.bsinamearr, function (bsiname, i) {
+                                //console.log(bsiname);
+                                if (bsiname.metadata.name === n) {
+                                    //console.log(bsiname,n);
+                                    $scope.namerr.repeated = true;
+
+                                }
+                                //console.log($scope.namerr.repeated);
+                            })
+                        }
+
+                    } else {
+                        $scope.namerr.rexed = true;
+                    }
+                } else {
+                    $scope.namerr.rexed = false;
+                }
+            })
             $scope.createInstance = function (name) {
+                if (!$scope.namerr.nil && !$scope.namerr.rexed && !$scope.namerr.repeated) {
 
+                }else {
+                    return
+                }
                 var plan = $scope.data[$scope.grid.checked];
 
                 Modalbs.open($scope.bsName, plan).then(function () {

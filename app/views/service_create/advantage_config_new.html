@@ -32,8 +32,8 @@
                         </div>
                         <hr style="visibility:visible;"/>
                     </div>
-                    <label style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <div class="dropdown dropdown-select" style="width: 200px;">
+                    <label ng-show="false" style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <div ng-show="false" class="dropdown dropdown-select" style="width: 200px;">
                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <span>{{dc.spec.template.spec.restartPolicy}}</span>
                             <span class="caret"></span>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <hr style="margin-top: 20px;visibility:visible;">
+            <!--<hr style="margin-top: 20px;visibility:visible;">-->
 
             <div class="row">
                 <div class="col-md-2" style="padding-top: 5px">
@@ -385,6 +385,8 @@
                                     提示：您输入数量超过可用数量</small>
                                 <small class="fa fa-info-circle err-tip" ng-if="grid.cpunullerr" style="margin-top: 20px;">
                                     提示：您输入cpu为空</small>
+                                <small class="fa fa-info-circle err-tip" ng-if="grid.cpunumerr" style="margin-top: 20px;">
+                                    提示：您输入数数值不合法</small>
                             </div>
                             <div class="col-md-2"style="padding: 0;text-align: center;line-height: 54px;">
                                 可用CPU:{{grid.cpunum}}个
@@ -395,6 +397,8 @@
                                     提示：您输入数量超过可用数量</small>
                                 <small class="fa fa-info-circle err-tip" ng-if="grid.memorynullerr" style="margin-top: 20px;">
                                     提示：您输入内存为空</small>
+                                <small class="fa fa-info-circle err-tip" ng-if="grid.memorynumerr" style="margin-top: 20px;">
+                                    提示：您输入数数值不合法</small>
                             </div>
                             <div class="col-md-1"style="padding: 0;">
                                 <div class="dropdown">

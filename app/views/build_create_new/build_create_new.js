@@ -58,7 +58,10 @@ angular.module('console.build_create_new', [
                     completionDeadlineSeconds: 1800
                 }
             };
-
+            $scope.sername={
+                name:null,
+                pwd:null
+            }
             //var loadBuildConfigs = function () {
             //    BuildConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
             //        $log.info('buildConfigs', data.items);
@@ -89,7 +92,13 @@ angular.module('console.build_create_new', [
             $scope.namefocus = function () {
                 $scope.namerr.nil = false
             }
+            BuildConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                //$log.info('buildConfigs', data.items);
+                $scope.buildConfiglist = data.items
 
+            }, function (res) {
+                //todo 错误处理
+            });
             var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
             $scope.$watch('buildConfig.metadata.name', function (n, o) {
                 if (n === o) {
@@ -98,12 +107,11 @@ angular.module('console.build_create_new', [
                 if (n && n.length > 0) {
                     if (r.test(n)) {
                         $scope.namerr.rexed = false;
+                        $scope.namerr.repeated = false;
                         if ($scope.buildConfiglist) {
                             angular.forEach($scope.buildConfiglist, function (build, i) {
                                 if (build.metadata.name === n) {
-                                    $scope.namerr.rexed = true;
-                                } else {
-                                    $scope.namerr.rexed = false;
+                                    $scope.namerr.repeated = true;
                                 }
                             })
                         }
@@ -157,20 +165,20 @@ angular.module('console.build_create_new', [
 
 
 
-            $scope.$watch('buildConfig.metadata.name', function (n, o) {
-                if (n == o) {
-                    return
-                }
-                if (n) {
-                    if (!r.test(n)) {
-                        //console.log('no');
-                        $scope.nameerr = true
-                    } else {
-                        //console.log('yes');
-                        $scope.nameerr = false
-                    }
-                }
-            })
+            //$scope.$watch('buildConfig.metadata.name', function (n, o) {
+            //    if (n == o) {
+            //        return
+            //    }
+            //    if (n) {
+            //        if (!r.test(n)) {
+            //            //console.log('no');
+            //            $scope.nameerr = true
+            //        } else {
+            //            //console.log('yes');
+            //            $scope.nameerr = false
+            //        }
+            //    }
+            //})
 
             var thisindex = 0;
 
@@ -225,26 +233,60 @@ angular.module('console.build_create_new', [
                 $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
                 $scope.buildConfig.spec.triggers = [];
                 //console.log(secret);
-                var baseun = $base64.encode($scope.gitUsername);
-                var basepwd = $base64.encode($scope.gitPwd);
-                $scope.secret = {
-                    "kind": "Secret",
-                    "apiVersion": "v1",
-                    "metadata": {
-                        "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
-                    },
-                    "data": {
-                        username: baseun,
-                        password: basepwd
+                console.log($scope.sername);
+                if (!$scope.sername.name&&!$scope.sername.pwd) {
 
-                    },
-                    "type": "Opaque"
+                }else if(!$scope.sername.name&&$scope.sername.pwd){
+                    //var baseun = $base64.encode($scope.sername.name);
+                    var basepwd = $base64.encode($scope.sername.pwd);
+                    $scope.secret = {
+                        "kind": "Secret",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                        },
+                        "data": {
+                            password: basepwd
+
+                        },
+                        "type": "Opaque"
+                    }
+                }else if(!$scope.sername.pwd&&$scope.sername.name){
+                    var baseun = $base64.encode($scope.sername.name);
+                    //var basepwd = $base64.encode($scope.sername.pwd);
+                    $scope.secret = {
+                        "kind": "Secret",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                        },
+                        "data": {
+                            username: baseun,
+
+
+                        },
+                        "type": "Opaque"
+                    }
+                }else if($scope.sername.name && $scope.sername.pwd){
+                    var baseun = $base64.encode($scope.sername.name);
+                    var basepwd = $base64.encode($scope.sername.pwd);
+                    $scope.secret = {
+                        "kind": "Secret",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                        },
+                        "data": {
+                            username: baseun,
+                            password: basepwd
+
+                        },
+                        "type": "Opaque"
+                    }
                 }
-                if (!$scope.gitPwd || !$scope.gitUsername) {
-                    $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
-                    createBC();
-                }else {
+                console.log('$scope.secret',$scope.secret);
 
+                if ($scope.sername.name || $scope.sername.pwd) {
                     secretskey.create({
                         namespace: $rootScope.namespace,
                         region: $rootScope.region
@@ -258,6 +300,10 @@ angular.module('console.build_create_new', [
                             createBC();
                         }
                     })
+
+                }else {
+                    $scope.buildConfig.spec.source.sourceSecret.name = $scope.secret.metadata.name;
+                    createBC();
                 }
                 //}
             };
@@ -814,11 +860,13 @@ angular.module('console.build_create_new', [
                 },function(res){
                     $log.info("err", res);
                     if (res.data.code == 409) {
-                        if($scope.grid.labcon == true){
-                            getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
-                        }else if($scope.grid.ishide == false){
-                            createBuildConfig();
-                        }
+                        //if($scope.grid.labcon == true){
+                        //    getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
+                        //}else if($scope.grid.ishide == false){
+                        //    createBuildConfig();
+                        //}else {
+                            createBuildConfig('a');
+                        //}
                         $scope.creating = false;
                     } else {
                         // Alert.open('错误', res.data.message, true);

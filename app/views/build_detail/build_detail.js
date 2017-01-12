@@ -89,7 +89,7 @@ angular.module('console.build.detail', [
                     $log.info("build instantiate success", res);
                     $scope.active = 1;  //打开记录标签
                     $scope.$broadcast('timeline', 'add', res);
-                    createWebhook();
+                    //createWebhook();
                     //deleteWebhook();
                 }, function (res) {
                     //todo 错误处理
@@ -193,7 +193,7 @@ angular.module('console.build.detail', [
                     $scope.deadlineMinutesEnable = false;
                     $scope.grid.checkedLocal = $scope.grid.checked;
                     deleteWebhook();
-                    createWebhook();
+                    //createWebhook();
 
                 }, function (res) {
                     //todo 错误处理
