@@ -864,6 +864,8 @@ angular.module('console.build_create_new', [
                             getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
                         }else if($scope.grid.ishide == false){
                             createBuildConfig();
+                        }else {
+                            createBuildConfig('a');
                         }
                         $scope.creating = false;
                     } else {
