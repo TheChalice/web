@@ -780,7 +780,8 @@ angular.module('console.backing_service', [
                         } else {
                             Confirm.open('删除后端服务实例', '您确定要删除该实例吗？此操作不可恢复', '', 'recycle', false).then(function () {
 
-                                orders.query({region:$rootScope.region,resource_name:$scope.myservice[id].item[idx].metadata.name}, function (data) {
+                                orders.query({region:$rootScope.region,resource_name:$scope.myservice[id].item[idx].metadata.name,namespace:$rootScope.namespace,
+                                    status:'consuming'}, function (data) {
 
                                     console.log('data',data);
                                     if (data.length>0&&data[0].order.id) {
