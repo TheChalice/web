@@ -530,7 +530,6 @@ define(['angular'], function (angular) {
         .service('Tip', ['$uibModal', function ($uibModal) {
             this.open = function (title, txt, tip, iscf,colse,isorg,ispay) {
                 return $uibModal.open({
-                    backdrop: 'static',
                     templateUrl: 'pub/tpl/tip.html',
                     size: 'default',
                     controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
@@ -629,7 +628,6 @@ define(['angular'], function (angular) {
         .service('ChooseSecret', ['$uibModal', function ($uibModal) {
             this.open = function (olength, secretsobj) {
                 return $uibModal.open({
-                    backdrop: 'static',
                     templateUrl: 'pub/tpl/choosSecret.html',
                     size: 'default',
                     controller: ['by', '$scope', '$uibModalInstance', '$log', 'secretskey', '$rootScope', 'configmaps', 'persistent', '$state',
@@ -948,7 +946,6 @@ define(['angular'], function (angular) {
         .service('ImageSelect', ['$uibModal', function ($uibModal) {
             this.open = function () {
                 return $uibModal.open({
-                    backdrop: 'static',
                     templateUrl: 'pub/tpl/modal_choose_image.html',
                     size: 'default modal-lg',
                     controller: ['platform','regpro','$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist',
