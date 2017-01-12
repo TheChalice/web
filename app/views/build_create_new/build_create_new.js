@@ -860,13 +860,13 @@ angular.module('console.build_create_new', [
                 },function(res){
                     $log.info("err", res);
                     if (res.data.code == 409) {
-                        if($scope.grid.labcon == true){
-                            getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
-                        }else if($scope.grid.ishide == false){
-                            createBuildConfig();
-                        }else {
+                        //if($scope.grid.labcon == true){
+                        //    getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
+                        //}else if($scope.grid.ishide == false){
+                        //    createBuildConfig();
+                        //}else {
                             createBuildConfig('a');
-                        }
+                        //}
                         $scope.creating = false;
                     } else {
                         // Alert.open('错误', res.data.message, true);
