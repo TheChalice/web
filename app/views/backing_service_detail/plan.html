@@ -1,9 +1,9 @@
 <div class="plan plan_jia">
-    <div class="panel panel-default panel-xxx" ng-repeat="item in data.spec.plans" ng-class="{'active': grid.checked == $index}"  ng-click="grid.checked = $index">
+    <div class="panel panel-default panel-xxx" ng-repeat="item in plans" ng-class="{'active': grid.checked == $index}"  ng-click="grid.checked = $index">
         <div class="panel-heading">
-            <span class="panel-title">{{item.name}}</span>
+            <span class="panel-title">{{item.plan_name}}</span>
             <!--<button ng-if="!grid.update" class="btn btn-orange pull-right" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">申请实例</button>-->
-            <button ng-if="data.biancheng" class="btn btn-orange pull-right btn-orange-radius" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">申请实例</button>
+            <button ng-if="data.biancheng" class="btn btn-orange pull-right btn-orange-radius" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.plan_name})">申请实例</button>
             <button ng-if="data.bianhui" class="btn btn-disabled pull-right btn-orange-radius" style='cursor:default;'>申请实例</button>
 
             <!--<button ng-if="grid.update" class="btn btn-orange pull-right" ui-sref="console.apply_instance({name: data.metadata.name, plan: item.name})">马上升级</button>-->
@@ -17,23 +17,26 @@
                     <label>
                         <i class="faa faa-price">
                         </i>&nbsp;&nbsp;价格</label>
-                    <p ng-show="item.free">Free</p>
-                    <p ng-show="!item.free" ng-repeat="ct in item.metadata.costs">
-                            {{ct.unit}}:<br/><!--€{{ct.amount.eur}}&nbsp;|&nbsp;${{ct.amount.usd}}-->
-                            <i ng-repeat="(key, value) in ct.amount">
-                            {{key}}: {{value}}<br/>
-                            </i>
-                    </p>
+                    <p>{{item.price}}</p>
+                    <!--<p ng-show="!item.free" ng-repeat="ct in item.metadata.costs">-->
+                            <!--{{ct.unit}}:<br/>&lt;!&ndash;€{{ct.amount.eur}}&nbsp;|&nbsp;${{ct.amount.usd}}&ndash;&gt;-->
+                            <!--<i ng-repeat="(key, value) in ct.amount">-->
+                            <!--{{key}}: {{value}}<br/>-->
+                            <!--</i>-->
+                    <!--</p>-->
                 </td>
                 <td class="col-md-4" style="border-right: 1px solid #e6e6e6;padding-left:30px;" valign="top">
                     <label><i class="faa faa-content"></i>&nbsp;&nbsp;内容</label>
-                    <p ng-repeat="bl in item.metadata.bullets">
-                           {{bl}}
+                    <p>
+                           {{bl.description}}
+                    </p>
+                    <p>
+                           {{bl.description2}}
                     </p>
                 </td>
                 <td class="col-md-4" valign="top" style="padding-left:30px;">
                     <label><i class="faa faa-description"></i>&nbsp;&nbsp;描述</label>
-                    <p>{{item.description}}</p>
+                    <p>{{item.detail}}</p>
                 </td>
             </tr>
             </table>
