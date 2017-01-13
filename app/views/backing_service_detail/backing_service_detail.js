@@ -149,65 +149,52 @@ angular.module('console.backing_service_detail', [
             }
             $scope.delBsi = function (idx) {
                 //console.log('del$scope.bsi.items[idx]', $scope.bsi.items[idx].spec.binding);
-                if ($scope.bsi.items[idx].spec.binding) {
-                    var curlength = $scope.bsi.items[idx].spec.binding.length;
-                    if (curlength > 0) {
-                        Confirm.open('删除后端服务实例', '该实例已绑定服务，不能删除', '', 'recycle', true)
-                    } else {
-                        Confirm.open('删除后端服务实例', '您确定要删除该实例吗？此操作不可恢复', '', 'recycle', false).then(function () {
-                            orders.query({
-                                region: $rootScope.region,
-                                resource_name: $scope.bsi.items[idx].metadata.name,
-                                namespace:$rootScope.namespace,
-                                status:'consuming'
-                            }, function (data) {
-                                //console.log('data',data);
-                                if (data.length > 0 && data[0].order.id) {
-                                    delorders.delete({
-                                        id: data[0].order.id,
-                                        action: "cancel",
-                                        namespace: $rootScope.namespace
-                                    }, function (data) {
-                                        //$state.go('console.resource_management', {index: 1})
-                                        //$scope.myservice[id].item.splice(idx, 1);
-                                        Toast.open('删除成功');
-                                    })
-                                } else {
-                                    BackingServiceInstance.del({
-                                        namespace: $rootScope.namespace,
-                                        name: $scope.bsi.items[idx].metadata.name,
-                                        region: $rootScope.region
-                                    }, function (res) {
-                                        $scope.bsi.items.splice(idx, 1);
+                if ($scope.bsi.items[idx].spec.binding && $scope.bsi.items[idx].spec.binding.length > 0) {
 
-                                    }, function (res) {
-                                        $log.info('err', res);
-                                    })
-                                }
-                            })
-                            //BackingServiceInstance.del({
-                            //  namespace: $rootScope.namespace,
-                            //  name: $scope.bsi.items[idx].metadata.name,
-                            //  region:$rootScope.region
-                            //}, function (res) {
-                            //  $scope.bsi.items.splice(idx, 1);
-                            //
-                            //}, function (res) {
-                            //  $log.info('err', res);
-                            //})
-                        });
-                    }
+                    Confirm.open('删除后端服务实例', '该实例已绑定服务，不能删除', '', 'recycle', true)
+
                 } else {
                     Confirm.open('删除后端服务实例', '您确定要删除该实例吗？此操作不可恢复', '', 'recycle', false).then(function () {
-                        BackingServiceInstance.del({
+                        orders.query({
+                            region: $rootScope.region,
+                            resource_name: $scope.bsi.items[idx].metadata.name,
                             namespace: $rootScope.namespace,
-                            name: $scope.bsi.items[idx].metadata.name,
-                            region: $rootScope.region
-                        }, function (res) {
-                            $scope.bsi.items.splice(idx, 1);
-                        }, function (res) {
-                            $log.info('err', res);
+                            status: 'consuming'
+                        }, function (data) {
+                            //console.log('data',data);
+                            if (data.length > 0 && data[0].order.id) {
+                                delorders.delete({
+                                    id: data[0].order.id,
+                                    action: "cancel",
+                                    namespace: $rootScope.namespace
+                                }, function (data) {
+                                    //$state.go('console.resource_management', {index: 1})
+                                    //$scope.myservice[id].item.splice(idx, 1);
+                                    Toast.open('删除成功');
+                                })
+                            } else {
+                                BackingServiceInstance.del({
+                                    namespace: $rootScope.namespace,
+                                    name: $scope.bsi.items[idx].metadata.name,
+                                    region: $rootScope.region
+                                }, function (res) {
+                                    $scope.bsi.items.splice(idx, 1);
+
+                                }, function (res) {
+                                    $log.info('err', res);
+                                })
+                            }
                         })
+                        //BackingServiceInstance.del({
+                        //  namespace: $rootScope.namespace,
+                        //  name: $scope.bsi.items[idx].metadata.name,
+                        //  region:$rootScope.region
+                        //}, function (res) {
+                        //  $scope.bsi.items.splice(idx, 1);
+                        //
+                        //}, function (res) {
+                        //  $log.info('err', res);
+                        //})
                     });
                 }
             };
