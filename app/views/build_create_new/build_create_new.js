@@ -235,6 +235,7 @@ angular.module('console.build_create_new', [
                 //console.log(secret);
                 console.log($scope.sername);
                 if (!$scope.sername.name&&!$scope.sername.pwd) {
+                    delete $scope.buildConfig.spec.source.sourceSecret;
 
                 }else if(!$scope.sername.name&&$scope.sername.pwd){
                     //var baseun = $base64.encode($scope.sername.name);
@@ -284,7 +285,7 @@ angular.module('console.build_create_new', [
                         "type": "Opaque"
                     }
                 }
-                console.log('$scope.secret',$scope.secret);
+                //console.log('$scope.secret',$scope.secret);
 
                 if ($scope.sername.name || $scope.sername.pwd) {
                     secretskey.create({
