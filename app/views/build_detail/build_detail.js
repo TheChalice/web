@@ -477,7 +477,6 @@ angular.module('console.build.detail', [
                                 data.object.buildLog = result;
                                 $scope.databuild.items[i] = data.object;
                                 loglast()
-
                             }, function () {
                                 $scope.databuild.items[i] = data.object;
                             });

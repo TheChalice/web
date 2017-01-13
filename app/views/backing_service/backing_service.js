@@ -182,6 +182,26 @@ angular.module('console.backing_service', [
                             //$log.info("backingServiceInstance", res);
                             $scope.resourceVersion = res.metadata.resourceVersion;
                             watchBsi($scope.resourceVersion);
+                            angular.forEach(res.items, function (item,i) {
+                                if (item.spec.binding&&item.spec.binding.length) {
+                                   angular.forEach(item.spec.binding, function (bind,k) {
+                                      //bind.bound_time
+                                       res.items[i].spec.binding[k].mysort=bind.bound_time;
+                                       res.items[i].spec.binding[k].mysort=(new Date(res.items[i].spec.binding[k].mysort)).getTime();
+
+                                   })
+                                    res.items[i].spec.binding.sort(function (x,y) {
+                                        return x.mysort > y.mysort ? -1 : 1;
+                                    })
+                                }
+                            })
+                            //angular.forEach(data.status.tags, function (tag, i) {
+                            //    data.status.tags[i].mysort = data.status.tags[i].items[0].created;
+                            //    data.status.tags[i].mysort = (new Date(data.status.tags[i].mysort)).getTime()
+                            //})
+                            //data.status.tags.sort(function (x, y) {
+                            //    return x.mysort > y.mysort ? -1 : 1;
+                            //});
                             $scope.bsi = res;
                             for (var i = 0; i < res.items.length; i++) {
                                 for (var k in fiftobj) {
@@ -189,6 +209,7 @@ angular.module('console.backing_service', [
                                         res.items[i].type = fiftobj[k];
                                     }
                                 }
+
                                 for (var w in fiftmanobj) {
                                     if (res.items[i].spec.provisioning.backingservice_name == w) {
                                         res.items[i].providerDisplayName = fiftmanobj[w];
@@ -533,6 +554,19 @@ angular.module('console.backing_service', [
                                     //console.log('bsi.metadata.name', bsi.metadata.name);
                                     //if (bsi.spec.binding.length !== data.object.spec.binding.length) {
                                         //console.log('bsi',bsi);
+                                    //angular.forEach(res.items, function (item,i) {
+                                        if (data.object.spec.binding&&data.object.spec.binding.length) {
+                                            angular.forEach(data.object.spec.binding, function (bind,k) {
+                                                //bind.bound_time
+                                                data.object.spec.binding[k].mysort=bind.bound_time;
+                                                data.object.spec.binding[k].mysort=(new Date(data.object.spec.binding[k].mysort)).getTime();
+
+                                            })
+                                            data.object.spec.binding.sort(function (x,y) {
+                                                return x.mysort > y.mysort ? -1 : 1;
+                                            })
+                                        }
+                                    //})
                                         data.object.show = bsi.show;
                                         $scope.myservice[i].item[j] = data.object;
                                         $scope.$apply();
