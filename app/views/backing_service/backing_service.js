@@ -226,13 +226,17 @@ angular.module('console.backing_service', [
                                 }
                             }
 
-                            console.log('$scope.myservice', $scope.myservice);
+                            //console.log('$scope.myservice', $scope.myservice);
 
-                            $scope.copymyservice = angular.copy($scope.myservice)
-                            var bciarr = angular.copy(res.items)
+                            $scope.copymyservice = angular.copy($scope.myservice);
+
+                            var bciarr = angular.copy(res.items);
+
                             //自定义后端服务渲染数组
                             $scope.diyservice = [];
+
                             $scope.insservice = [];
+                            $scope.numservice=[];
                             angular.forEach(bciarr, function (item, i) {
                                 if (item.metadata.annotations && item.metadata.annotations['label'] == "integration") {
                                     item.mysort = (new Date(item.metadata.creationTimestamp)).getTime()
@@ -240,6 +244,8 @@ angular.module('console.backing_service', [
                                 } else if (item.metadata.annotations && item.metadata.annotations['USER-PROVIDED-SERVICE'] == "true") {
                                     item.mysort = (new Date(item.metadata.creationTimestamp)).getTime()
                                     $scope.diyservice.push(item);
+                                }else {
+                                    $scope.numservice.push(item);
                                 }
                             });
                             $scope.diyservice.sort(function (x, y) {
@@ -780,11 +786,12 @@ angular.module('console.backing_service', [
 
                                 orders.query({region:$rootScope.region,resource_name:$scope.myservice[id].item[idx].metadata.name,namespace:$rootScope.namespace,
                                     status:'consuming'}, function (data) {
-
-                                    console.log('data',data);
+                                    //console.log('data',data);
                                     if (data.length>0&&data[0].order.id) {
                                         delorders.delete({id:data[0].order.id,action:"cancel",namespace:$rootScope.namespace}, function (data) {
                                             //$state.go('console.resource_management', {index: 1})
+                                            console.log($scope.numservice);
+                                            $scope.numservice.shift.splice(0, 1);
                                             $scope.myservice[id].item.splice(idx, 1);
                                             Toast.open('删除成功');
                                         })

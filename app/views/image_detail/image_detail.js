@@ -16,13 +16,13 @@ angular.module('console.image_detail', [
             ImageStream.get({namespace: $rootScope.namespace, name: $scope.name,region:$rootScope.region}, function (data) {
                 //console.log(data)
                 if (data.status.tags) {
-                    angular.forEach(data.status.tags, function (tag, i) {
-                        data.status.tags[i].mysort = data.status.tags[i].items[0].created;
-                        data.status.tags[i].mysort = (new Date(data.status.tags[i].mysort)).getTime()
-                    })
-                    data.status.tags.sort(function (x, y) {
-                        return x.mysort > y.mysort ? -1 : 1;
-                    });
+                    //angular.forEach(data.status.tags, function (tag, i) {
+                    //    data.status.tags[i].mysort = data.status.tags[i].items[0].created;
+                    //    data.status.tags[i].mysort = (new Date(data.status.tags[i].mysort)).getTime()
+                    //})
+                    //data.status.tags.sort(function (x, y) {
+                    //    return x.mysort > y.mysort ? -1 : 1;
+                    //});
                 }
                 angular.forEach(data.status.tags, function (tag,i) {
                     //{{name}}:{{date.status.tags[0].tag}}
