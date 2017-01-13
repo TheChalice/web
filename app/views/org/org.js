@@ -44,7 +44,6 @@ angular.module('console.user', [
                 angular.forEach(data.items, function (item, i) {
 
                     if (item.roleRef.name === 'admin') {
-
                         $scope.roottime =item.metadata;
                         $scope.rootmembers=item.subjects
                     }else if(item.roleRef.name === "edit"){
@@ -53,6 +52,7 @@ angular.module('console.user', [
                     }
                 })
                 angular.forEach($scope.rootmembers, function (item,i) {
+                    console.log($rootScope.user.metadata.name, item);
                     if (item === $rootScope.user.metadata.name) {
                         $scope.isadmin=true;
                     }
