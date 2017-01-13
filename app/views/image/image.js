@@ -459,11 +459,13 @@ angular.module('console.image', [
                 if (datalist.items.length === 0) {
                     $scope.testlist = [];
                 }
+                var arr=[]
                 angular.forEach(datalist.items, function (item, i) {
-                    if (!item.status.tags) {
-                        datalist.items.splice(i, 1);
+                    if (item.status.tags) {
+                        arr.push(item);
                     }
                 })
+                datalist.items=angular.copy(arr);
                 angular.forEach(datalist.items, function (item, i) {
 
                     //$scope.testlist = [];
