@@ -501,8 +501,6 @@ angular.module('console.backing_service', [
                         $scope.bsi.items = [data.object];
                     }
                 } else if (data.type == "MODIFIED") {
-
-
                     // console.log('newid',newid)
                     if (data.object.metadata.annotations && data.object.metadata.annotations['label'] == "integration") {
                         angular.forEach($scope.insservice, function (item, i) {

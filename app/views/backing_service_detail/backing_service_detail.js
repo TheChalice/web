@@ -168,6 +168,7 @@ angular.module('console.backing_service_detail', [
                                     action: "cancel",
                                     namespace: $rootScope.namespace
                                 }, function (data) {
+                                    $scope.bsi.items.splice(idx, 1);
                                     //$state.go('console.resource_management', {index: 1})
                                     //$scope.myservice[id].item.splice(idx, 1);
                                     Toast.open('删除成功');
