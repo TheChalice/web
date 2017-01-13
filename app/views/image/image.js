@@ -460,6 +460,11 @@ angular.module('console.image', [
                     $scope.testlist = [];
                 }
                 angular.forEach(datalist.items, function (item, i) {
+                    if (!item.status.tags) {
+                        datalist.items.splice(i, 1);
+                    }
+                })
+                angular.forEach(datalist.items, function (item, i) {
 
                     //$scope.testlist = [];
 
