@@ -1403,7 +1403,7 @@ angular.module('console.service.detail', [
                         }
                         //console.log('---------------++++++',bindings);
                         Confirm.open("删除服务", "您确定要删除服务吗？", "删除服务将解绑持久化卷和外部服务，此操作不能被撤销", 'recycle').then(function () {
-                            if ($scope.rcs.items.length > 0) {
+                            if ($scope.rcs.items && $scope.rcs.items.length > 0) {
                                 rmRcs($scope.dc.metadata.name);
 
                             } else {
