@@ -54,7 +54,10 @@ angular.module('console.resource_management', [
                     namespace: $rootScope.namespace,
                     region: $rootScope.region
                 }, function (res) {
-
+                    angular.forEach(res.items, function (item, i) {
+                        //console.log(item.spec.resources.requests.storage);
+                        res.items[i].spec.resources.requests.storage=item.spec.resources.requests.storage.replace('i','B')
+                    })
                     DeploymentConfig.get({
                         namespace: $rootScope.namespace,
                         region: $rootScope.region
@@ -156,6 +159,8 @@ angular.module('console.resource_management', [
                     //$scope.rcs.items.push(data.object);
                 } else if (data.type == "MODIFIED") {
                     //console.log(data);
+                    data.object.spec.resources.requests.storage=data.object.spec.resources.requests.storage.replace('i','B')
+
                     angular.forEach($scope.persistentdata, function (item, i) {
 
                         if (item.metadata.name == data.object.metadata.name) {
