@@ -195,13 +195,16 @@ angular.module('console.backing_service', [
                                     })
                                 }
                             })
-                            //angular.forEach(data.status.tags, function (tag, i) {
-                            //    data.status.tags[i].mysort = data.status.tags[i].items[0].created;
-                            //    data.status.tags[i].mysort = (new Date(data.status.tags[i].mysort)).getTime()
-                            //})
-                            //data.status.tags.sort(function (x, y) {
-                            //    return x.mysort > y.mysort ? -1 : 1;
-                            //});
+                            angular.forEach(res.items, function (item,i) {
+                                if (item.metadata.creationTimestamp) {
+                                    res.items[i].mysort=item.metadata.creationTimestamp;
+                                    res.items[i].mysort=(new Date(item.metadata.creationTimestamp)).getTime();
+                                }
+
+                            })
+                            res.items.sort(function (x,y) {
+                                return x.mysort > y.mysort ? -1 : 1;
+                            })
                             $scope.bsi = res;
                             for (var i = 0; i < res.items.length; i++) {
                                 for (var k in fiftobj) {
