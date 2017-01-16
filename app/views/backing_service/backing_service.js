@@ -828,7 +828,7 @@ angular.module('console.backing_service', [
                                         delorders.delete({id:data[0].order.id,action:"cancel",namespace:$rootScope.namespace}, function (data) {
                                             //$state.go('console.resource_management', {index: 1})
                                             console.log($scope.numservice);
-                                            $scope.numservice.shift.splice(0, 1);
+                                            $scope.numservice.splice(0, 1);
                                             $scope.myservice[id].item.splice(idx, 1);
                                             Toast.open('删除成功');
                                         })
