@@ -19,7 +19,7 @@ angular.module('console.user', [
             page:1,
             size:10
         }
-        //$scope.isadmin=false;
+        $scope.isadmin=false;
         var refresh = function(page) {
             var skip = (page - 1) * $scope.grid.size;
             $scope.myamounts = $scope.amountdata.slice(skip, skip + $scope.grid.size);
@@ -53,8 +53,8 @@ angular.module('console.user', [
                 })
                 angular.forEach($scope.rootmembers, function (item,i) {
                     console.log($rootScope.user.metadata.name, item);
-                    if (item === $rootScope.user.metadata.name) {
-                        //$scope.isadmin=true;
+                    if (item.name === $rootScope.user.metadata.name) {
+                        $scope.isadmin=true;
                     }
                     angular.forEach($scope.roottime.annotations, function (root,k) {
                         if (item.name === k.split('/')[1]) {

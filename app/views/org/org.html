@@ -256,7 +256,7 @@
                         <div class="row">
                             <div class="col-md-12 content" style="padding:20px 0px;line-height: 40px;padding-bottom: 0;">
                                 <div class="col-md-1" style="padding-right: 0;"><span style="font-size: 14px;font-weight: bold;">多人协作</span></div>
-                                <div class="col-md-10" style="padding-left: 10px;"><span style="cursor: pointer;" ng-click="addpeople()">
+                                <div class="col-md-10" style="padding-left: 10px;"><span ng-show=isadmin style="cursor: pointer;" ng-click="addpeople()">
                                   <a href="javascript:;" style="line-height: 40px; color: #55c45f">
                                       <i class="fa fa-plus-circle fa-lg" style="color:#5c72e9"></i>
                                   </a><span style="font-weight: normal;line-height: 40px; color: #5c72e9;">添加新成员</span>
@@ -313,7 +313,7 @@
                                                            class='btn btn-orange btns'>离开组织</span>
                                                     <a href="javascript:;"
                                                        ng-click='remove($index)'
-                                                       ng-if='member.name!==user.metadata.name'
+                                                       ng-if='member.name!==user.metadata.name&&isadmin'
                                                        class='btn btn-orange btns' id="remove">移除</a>
                                                 </td>
                                                 <!-- end ngRepeat: port in portsArr -->
@@ -371,7 +371,7 @@
                                                           class='btn btn-orange btns'>离开组织</span>
                                                     <a href="javascript:;"
                                                        ng-click='removenotroot($index)'
-                                                       ng-if='member.name!==user.metadata.name'
+                                                       ng-if='member.name!==user.metadata.name&&isadmin'
                                                        class='btn btn-orange btns' id="removefmem">移除</a>
                                                     <!--<a href="javascript:;" class='btn btn-orange btns'>移除</a>-->
                                                 </td> <!-- end ngRepeat: port in portsArr -->
