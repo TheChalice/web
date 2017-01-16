@@ -1338,11 +1338,15 @@ define(['angular'], function (angular) {
                     templateUrl: 'views/backing_service/service_select.html',
                     size: 'default modal-foo',
                     controller: ['$log', '$rootScope', '$scope', '$uibModalInstance', 'data', function ($log, $rootScope, $scope, $uibModalInstance, data) {
-                        var curdata = angular.copy(data);
+                        //var curdata = angular.copy(data);
+
                         for (var j = 0; j < data.items.length; j++) {
                             for (var i = 0; i < c.length; i++) {
-                                if (data.items[j].metadata.name == c[i].bind_deploymentconfig) {
-                                    curdata.items.splice(j, 1);
+                                if (data.items[j].metadata.name === c[i].bind_deploymentconfig) {
+                                    data.items.splice(j, 1);
+                                    j = 0;
+                                    break;
+
                                 }
                             }
                         }
@@ -1355,8 +1359,8 @@ define(['angular'], function (angular) {
                             $scope.dc.name=name
                         }
                         //$log.info('curdatacurdata', curdata);
-                        $scope.data = curdata;
-                        $scope.items = curdata.items;
+                        $scope.data = data;
+                        $scope.items = data.items;
                         $scope.cancel = function () {
                             $uibModalInstance.dismiss();
                         };
