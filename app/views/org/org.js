@@ -11,15 +11,15 @@ angular.module('console.user', [
 
         ]
     }
-]).controller('orgCtrl', ['amounts','delperpleOrg', 'orgList', '$log', 'Project', '$http', '$rootScope', '$state', '$cacheFactory', 'loadOrg', 'Addmodal', 'Confirm', '$scope', '$stateParams', 'invitation', 'leave', 'Toast',
-    function (amounts,delperpleOrg, orgList, $log, Project, $http, $rootScope, $state, $cacheFactory, loadOrg, Addmodal, Confirm, $scope, $stateParams, invitation, leave, Toast) {
+]).controller('orgCtrl', ['delTip','amounts','delperpleOrg', 'orgList', '$log', 'Project', '$http', '$rootScope', '$state', '$cacheFactory', 'loadOrg', 'Addmodal', 'Confirm', '$scope', '$stateParams', 'invitation', 'leave', 'Toast',
+    function (delTip,amounts,delperpleOrg, orgList, $log, Project, $http, $rootScope, $state, $cacheFactory, loadOrg, Addmodal, Confirm, $scope, $stateParams, invitation, leave, Toast) {
         $scope.grid = {
             st: null,
             et: null,
             page:1,
             size:10
         }
-        $scope.isadmin=false;
+        //$scope.isadmin=false;
         var refresh = function(page) {
             var skip = (page - 1) * $scope.grid.size;
             $scope.myamounts = $scope.amountdata.slice(skip, skip + $scope.grid.size);
@@ -54,7 +54,7 @@ angular.module('console.user', [
                 angular.forEach($scope.rootmembers, function (item,i) {
                     console.log($rootScope.user.metadata.name, item);
                     if (item === $rootScope.user.metadata.name) {
-                        $scope.isadmin=true;
+                        //$scope.isadmin=true;
                     }
                     angular.forEach($scope.roottime.annotations, function (root,k) {
                         if (item.name === k.split('/')[1]) {
@@ -237,8 +237,9 @@ angular.module('console.user', [
             })
         }
         $scope.remove = function (idx) {
-            Confirm.open("移除", "您确定要删除：" + $scope.rootmembers[idx].name + "吗？", null, "").then(function () {
+            delTip.open("移除", $scope.rootmembers[idx].name, null, "").then(function () {
                 //console.log('test root members before remove',$scope.rootmembers )
+                console.log($scope.rootmembers[idx].member_name);
                 delperpleOrg.put({namespace: $rootScope.namespace, region: $rootScope.region}, {
                     member_name: $scope.rootmembers[idx].name
                 }, function (data) {
@@ -258,7 +259,7 @@ angular.module('console.user', [
         }
 
         $scope.removenotroot = function (idx) {
-            Confirm.open("移除", "您确定要删除：" + $scope.norootmembers[idx].name + "吗？", null, "").then(function () {
+            delTip.open("移除",$scope.norootmembers[idx].name, null, "").then(function () {
                 delperpleOrg.put({namespace: $rootScope.namespace, region: $rootScope.region}, {
                     member_name: $scope.norootmembers[idx].name
                 }, function (data) {

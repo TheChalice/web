@@ -313,7 +313,7 @@
                                                            class='btn btn-orange btns'>离开组织</span>
                                                     <a href="javascript:;"
                                                        ng-click='remove($index)'
-                                                       ng-if='member.name!==user.metadata.name&&isadmin'
+                                                       ng-if='member.name!==user.metadata.name'
                                                        class='btn btn-orange btns' id="remove">移除</a>
                                                 </td>
                                                 <!-- end ngRepeat: port in portsArr -->
@@ -371,7 +371,7 @@
                                                           class='btn btn-orange btns'>离开组织</span>
                                                     <a href="javascript:;"
                                                        ng-click='removenotroot($index)'
-                                                       ng-if='member.name!==user.metadata.name&&isadmin'
+                                                       ng-if='member.name!==user.metadata.name'
                                                        class='btn btn-orange btns' id="removefmem">移除</a>
                                                     <!--<a href="javascript:;" class='btn btn-orange btns'>移除</a>-->
                                                 </td> <!-- end ngRepeat: port in portsArr -->

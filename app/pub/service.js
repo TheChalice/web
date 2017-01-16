@@ -552,6 +552,30 @@ define(['angular'], function (angular) {
                 }).result;
             };
         }])
+        .service('delTip', ['$uibModal', function ($uibModal) {
+            this.open = function (title, txt, tip,colse) {
+                return $uibModal.open({
+                    backdrop: 'static',
+                    templateUrl: 'pub/tpl/deltip.html',
+                    size: 'default',
+                    controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+                        $scope.title = title;
+                        $scope.txt = txt;
+                        $scope.tip = tip;
+                        $scope.close=colse;
+                        //$scope.tp = tp;
+
+                        //$scope.nonstop = nonstop;
+                        $scope.ok = function () {
+                            $uibModalInstance.close();
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss();
+                        };
+                    }]
+                }).result;
+            };
+        }])
         .service('simpleAlert', ['$uibModal', function ($uibModal) {
             this.open = function (title, txt) {
                 return $uibModal.open({
