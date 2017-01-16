@@ -1257,7 +1257,63 @@ angular.module('console.service.detail', [
                 })
 
             };
+            DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                $log.info('serviceList----', data);
+                data.items = Sort.sort(data.items, -1);
 
+                //$scope.items = data.items;
+
+
+                $scope.resourceVersion = data.metadata.resourceVersion;
+                watchdcs(data.metadata.resourceVersion);
+
+
+
+            }, function (res) {
+                $log.info('serviceList', res);
+                //todo ������
+            })
+            var watchdcs = function (resourceVersion) {
+                Ws.watch({
+                    api: 'other',
+                    resourceVersion: resourceVersion,
+                    namespace: $rootScope.namespace,
+                    type: 'deploymentconfigs',
+                    name: ''
+                }, function (res) {
+                    var data = JSON.parse(res.data);
+                    updateDcs(data);
+                }, function () {
+                    $log.info("webSocket start");
+                }, function () {
+                    $log.info("webSocket stop");
+                    var key = Ws.key($rootScope.namespace, 'replicationcontrollers', '');
+                    if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
+                        return;
+                    }
+                    watchdcs($scope.resourceVersion);
+                });
+            };
+            var updateDcs = function (data) {
+                if (data.type == 'ERROR') {
+                    $log.info("err", data.object.message);
+                    Ws.clear();
+                    //serviceList();
+                    return;
+                }
+                console.log('data.object', data.object);
+                $scope.resourceVersion = data.object.metadata.resourceVersion;
+
+
+                if (data.type == 'ADDED') {
+                    //$scope.rcs.items.shift(data.object);
+                } else if (data.type == "MODIFIED") {
+                    getEnvs(data.object.spec.template.spec.containers);
+
+
+
+                }
+            }
             $scope.stopRc = function (idx) {
                 var o = $scope.rcs.items[idx];
                 Confirm.open("终止部署", "您确定要终止本次部署吗？", "", 'stop').then(function () {
