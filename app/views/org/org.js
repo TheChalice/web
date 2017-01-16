@@ -34,6 +34,7 @@ angular.module('console.user', [
             }
         });
         //$rootScope.delOrgs = false;
+
         var loadOrg = function () {
             //console.log('test org name',$stateParams.useorg,$rootScope.namespace)
             orgList.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
