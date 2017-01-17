@@ -122,46 +122,46 @@
                 </div>
                 <!--<c-timeline name="bcName" type="build"></c-timeline>-->
             </uib-tab>
-            <!--<uib-tab index="2">-->
-                <!--<uib-tab-heading>-->
-                    <!--<span class="icon20 icon20-paper"></span> 配置信息-->
-                <!--</uib-tab-heading>-->
-                <!--<form class="form-horizontal" name="frm">-->
-                    <!--<div class="form-group">-->
-                        <!--&lt;!&ndash;<label class="col-sm-2 text-left" id="autobuild">自动构建触发条件</label>&ndash;&gt;-->
-                        <!--<label class="col-sm-3 text-left">是否自动构建</label>-->
-                        <!--<div class="col-sm-2">-->
-                            <!--<c-checkbox checked="grid.checked"></c-checkbox>-->
-                            <!--&lt;!&ndash;ng-class="{'aciive': grid.checked, 'inactive': gird.uncheked}"&ndash;&gt;-->
-                        <!--</div>-->
+            <uib-tab index="2">
+                <uib-tab-heading>
+                    <span class="icon20 icon20-paper"></span> 配置信息
+                </uib-tab-heading>
+                <form class="form-horizontal" name="frm">
+                    <div class="form-group">
+                        <!--<label class="col-sm-2 text-left" id="autobuild">自动构建触发条件</label>-->
+                        <label class="col-sm-3 text-left">是否自动构建</label>
+                        <div class="col-sm-2">
+                            <c-checkbox checked="grid.checked"></c-checkbox>
+                            <!--ng-class="{'aciive': grid.checked, 'inactive': gird.uncheked}"-->
+                        </div>
 
-                    <!--</div>-->
+                    </div>
 
-                    <!--<div class="form-group" style="padding-top: 30px" ng-if="false">-->
-                        <!--<label class="col-sm-3 text-left">是否持续集成</label>-->
-                        <!--<div class="col-sm-2">-->
-                            <!--<c-checkbox checked="checked"></c-checkbox>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-7" ng-if="checked">-->
-                            <!--<small style="margin-right: 20px">点击按钮，进行持续集成配置</small>-->
-                            <!--<a class="btn btn-orange">持续集成配置</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    <div class="form-group" style="padding-top: 30px" ng-if="false">
+                        <label class="col-sm-3 text-left">是否持续集成</label>
+                        <div class="col-sm-2">
+                            <c-checkbox checked="checked"></c-checkbox>
+                        </div>
+                        <div class="col-sm-7" ng-if="checked">
+                            <small style="margin-right: 20px">点击按钮，进行持续集成配置</small>
+                            <a class="btn btn-orange">持续集成配置</a>
+                        </div>
+                    </div>
 
-                    <!--<div class="form-group" style="padding-top: 50px">-->
-                        <!--<label class="col-sm-3 text-left">构建超时时长</label>-->
-                        <!--<div class="col-sm-9">-->
-                            <!--<input ng-model="grid.completionDeadlineMinutes" name="cdm" min="1" max="60" ng-disabled="!deadlineMinutesEnable" style="width: 80px;display: inline-block;" type="number" class="form-control">-->
-                            <!--<span style="display: inline-block;">&nbsp;mins&nbsp;</span>-->
-                            <!--<a href="javascript:;" style="text-decoration: none" ng-click="frm.cdm.$valid && save()">-->
-                                <!--<span class="fa fa-orange" ng-class="{'fa-pencil': !deadlineMinutesEnable, 'fa-check-circle': deadlineMinutesEnable}"></span>-->
-                            <!--</a>-->
-                            <!--<span class="font12">&nbsp;&nbsp;构建超时时长请不要超过60Mins</span><br>-->
-                            <!--<small ng-if="frm.cdm.$invalid" class="fa fa-exclamation-circle" style="font-size: 12px;color: #ec6941;">&nbsp;您设置的时长超过了限制，请重新设置</small>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</form>-->
-            <!--</uib-tab>-->
+                    <div class="form-group" style="padding-top: 50px">
+                        <label class="col-sm-3 text-left">构建超时时长</label>
+                        <div class="col-sm-9">
+                            <input ng-model="grid.completionDeadlineMinutes" name="cdm" min="1" max="60" ng-disabled="!deadlineMinutesEnable" style="width: 80px;display: inline-block;" type="number" class="form-control">
+                            <span style="display: inline-block;">&nbsp;mins&nbsp;</span>
+                            <a href="javascript:;" style="text-decoration: none" ng-click="frm.cdm.$valid && save()">
+                                <span class="fa fa-orange" ng-class="{'fa-pencil': !deadlineMinutesEnable, 'fa-check-circle': deadlineMinutesEnable}"></span>
+                            </a>
+                            <span class="font12">&nbsp;&nbsp;构建超时时长请不要超过60Mins</span><br>
+                            <small ng-if="frm.cdm.$invalid" class="fa fa-exclamation-circle" style="font-size: 12px;color: #ec6941;">&nbsp;您设置的时长超过了限制，请重新设置</small>
+                        </div>
+                    </div>
+                </form>
+            </uib-tab>
         </uib-tabset>
     </div>
 
