@@ -465,6 +465,9 @@ angular.module('console.image', [
                         arr.push(item);
                     }
                 })
+                if (arr.length === 0) {
+                    $scope.testlist = [];
+                }
                 datalist.items=angular.copy(arr);
                 angular.forEach(datalist.items, function (item, i) {
 
