@@ -1340,16 +1340,26 @@ define(['angular'], function (angular) {
                     controller: ['$log', '$rootScope', '$scope', '$uibModalInstance', 'data', function ($log, $rootScope, $scope, $uibModalInstance, data) {
                         //var curdata = angular.copy(data);
 
+                        var curdata = angular.copy(data);
+
                         for (var j = 0; j < data.items.length; j++) {
                             for (var i = 0; i < c.length; i++) {
-                                if (data.items[j].metadata.name === c[i].bind_deploymentconfig) {
-                                    data.items.splice(j, 1);
-                                    j = 0;
-                                    break;
-
+                                if (data.items[j].metadata.name == c[i].bind_deploymentconfig) {
+                                    curdata.items.splice(j, 1,'false');
                                 }
                             }
                         }
+
+                        var dclist=angular.copy(curdata);
+                        dclist.items=[];
+                        angular.forEach(curdata.items, function (item,i) {
+                            if (item === 'false') {
+
+                            }else {
+                                dclist.items.push(item)
+                            }
+                            //dclist
+                        })
                         $scope.dc={
                             name:null,
                             idx:null
@@ -1359,8 +1369,8 @@ define(['angular'], function (angular) {
                             $scope.dc.name=name
                         }
                         //$log.info('curdatacurdata', curdata);
-                        $scope.data = data;
-                        $scope.items = data.items;
+                        $scope.data = dclist;
+                        $scope.items = dclist.items;
                         $scope.cancel = function () {
                             $uibModalInstance.dismiss();
                         };
