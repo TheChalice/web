@@ -21,6 +21,7 @@ angular.module('console.constantly_detail', [
                             }
                         })
                     })
+                    res.spec.resources.requests.storage=res.spec.resources.requests.storage.replace('i','B')
                     $scope.persistents=res;
                     //console.log('chijiu',res);
                 })
