@@ -1257,6 +1257,7 @@ angular.module('console.service.detail', [
                 })
 
             };
+
             DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
                 $log.info('serviceList----', data);
                 data.items = Sort.sort(data.items, -1);
@@ -1273,6 +1274,7 @@ angular.module('console.service.detail', [
                 $log.info('serviceList', res);
                 //todo ������
             })
+
             var watchdcs = function (resourceVersion) {
                 Ws.watch({
                     api: 'other',
@@ -1294,6 +1296,7 @@ angular.module('console.service.detail', [
                     watchdcs($scope.resourceVersion);
                 });
             };
+
             var updateDcs = function (data) {
                 if (data.type == 'ERROR') {
                     $log.info("err", data.object.message);
@@ -1309,11 +1312,12 @@ angular.module('console.service.detail', [
                     //$scope.rcs.items.shift(data.object);
                 } else if (data.type == "MODIFIED") {
                     getEnvs(data.object.spec.template.spec.containers);
-
+                    loadBsi(data.object.metadata.name)
 
 
                 }
             }
+
             $scope.stopRc = function (idx) {
                 var o = $scope.rcs.items[idx];
                 Confirm.open("终止部署", "您确定要终止本次部署吗？", "", 'stop').then(function () {
