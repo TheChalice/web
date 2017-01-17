@@ -94,6 +94,16 @@ angular.module('console.backing_service_detail', [
                     namespace: $rootScope.namespace,
                     region: $rootScope.region
                 }, function (res) {
+                    angular.forEach(res.items, function (item,i) {
+                        if (item.metadata.creationTimestamp) {
+                            res.items[i].mysort=item.metadata.creationTimestamp;
+                            res.items[i].mysort=(new Date(item.metadata.creationTimestamp)).getTime();
+                        }
+
+                    })
+                    res.items.sort(function (x,y) {
+                        return x.mysort > y.mysort ? -1 : 1;
+                    })
                     $log.info("backingServiceInstance", res);
                     $scope.bsi = filterBsi(res);
                     $scope.resourceVersion = res.metadata.resourceVersion;
