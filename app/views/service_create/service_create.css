@@ -20,7 +20,7 @@
 .bgcgray {
     background-color: #c9c9c9;
 }
-.dropdown-menu > li > a {
+.service-create .dropdown-menu > li > a {
     font-size: 12px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -29,7 +29,7 @@
     overflow: hidden;
     line-height: 30px;
     text-overflow: ellipsis;
-    height:42px!important;line-height:42px!important;
+    height:42px;line-height:42px!important;
 }
 .btn_file{
     color: #5a6378;margin-right:0px;text-shadow:0 0 0 #fff;border: none;border-left: 1px solid #c9c9c9;background: #e6e9f2;padding: 5px 12px;
