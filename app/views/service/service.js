@@ -356,28 +356,16 @@ angular.module('console.service', [
                 if (data.type == 'ADDED') {
                     $scope.rcs.items.shift(data.object);
                 } else if (data.type == "MODIFIED") {
-                    DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
-                        //$log.info('serviceList----', data);
-                        //data.items = Sort.sort(data.items, -1);
-                        //$scope.data = data;
-                        //$scope.resourceVersion = data.metadata.resourceVersion;
-                        //watchRcs(data.metadata.resourceVersion);
-                        //$scope.grid.total = data.items.length;
-                        for (var j = 0; j < data.items.length; j++) {
-                            for (var k = 0; k < $scope.items.length; k++) {
-                                if (data.items[j].metadata.name == $scope.items[k].metadata.name) {
-                                    $scope.items[k].spec.replicas = data.items[j].spec.replicas
-                                }
-                            }
+                    for (var k = 0; k < $scope.items.length; k++) {
+                        //data.object.metadata.name.split('-')[0]
+                        //console.log($scope.items[k].metadata.name, data.object.metadata.name.split('-')[0]);
+                        if (data.object.spec.selector.deploymentconfig == $scope.items[k].metadata.name) {
+                            //console.log(data.object.status);
+                            $scope.items[k].spec.replicas = data.object.spec.replicas
+                            $scope.items[k].status.replicas =data.object.status.replicas
+                            $scope.$apply()
                         }
-                        for (var i = 0; i < data.items.length; i++) {
-                            loadPods(data.items[i]);
-                        }
-
-                    }, function (res) {
-                        $log.info('serviceList', res);
-                        //todo ������
-                    });
+                    }
                     //angular.forEach($scope.items, function(item, i){
                     //    if (item.rc.metadata.name == data.object.metadata.name) {
                     //        $scope.items[i].rc = data.object;
@@ -399,42 +387,34 @@ angular.module('console.service', [
                 isNormal($scope.items);
             }, true)
             $scope.startDc = function (idx) {
-                $log.info('$scope.items[idx]$scope.items[idx]', $scope.items[idx])
-                var thisRc = $scope.items[idx].rc;
-                var thisDc = $scope.items[idx];
-                if (thisDc.spec.replicas == 0) {
-                    thisDc.spec.replicas = 1
-                }
-                thisRc.spec.replicas = thisDc.spec.replicas;
-                ReplicationController.put({
-                    namespace: $rootScope.namespace,
-                    name: thisRc.metadata.name,
-                    region: $rootScope.region
-                }, thisRc, function (res) {
-                    $scope.items[idx].rc = res;
-                    //$log.info("$scope.data.items[idx].rc++++", $scope.items[idx]);
-                    //$log.info("startDc dc success", res);
+                DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.items[idx].metadata.name}, function (data) {
 
-                }, function (res) {
-                    //todo 错误处理
-                    $log.info("startDc dc err", res);
-                });
+                    //data.metadata.annotations['dadafoundry.io/last-replicas']=data.spec.replicas;
+                    if (data.metadata.annotations['dadafoundry.io/last-replicas']) {
+                        data.spec.replicas=data.metadata.annotations['dadafoundry.io/last-replicas']
+                    }else {
+                        data.spec.replicas=1;
+                    }
+                    //console.log('DeploymentConfig', data);
+
+                    DeploymentConfig.put({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.items[idx].metadata.name}
+                        ,data, function (data) {
+                            console.log('DeploymentConfig', data);
+
+                        })
+                })
             };
             $scope.stopDc = function (idx) {
-                var thisRc = $scope.items[idx].rc
-                thisRc.spec.replicas = 0;
-                ReplicationController.put({
-                    namespace: $rootScope.namespace,
-                    name: thisRc.metadata.name,
-                    region: $rootScope.region
-                }, thisRc, function (res) {
-                    $scope.items[idx].rc.spec.replicas = res.spec.replicas;
-                    $log.info("stopDc dc success", res);
+                DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.items[idx].metadata.name}, function (data) {
+                    data.metadata.annotations['dadafoundry.io/last-replicas']=data.spec.replicas.toString();
+                    //console.log('DeploymentConfig', data);
+                    data.spec.replicas=0;
+                    DeploymentConfig.put({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.items[idx].metadata.name}
+                        ,data, function (data) {
+                            //console.log('DeploymentConfig', data);
 
-                }, function (res) {
-                    //todo 错误处理
-                    $log.info("stopDc dc err", res);
-                });
+                        })
+                })
             };
 
             var loadBsi = function (dcs) {
