@@ -786,7 +786,8 @@ angular.module('console.service.detail', [
                             }
                         })
                         var hoststr = $scope.dc.route.spec.host;
-                        var r =/\.app\.dataos\.io/;
+                        //var r =/\.app\.dataos\.io/;
+                        var r = new RegExp(GLOBAL.service_url);
                         //$scope.grid.host = $scope.dc.route.spec.host.replace('.app.dataos.io', '');
                         if (r.test($scope.dc.route.spec.host)) {
                             //alert(1)
