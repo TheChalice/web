@@ -1168,18 +1168,23 @@ angular.module('console.service.detail', [
                     dianl: false
                 }
 
-                if ($scope.dc.spec.replicas == 0) {
-                    //$scope.dc.spec.replicas = 1;
-                    $scope.dc.status.latestVersion = 2;
-                    $scope.updateDc();
-                    return;
-
-                }
+                //if ($scope.dc.spec.replicas == 0) {
+                //    //$scope.dc.spec.replicas = 1;
+                //    $scope.dc.status.latestVersion = 2;
+                //    $scope.updateDc();
+                //    //return;
+                //
+                //}
                 DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.dc.metadata.name}, function (data) {
 
                     //data.metadata.annotations['dadafoundry.io/last-replicas']=data.spec.replicas;
                     if (data.metadata.annotations['dadafoundry.io/last-replicas']) {
-                        data.spec.replicas=data.metadata.annotations['dadafoundry.io/last-replicas']
+                        if (data.metadata.annotations['dadafoundry.io/last-replicas'] - 0 > 0) {
+                            data.spec.replicas=data.metadata.annotations['dadafoundry.io/last-replicas']
+                        }else {
+                            data.spec.replicas=1;
+                        }
+
                     }else {
                         data.spec.replicas=1;
                     }
