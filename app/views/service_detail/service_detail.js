@@ -1644,7 +1644,9 @@ angular.module('console.service.detail', [
 
             var loadPods = function (dc) {
                 var labelSelector = 'deploymentconfig=' + dc;
-                $scope.dc.status.replicas = 0;
+                if (!$scope.dc.status.replicas) {
+                    $scope.dc.status.replicas = 0;
+                }
                 Pod.get({namespace: $scope.namespace, labelSelector: labelSelector,region:$rootScope.region}, function (res) {
                     $scope.pods = res;
 
@@ -1657,7 +1659,9 @@ angular.module('console.service.detail', [
                         }
                     })
                     //console.log('POD000', $scope.pods);
-                    $scope.dc.status.replicas = 0;
+                    if (!$scope.dc.status.replicas) {
+                        $scope.dc.status.replicas = 0;
+                    }
                     for (var i = 0; i < res.items.length; i++) {
                         $scope.pods.items[i].reason = res.items[i].status.phase;
                         if (res.items[i].status.reason != null && res.items[i].status.reason != "") {
