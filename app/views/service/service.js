@@ -391,7 +391,12 @@ angular.module('console.service', [
 
                     //data.metadata.annotations['dadafoundry.io/last-replicas']=data.spec.replicas;
                     if (data.metadata.annotations['dadafoundry.io/last-replicas']) {
-                        data.spec.replicas=data.metadata.annotations['dadafoundry.io/last-replicas']
+                        if (data.metadata.annotations['dadafoundry.io/last-replicas'] - 0 > 0) {
+                            data.spec.replicas=data.metadata.annotations['dadafoundry.io/last-replicas']
+                        }else {
+                            data.spec.replicas=1;
+                        }
+
                     }else {
                         data.spec.replicas=1;
                     }
