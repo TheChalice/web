@@ -62,7 +62,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">pod个数(正常/期望)</h4>
-                            <small><span style="color: #f6a540">{{dc.status.replicas || 0}}</span>/{{getdc.spec.replicas}}</small>
+                            <small><span style="color: #f6a540">{{dc.status.replicas}}</span>/{{dc.spec.replicas}}</small>
                         </div>
                     </div>
                 </div>
