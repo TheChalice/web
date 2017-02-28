@@ -123,7 +123,7 @@ angular.module('console.build_create_new', [
                     $scope.namerr.rexed = false;
                 }
             })
-            $scope.check=3
+            $scope.check=2
 
             //$scope.$watch('check', function (n, o) {
             //    if (n === o) {
@@ -866,24 +866,22 @@ angular.module('console.build_create_new', [
                 };
                 ImageStream.create({namespace: $rootScope.namespace,region:$rootScope.region}, imageStream, function (res) {
                     $log.info("imageStream", res);
-                    //if($scope.grid.labcon == true){
-                    //    getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
-                    //}else if($scope.grid.ishide == false){
-                    //    createBuildConfig();
-                    //}else if($scope.grid.ishide == true && $scope.grid.labcon == false){
-                    createBuildConfig('a');
-                    //}
+                    if($scope.grid.labcon == true){
+                        getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
+                    }else if($scope.grid.ishide == false){
+                        createBuildConfig();
+                    }else if($scope.grid.ishide == true && $scope.grid.labcon == false){
+                        createBuildConfig('a');
+                    }
 
                 },function(res){
                     $log.info("err", res);
                     if (res.data.code == 409) {
-                        //if($scope.grid.labcon == true){
-                        //    getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
-                        //}else if($scope.grid.ishide == false){
-                        //    createBuildConfig();
-                        //}else {
-                            createBuildConfig('a');
-                        //}
+                        if($scope.grid.labcon == true){
+                            getlabsecret($scope.labHost,$scope.labobjs[$scope.grid.labproject].id);
+                        }else if($scope.grid.ishide == false){
+                            createBuildConfig();
+                        }
                         $scope.creating = false;
                     } else {
                         // Alert.open('错误', res.data.message, true);
