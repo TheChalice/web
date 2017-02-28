@@ -369,30 +369,34 @@ angular.module('console.build_create_new', [
                     $log.info("userProject", $scope.login);
                 }, function (data) {
                     //$log.info('-=-=-=-=', data);
-                    if (data.status == 400) {
-                        var tokens = Cookie.get('df_access_token');
-                        var tokenarr = tokens.split(',');
-                        if (data.data.code == 1401) {
-                            // var authurl = data.data.msg + "?namespace=" + $rootScope.namespace
-                            // + "%26bearer=" + Cookie.get("df_access_token")
-                            // + "%26redirect_url=" + window.location.href ;
+                    if (cache === 'false') {
+                        if (data.status == 400) {
+                            var tokens = Cookie.get('df_access_token');
+                            var tokenarr = tokens.split(',');
 
-                            var authurl = "namespace=" + $rootScope.namespace
-                                + "&bearer=" + tokenarr[0]
-                                + "&region=" + $rootScope.region
-                                + "&redirect_url=" + window.location.href;
-                            $log.info(authurl);
-                            if ($scope.grid.isfirst == 2) {
-                                window.location = data.data.msg + "?" + encodeURIComponent(authurl);
+                            if (data.data.code == 1401) {
+                                // var authurl = data.data.msg + "?namespace=" + $rootScope.namespace
+                                // + "%26bearer=" + Cookie.get("df_access_token")
+                                // + "%26redirect_url=" + window.location.href ;
+
+                                var authurl = "namespace=" + $rootScope.namespace
+                                    + "&bearer=" + tokenarr[0]
+                                    + "&region=" + $rootScope.region
+                                    + "&redirect_url=" + window.location.href;
+                                $log.info(authurl);
+                                if ($scope.grid.isfirst == 2) {
+                                    window.location = data.data.msg + "?" + encodeURIComponent(authurl);
+                                }
+                            }
+                        } else {
+                            if (data.data && data.data.msg) {
+                                //Alert.open('错误', data.data.msg, true);
+                                $scope.grid.ishide = true;
+                                $scope.runninghub = false;
                             }
                         }
-                    } else {
-                        if (data.data && data.data.msg) {
-                            //Alert.open('错误', data.data.msg, true);
-                            $scope.grid.ishide = true;
-                            $scope.runninghub = false;
-                        }
                     }
+
                 });
             };
 
