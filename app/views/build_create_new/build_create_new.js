@@ -478,25 +478,25 @@ angular.module('console.build_create_new', [
                 // $scope.grid.user = idx;
             };
 
-            //$scope.selectProject = function (idx, choose) {
-            //    if ($scope.chooseProject && $scope.grid.project == idx) {
-            //        $scope.grid.project = null;
-            //        $scope.chooseProject = null;
-            //        $scope.branch = null;
-            //        $scope.grid.branch = null;
-            //    } else {
-            //        $scope.chooseProject = choose;
-            //        $scope.grid.project = idx;
-            //        $scope.branch = null;
-            //        var selectUsername = $scope.usernames[thisindex].login;
-            //        var selectRepo = $scope.usernames[thisindex].repos[idx].name;
-            //        $log.info("user and repos", selectUsername + selectRepo);
-            //        Branch.get({users: selectUsername, repos: selectRepo}, function (info) {
-            //            $log.info("branch", info);
-            //            $scope.branch = info.msg;
-            //        });
-            //    }
-            //};
+            $scope.selectProject = function (idx, choose) {
+                if ($scope.chooseProject && $scope.grid.project == idx) {
+                    $scope.grid.project = null;
+                    $scope.chooseProject = null;
+                    $scope.branch = null;
+                    $scope.grid.branch = null;
+                } else {
+                    $scope.chooseProject = choose;
+                    $scope.grid.project = idx;
+                    $scope.branch = null;
+                    var selectUsername = $scope.usernames[thisindex].login;
+                    var selectRepo = $scope.usernames[thisindex].repos[idx].name;
+                    $log.info("user and repos", selectUsername + selectRepo);
+                    Branch.get({users: selectUsername, repos: selectRepo}, function (info) {
+                        $log.info("branch", info);
+                        $scope.branch = info.msg;
+                    });
+                }
+            };
 
             $scope.selectBranch = function (idx, choose) {
                 if ($scope.chooseBranch && $scope.grid.branch == idx) {
