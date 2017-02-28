@@ -550,7 +550,7 @@ angular.module('console.build_create_new', [
                         $scope.grid.labcon = false;
                     }
                 }
-                else if (val == 4) {
+                else if (val == 3) {
                     $scope.grid.ishide = true;
                     $scope.grid.labcon = false;
                 }
