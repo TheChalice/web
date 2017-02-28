@@ -356,7 +356,7 @@ angular.module('console.build_create_new', [
 
             $scope.loadOwner = function (cache) {
                 //console.log(cache);
-                Owner.query({namespace: $rootScope.namespace, cache: cache}, function (res) {
+                Owner.query({namespace: $rootScope.namespace, cache: cache,region:$rootScope.region}, function (res) {
                     $log.info("owner", res);
                     $scope.owner = res.msg;
                     hubobj = res.msg.infos[0];
