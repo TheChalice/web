@@ -376,8 +376,10 @@ angular.module('console.build_create_new', [
                             // var authurl = data.data.msg + "?namespace=" + $rootScope.namespace
                             // + "%26bearer=" + Cookie.get("df_access_token")
                             // + "%26redirect_url=" + window.location.href ;
+
                             var authurl = "namespace=" + $rootScope.namespace
                                 + "&bearer=" + tokenarr[0]
+                                + "&region=" + $rootScope.region
                                 + "&redirect_url=" + window.location.href;
                             $log.info(authurl);
                             if ($scope.grid.isfirst == 2) {
