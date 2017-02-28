@@ -365,7 +365,7 @@ angular.module('console.build_create_new', [
                             res.msg.infos[i].repos[j].loginname = res.msg.infos[i].login;
                         }
                     }
-                    //$scope.loadOrg();
+                    $scope.loadOrg();
                     $log.info("userProject", $scope.login);
                 }, function (data) {
                     //$log.info('-=-=-=-=', data);
@@ -400,26 +400,26 @@ angular.module('console.build_create_new', [
                 });
             };
 
-            //$scope.loadOrg = function (cache) {
-            //    Org.get({cache: cache}, function (data) {
-            //        $log.info("org", data);
-            //        $scope.usernames = [];
-            //        $scope.usernames[0] = hubobj;
-            //        for (var i = 0; i < data.msg.length; i++) {
-            //            $scope.usernames.push(data.msg[i]);
-            //            for (var j = 0; j < data.msg[i].repos.length; j++) {
-            //                data.msg[i].repos[j].loginname = data.msg[i].login;
-            //            }
-            //        }
-            //        $scope.runninghub = false;
-            //    });
-            //};
+            $scope.loadOrg = function (cache) {
+                Org.get({cache: cache}, function (data) {
+                    $log.info("org", data);
+                    $scope.usernames = [];
+                    $scope.usernames[0] = hubobj;
+                    for (var i = 0; i < data.msg.length; i++) {
+                        $scope.usernames.push(data.msg[i]);
+                        for (var j = 0; j < data.msg[i].repos.length; j++) {
+                            data.msg[i].repos[j].loginname = data.msg[i].login;
+                        }
+                    }
+                    $scope.runninghub = false;
+                });
+            };
 
             $scope.refresh = function () {
                 $scope.runninghub = true;
                 $scope.grid.ishide = false;
                 $scope.loadOwner('false');
-                //$scope.loadOrg('false');
+                $scope.loadOrg('false');
             };
 
             var getlabsecret = function (ht, pjId) {
