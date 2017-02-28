@@ -1,14 +1,45 @@
 <style>
-    .build-jia-default{border:none;}
-    .build-jia-default .panel-jia-heading{background:none;border-bottom:1px solid #f2f2f2;margin-left:21px;margin-right:21px;}
-    .panel-jia-title{color:#333;}
-    .tab-jia-default .tab-content{padding:30px 20px;height:auto;overflow:hidden;}
-    .panel-block-jia-body{padding:22px 52px 52px;}
-    .form-jia-line{padding-bottom:16px;border-bottom:1px solid #f2f2f2;}
-    .view-jia-tit{color:#5c72e9;}
-    .view-jia-tit:hover{color:#4960e6}
-    .tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
-        color:#5c72e9;padding:10px 23px;
+    .build-jia-default {
+        border: none;
+    }
+
+    .build-jia-default .panel-jia-heading {
+        background: none;
+        border-bottom: 1px solid #f2f2f2;
+        margin-left: 21px;
+        margin-right: 21px;
+    }
+
+    .panel-jia-title {
+        color: #333;
+    }
+
+    .tab-jia-default .tab-content {
+        padding: 30px 20px;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .panel-block-jia-body {
+        padding: 22px 52px 52px;
+    }
+
+    .form-jia-line {
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .view-jia-tit {
+        color: #5c72e9;
+    }
+
+    .view-jia-tit:hover {
+        color: #4960e6
+    }
+
+    .tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover {
+        color: #5c72e9;
+        padding: 10px 23px;
     }
 
 </style>
@@ -41,7 +72,8 @@
                                        style="ime-mode:disabled">
                                 <small ng-if="namerr.nil" class="fa fa-info-circle err-tip">请输入正确构建名称
                                 </small>
-                                <small ng-if="namerr.rexed" class="fa fa-info-circle err-tip">请输入4~30位名称,名称只能包含英文、数字以及“-”
+                                <small ng-if="namerr.rexed" class="fa fa-info-circle err-tip">
+                                    请输入4~30位名称,名称只能包含英文、数字以及“-”
                                 </small>
                                 <small ng-if="namerr.repeated" class="fa fa-info-circle err-tip">输入的名称已重复
                                 </small>
@@ -49,7 +81,8 @@
                         </div>
 
                         <div class="form-group form-jia-line">
-                            <label class="col-sm-2 control-label" style="color: #5a6378; font-size:14px; text-align: left;font-weight:normal;">代码URL</label>
+                            <label class="col-sm-2 control-label"
+                                   style="color: #5a6378; font-size:14px; text-align: left;font-weight:normal;">代码URL</label>
                             <div class="col-sm-10">
                                 <uib-tabset class="tab-default tab-jia-default" active="check">
                                     <!--gitlab-->
@@ -66,229 +99,253 @@
                                     <!--</div>-->
                                     <!--</uib-tab>-->
                                     <!--github-->
-                                    <!--<uib-tab index="2" heading="GitHub" ng-click="checkdTab(2)">-->
-                                    <!--<div class="tabinfo" style="height: 50px">-->
-                                    <!--<a class="btn pull-right" ng-class="{'running':runninghub}" uib-tooltip="同步代码源"-->
-                                    <!--ng-click="refresh()" style="margin-top: -5px; margin-right: -10px">-->
-                                    <!--<i class="fa fa-green fa-lg fa-refresh"></i>-->
-                                    <!--</a>-->
-                                    <!--<img style="float: left;margin-right: 20px;"-->
-                                    <!--src="views/build_create_new/img/github.png">-->
-                                    <!--<span style="font-size:12px; height: 20px">Github 于 2008 年上线，目前，除了 Git 代码仓库托管以及基本的 Web 管理界面以外 、 还提供了订阅 、讨论组 、文本渲染 、-->
-                                    <!--在线文件编辑器 、协作图谱（报表） 、代码片段分享（Gist）等功能。</span>-->
-                                    <!--</div>-->
-                                    <!--</uib-tab>-->
+                                    <uib-tab index="2" heading="GitHub" ng-click="checkdTab(2)">
+                                        <div class="tabinfo" style="height: 50px">
+                                            <a class="btn pull-right" ng-class="{'running':runninghub}"
+                                               uib-tooltip="同步代码源"
+                                               ng-click="refresh()" style="margin-top: -5px; margin-right: -10px">
+                                                <i class="fa fa-green fa-lg fa-refresh"></i>
+                                            </a>
+                                            <img style="float: left;margin-right: 20px;"
+                                                 src="views/build_create_new/img/github.png">
+                                    <span style="font-size:12px; height: 20px">Github 于 2008 年上线，目前，除了 Git 代码仓库托管以及基本的 Web 管理界面以外 、 还提供了订阅 、讨论组 、文本渲染 、
+                                    在线文件编辑器 、协作图谱（报表） 、代码片段分享（Gist）等功能。</span>
+                                        </div>
+                                    </uib-tab>
 
                                     <uib-tab index="3" heading="Git仓库" ng-click="">
                                         <form class="form-horizontal">
                                             <p style="font-size: 12px;padding-bottom: 10px">如果是私有代码库，需要输入用户名口令。</p>
                                             <div class="form-group">
-                                                <label for="address" class="col-md-3 control-label require" style="text-align: left; font-size: 12px; font-weight: normal">仓库地址</label>
+                                                <label for="address" class="col-md-3 control-label require"
+                                                       style="text-align: left; font-size: 12px; font-weight: normal">仓库地址</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="address" style="height: 30px; margin-left: -20px" ng-model="buildConfig.spec.source.git.uri">
-                                                    <small style="margin-left: -20px;" ng-if="repoerr" class="fa fa-info-circle err-tip">请输入仓库地址
+                                                    <input type="text" class="form-control" id="address"
+                                                           style="height: 30px; margin-left: -20px"
+                                                           ng-model="buildConfig.spec.source.git.uri">
+                                                    <small style="margin-left: -20px;" ng-if="repoerr"
+                                                           class="fa fa-info-circle err-tip">请输入仓库地址
                                                     </small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="address" class="col-md-3 control-label" style="text-align: left; font-size: 12px; font-weight: normal">Dockerfile路径</label>
+                                                <label for="address" class="col-md-3 control-label"
+                                                       style="text-align: left; font-size: 12px; font-weight: normal">Dockerfile路径</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" placeholder="" class="form-control" id="" style="height: 30px; margin-left: -20px" ng-model="buildConfig.spec.source.contextDir">
+                                                    <input type="text" placeholder="" class="form-control" id=""
+                                                           style="height: 30px; margin-left: -20px"
+                                                           ng-model="buildConfig.spec.source.contextDir">
                                                 </div>
                                             </div>
                                             <div class="form-group" style="margin-top: 30px">
-                                                <label for="username" class="col-md-3 control-label" style="text-align: left; font-size: 12px; font-weight: normal">用户名</label>
+                                                <label for="username" class="col-md-3 control-label"
+                                                       style="text-align: left; font-size: 12px; font-weight: normal">用户名</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control" id="username" style="height: 30px; margin-left: -20px" ng-model="sername.name">
+                                                    <input type="text" class="form-control" id="username"
+                                                           style="height: 30px; margin-left: -20px"
+                                                           ng-model="sername.name">
                                                 </div>
                                             </div>
                                             <div class="form-group" style="margin-top: 30px">
-                                                <label for="pwd" class="col-md-3 control-label text-left" style="text-align: left; font-size: 12px; font-weight: normal">口令</label>
+                                                <label for="pwd" class="col-md-3 control-label text-left"
+                                                       style="text-align: left; font-size: 12px; font-weight: normal">口令</label>
                                                 <div class="col-md-9">
-                                                    <input type="password" class="form-control" id="pwd" style="height: 30px; margin-left: -20px" ng-model="sername.pwd">
+                                                    <input type="password" class="form-control" id="pwd"
+                                                           style="height: 30px; margin-left: -20px"
+                                                           ng-model="sername.pwd">
                                                 </div>
                                             </div>
                                         </form>
                                     </uib-tab>
                                 </uib-tabset>
 
-                                <!--<div class="is-box" ng-if="false" ng-hide="grid.ishide">-->
+                                <div class="is-box" ng-hide="grid.ishide">
 
-                                <!--<div class="panel panel-default first col-md-4" style="margin-right:32px">-->
-                                <!--<div class="panel-heading">-->
-                                <!--<img src="views/build_create_new/img/user.png">-->
-                                <!--用户/组织-->
-                                <!--</div>-->
-                                <!--<div class="panel-body">-->
-                                <!--<ul>-->
-                                <!--<li class="labcon" ng-repeat="user in usernames" ng-show="!user.hide">-->
-                                <!--<a href="javascript:;" uib-tooltip="{{user.login}}"-->
-                                <!--ng-class="{'active': grid.user == $index}"-->
-                                <!--ng-click="selectUser($index,'choose')">-->
-                                <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{user.login}}-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="panel panel-default col-md-4" style="margin-right:36px;position: relative;">-->
-                                <!--<div class="panel-heading">-->
-                                <!--<img src="views/build_create_new/img/project.png">-->
-                                <!--项目-->
-                                <!--</div>-->
-                                <!--<div class="searchbar" style="border-left: none;border-right: none;position: absolute; top: 54px;left:0;width: 100%;">-->
+                                    <div class="panel panel-default first col-md-4" style="margin-right:32px">
+                                        <div class="panel-heading">
+                                            <img src="views/build_create_new/img/user.png">
+                                            用户/组织
+                                        </div>
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li class="labcon" ng-repeat="user in usernames" ng-show="!user.hide">
+                                                    <a href="javascript:;" uib-tooltip="{{user.login}}"
+                                                       ng-class="{'active': grid.user == $index}"
+                                                       ng-click="selectUser($index,'choose')">
+                                                        <i class="faa faa-check"></i>&nbsp;&nbsp;{{user.login}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default col-md-4"
+                                         style="margin-right:36px;position: relative;">
+                                        <div class="panel-heading">
+                                            <img src="views/build_create_new/img/project.png">
+                                            项目
+                                        </div>
+                                        <div class="searchbar"
+                                             style="border-left: none;border-right: none;position: absolute; top: 54px;left:0;width: 100%;">
 
-                                <!--<div class="input-group">-->
-                                <!--<input type="text" class="form-control"-->
-                                <!--ng-model="txt"-->
-                                <!--placeholder="搜索关键字">-->
-                                <!--<span class="input-group-btn" style="right:14px;top:4px;z-index:999;">-->
-                                <!--<a class="btn" ng-click="search(txt)"></a>-->
-                                <!--</span>-->
-                                <!--</div>-->
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       ng-model="txt"
+                                                       placeholder="搜索关键字">
+                                <span class="input-group-btn" style="right:14px;top:4px;z-index:999;">
+                                <a class="btn" ng-click="search(txt)"></a>
+                                </span>
+                                            </div>
 
 
-                                <!--</div>-->
-                                <!--<div class="panel-body">-->
+                                        </div>
+                                        <div class="panel-body">
 
-                                <!--<ul style="margin-top:36px;">-->
-                                <!--<li class="labcon" ng-repeat="project in reposobj">-->
-                                <!--<a href="javascript:;" uib-tooltip="{{project.name}}"-->
-                                <!--ng-class="{'active': grid.project == $index}"-->
-                                <!--ng-click="selectProject($index,'choose')">-->
-                                <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{project.name}}-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="panel panel-default third col-md-4">-->
-                                <!--<div class="panel-heading">-->
-                                <!--<img src="views/build_create_new/img/branch.png">-->
-                                <!--代码分支-->
-                                <!--</div>-->
-                                <!--<div class="panel-body">-->
-                                <!--<ul>-->
-                                <!--<li class="labcon" ng-repeat="branch in branch">-->
-                                <!--<a href="javascript:;" uib-tooltip="{{branch.name}}"-->
-                                <!--ng-class="{'active': grid.branch == $index}"-->
-                                <!--ng-click="selectBranch($index,'choose')">-->
-                                <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{branch.name}}-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--</div>-->
+                                            <ul style="margin-top:36px;">
+                                                <li class="labcon" ng-repeat="project in reposobj">
+                                                    <a href="javascript:;" uib-tooltip="{{project.name}}"
+                                                       ng-class="{'active': grid.project == $index}"
+                                                       ng-click="selectProject($index,'choose')">
+                                                        <i class="faa faa-check"></i>&nbsp;&nbsp;{{project.name}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default third col-md-4">
+                                        <div class="panel-heading">
+                                            <img src="views/build_create_new/img/branch.png">
+                                            代码分支
+                                        </div>
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li class="labcon" ng-repeat="branch in branch">
+                                                    <a href="javascript:;" uib-tooltip="{{branch.name}}"
+                                                       ng-class="{'active': grid.branch == $index}"
+                                                       ng-click="selectBranch($index,'choose')">
+                                                        <i class="faa faa-check"></i>&nbsp;&nbsp;{{branch.name}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                                <!--<small ng-if="frm.branch.$viewValue != '' && frm.branch.$invalid">请选择一个分支</small>-->
-                                <!--</div>-->
+                                    <small ng-if="frm.branch.$viewValue != '' && frm.branch.$invalid">请选择一个分支</small>
+                                </div>
+
+
+
                                 <!--gitlab pannel-->
                                 <!--<div class="is-box" ng-if="false" ng-show="grid.labcon">-->
-                                <!--<div class="panel panel-default first col-sm-4" style="margin-right:36px">-->
-                                <!--<div class="panel-heading">-->
-                                <!--<img src="views/build_create_new/img/user.png">-->
-                                <!--用户/组织-->
-                                <!--</div>-->
-                                <!--<div class="panel-body">-->
-                                <!--<ul>-->
-                                <!--<li class="labcon" ng-repeat="user in labusername" ng-show="!user.hide">-->
-                                <!--<a href="javascript:;" uib-tooltip="{{user.org.name || user.owner.name}}"-->
-                                <!--ng-class="{'active': grid.user == $index}"-->
-                                <!--ng-click="selectlabUser($index,'chooose')">-->
-                                <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{user.org.name ||-->
-                                <!--user.owner.name}}-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="panel panel-default second col-sm-4" style="margin-right:36px;position: relative;">-->
-                                <!--<div class="panel-heading">-->
-                                <!--<img src="views/build_create_new/img/project.png">-->
-                                <!--项目-->
-                                <!--</div>-->
-                                <!--<div class="searchbar" style="border-right: none;border-left: none;position: absolute; top: 54px;left:0;width: 100%;">-->
-                                <!--<div class="input-group">-->
-                                <!--<input type="text" class="form-control"-->
-                                <!--ng-model="text"-->
-                                <!--placeholder="搜索关键字">-->
+                                    <!--<div class="panel panel-default first col-sm-4" style="margin-right:36px">-->
+                                        <!--<div class="panel-heading">-->
+                                            <!--<img src="views/build_create_new/img/user.png">-->
+                                            <!--用户/组织-->
+                                        <!--</div>-->
+                                        <!--<div class="panel-body">-->
+                                            <!--<ul>-->
+                                                <!--<li class="labcon" ng-repeat="user in labusername" ng-show="!user.hide">-->
+                                                    <!--<a href="javascript:;"-->
+                                                       <!--uib-tooltip="{{user.org.name || user.owner.name}}"-->
+                                                       <!--ng-class="{'active': grid.user == $index}"-->
+                                                       <!--ng-click="selectlabUser($index,'chooose')">-->
+                                                        <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{user.org.name ||-->
+                                                        <!--user.owner.name}}-->
+                                                    <!--</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="panel panel-default second col-sm-4"-->
+                                         <!--style="margin-right:36px;position: relative;">-->
+                                        <!--<div class="panel-heading">-->
+                                            <!--<img src="views/build_create_new/img/project.png">-->
+                                            <!--项目-->
+                                        <!--</div>-->
+                                        <!--<div class="searchbar"-->
+                                             <!--style="border-right: none;border-left: none;position: absolute; top: 54px;left:0;width: 100%;">-->
+                                            <!--<div class="input-group">-->
+                                                <!--<input type="text" class="form-control"-->
+                                                       <!--ng-model="text"-->
+                                                       <!--placeholder="搜索关键字">-->
                                 <!--<span class="input-group-btn" style="right:14px;top:4px;z-index:999;">-->
                                 <!--<a class="btn"></a>-->
                                 <!--</span>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="panel-body">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="panel-body">-->
 
-                                <!--<ul style="margin-top:36px;">-->
-                                <!--<li class="labcon" ng-repeat="project in labobjs">-->
-                                <!--<a href="javascript:;" uib-tooltip="{{project.name}}"-->
-                                <!--ng-class="{'active': grid.labproject == $index}"-->
-                                <!--ng-click="selectLabProject($index, 'chooose')">-->
-                                <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{project.name}}-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="panel panel-default third col-sm-4">-->
-                                <!--<div class="panel-heading">-->
-                                <!--<img src="views/build_create_new/img/branch.png">-->
-                                <!--代码分支-->
-                                <!--</div>-->
-                                <!--<div class="panel-body">-->
-                                <!--<ul>-->
-                                <!--<li class="labcon" ng-repeat="labBranchData in labBranchData.msg">-->
-                                <!--<a href="javascript:;" uib-tooltip="{{labBranchData.name}}"-->
-                                <!--ng-class="{'active': grid.labbranch == $index}"-->
-                                <!--ng-click="selectlabBranch($index,'chooose')">-->
-                                <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{labBranchData.name}}-->
-                                <!--</a>-->
-                                <!--</li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--</div>-->
+                                            <!--<ul style="margin-top:36px;">-->
+                                                <!--<li class="labcon" ng-repeat="project in labobjs">-->
+                                                    <!--<a href="javascript:;" uib-tooltip="{{project.name}}"-->
+                                                       <!--ng-class="{'active': grid.labproject == $index}"-->
+                                                       <!--ng-click="selectLabProject($index, 'chooose')">-->
+                                                        <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{project.name}}-->
+                                                    <!--</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="panel panel-default third col-sm-4">-->
+                                        <!--<div class="panel-heading">-->
+                                            <!--<img src="views/build_create_new/img/branch.png">-->
+                                            <!--代码分支-->
+                                        <!--</div>-->
+                                        <!--<div class="panel-body">-->
+                                            <!--<ul>-->
+                                                <!--<li class="labcon" ng-repeat="labBranchData in labBranchData.msg">-->
+                                                    <!--<a href="javascript:;" uib-tooltip="{{labBranchData.name}}"-->
+                                                       <!--ng-class="{'active': grid.labbranch == $index}"-->
+                                                       <!--ng-click="selectlabBranch($index,'chooose')">-->
+                                                        <!--<i class="faa faa-check"></i>&nbsp;&nbsp;{{labBranchData.name}}-->
+                                                    <!--</a>-->
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 <!--</div>-->
                                 <!--gitLab box-->
                                 <!--<div class="gitlabbox" ng-show="grid.gitlabbox" style="margin-top: 20px">-->
-                                <!--&lt;!&ndash;<form class="form-horizontal">&ndash;&gt;-->
-                                <!--<div class="form-group">-->
-                                <!--<label class="col-sm-4 control-label">代码仓库URL</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<input ng-model="psgitlab.host" class="form-control" style="width: 70%">-->
+                                    <!--&lt;!&ndash;<form class="form-horizontal">&ndash;&gt;-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-sm-4 control-label">代码仓库URL</label>-->
+                                        <!--<div class="col-sm-8">-->
+                                            <!--<input ng-model="psgitlab.host" class="form-control" style="width: 70%">-->
 
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                <!--<label class="col-sm-4 control-label">用户名</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<input ng-model="psgitlab.user" class="form-control" style="width: 70%">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                <!--<label class="col-sm-4 control-label">私有Token</label>-->
-                                <!--<div class="col-sm-8">-->
-                                <!--<input ng-model="psgitlab.private_token" class="form-control" style="width: 70%">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="form-group">-->
-                                <!--<label class="col-sm-4 control-label"></label>-->
-                                <!--<div class="col-sm-8">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-sm-4 control-label">用户名</label>-->
+                                        <!--<div class="col-sm-8">-->
+                                            <!--<input ng-model="psgitlab.user" class="form-control" style="width: 70%">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-sm-4 control-label">私有Token</label>-->
+                                        <!--<div class="col-sm-8">-->
+                                            <!--<input ng-model="psgitlab.private_token" class="form-control"-->
+                                                   <!--style="width: 70%">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-sm-4 control-label"></label>-->
+                                        <!--<div class="col-sm-8">-->
 
-                                <!--<div class="gitlabBtn" ng-click="creatgitlab()">确定</div>-->
-                                <!--<small ng-show="grid.cdm" class="fa fa-exclamation-circle"-->
-                                <!--style="font-size: 12px;color: #ec6941; margin-top: 10px">&nbsp;{{grid.creatlaberr}}-->
-                                <!--</small>-->
-                                <!--</div>-->
-                                <!--</div>-->
+                                            <!--<div class="gitlabBtn" ng-click="creatgitlab()">确定</div>-->
+                                            <!--<small ng-show="grid.cdm" class="fa fa-exclamation-circle"-->
+                                                   <!--style="font-size: 12px;color: #ec6941; margin-top: 10px">&nbsp;{{grid.creatlaberr}}-->
+                                            <!--</small>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</form>&ndash;&gt;-->
 
-                                <!--&lt;!&ndash;-&#45;&#45;gitLab-&ndash;&gt;-->
+                                    <!--&lt;!&ndash;-&#45;&#45;gitLab-&ndash;&gt;-->
                                 <!--</div>-->
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-2 control-label" style="color: #5a6378; font-size:14px; text-align: left;"></div>
+                            <div class="col-sm-2 control-label"
+                                 style="color: #5a6378; font-size:14px; text-align: left;"></div>
                             <div class="col-sm-10">
                                 <small ng-if="urlerr" class="fa fa-info-circle err-tip">请选择代码URL
                                 </small>
@@ -299,7 +356,9 @@
                             <label class="col-sm-2 control-label text-left"
                                    style="color: #5a6378; font-size:14px; text-align: left;font-weight:normal; ">构建超时时长</label>
                             <div class="col-sm-10">
-                                <input onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();" ng-model="completionDeadlineMinutes" name="cdm" min="1" max="60"
+                                <input onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)"
+                                       onblur="this.v();" ng-model="completionDeadlineMinutes" name="cdm" min="1"
+                                       max="60"
                                        style="width: 80px;display: inline-block;" type="text" class="form-control">
                                 <span style="display: inline-block; margin-right: 20px">分钟</span>
                                 <span class="font12">&nbsp;&nbsp;请不要超过60分钟</span><br>
@@ -311,7 +370,8 @@
                     </div>
                     <a class="btn btn-block"
                        ng-class="{'btn-orange':true}"
-                       ng-click="frm.$valid && create()" style="margin-bottom:30px;margin-left:52px;margin-right:52px;width:auto;border-radius:0;">开始构建</a>
+                       ng-click="frm.$valid && create()"
+                       style="margin-bottom:30px;margin-left:52px;margin-right:52px;width:auto;border-radius:0;">开始构建</a>
                 </div>
 
             </div>
@@ -437,7 +497,8 @@
             -webkit-transform: rotate(360deg);
         }
     }
-    .form-group input{
-        width:100%;
+
+    .form-group input {
+        width: 100%;
     }
 </style>

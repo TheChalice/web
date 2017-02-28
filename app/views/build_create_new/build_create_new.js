@@ -58,7 +58,7 @@ angular.module('console.build_create_new', [
                     completionDeadlineSeconds: 1800
                 }
             };
-            $scope.sername={
+            $scope.sername= {
                 name:null,
                 pwd:null
             }
@@ -355,45 +355,45 @@ angular.module('console.build_create_new', [
 
             $scope.owner = null;
 
-            //$scope.loadOwner = function (cache) {
-            //    //console.log(cache);
-            //    Owner.query({namespace: $rootScope.namespace, cache: cache}, function (res) {
-            //        $log.info("owner", res);
-            //        $scope.owner = res.msg;
-            //        hubobj = res.msg.infos[0];
-            //        for (var i = 0; i < res.msg.infos.length; i++) {
-            //            for (var j = 0; j < res.msg.infos[i].repos.length; j++) {
-            //                res.msg.infos[i].repos[j].loginname = res.msg.infos[i].login;
-            //            }
-            //        }
-            //        $scope.loadOrg();
-            //        $log.info("userProject", $scope.login);
-            //    }, function (data) {
-            //        //$log.info('-=-=-=-=', data);
-            //        if (data.status == 400) {
-            //            var tokens = Cookie.get('df_access_token');
-            //            var tokenarr = tokens.split(',');
-            //            if (data.data.code == 1401) {
-            //                // var authurl = data.data.msg + "?namespace=" + $rootScope.namespace
-            //                // + "%26bearer=" + Cookie.get("df_access_token")
-            //                // + "%26redirect_url=" + window.location.href ;
-            //                var authurl = "namespace=" + $rootScope.namespace
-            //                    + "&bearer=" + tokenarr[0]
-            //                    + "&redirect_url=" + window.location.href;
-            //                $log.info(authurl);
-            //                if ($scope.grid.isfirst == 2) {
-            //                    window.location = data.data.msg + "?" + encodeURIComponent(authurl);
-            //                }
-            //            }
-            //        } else {
-            //            if (data.data && data.data.msg) {
-            //                //Alert.open('错误', data.data.msg, true);
-            //                $scope.grid.ishide = true;
-            //                $scope.runninghub = false;
-            //            }
-            //        }
-            //    });
-            //};
+            $scope.loadOwner = function (cache) {
+                //console.log(cache);
+                Owner.query({namespace: $rootScope.namespace, cache: cache}, function (res) {
+                    $log.info("owner", res);
+                    $scope.owner = res.msg;
+                    hubobj = res.msg.infos[0];
+                    for (var i = 0; i < res.msg.infos.length; i++) {
+                        for (var j = 0; j < res.msg.infos[i].repos.length; j++) {
+                            res.msg.infos[i].repos[j].loginname = res.msg.infos[i].login;
+                        }
+                    }
+                    //$scope.loadOrg();
+                    $log.info("userProject", $scope.login);
+                }, function (data) {
+                    //$log.info('-=-=-=-=', data);
+                    if (data.status == 400) {
+                        var tokens = Cookie.get('df_access_token');
+                        var tokenarr = tokens.split(',');
+                        if (data.data.code == 1401) {
+                            // var authurl = data.data.msg + "?namespace=" + $rootScope.namespace
+                            // + "%26bearer=" + Cookie.get("df_access_token")
+                            // + "%26redirect_url=" + window.location.href ;
+                            var authurl = "namespace=" + $rootScope.namespace
+                                + "&bearer=" + tokenarr[0]
+                                + "&redirect_url=" + window.location.href;
+                            $log.info(authurl);
+                            if ($scope.grid.isfirst == 2) {
+                                window.location = data.data.msg + "?" + encodeURIComponent(authurl);
+                            }
+                        }
+                    } else {
+                        if (data.data && data.data.msg) {
+                            //Alert.open('错误', data.data.msg, true);
+                            $scope.grid.ishide = true;
+                            $scope.runninghub = false;
+                        }
+                    }
+                });
+            };
 
             //$scope.loadOrg = function (cache) {
             //    Org.get({cache: cache}, function (data) {
@@ -413,7 +413,7 @@ angular.module('console.build_create_new', [
             $scope.refresh = function () {
                 $scope.runninghub = true;
                 $scope.grid.ishide = false;
-                //$scope.loadOwner('false');
+                $scope.loadOwner('false');
                 //$scope.loadOrg('false');
             };
 
@@ -815,7 +815,7 @@ angular.module('console.build_create_new', [
 
             //$scope.loadlabOwner('click');
 
-            //$scope.loadOwner();
+            $scope.loadOwner();
 
             //$scope.checkdTab(4);
 
