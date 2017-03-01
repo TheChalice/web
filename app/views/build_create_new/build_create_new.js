@@ -408,7 +408,7 @@ angular.module('console.build_create_new', [
             $scope.loadOrg = function (cache) {
                 $scope.usernames = [];
                 $scope.usernames[0] = hubobj;
-                Org.get({cache: cache}, function (data) {
+                Org.get({cache: cache,region:$rootScope.region}, function (data) {
                     $log.info("org", data);
 
                     for (var i = 0; i < data.msg.length; i++) {
@@ -496,7 +496,7 @@ angular.module('console.build_create_new', [
                     var selectUsername = $scope.usernames[thisindex].login;
                     var selectRepo = $scope.usernames[thisindex].repos[idx].name;
                     $log.info("user and repos", selectUsername + selectRepo);
-                    Branch.get({users: selectUsername, repos: selectRepo}, function (info) {
+                    Branch.get({users: selectUsername, repos: selectRepo,region:$rootScope.region}, function (info) {
                         $log.info("branch", info);
                         $scope.branch = info.msg;
                     });
