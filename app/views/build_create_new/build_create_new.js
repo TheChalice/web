@@ -408,7 +408,7 @@ angular.module('console.build_create_new', [
             $scope.loadOrg = function (cache) {
                 $scope.usernames = [];
                 $scope.usernames[0] = hubobj;
-                Org.get({cache: cache,region:$rootScope.region}, function (data) {
+                Org.get({cache: 'false',region:$rootScope.region}, function (data) {
                     $log.info("org", data);
 
                     for (var i = 0; i < data.msg.length; i++) {
@@ -820,7 +820,7 @@ angular.module('console.build_create_new', [
             //    })
             //};
 
-            $scope.grid.labcon = true;
+            //$scope.grid.labcon = true;
 
             $scope.grid.ishide = false;
 
