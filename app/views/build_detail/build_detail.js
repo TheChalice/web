@@ -163,10 +163,10 @@ angular.module('console.build.detail', [
                 if (newVal == "start") {
                     return;
                 }
-                if ($scope.selection) {
-                    $scope.selection = false;
-                    return;
-                }
+                //if ($scope.selection) {
+                //    $scope.selection = false;
+                //    return;
+                //}
                 console.log('newVal',newVal);
                 if (newVal != oldVal) {
                     $scope.saveTrigger();
@@ -277,7 +277,7 @@ angular.module('console.build.detail', [
                         }
                     });
                 }
-                $scope.selection = true
+                //$scope.selection = true
             }
 
             var createWebhook = function () {
