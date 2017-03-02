@@ -160,7 +160,10 @@ angular.module('console.build.detail', [
             }
 
             $scope.$watch('grid.checked', function (newVal, oldVal) {
-                if (newVal == "start") {
+                //if (newVal == "start") {
+                //    return;
+                //}
+                if (newVal == oldVal) {
                     return;
                 }
                 //if ($scope.selection) {
