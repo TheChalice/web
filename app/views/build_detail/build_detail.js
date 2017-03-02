@@ -249,7 +249,7 @@ angular.module('console.build.detail', [
             var checkWebStatus = function () {
                 var host = $scope.data.spec.source.git.uri;
                 if (getSourceHost(host) === 'github.com') {
-                    WebhookGitget.get({namespace: $rootScope.namespace, build: $stateParams.name}, function (res) {
+                    WebhookGitget.get({namespace: $rootScope.namespace, build: $stateParams.name,region:$rootScope.region}, function (res) {
                         //console.log('666',res);
                         if (res.code == 1200) {
                             $scope.grid.checked = true;
@@ -262,7 +262,7 @@ angular.module('console.build.detail', [
                         }
                     })
                 } else {
-                    WebhookLabget.get({namespace: $rootScope.namespace, build: $stateParams.name}, function (res) {
+                    WebhookLabget.get({namespace: $rootScope.namespace, build: $stateParams.name,region:$rootScope.region}, function (res) {
 
                         if (res.code == 1200) {
                             $scope.grid.checked = true;
@@ -290,6 +290,7 @@ angular.module('console.build.detail', [
                     if (getSourceHost(host) === 'github.com') {
                         //$log.info("user is", $scope.data.metadata.annotations.user);
                         WebhookHub.check({
+                            region:$rootScope.region,
                             host: 'https://github.com',
                             namespace: $rootScope.namespace,
                             build: $stateParams.name,
@@ -301,6 +302,7 @@ angular.module('console.build.detail', [
                     } else {
                         var config = getConfig(triggers, 'gitlab');
                         WebhookLab.check({
+                            region:$rootScope.region,
                             host: 'https://code.dataos.io',
                             namespace: $rootScope.namespace,
                             build: $stateParams.name,
@@ -318,6 +320,7 @@ angular.module('console.build.detail', [
                 if (!$scope.grid.checked) {
                     if (getSourceHost(host) === 'github.com') {
                         WebhookHubDel.del({
+                            region:$rootScope.region,
                             namespace: $rootScope.namespace,
                             build: $stateParams.name,
                             user: $scope.data.metadata.annotations.user,
@@ -327,6 +330,7 @@ angular.module('console.build.detail', [
                         })
                     } else {
                         WebhookLabDel.del({
+                            region:$rootScope.region,
                             host: 'https://code.dataos.io',
                             namespace: $rootScope.namespace,
                             build: $stateParams.name,

@@ -422,7 +422,8 @@ define([
         }])
 
         .factory('WebhookLabget', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var WebhookLabget = $resource(GLOBAL.host_repos + '/source/gitlab/webhooks?namespace=:namespace&build=:build', {
+            var WebhookLabget = $resource(GLOBAL.host_repos + '/source/gitlab/webhooks?region=:region&namespace=:namespace&build=:build', {
+                region: '@region',
                 namespace: '@namespace',
                 build: '@build'
             }, {});
@@ -430,7 +431,8 @@ define([
         }])
 
         .factory('WebhookGitget', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var WebhookGitget = $resource(GLOBAL.host_repos + '/source/github/webhooks?namespace=:namespace&build=:build', {
+            var WebhookGitget = $resource(GLOBAL.host_repos + '/source/github/webhooks?region=:region&namespace=:namespace&build=:build', {
+                region: '@region',
                 namespace: '@namespace',
                 build: '@build'
             }, {})
@@ -438,21 +440,22 @@ define([
         }])
 
         .factory('WebhookLab', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var WebhookLab = $resource(GLOBAL.host_repos + '/source/gitlab/webhooks', {}, {
+            var WebhookLab = $resource(GLOBAL.host_repos + '/source/gitlab/webhooks?region=:region', {region: '@region'}, {
                 check: {method: 'POST'}
             });
             return WebhookLab;
         }])
 
         .factory('WebhookHub', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var WebhookHub = $resource(GLOBAL.host_repos + '/source/github/webhooks', {}, {
+            var WebhookHub = $resource(GLOBAL.host_repos + '/source/github/webhooks?region=:region', {region: '@region'}, {
                 check: {method: 'POST'}
             });
             return WebhookHub;
         }])
 
         .factory('WebhookLabDel', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var WebhookLabDel = $resource(GLOBAL.host_repos + '/source/gitlab/webhooks?host=:host&namespace=:namespace&build=:build&repo=:repo', {
+            var WebhookLabDel = $resource(GLOBAL.host_repos + '/source/gitlab/webhooks?region=:region&host=:host&namespace=:namespace&build=:build&repo=:repo', {
+                region: '@region',
                 host: '@host',
                 namespace: '@namespace',
                 build: '@build',
@@ -464,7 +467,8 @@ define([
         }])
 
         .factory('WebhookHubDel', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var WebhookHubDel = $resource(GLOBAL.host_repos + '/source/github/webhooks?namespace=:namespace&build=:build&user=:user&repo=:repo', {
+            var WebhookHubDel = $resource(GLOBAL.host_repos + '/source/github/webhooks?region=:region&namespace=:namespace&build=:build&user=:user&repo=:repo', {
+                region: '@region',
                 namespace: '@namespace',
                 build: '@build',
                 user: '@user',
