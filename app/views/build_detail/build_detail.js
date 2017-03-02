@@ -167,6 +167,7 @@ angular.module('console.build.detail', [
                     $scope.selection = false;
                     return;
                 }
+                console.log('newVal',newVal);
                 if (newVal != oldVal) {
                     $scope.saveTrigger();
                 }
