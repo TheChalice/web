@@ -90,7 +90,7 @@ angular.module('console.build.detail', [
                     $scope.active = 1;  //打开记录标签
                     $scope.$broadcast('timeline', 'add', res);
                     createWebhook();
-                    deleteWebhook();
+                    //deleteWebhook();
                 }, function (res) {
                     //todo 错误处理
                 });
@@ -282,13 +282,13 @@ angular.module('console.build.detail', [
             var createWebhook = function () {
                 var host = $scope.data.spec.source.git.uri;
                 var triggers = $scope.data.spec.triggers;
-                //console.log('triggers', triggers);
+                console.log('triggers', triggers);
 
 
                 if ($scope.grid.checked) {
                     var config = getConfig(triggers, 'github');
                     if (getSourceHost(host) === 'github.com') {
-                        //$log.info("user is", $scope.data.metadata.annotations.user);
+                        $log.info("user is", $scope.data.metadata.annotations.user);
                         WebhookHub.check({
                             region:$rootScope.region,
                             host: 'https://github.com',
