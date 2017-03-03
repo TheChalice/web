@@ -211,6 +211,7 @@ angular.module('console.build_create_new', [
                 if ($scope.grid.ishide == false) {
                     $scope.buildConfig.spec.completionDeadlineSeconds = $scope.completionDeadlineMinutes * 60;
                     $scope.buildConfig.spec.source.git.ref = $scope.branch[$scope.grid.branch].name;
+                    console.log('$scope.owner', $scope.owner);
                     $scope.buildConfig.spec.source.sourceSecret.name = $scope.owner.secret;
                     $scope.buildConfig.spec.source.git.uri = $scope.usernames[$scope.grid.user].repos[$scope.grid.project].clone_url;
                     $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.branch[$scope.grid.branch].name;
@@ -373,7 +374,7 @@ angular.module('console.build_create_new', [
                     $scope.runninghub = false;
                     $log.info("userProject", $scope.login);
                 }, function (data) {
-                    //$log.info('-=-=-=-=', data);
+                    $log.info('-=-=-=-=', data);
                     if (cache === 'false') {
                         if (data.status == 400) {
                             var tokens = Cookie.get('df_access_token');
