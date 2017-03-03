@@ -407,11 +407,11 @@ angular.module('console.build_create_new', [
             };
 
             $scope.loadOrg = function (cache) {
-                $scope.usernames = [];
-                $scope.usernames[0] = hubobj;
+
                 Org.get({cache: 'false',region:$rootScope.region}, function (data) {
                     $log.info("org", data);
-
+                    $scope.usernames = [];
+                    $scope.usernames[0] = hubobj;
                     for (var i = 0; i < data.msg.length; i++) {
                         $scope.usernames.push(data.msg[i]);
                         for (var j = 0; j < data.msg[i].repos.length; j++) {
