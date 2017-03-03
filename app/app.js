@@ -53,7 +53,7 @@ define([
             host_wss_k8s: './ws/api/v1',
             login_uri: '/login',
             signin_uri: '/signin',
-            host_webhooks: 'http://lab.dataapp.c.citic/oapi/v1',
+            host_webhooks: 'http://hook.dataapp.c.citic/oapi/v1',
             service_url:'<ROUTER_DOMAIN_SUFFIX>'
         })
         .constant('AUTH_EVENTS', {
