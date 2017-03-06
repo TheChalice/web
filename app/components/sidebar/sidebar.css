@@ -105,3 +105,19 @@
 .sidebar_jia_per .projectname  > li:hover{height:40px;line-height:40px;}
 .sidebar_jia_block{padding:23px 10px 23px 30px;display:block;}
 .sidebar_h_caret{border-left:6px dashed;border-top:6px solid transparent;border-bottom:6px solid transparent;}
+
+/*20170306 jia*/
+#sidebar ul > li > a{color:#fff;font-size:14px;padding:14px 30px;}
+#sidebar ul > li > a:hover{background:#2c4d66;}
+#sidebar{background:#264359;}
+#sidebar ul > li.active > a{background:#2c4d66;padding:14px 30px;}
+#sidebar ul > li.active > a > i{position:absolute;left:0;top:0;color:#ea3031;bottom:0;}
+.fa-caret-left:before{content:"";background:#ea3031;width:2px;top: 0px;bottom: 0px;border: 1px solid #f00;position: absolute;}
+.zx_set_btn{background:url(img/zx_set.png) no-repeat center;width:16px;height:14px;display:block;padding:24px 76px;}
+.sider_zx{width:54px!important;}
+.sidebar-fixed{margin-left:54px!important;}
+
+/*收回效果*/
+.sider_zx .zx_set_btn{padding:16px 27px;}
+.sider_zx .side_tit{display:none;}
+.sider_zx #sidebar ul > li > a{padding:7px 14px;height:40px;}

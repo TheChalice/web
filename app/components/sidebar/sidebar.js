@@ -17,3 +17,8 @@ angular.module("console.sidebar", [
         }
     }]);
 
+    $(".zx_set_btn").on("click",function(){
+        $("#sidebar-container").toggleClass("sider_zx");
+        $("#sidebar-right-fixed").toggleClass("sidebar-fixed");
+    })
+
