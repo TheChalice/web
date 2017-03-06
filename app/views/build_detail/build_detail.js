@@ -29,6 +29,7 @@ angular.module('console.build.detail', [
                     var host = $scope.data.spec.source.git.uri;
                     if (data.metadata.annotations.user) {
                         $scope.showwebhook=true;
+                        checkWebStatus()
                     }else {
                         $scope.showwebhook=false;
                     }
@@ -70,7 +71,7 @@ angular.module('console.build.detail', [
                         //$scope.grid.checked = 'start';
                         //$scope.grid.checkedLocal = true;
                     }
-                    checkWebStatus();
+                    //checkWebStatus();
 
                 }, function (res) {
                     //错误处理
