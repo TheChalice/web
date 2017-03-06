@@ -127,11 +127,20 @@
                     <span class="icon20 icon20-paper"></span> 配置信息
                 </uib-tab-heading>
                 <form class="form-horizontal" name="frm">
-                    <div class="form-group">
+                    <div class="form-group" ng-show="showwebhook">
                         <!--<label class="col-sm-2 text-left" id="autobuild">自动构建触发条件</label>-->
                         <label class="col-sm-3 text-left">是否自动构建</label>
                         <div class="col-sm-2">
                             <c-checkbox checked="grid.checked"></c-checkbox>
+                            <!--ng-class="{'aciive': grid.checked, 'inactive': gird.uncheked}"-->
+                        </div>
+
+                    </div>
+                    <div class="form-group" ng-show="!showwebhook">
+                        <!--<label class="col-sm-2 text-left" id="autobuild">自动构建触发条件</label>-->
+                        <label class="col-sm-3 text-left" style="color: darkgray">是否自动构建</label>
+                        <div class="col-sm-2">
+                            <c-checkbox checked='false'></c-checkbox>
                             <!--ng-class="{'aciive': grid.checked, 'inactive': gird.uncheked}"-->
                         </div>
 

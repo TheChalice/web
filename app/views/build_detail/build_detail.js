@@ -20,13 +20,18 @@ angular.module('console.build.detail', [
             $scope.$on('image-enable', function (e, enable) {
                 $scope.imageEnable = enable;
             });
-
+            $scope.showwebhook=false
             var loadBuildConfig = function () {
                 BuildConfig.get({namespace: $rootScope.namespace, name: $stateParams.name,region:$rootScope.region}, function (data) {
                     $log.info('data', data);
                     //$log.info('labsecrect is',data.spec.source.sourceSecret.name);
                     $scope.data = data;
                     var host = $scope.data.spec.source.git.uri;
+                    if (data.metadata.annotations.user) {
+                        $scope.showwebhook=true;
+                    }else {
+                        $scope.showwebhook=false;
+                    }
                     if (data.spec.source.git.uri.split(':')[0] == 'ssh') {
                         var host = data.spec.source.git.uri.replace('git@', '').replace('.git', '');
 
