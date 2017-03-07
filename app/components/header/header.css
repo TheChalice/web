@@ -230,7 +230,7 @@
 .header_per{cursor:pointer;float:left;display:block;width:200px;position:relative;}
 .per_block{padding-top:18px;padding-bottom:16px;padding-left:20px;padding-right:23px;display:block;}
 .header_per_tit{font-size:14px;display:block;float:left;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;
-overflow: hidden;width:100px;color:#333;}
+overflow: hidden;width:100px;color:#fff;}
 .h_caret{display:inline-block;width:0;height:0;vertical-align:middle;
     border-top:6px dashed;border-right:6px solid transparent;border-left:6px solid transparent;
     margin-left:4px;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;color:#333;}

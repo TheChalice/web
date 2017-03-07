@@ -4,42 +4,45 @@
         <div class="zx_logo"></div>
     </a>
 
-    <div id="header-title" class="hidden-xs" style="margin-left: 1px">
-        <span style="float: left;cursor: pointer; margin-right: 10px" ng-click="back()"
-              class="icon25 icon25-back" ng-if="hasBack()">
-        </span>
-        <span style='float: left;'>{{console.state | stateTitleFilter}}</span>
+    <div class="header_area data_bg">
+        <div class="dropdown"  id="dpdtop" style="">
+            <a class="dropdown-toggle header_toggle area_block" data-toggle="dropdown"  href="#" class="">
+                <i class="df_h_com df_h_area"></i>
+                {{curregion}}
+                <b class="h_caret"></b>
+            </a>
+
+            <ul class="dropdown-menu dropdownbw">
+                <li ng-repeat="region in regions" ng-click="checkregion(region.region_describe,region.identification)" ><i class="df_h_com df_area_active"></i>{{region.region_describe}}</li>
+                <!--<li ng-repeat="relist in regionlist" ng-click="checkregion(relist.regionname)">{{relist.regionname}}</li>-->
+            </ul>
+            <!--</span><span style="background: #fff;padding:10px 13px; color: #5a6378;">-->
+            <!--{{curregion}}-->
+            <!--</span>-->
+        </div>
     </div>
+
+
+    <!--<div id="header-title" class="hidden-xs" style="margin-left: 1px">-->
+        <!--<span style="float: left;cursor: pointer; margin-right: 10px" ng-click="back()"-->
+              <!--class="icon25 icon25-back" ng-if="hasBack()">-->
+        <!--</span>-->
+        <!--<span style='float: left;'>{{console.state | stateTitleFilter}}</span>-->
+    <!--</div>-->
     <div id="header-menu">
         <!--消息图标-->
-        <!--<a class="icon25 icon25-msg" ui-sref="console.notification" uib-tooltip="消息" tooltip-placement="bottom" ng-click="checkInbox()" style="margin-right:20px;">-->
-            <!--<div ng-show="isshow">-->
-                <!--<div class="header-dot"></div>-->
-            <!--</div>-->
-        <!--</a>-->
-        <!--<a href="javascript:void(0);" ui-sref="console.notification" class="df_news data_bg">-->
-            <!--<i class="df_h_com df_h_news"></i><span class="df_news_tit">消息</span>-->
-        <!--</a>-->
+        <a class="icon25 icon25-msg" ui-sref="console.notification" uib-tooltip="消息" tooltip-placement="bottom" ng-click="checkInbox()" style="margin-right:20px;">
+            <div ng-show="isshow">
+                <div class="header-dot"></div>
+            </div>
+        </a>
+        <a href="javascript:void(0);" ui-sref="console.notification" class="df_news data_bg">
+            <i class="df_h_com df_h_news"></i><span class="df_news_tit">消息</span>
+        </a>
 
 
 
-        <!--<div class="header_area data_bg">-->
-            <!--<div class="dropdown"  id="dpdtop" style="">-->
-                <!--<a class="dropdown-toggle header_toggle area_block" data-toggle="dropdown"  href="#" class="">-->
-                    <!--<i class="df_h_com df_h_area"></i>-->
-                    <!--{{curregion}}-->
-                    <!--<b class="h_caret"></b>-->
-                <!--</a>-->
 
-                <!--<ul class="dropdown-menu dropdownbw">-->
-                    <!--<li ng-repeat="region in regions" ng-click="checkregion(region.region_describe,region.identification)" ><i class="df_h_com df_area_active"></i>{{region.region_describe}}</li>-->
-                    <!--&lt;!&ndash;<li ng-repeat="relist in regionlist" ng-click="checkregion(relist.regionname)">{{relist.regionname}}</li>&ndash;&gt;-->
-                <!--</ul>-->
-                <!--&lt;!&ndash;</span><span style="background: #fff;padding:10px 13px; color: #5a6378;">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{curregion}}&ndash;&gt;-->
-                <!--&lt;!&ndash;</span>&ndash;&gt;-->
-            <!--</div>-->
-        <!--</div>-->
 
         <!--<div class="header_area data_bg">-->
             <!--<div class="dropdown" uib-dropdown>-->
@@ -61,8 +64,8 @@
         <!--</div>-->
 
 
-        <!--<a class="icon25 icon25-guide" href="javascript:;" uib-tooltip="指南" tooltip-placement="bottom"-->
-        <!--</a>-->
+        <a class="icon25 icon25-guide" href="javascript:;" uib-tooltip="指南" tooltip-placement="bottom"
+        </a>
 
         <div class="header_per data_bg" style="display:block;border-left:1px solid #f2f2f2">
             <div uib-dropdown on-toggle="toggled(open)">

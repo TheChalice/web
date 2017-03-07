@@ -107,10 +107,10 @@
 .sidebar_h_caret{border-left:6px dashed;border-top:6px solid transparent;border-bottom:6px solid transparent;}
 
 /*20170306 jia*/
-#sidebar ul > li > a{color:#fff;font-size:14px;padding:14px 30px;}
+#sidebar ul > li > a{color:#fff;font-size:14px;padding:14px 16px;}
 #sidebar ul > li > a:hover{background:#2c4d66;}
 #sidebar{background:#264359;}
-#sidebar ul > li.active > a{background:#2c4d66;padding:14px 30px;}
+#sidebar ul > li.active > a{background:#2c4d66;padding:14px 16px;}
 #sidebar ul > li.active > a > i{position:absolute;left:0;top:0;color:#ea3031;bottom:0;}
 .fa-caret-left:before{content:"";background:#ea3031;width:2px;top: 0px;bottom: 0px;border: 1px solid #f00;position: absolute;}
 .zx_set_btn{background:url(img/zx_set.png) no-repeat center;width:16px;height:14px;display:block;padding:24px 76px;}
