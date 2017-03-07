@@ -342,7 +342,7 @@ angular.module('console.build.detail', [
                             repo: $scope.data.metadata.annotations.repo,
                             spec: {"active": true, events: ['push', 'pull_request', 'status'], config: {url: config}}
                         }, function (item) {
-                            $scope.grid.checkeds = true
+                            $scope.grid.checked = true
                         });
                     } else {
                         var config = getConfig(triggers, 'gitlab');
