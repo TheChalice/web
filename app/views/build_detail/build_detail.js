@@ -14,6 +14,7 @@ angular.module('console.build.detail', [
 
             //console.log('路由',$state);
             $scope.grid.checked = false;
+            $scope.grid.pedding=false
 
             $scope.bcName = $stateParams.name;
 
@@ -206,6 +207,9 @@ angular.module('console.build.detail', [
                 //    $scope.data.spec.triggers = [];
                 //}
                 //$scope.data.region=$rootScope.region;
+                if ($scope.grid.pedding) {
+                    return
+                }
                 BuildConfig.put({
                     namespace: $rootScope.namespace,
                     name: name,
@@ -327,11 +331,12 @@ angular.module('console.build.detail', [
                 var host = $scope.data.spec.source.git.uri;
                 var triggers = $scope.data.spec.triggers;
                 //console.log('triggers', triggers);
-
+                $scope.grid.pedding=true
                 console.log('checked', $scope.grid.checked);
                 if (!$scope.grid.checked) {
                     var config = getConfig(triggers, 'github');
                     if (getSourceHost(host) === 'github.com') {
+
                         $log.info("user is", $scope.data.metadata.annotations.user);
                         WebhookHub.check({
                             region: $rootScope.region,
@@ -342,7 +347,10 @@ angular.module('console.build.detail', [
                             repo: $scope.data.metadata.annotations.repo,
                             spec: {"active": true, events: ['push', 'pull_request', 'status'], config: {url: config}}
                         }, function (item) {
+                            $scope.grid.pedding=false
                             $scope.grid.checked = true
+                        }, function (err) {
+                            $scope.grid.pedding=false
                         });
                     } else {
                         var config = getConfig(triggers, 'gitlab');
@@ -354,6 +362,8 @@ angular.module('console.build.detail', [
                             repo: $scope.data.metadata.annotations.repo,
                             spec: {url: config}
                         }, function (data) {
+                            $scope.grid.pedding=false
+                            $scope.grid.checked = true
                             //console.log("test repo", $scope.data.metadata.annotations.repo)
                         });
                     }
@@ -362,6 +372,7 @@ angular.module('console.build.detail', [
 
             var deleteWebhook = function () {
                 var host = $scope.data.spec.source.git.uri;
+                $scope.grid.pedding=true;
                 if ($scope.grid.checked) {
                     if (getSourceHost(host) === 'github.com') {
                         WebhookHubDel.del({
@@ -371,7 +382,10 @@ angular.module('console.build.detail', [
                             user: $scope.data.metadata.annotations.user,
                             repo: $scope.data.metadata.annotations.repo
                         }, function (item1) {
+                            $scope.grid.pedding=false
                             $scope.grid.checked=false
+                        }, function (err) {
+                            $scope.grid.pedding=false
                         })
                     } else {
                         WebhookLabDel.del({
@@ -381,7 +395,9 @@ angular.module('console.build.detail', [
                             build: $stateParams.name,
                             repo: $scope.data.metadata.annotations.repo
                         }, function (data2) {
-
+                            $scope.grid.pedding=false
+                        }, function (err) {
+                            $scope.grid.pedding=false
                         });
                     }
                 }
