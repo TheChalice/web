@@ -15,6 +15,7 @@ angular.module("console.sidebar", [
                 $scope.$state = $state;
 
                 $(".zx_set_btn").on("click",function(){
+                    $(this).toggleClass("zx_set_btn_rotate");
                     $("#sidebar-container").toggleClass("sider_zx");
                     $("#sidebar-right-fixed").toggleClass("sidebar-fixed");
                 })
