@@ -260,3 +260,12 @@ overflow: hidden;width:100px;color:#fff;}
 #header #header-brand:hover .zx_logo{background:url(img/zx_logo.png) no-repeat;}
 #header{height:52px;}
 
+/*默认组织*/
+.header_area_select{cursor:pointer;float:left;display:block;width:114px;height:52px;background:#333;}
+.zx_area_drop{width:114px;top:52px;border:0;}
+.zx_area_drop li{width:114px;text-align:center;padding-left:0;border:0;color:#333;font-size:14px;}
+.zx_area_drop li:hover{background:#eef1fd;}
+/*三角*/
+.xl_bg{position:absolute;right:20px;top:20px;width:9px;height:9px;border:solid #fff;border-width:1px 1px 0 0;
+    -webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);transform:rotate(135deg)}
+
