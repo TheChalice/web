@@ -88,6 +88,7 @@
 }
 .icon25 {
     color: #5a6378;
+    width:18px;height:18px;vertical-align: text-top;
 }
 /*20161216 jia add 当前项目*/
 .nav-jia-pills>li.side_pass>a:focus,.nav-jia-pills>li.side_change>a:focus{background:none!important;}
