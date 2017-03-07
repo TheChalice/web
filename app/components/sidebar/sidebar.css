@@ -114,12 +114,8 @@
 #sidebar ul > li.active > a{background:#2c4d66;padding:0px 18px;}
 #sidebar ul > li.active > a > i{position:absolute;left:0;top:0;color:#ea3031;bottom:0;}
 .fa-caret-left:before{content:"";background:#ea3031;width:2px;top: 0px;bottom: 0px;border: 1px solid #f00;position: absolute;}
-.zx_set_btn{background:url(img/zx_set.png) no-repeat center;width:16px;height:14px;display:block;padding:21px 76px;}
-.zx_set_btn_rotate{transform:rotate(90deg);
-    -ms-transform:rotate(90deg);   /* IE 9 */
-    -moz-transform:rotate(90deg);  /* Firefox */
-    -webkit-transform:rotate(90deg); /* Safari ºÍ Chrome */
-    -o-transform:rotate(90deg);    /* Opera */}
+.zx_set_btn{background:url(img/zx_set.png) no-repeat center;width:18px;height:18px;display:block;padding:21px 76px;}
+.zx_set_btn_rotate{background:#4a5064 url(img/zx_set_active.png) no-repeat center}
 .sider_zx{width:54px!important;}
 .sidebar-fixed{margin-left:54px!important;}
 #sidebar ul > li .side_tit{padding-left:20px;}

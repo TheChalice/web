@@ -253,7 +253,7 @@ overflow: hidden;width:100px;color:#fff;}
     overflow-y:scroll;
 }
 /*中信20160306 jiasx*/
-#header #header-brand{padding-left:0px;padding-right:0;background:#d81e2a;width:54px;height:52px;display:block;position:relative;}
+#header #header-brand{padding-left:0px;padding-right:0;background:#f0212f;width:54px;height:52px;display:block;position:relative;}
 .zx_logo{background:url(img/zx_logo.png) no-repeat -36px 0;width:36px; height:36px;position:absolute;top:50%;left:50%;margin-left:-18px;margin-top:-18px;
     -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
 #header #header-brand:hover{background:#d81e2a;}
