@@ -262,7 +262,8 @@ overflow: hidden;width:100px;color:#fff;}
 #header{height:52px;}
 .df_news:hover{background:#333;}
 /*默认组织*/
-.header_area_select{cursor:pointer;float:left;display:block;width:114px;height:52px;background:#333;}
+.header_area_select{cursor:pointer;float:left;display:block;width:114px;height:52px;background:#383d41;}
+.header_area_select:hover{background:#333;}
 .zx_area_drop{width:114px;min-width:114px;top:52px;border:0;margin:0;border-radius:0;}
 .zx_area_drop li{width:114px;text-align:center;padding-left:0;border:0;color:#333;font-size:14px;}
 .zx_area_drop li a{height:42px!important;line-height:42px!important;}
@@ -276,3 +277,36 @@ overflow: hidden;width:100px;color:#fff;}
 /*三角*/
 .xl_bg{position:absolute;right:20px;top:20px;width:9px;height:9px;border:solid #fff;border-width:1px 1px 0 0;
     -webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);transform:rotate(135deg);-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
+
+/*账户中心*/
+.zx_account_set{position:absolute;width:270px;top:52px;bottom:0;right:-270px;background:#fff;-webkit-box-shadow:0px 0px 8px rgba(0,0,0,.1);
+    -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
+.zx_account_set_hover{right:0;}
+.zx_account_tit{font-weight:normal;display:block;color:#333;font-size:14px;height:40px;line-height:40px;text-indent:20px;border-bottom:1px solid #e5e5e5;}
+.zx_account_detail{padding:28px 20px 16px;border-bottom:1px solid #e5e5e5;height:auto;overflow:hidden;}
+.zx_account_one .zx_t{float:left;height:40px;line-height:40px;}
+.zx_person{width:40px;height:40px;-webkit-border-radius:100%;background:#868686;display:block;float:left;}
+.zx_name{font-size:14px;color:#333;padding-left:12px;}
+.zx_account_one{height:auto;overflow:hidden;}
+.zx_account_one .zx_list{float:right;margin-top:10px;}
+.zx_account_one .zx_list a{float:left;width:16px;height:16px;-webkit-border-radius:100%;background:#868686;margin-right:10px;}
+.zx_account_one .zx_list a:last-child{margin-right:0;}
+.zx_account_two{margin-top:20px;}
+.zx_account_two .price_tit{font-size:14px;color:#333;}
+.zx_account_two .price_num{color:#ea3030;font-size:12px;float:left;}
+.zx_account_two .per_yuan{font-size:23px;}
+.charge_btn{width:90px;height:28px;line-height:28px;text-align:center;color:#fff;font-size:14px;display:block;float:right;background:#f0212f;
+    -webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+.charge_btn:hover{color:#fff;background:#f23844;}
+.charge_btn:active{color:#fff;background:#d81e2a;}
+.charge_btn:focus{color:#fff;}
+.zx_list_set{padding-left:40px;padding-right:20px;}
+.zx_list_set li{height:42px;line-height:42px;list-style: none;position:relative;}
+.zx_list_l{font-size:14px;color:#333;}
+.zx_list_l:before{content:"";position:absolute;width:8px;height:8px;-webkit-border-radius:100%;background:#868686;top:16px;left:-20px;}
+.zx_list_btn{position:absolute;right:3px;top:20px;width:9px;height:9px;border:solid #999;border-width:1px 1px 0 0;
+    -webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg);-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
+.zx_account_bottom{position:absolute;bottom:0px;height:45px;border-top:1px solid #e5e5e5;left:0;right:0;text-align:center;}
+.zx_account_bottom .zx_quit{height:45px;line-height:45px;display:block;font-size:14px;color:#333;background:#fff;
+    -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
+.zx_account_bottom .zx_quit:hover{background:#eef1fd;}
