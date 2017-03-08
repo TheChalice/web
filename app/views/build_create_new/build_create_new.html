@@ -185,7 +185,7 @@
                                             项目
                                         </div>
                                         <div class="searchbar"
-                                             style="border-left: none;border-right: none;position: absolute; top: 54px;left:0;width: 100%;">
+                                             style="border-left: none;border-right: none;position: relative; top: 0;left:0;width: 100%;">
 
                                             <div class="input-group">
                                                 <input type="text" class="form-control"
@@ -200,7 +200,7 @@
                                         </div>
                                         <div class="panel-body">
 
-                                            <ul style="margin-top:36px;">
+                                            <ul style="">
                                                 <li class="labcon" ng-repeat="project in reposobj">
                                                     <a href="javascript:;" uib-tooltip="{{project.name}}"
                                                        ng-class="{'active': grid.project == $index}"
