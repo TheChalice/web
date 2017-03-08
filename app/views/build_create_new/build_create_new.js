@@ -427,6 +427,7 @@ angular.module('console.build_create_new', [
                 $scope.grid.ishide = false;
                 $scope.usernames=[];
                 $scope.reposobj=[];
+                $scope.branch=[];
                 $scope.grid.user=null;
                 $scope.grid.project=null;
                 $scope.grid.branch=null;
