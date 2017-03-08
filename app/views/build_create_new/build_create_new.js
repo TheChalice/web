@@ -425,6 +425,8 @@ angular.module('console.build_create_new', [
             $scope.refresh = function () {
                 $scope.runninghub = true;
                 $scope.grid.ishide = false;
+                $scope.usernames=[];
+                $scope.reposobj=[];
                 $scope.loadOwner('false');
                 $scope.loadOrg('false');
             };
