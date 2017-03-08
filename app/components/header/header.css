@@ -259,13 +259,18 @@ overflow: hidden;width:100px;color:#fff;}
 #header #header-brand:hover{background:#d81e2a;}
 #header #header-brand:hover .zx_logo{background:url(img/zx_logo.png) no-repeat;}
 #header{height:52px;}
-
 /*默认组织*/
 .header_area_select{cursor:pointer;float:left;display:block;width:114px;height:52px;background:#333;}
-.zx_area_drop{width:114px;top:52px;border:0;}
+.zx_area_drop{width:114px;min-width:114px;top:52px;border:0;margin:0;border-radius:0;}
 .zx_area_drop li{width:114px;text-align:center;padding-left:0;border:0;color:#333;font-size:14px;}
+.zx_area_drop li a{height:42px!important;line-height:42px!important;}
 .zx_area_drop li:hover{background:#eef1fd;}
+.zx_area_drop .zx_active span{color:#5b73eb;}
+.zx_area_drop .zx_mange{background:#5b73eb;}
+.zx_area_drop > li.zx_mange > a:hover,.zx_area_drop li.zx_mange:hover{background:#5267d3;}
+.zx_area_drop .zx_mange span{color:#fff;}
+.header_area_select .per_block{padding-bottom:34px;}
+.header_area_select .open .per_block .xl_bg{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg);top:26px;}
 /*三角*/
 .xl_bg{position:absolute;right:20px;top:20px;width:9px;height:9px;border:solid #fff;border-width:1px 1px 0 0;
-    -webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);transform:rotate(135deg)}
-
+    -webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);transform:rotate(135deg);-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
