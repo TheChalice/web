@@ -404,10 +404,9 @@ angular.module('console.service.createnew', [
                     name: "",
                     image: "",    //imageStreamTag
                     othersetting: false,
+                    retract: false,
                     env: [{name: '', value: ''}],
-                    cando: false,
                     args: '',
-                    doset: "HTTP",
                     resources: {
                         limits: {
                             cpu: null,
@@ -419,37 +418,25 @@ angular.module('console.service.createnew', [
                         }
                     },
                     "imagePullPolicy": "Always",
-                    isimageChange: true,
-                    "readinessProbe": {
-                        "httpGet": {
-                            "path": "/",
-                            "port": "",
-                            "scheme": "HTTP"
-                        },
-                        "initialDelaySeconds": 30,
-                        "timeoutSeconds": 1,
-                        "periodSeconds": 10,
-                        "successThreshold": 1,
-                        "failureThreshold": 3
-                    },
+                    volumeMounts: [],
                     secretsobj: {
                         secretarr: [{
                             secret: {
-                                secretName: ''
+                                secretName: '名称'
                             },
                             mountPath: ''
                         }]
                         ,
                         configmap: [{
                             configMap: {
-                                name: ''
+                                name: '名称'
                             },
                             mountPath: ''
                         }]
                         ,
                         persistentarr: [{
                             persistentVolumeClaim: {
-                                claimName: ''
+                                claimName: '名称'
                             },
                             mountPath: ''
                         }]
@@ -479,9 +466,9 @@ angular.module('console.service.createnew', [
                             $scope.persistentite.push(item)
                         }
                     })
-                    angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                        $scope.dc.spec.template.spec.containers[i].secretsobj.persistentarr[0].persistentVolumeClaim.claimName = $scope.persistentite[0].metadata.name
-                    })
+                    //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                    //    $scope.dc.spec.template.spec.containers[i].secretsobj.persistentarr[0].persistentVolumeClaim.claimName = $scope.persistentite[0].metadata.name
+                    //})
                     //$scope.dc.spec.template.spec.containers[]= $scope.persistentite[0].metadata.name
                     //$scope.persistentitem = res.items;
                 }
@@ -492,7 +479,7 @@ angular.module('console.service.createnew', [
             $scope.addpersistent = function (containers) {
                 containers.unshift({
                     persistentVolumeClaim: {
-                        claimName: $scope.persistentite[0].metadata.name
+                        claimName: '名称'
                     },
                     mountPath: ''
                 });
@@ -508,9 +495,9 @@ angular.module('console.service.createnew', [
             }, function (res) {
                 if (res.items) {
                     $scope.configmap = res.items;
-                    angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                        $scope.dc.spec.template.spec.containers[i].secretsobj.configmap[0].configMap.name = $scope.configmap[0].metadata.name
-                    })
+                    //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                    //    $scope.dc.spec.template.spec.containers[i].secretsobj.configmap[0].configMap.name = $scope.configmap[0].metadata.name
+                    //})
                 }
 
             })
@@ -520,7 +507,7 @@ angular.module('console.service.createnew', [
             $scope.addconfigmap = function (containers) {
                 containers.unshift({
                     configMap: {
-                        name: $scope.configmap[0].metadata.name
+                        name: '名称'
                     },
                     mountPath: ''
                 });
@@ -537,9 +524,9 @@ angular.module('console.service.createnew', [
                 //console.log('-------loadsecrets', res);
                 if (res.items) {
                     $scope.secretsitems = res.items;
-                    angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                        $scope.dc.spec.template.spec.containers[i].secretsobj.secretarr[0].secret.secretName = $scope.secretsitems[0].metadata.name
-                    })
+                    //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                    //    $scope.dc.spec.template.spec.containers[i].secretsobj.secretarr[0].secret.secretName = $scope.secretsitems[0].metadata.name
+                    //})
                 }
             })
             $scope.secretsed = function (secret, name) {
@@ -548,7 +535,7 @@ angular.module('console.service.createnew', [
             $scope.addsecret = function (containers) {
                 containers.unshift({
                     secret: {
-                        secretName: $scope.secretsitems[0].metadata.name
+                        secretName: '名称'
                     },
                     mountPath: ''
                 });
@@ -636,126 +623,7 @@ angular.module('console.service.createnew', [
                 });
             };
 
-            //绑定dsi
-            var bindService = function (dc) {
-                angular.forEach($scope.bsi.items, function (bsi) {
-                    var bindObj = {
-                        metadata: {
-                            name: bsi.metadata.name,
-                            annotations: {
-                                "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                            }
-                        },
-                        resourceName: dc.metadata.name,
-                        bindResourceVersion: '',
-                        bindKind: 'DeploymentConfig'
-                    };
 
-                    if (bsi.bind) {  //未绑定设置为绑定
-                        BackingServiceInstance.bind.create({
-                            namespace: $rootScope.namespace,
-                            name: bsi.metadata.name,
-                            region: $rootScope.region
-                        }, bindObj, function (res) {
-                            $log.info("bind service success", res);
-                        }, function (res) {
-                            $log.info("bind service fail", res);
-                        });
-                    }
-                });
-            };
-            $scope.creat = function () {
-                //挂卷
-                var clonedc = angular.copy($scope.dc);
-                angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
-
-                    if (con.secretsobj.secretarr.length > 0) {
-                        angular.forEach(con.secretsobj.secretarr, function (secret, k) {
-                            secret.name = "con" + i + "secrat" + k;
-                            var secretcopy = angular.copy(secret);
-                            clonedc.spec.template.spec.volumes.push(secretcopy)
-                            delete clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret
-                            con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k])
-
-                        });
-
-                    }
-                    if (con.secretsobj.configmap.length > 0) {
-                        angular.forEach(con.secretsobj.configmap, function (config, k) {
-                            config.name = "con" + i + "config" + k;
-                            var configcopy = angular.copy(config);
-                            clonedc.spec.template.spec.volumes.push(configcopy)
-                            delete clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap
-                            con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.configmap[k])
-                        });
-
-                    }
-                    if (con.secretsobj.persistentarr.length > 0) {
-                        angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
-                            persistent.name = "con" + i + "persistent" + k;
-                            var persistentcopy = angular.copy(persistent);
-                            clonedc.spec.template.spec.volumes.push(persistentcopy)
-                            delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim
-                            con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
-                        });
-                    }
-                    delete clonedc.spec.template.spec.containers[i].secretsobj
-                })
-                angular.forEach(clonedc.spec.template.spec.volumes, function (volume, i) {
-                    delete clonedc.spec.template.spec.volumes[i].mountPath
-                })
-                console.log(clonedc.spec.template.spec.containers[0].volumeMounts, clonedc.spec.template.spec.volumes);
-                //prepareDc
-                var name = clonedc.metadata.name;
-                clonedc.metadata.labels.app = name;
-                clonedc.spec.selector.app = name;
-                clonedc.spec.selector.deploymentconfig = name;
-                clonedc.spec.template.metadata.labels.app = name;
-                clonedc.spec.template.metadata.labels.deploymentconfig = name;
-                //镜像变化触发自动部署
-                if ($scope.grid.configChange) {
-                    dc.spec.triggers.push({type: 'ConfigChange'});
-                }
-                //addport
-                // 删除同名服务,创建dc之前执行该方法
-                Service.delete({
-                    namespace: $rootScope.namespace,
-                    name: clonedc.metadata.name,
-                    region: $rootScope.region
-                }, function (res) {
-                    //console.log("deleService-yes", res);
-                }, function (res) {
-                    //console.log("deleService-no", res);
-                })
-                //  删除同名路由,创建dc之前执行该方法
-                Route.delete({
-                    namespace: $rootScope.namespace,
-                    name: clonedc.metadata.name,
-                    region: $rootScope.region
-                }, function (res) {
-                }, function (res) {
-                })
-                createService();
-                if ($scope.routeconf.route) {
-                    //console.log('$scope.grid.port',$scope.grid.port);
-                    createRoute();
-                }
-                DeploymentConfig.create({
-                    namespace: $rootScope.namespace,
-                    region: $rootScope.region
-                }, clonedc, function (res) {
-                    $log.info("create dc success", res);
-                    bindService(clonedc);
-                    $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
-                }, function (res) {
-                    //todo 错误处理
-                    $log.info("create dc fail", res);
-                    if (res.status == 409) {
-                        $scope.grid.createdcerr = true;
-                    }
-                });
-
-            }
             //  服务分类
             $scope.marketclass = {
                 serviceCat: 'all',
