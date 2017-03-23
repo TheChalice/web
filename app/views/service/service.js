@@ -7,8 +7,8 @@ angular.module('console.service', [
             ]
         }
     ])
-    .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod','$http',
-        function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod,$http) {
+    .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod','deletepod',
+        function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod,deletepod) {
             $(".service_close").on("click",function(){
                 $(".sevice_alert_jia").slideUp();
             });
@@ -47,11 +47,16 @@ angular.module('console.service', [
                 }, function (res) {
                     // $log.info("remove rcs success", res);
                     //rmDc(dc)
-                    $http.delete('/api/v1/namespaces/' + $rootScope.namespace + '/pods?' + 'labelSelector=deploymentconfig%3D' + $scope.items[idx].metadata.name+'&region='+$rootScope.region).success(function (data) {
-                        // console.log(data);
+                    deletepod.delete({
+                        namespace: $rootScope.namespace,
+                        region:$rootScope.region,
+                        name: $scope.items[idx].metadata.name
+
+                    }, function (data) {
                         $scope.items.splice(idx,1)
-                    }).error(function (err) {
-                    });
+                    },function(err){
+
+                    })
                 }, function (res) {
                     // $log.info("remove rcs err", res);
                 });
