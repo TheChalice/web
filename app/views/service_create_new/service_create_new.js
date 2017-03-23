@@ -7,7 +7,7 @@ angular.module('console.service.createnew', [
             ]
         }
     ])
-    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret'
+    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret',
         function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret) {
 
 
@@ -1209,158 +1209,158 @@ angular.module('console.service.createnew', [
                     repeated: false
                 }
             }
-           //$scope.secretsarr = [];
-           $scope.addSecret = function () {
-               $scope.createsercet.secrets.secretsarr.unshift({key: '', value: ''});
-               //console.log($scope.secretsarr);
-           }
-           $scope.rmsecret = function (idx) {
-               $scope.createsercet.secrets.secretsarr.splice(idx, 1);
-               //if($scope.secretsarr.length<=0){
-               //    $scope.grid.secreteno = false;
-               //}
-           }
-           var by = function (name) {
-               return function (o, p) {
-                   var a, b;
-                   if (typeof o === "object" && typeof p === "object" && o && p) {
-                       a = o[name];
-                       b = p[name];
-                       if (a === b) {
-                           return 0;
-                       }
-                       if (typeof a === typeof b) {
-                           return a < b ? -1 : 1;
-                       }
-                       return typeof a < typeof b ? -1 : 1;
-                   } else {
-                       throw ("error");
-                   }
-               }
-           }
-           $scope.$watch('createsercet.secrets', function (n, o) {
-               if (n == o) {
-                   return
-               }
-               ;
-               //console.log(n);
-               $scope.createsercet.grid.keychongfu = false;
-               $scope.createsercet.grid.keynull = false;
-               $scope.createsercet.grid.keybuhefa = false;
+            //$scope.secretsarr = [];
+            $scope.addSecret = function () {
+                $scope.createsercet.secrets.secretsarr.unshift({key: '', value: ''});
+                //console.log($scope.secretsarr);
+            }
+            $scope.rmsecret = function (idx) {
+                $scope.createsercet.secrets.secretsarr.splice(idx, 1);
+                //if($scope.secretsarr.length<=0){
+                //    $scope.grid.secreteno = false;
+                //}
+            }
+            var by = function (name) {
+                return function (o, p) {
+                    var a, b;
+                    if (typeof o === "object" && typeof p === "object" && o && p) {
+                        a = o[name];
+                        b = p[name];
+                        if (a === b) {
+                            return 0;
+                        }
+                        if (typeof a === typeof b) {
+                            return a < b ? -1 : 1;
+                        }
+                        return typeof a < typeof b ? -1 : 1;
+                    } else {
+                        throw ("error");
+                    }
+                }
+            }
+            $scope.$watch('createsercet.secrets', function (n, o) {
+                if (n == o) {
+                    return
+                }
+                ;
+                //console.log(n);
+                $scope.createsercet.grid.keychongfu = false;
+                $scope.createsercet.grid.keynull = false;
+                $scope.createsercet.grid.keybuhefa = false;
 
-               if (n.metadata.name && n.secretsarr) {
-                   var arr = angular.copy(n.secretsarr);
-                   arr.sort(by("key"));
-                   if (arr && arr.length > 0) {
-                       var kong = false;
-                       var r = /^\.?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/;
-                       angular.forEach(arr, function (item, i) {
+                if (n.metadata.name && n.secretsarr) {
+                    var arr = angular.copy(n.secretsarr);
+                    arr.sort(by("key"));
+                    if (arr && arr.length > 0) {
+                        var kong = false;
+                        var r = /^\.?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/;
+                        angular.forEach(arr, function (item, i) {
 
-                           if (!item.key || !item.value) {
-                               $scope.createsercet.grid.keynull = true;
-                               kong = true;
-                           } else {
-                               if (arr[i] && arr[i + 1]) {
-                                   if (arr[i].key == arr[i + 1].key) {
-                                       $scope.createsercet.grid.keychongfu = true;
-                                       kong = true;
-                                   }
-                               }
-                               if (!r.test(arr[i].key)) {
-                                   //console.log(arr[i].key);
-                                   $scope.createsercet.grid.keybuhefa = true;
-                                   kong = true;
-                               }
-                           }
-                       });
+                            if (!item.key || !item.value) {
+                                $scope.createsercet.grid.keynull = true;
+                                kong = true;
+                            } else {
+                                if (arr[i] && arr[i + 1]) {
+                                    if (arr[i].key == arr[i + 1].key) {
+                                        $scope.createsercet.grid.keychongfu = true;
+                                        kong = true;
+                                    }
+                                }
+                                if (!r.test(arr[i].key)) {
+                                    //console.log(arr[i].key);
+                                    $scope.createsercet.grid.keybuhefa = true;
+                                    kong = true;
+                                }
+                            }
+                        });
 
-                       if (!kong) {
-                           $scope.createsercet.grid.secreteno = true
-                       } else {
+                        if (!kong) {
+                            $scope.createsercet.grid.secreteno = true
+                        } else {
 
-                           $scope.createsercet.grid.secreteno = false
-                       }
-                   } else {
-                       $scope.createsercet.grid.secreteno = false
-                   }
-               } else {
-                   $scope.createsercet.grid.secreteno = false
-               }
-           }, true);
-           $scope.nameblur = function () {
-               //console.log($scope.buildConfig.metadata.name);
-               if (!$scope.createsercet.secrets.metadata.name) {
-                   $scope.createsercet.namerr.nil = true
-               } else {
-                   $scope.createsercet.namerr.nil = false
-               }
-           }
-           $scope.namefocus = function () {
-               $scope.createsercet.namerr.nil = false
-           }
-           secretskey.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (res) {
-               //console.log('-------loadsecrets', res);
-               $scope.secremnamearr=res.items;
+                            $scope.createsercet.grid.secreteno = false
+                        }
+                    } else {
+                        $scope.createsercet.grid.secreteno = false
+                    }
+                } else {
+                    $scope.createsercet.grid.secreteno = false
+                }
+            }, true);
+            $scope.nameblurzn = function () {
+                //console.log($scope.buildConfig.metadata.name);
+                if (!$scope.createsercet.secrets.metadata.name) {
+                    $scope.createsercet.namerr.nil = true
+                } else {
+                    $scope.createsercet.namerr.nil = false
+                }
+            }
+            $scope.namefocuszn = function () {
+                $scope.createsercet.namerr.nil = false
+            }
+            secretskey.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (res) {
+                //console.log('-------loadsecrets', res);
+                $scope.secremnamearr=res.items;
 
-           })
+            })
 
 
-           var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 
-           $scope.$watch('createsercet.secrets.metadata.name', function (n, o) {
-               if (n === o) {
-                   return;
-               }
-               if (n && n.length > 0) {
-                   if (rex.test(n)) {
-                       $scope.createsercet.namerr.rexed = false;
-                       $scope.createsercet.namerr.repeated=false;
-                       if ($scope.secremnamearr) {
-                           //console.log($scope.buildConfiglist);
-                           angular.forEach($scope.secremnamearr, function (bsiname, i) {
-                               console.log(bsiname);
-                               if (bsiname.metadata.name === n) {
-                                   console.log(bsiname,n);
-                                   $scope.createsercet.namerr.repeated = true;
+            $scope.$watch('createsercet.secrets.metadata.name', function (n, o) {
+                if (n === o) {
+                    return;
+                }
+                if (n && n.length > 0) {
+                    if (rex.test(n)) {
+                        $scope.createsercet.namerr.rexed = false;
+                        $scope.createsercet.namerr.repeated=false;
+                        if ($scope.secremnamearr) {
+                            //console.log($scope.buildConfiglist);
+                            angular.forEach($scope.secremnamearr, function (bsiname, i) {
+                                console.log(bsiname);
+                                if (bsiname.metadata.name === n) {
+                                    console.log(bsiname,n);
+                                    $scope.createsercet.namerr.repeated = true;
 
-                               }
-                               //console.log($scope.namerr.repeated);
-                           })
-                       }
+                                }
+                                //console.log($scope.namerr.repeated);
+                            })
+                        }
 
-                   } else {
-                       $scope.createsercet.namerr.rexed = true;
-                   }
-               } else {
-                   $scope.createsercet.namerr.rexed = false;
-               }
-           })
+                    } else {
+                        $scope.createsercet.namerr.rexed = true;
+                    }
+                } else {
+                    $scope.createsercet.namerr.rexed = false;
+                }
+            })
 
-           $scope.postsecret = function () {
-               if (!$scope.createsercet.namerr.nil && !$scope.createsercet.namerr.rexed && !$scope.createsercet.namerr.repeated) {
+            $scope.postsecret = function () {
+                if (!$scope.createsercet.namerr.nil && !$scope.createsercet.namerr.rexed && !$scope.createsercet.namerr.repeated) {
 
-               }else {
-                   return
-               }
-               //console.log($scope.secretsarr)
-               $scope.loaded = true;
-               angular.forEach($scope.createsercet.secrets.secretsarr, function (item, i) {
-                   console.log(item.key, item.value);
-                   $scope.createsercet.secrets.data[item.key] = Base64.encode(item.value);
-               })
-               delete $scope.createsercet.secrets.secretsarr;
-               secretskey.create({namespace: $rootScope.namespace,region:$rootScope.region}, $scope.createsercet.secrets, function (res) {
-                   $scope.createsercet.grid.nameerr = false;
-                   //console.log('createconfig----',res);
-                   $scope.loaded = false;
-                   $state.go('console.resource_management', {index: 3});
-               }, function (res) {
-                   if (res.status == 409) {
-                       $scope.createsercet.grid.nameerr = true;
-                   }
-               })
+                }else {
+                    return
+                }
+                //console.log($scope.secretsarr)
+                $scope.loaded = true;
+                angular.forEach($scope.createsercet.secrets.secretsarr, function (item, i) {
+                    console.log(item.key, item.value);
+                    $scope.createsercet.secrets.data[item.key] = Base64.encode(item.value);
+                })
+                delete $scope.createsercet.secrets.secretsarr;
+                secretskey.create({namespace: $rootScope.namespace,region:$rootScope.region}, $scope.createsercet.secrets, function (res) {
+                    $scope.createsercet.grid.nameerr = false;
+                    //console.log('createconfig----',res);
+                    $scope.loaded = false;
+                    $state.go('console.resource_management', {index: 3});
+                }, function (res) {
+                    if (res.status == 409) {
+                        $scope.createsercet.grid.nameerr = true;
+                    }
+                })
 
-           }
+            }
 
             /////手动配置
             $scope.addConfig = function () {
@@ -1490,215 +1490,215 @@ angular.module('console.service.createnew', [
             $scope.namefocus = function () {
                 $scope.namerr.nil = false
             }
-                // 创建服务
-                var createService = function () {
-                    //prepareService($scope.service, dc);
-                    $scope.service.metadata.name = $scope.dc.metadata.name;
-                    $scope.service.metadata.labels.app = $scope.dc.metadata.name;
-                    $scope.service.spec.selector.app = $scope.dc.metadata.name;
-                    $scope.service.spec.selector.deploymentconfig = $scope.dc.metadata.name;
-                    var ps = [];
-                    console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
-                    angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
-                        //angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
-                        //        console.log('con[i].hostPort',con[i]);
-                        ps.push({
-                            name: con.hostPort + '-tcp',
-                            port: parseInt(con.hostPort),
-                            protocol: "TCP",
-                            targetPort: parseInt(con.containerPort)
+            // 创建服务
+            var createService = function () {
+                //prepareService($scope.service, dc);
+                $scope.service.metadata.name = $scope.dc.metadata.name;
+                $scope.service.metadata.labels.app = $scope.dc.metadata.name;
+                $scope.service.spec.selector.app = $scope.dc.metadata.name;
+                $scope.service.spec.selector.deploymentconfig = $scope.dc.metadata.name;
+                var ps = [];
+                console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
+                angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
+                    //angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
+                    //        console.log('con[i].hostPort',con[i]);
+                    ps.push({
+                        name: con.hostPort + '-tcp',
+                        port: parseInt(con.hostPort),
+                        protocol: "TCP",
+                        targetPort: parseInt(con.containerPort)
+                    });
+                })
+
+
+                if (ps.length > 0) {
+                    $scope.service.spec.ports = ps;
+                } else {
+                    $scope.service.spec.ports = [];
+                }
+                //$log.info('$scope.service0-0-0-0-', $scope.service.spec.ports);
+                Service.create({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, $scope.service, function (res) {
+                    $log.info("create service success", res);
+                    $scope.service = res;
+                }, function (res) {
+                    $log.info("create service fail", res);
+                });
+            };
+            // 创建路由
+            var createRoute = function (service) {
+                $scope.route.metadata.name = $scope.dc.metadata.name;
+                $scope.route.metadata.labels.app = $scope.dc.metadata.name;
+                $scope.route.spec.host = $scope.routeconf.host + $scope.routeconf.suffix;
+                $scope.route.spec.to.name = $scope.dc.metadata.name;
+                //选择的route的端口
+                $scope.route.spec.port.targetPort = $scope.routeconf.checkport + '-tcp';
+                Route.create({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, $scope.route, function (res) {
+                    $log.info("create route success", res);
+                    $scope.route = res;
+                }, function (res) {
+                    $log.info("create route fail", res);
+                });
+            };
+
+            //绑定dsi
+            var bindService = function (dc) {
+                angular.forEach($scope.bsi.items, function (bsi) {
+                    var bindObj = {
+                        metadata: {
+                            name: bsi.metadata.name,
+                            annotations: {
+                                "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                            }
+                        },
+                        resourceName: dc.metadata.name,
+                        bindResourceVersion: '',
+                        bindKind: 'DeploymentConfig'
+                    };
+
+                    if (bsi.bind) {  //未绑定设置为绑定
+                        BackingServiceInstance.bind.create({
+                            namespace: $rootScope.namespace,
+                            name: bsi.metadata.name,
+                            region: $rootScope.region
+                        }, bindObj, function (res) {
+                            $log.info("bind service success", res);
+                        }, function (res) {
+                            $log.info("bind service fail", res);
                         });
-                    })
-
-
-                    if (ps.length > 0) {
-                        $scope.service.spec.ports = ps;
-                    } else {
-                        $scope.service.spec.ports = [];
                     }
-                    //$log.info('$scope.service0-0-0-0-', $scope.service.spec.ports);
-                    Service.create({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region
-                    }, $scope.service, function (res) {
-                        $log.info("create service success", res);
-                        $scope.service = res;
-                    }, function (res) {
-                        $log.info("create service fail", res);
-                    });
-                };
-                // 创建路由
-                var createRoute = function (service) {
-                    $scope.route.metadata.name = $scope.dc.metadata.name;
-                    $scope.route.metadata.labels.app = $scope.dc.metadata.name;
-                    $scope.route.spec.host = $scope.routeconf.host + $scope.routeconf.suffix;
-                    $scope.route.spec.to.name = $scope.dc.metadata.name;
-                    //选择的route的端口
-                    $scope.route.spec.port.targetPort = $scope.routeconf.checkport + '-tcp';
-                    Route.create({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region
-                    }, $scope.route, function (res) {
-                        $log.info("create route success", res);
-                        $scope.route = res;
-                    }, function (res) {
-                        $log.info("create route fail", res);
-                    });
-                };
+                });
+            };
+            $scope.creat = function () {
 
-                //绑定dsi
-                var bindService = function (dc) {
-                    angular.forEach($scope.bsi.items, function (bsi) {
-                        var bindObj = {
-                            metadata: {
-                                name: bsi.metadata.name,
-                                annotations: {
-                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                //挂卷
+                var clonedc = angular.copy($scope.dc);
+                angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
+                    if (!clonedc.othersetting) {
+                        delete clonedc.spec.template.spec.containers[i].secretsobj
+                        delete clonedc.spec.template.spec.containers[i].env
+                        delete clonedc.spec.template.spec.containers[i].args
+                    } else {
+                        if (con.secretsobj.secretarr.length > 0) {
+                            angular.forEach(con.secretsobj.secretarr, function (secret, k) {
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.name !== '名称') {
+                                    secret.name = "con" + i + "secrat" + k;
+                                    var secretcopy = angular.copy(secret);
+                                    clonedc.spec.template.spec.volumes.push(secretcopy)
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret
+                                    con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k])
+                                } else {
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k]
                                 }
-                            },
-                            resourceName: dc.metadata.name,
-                            bindResourceVersion: '',
-                            bindKind: 'DeploymentConfig'
-                        };
 
-                        if (bsi.bind) {  //未绑定设置为绑定
-                            BackingServiceInstance.bind.create({
-                                namespace: $rootScope.namespace,
-                                name: bsi.metadata.name,
-                                region: $rootScope.region
-                            }, bindObj, function (res) {
-                                $log.info("bind service success", res);
-                            }, function (res) {
-                                $log.info("bind service fail", res);
+
+                            });
+
+                        }
+                        if (con.secretsobj.configmap.length > 0) {
+                            angular.forEach(con.secretsobj.configmap, function (config, k) {
+                                config.name = "con" + i + "config" + k;
+                                var configcopy = angular.copy(config);
+                                clonedc.spec.template.spec.volumes.push(configcopy)
+                                delete clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap
+                                con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.configmap[k])
+                            });
+
+                        }
+                        if (con.secretsobj.persistentarr.length > 0) {
+                            angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
+                                persistent.name = "con" + i + "persistent" + k;
+                                var persistentcopy = angular.copy(persistent);
+                                clonedc.spec.template.spec.volumes.push(persistentcopy)
+                                delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim
+                                con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
                             });
                         }
-                    });
-                };
-                $scope.creat = function () {
-
-                    //挂卷
-                    var clonedc = angular.copy($scope.dc);
-                    angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
-                        if (!clonedc.othersetting) {
-                            delete clonedc.spec.template.spec.containers[i].secretsobj
-                            delete clonedc.spec.template.spec.containers[i].env
-                            delete clonedc.spec.template.spec.containers[i].args
-                        } else {
-                            if (con.secretsobj.secretarr.length > 0) {
-                                angular.forEach(con.secretsobj.secretarr, function (secret, k) {
-                                    if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.name !== '名称') {
-                                        secret.name = "con" + i + "secrat" + k;
-                                        var secretcopy = angular.copy(secret);
-                                        clonedc.spec.template.spec.volumes.push(secretcopy)
-                                        delete clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret
-                                        con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k])
-                                    } else {
-                                        delete clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k]
-                                    }
-
-
-                                });
-
-                            }
-                            if (con.secretsobj.configmap.length > 0) {
-                                angular.forEach(con.secretsobj.configmap, function (config, k) {
-                                    config.name = "con" + i + "config" + k;
-                                    var configcopy = angular.copy(config);
-                                    clonedc.spec.template.spec.volumes.push(configcopy)
-                                    delete clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap
-                                    con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.configmap[k])
-                                });
-
-                            }
-                            if (con.secretsobj.persistentarr.length > 0) {
-                                angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
-                                    persistent.name = "con" + i + "persistent" + k;
-                                    var persistentcopy = angular.copy(persistent);
-                                    clonedc.spec.template.spec.volumes.push(persistentcopy)
-                                    delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim
-                                    con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
-                                });
-                            }
-                            delete clonedc.spec.template.spec.containers[i].secretsobj
-                        }
-                        delete clonedc.spec.template.spec.containers[i].resources
-
-                    })
-                    angular.forEach(clonedc.spec.template.spec.volumes, function (volume, i) {
-                        delete clonedc.spec.template.spec.volumes[i].mountPath
-                    })
-
-                    //镜像变化触发自动部署
-                    if ($scope.changebuild.ConfigChange) {
-                        clonedc.spec.triggers.push({type: 'ConfigChange'});
+                        delete clonedc.spec.template.spec.containers[i].secretsobj
                     }
+                    delete clonedc.spec.template.spec.containers[i].resources
 
-                     if ($scope.changebuild.ImageChange) {
-                        clonedc.spec.triggers.push({
-                            "type": "ImageChange",
-                            "imageChangeParams": {
-                                "automatic": true,
-                                "containerNames": [
-                                    clonedc.spec.template.spec.containers[0].name
-                                ],
-                                "from": {
-                                    "kind": "ImageStreamTag",
-                                    "name": clonedc.spec.template.spec.containers[0].imaged.metadata.name+':'+clonedc.spec.template.spec.containers[0].imaged.checkbox
-                                }
+                })
+                angular.forEach(clonedc.spec.template.spec.volumes, function (volume, i) {
+                    delete clonedc.spec.template.spec.volumes[i].mountPath
+                })
+
+                //镜像变化触发自动部署
+                if ($scope.changebuild.ConfigChange) {
+                    clonedc.spec.triggers.push({type: 'ConfigChange'});
+                }
+
+                if ($scope.changebuild.ImageChange) {
+                    clonedc.spec.triggers.push({
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                clonedc.spec.template.spec.containers[0].name
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": clonedc.spec.template.spec.containers[0].imaged.metadata.name+':'+clonedc.spec.template.spec.containers[0].imaged.checkbox
                             }
-                        });
-                    }
-
-                    //prepareDc
-                    var name = clonedc.metadata.name;
-                    clonedc.metadata.labels.app = name;
-                    clonedc.spec.selector.app = name;
-                    clonedc.spec.selector.deploymentconfig = name;
-                    clonedc.spec.template.metadata.labels.app = name;
-                    clonedc.spec.template.metadata.labels.deploymentconfig = name;
-                    //镜像变化触发自动部署
-                    //if ($scope.grid.configChange) {
-                    //    dc.spec.triggers.push({type: 'ConfigChange'});
-                    //}
-                    //addport
-                    // 删除同名服务,创建dc之前执行该方法
-                    Service.delete({
-                        namespace: $rootScope.namespace,
-                        name: clonedc.metadata.name,
-                        region: $rootScope.region
-                    }, function (res) {
-                        //console.log("deleService-yes", res);
-                    }, function (res) {
-                        //console.log("deleService-no", res);
-                    })
-                    //  删除同名路由,创建dc之前执行该方法
-                    Route.delete({
-                        namespace: $rootScope.namespace,
-                        name: clonedc.metadata.name,
-                        region: $rootScope.region
-                    }, function (res) {
-                    }, function (res) {
-                    })
-                    createService();
-                    //console.log('$scope.routeconf.route', $scope.routeconf.route);
-
-                    if ($scope.routeconf.host) {
-                        //console.log('$scope.grid.port',$scope.grid.port);
-                        createRoute();
-                    }
-                    DeploymentConfig.create({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region
-                    }, clonedc, function (res) {
-                        $log.info("create dc success", res);
-                        //bindService(clonedc);
-                        $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
-                    }, function (res) {
-                        //todo 错误处理
-                        $log.info("create dc fail", res);
-                        if (res.status == 409) {
-                            $scope.grid.createdcerr = true;
                         }
                     });
                 }
+
+                //prepareDc
+                var name = clonedc.metadata.name;
+                clonedc.metadata.labels.app = name;
+                clonedc.spec.selector.app = name;
+                clonedc.spec.selector.deploymentconfig = name;
+                clonedc.spec.template.metadata.labels.app = name;
+                clonedc.spec.template.metadata.labels.deploymentconfig = name;
+                //镜像变化触发自动部署
+                //if ($scope.grid.configChange) {
+                //    dc.spec.triggers.push({type: 'ConfigChange'});
+                //}
+                //addport
+                // 删除同名服务,创建dc之前执行该方法
+                Service.delete({
+                    namespace: $rootScope.namespace,
+                    name: clonedc.metadata.name,
+                    region: $rootScope.region
+                }, function (res) {
+                    //console.log("deleService-yes", res);
+                }, function (res) {
+                    //console.log("deleService-no", res);
+                })
+                //  删除同名路由,创建dc之前执行该方法
+                Route.delete({
+                    namespace: $rootScope.namespace,
+                    name: clonedc.metadata.name,
+                    region: $rootScope.region
+                }, function (res) {
+                }, function (res) {
+                })
+                createService();
+                //console.log('$scope.routeconf.route', $scope.routeconf.route);
+
+                if ($scope.routeconf.host) {
+                    //console.log('$scope.grid.port',$scope.grid.port);
+                    createRoute();
+                }
+                DeploymentConfig.create({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, clonedc, function (res) {
+                    $log.info("create dc success", res);
+                    //bindService(clonedc);
+                    $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
+                }, function (res) {
+                    //todo 错误处理
+                    $log.info("create dc fail", res);
+                    if (res.status == 409) {
+                        $scope.grid.createdcerr = true;
+                    }
+                });
+            }
         }]);

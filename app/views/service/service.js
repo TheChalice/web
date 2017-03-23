@@ -49,6 +49,32 @@ angular.module('console.service', [
                 //$scope.grid.total = $scope.data.items.length;
 
             };
+            $scope.$watch('grid.changestatus', function (n, o) {
+                if (n == o) {
+                    return;
+                }
+                if (n !== '全部') {
+                    //console.log('item', $scope.items);
+                    var itemcopy = angular.copy($scope.items);
+                    var newitems=[]
+                    angular.forEach(itemcopy, function (item,i) {
+                        console.log(item.ismn, n);
+                        if (item.ismn ==n) {
+                            newitems.unshift(item)
+                        }else {
+                            newitems.push(item)
+                        }
+                    })
+
+                    console.log(newitems, n);
+                    $scope.data=angular.copy(newitems);
+                    refresh(1)
+                    //$scope.$apply()
+
+
+                }
+
+            });
             $scope.text='您还没有部署服务';
             $scope.servicesearch = function (event) {
                 if (true) {
