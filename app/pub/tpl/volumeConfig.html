@@ -1,0 +1,25 @@
+<div>
+    <div class="modal-header" style="background-color: #fff">
+        <h5 class="modal-title">
+            文件内容
+            <a ng-click="cancel()" href="javascript:;" class="modal-close">
+                <i class="fa fa-times-circle pull-right"></i>
+            </a>
+        </h5>
+    </div>
+    <div class="modal-body">
+      {{con}}
+    </div>
+    <style>
+       .modal-header{
+           background: #fff;
+       }
+        .modal-body{
+          height: 300px;
+            overflow-y: scroll;
+            background: #000;
+            color: #fff;
+        }
+    </style>
+
+</div>

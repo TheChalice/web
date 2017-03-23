@@ -15,7 +15,9 @@ angular.module('console.service', [
             $scope.grid = {
                 page: 1,
                 size: 10,
-                txt: ''
+                txt: '',
+                changestatus:'全部',
+                status:[{name:'全部'},{name:'异常'},{name:'未启动'},{name:'正常'}]
             };
             $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                 //下面是在table render完成后执行的js

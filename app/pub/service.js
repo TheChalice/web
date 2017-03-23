@@ -634,6 +634,24 @@ define(['angular'], function (angular) {
                 }).result;
             };
         }])
+        .service('volumeConfig', ['$rootScope', '$uibModal', 'clipboard', function ($rootScope, $uibModal, clipboard) {
+            this.open = function (con) {
+                return $uibModal.open({
+                    templateUrl: 'pub/tpl/volumeConfig.html',
+                    size: 'default',
+                    controller: ['$scope', '$uibModalInstance', '$log', function ($scope, $uibModalInstance, $log) {
+                        $scope.con = con
+                        $scope.success = function () {
+                            $uibModalInstance.close(true);
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.close(true);
+                        };
+
+                    }]
+                }).result;
+            };
+        }])
         .service('Toast', ['$uibModal', function ($uibModal) {
             this.open = function (txt, timeout) {
                 return $uibModal.open({
