@@ -1545,7 +1545,51 @@ angular.module('console.service.createnew', [
                     $log.info("create route fail", res);
                 });
             };
+            //选择镜像
+            ImageStream.get({
+                namespace: $rootScope.namespace,
+                region: $rootScope.region
+            }, function (res) {
+                $scope.images = [];
+                angular.forEach(res.items, function (item,i) {
+                    if (item.status.tags) {
+                        $scope.images.push(item)
+                    }
+                })
+                angular.forEach($scope.images, function (item,i) {
+                    $scope.images[i].checkbox=item.status.tags[0].tag.split('-').length>1?item.status.tags[0].tag.split('-')[1]:item.status.tags[0].tag
+                })
+                console.log('$scope.images', $scope.images);
 
+
+            })
+            $scope.checkboximage= function (image) {
+                console.log('$scope.changeimage', image);
+
+                ImageStreamTag.get({
+                    namespace: $rootScope.namespace,
+                    name: image.metadata.name + ':' + image.checkbox,
+                    region: $rootScope.region
+                }, function (res) {
+                    console.log('item.ist', res);
+
+                    $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged = image;
+                    //= res;
+                    $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged.ist = res;
+                    $scope.dc.spec.template.spec.containers[$scope.changeimage].image = res.image.dockerImageReference;
+                    for (var k in res.image.dockerImageMetadata.Config.ExposedPorts) {
+                        var arr = k.split('/');
+                        if (arr.length == 2) {
+                            $scope.dc.spec.template.spec.containers[$scope.changeimage].containerPort = parseInt(arr[0])
+                            $scope.dc.spec.template.spec.containers[$scope.changeimage].hostPort = parseInt(arr[0])
+                        }
+                    }
+
+                    $scope.close();
+                }, function (res) {
+                    //console.log("get image stream tag err", res);
+                });
+            }
             //绑定dsi
             var bindService = function (dc) {
                 angular.forEach($scope.bsi.items, function (bsi) {
