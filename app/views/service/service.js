@@ -7,8 +7,8 @@ angular.module('console.service', [
             ]
         }
     ])
-    .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod',
-        function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod) {
+    .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod','$http',
+        function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod,$http) {
             $(".service_close").on("click",function(){
                 $(".sevice_alert_jia").slideUp();
             });
@@ -30,6 +30,33 @@ angular.module('console.service', [
                     refresh(newVal);
                 }
             });
+            $scope.del= function (idx) {
+                $log.info('$scope.items[idx]$scope.items[idx]', $scope.items[idx])
+                DeploymentConfig.remove({
+                    namespace: $rootScope.namespace,
+                    name: $scope.items[idx].metadata.name,
+                    region:$rootScope.region
+                }, function (res) {
+                    console.log('res', res);
+                })
+
+                ReplicationController.remove({
+                    namespace: $rootScope.namespace,
+                    labelSelector: 'openshift.io/deployment-config.name=' + $scope.items[idx].metadata.name,
+                    region:$rootScope.region
+                }, function (res) {
+                    // $log.info("remove rcs success", res);
+                    //rmDc(dc)
+                    $http.delete('/api/v1/namespaces/' + $rootScope.namespace + '/pods?' + 'labelSelector=deploymentconfig%3D' + $scope.items[idx].metadata.name+'&region='+$rootScope.region).success(function (data) {
+                        // console.log(data);
+                        $scope.items.splice(idx,1)
+                    }).error(function (err) {
+                    });
+                }, function (res) {
+                    // $log.info("remove rcs err", res);
+                });
+
+            }
             $scope.reload=function(){
                 $state.reload();
             }
