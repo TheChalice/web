@@ -38,7 +38,7 @@
                                                     <div class="service_area_select two_radius">
                                                         <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
                                                             <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                                                                <span class="service_per_tit">{{item.checkbox}}</span>
+                                                                <span class="service_per_tit service_copy_tit">{{item.checkbox}}</span>
                                                                 <b class="ser_bg_btn"></b>
                                                             </a>
                                                             <ul class="service_drop dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
@@ -609,55 +609,28 @@
                     </div>
                 </div>
             </div>
-
-
             <div ng-show="isShowmodal.backservice">
                 <div class="content">
                     <div class="backservice">
                         <div class="left">
                             <span>可选择</span>
-                            <div ng-if="false">
-                                <div class="two_tab_detail two_tab_detail_service">
+                            <div ng-show="bsi.work.length>0">
+                                <div class="two_tab_detail two_tab_detail_service" ng-repeat="bsi in bsi.work">
                                     <div class="two_tab_l">
                                         <span class="two_tab_pic"></span>
                                         <div class="two_tab_tit">
-                                            <span class="two_tab_ellipsis">RabbitMQ</span>
-                                            <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
+                                            <span class="two_tab_ellipsis">{{bsi.metadata.name}}</span>
+                                            <span class="two_tab_ellipsis">{{bsi.metadata.name}}是开源的消息是开源的消息</span>
                                         </div>
                                     </div>
 
                                     <div class="two_tab_r">
-                                        <span class="change_tit">选择</span>
+                                        <span class="change_tit" ng-click="addbsi(bsi)">选择</span>
                                     </div>
                                 </div>
-                                <div class="two_tab_detail two_tab_detail_service">
-                                    <div class="two_tab_l">
-                                        <span class="two_tab_pic"></span>
-                                        <div class="two_tab_tit">
-                                            <span class="two_tab_ellipsis">RabbitMQ</span>
-                                            <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                        </div>
-                                    </div>
 
-                                    <div class="two_tab_r">
-                                        <span class="change_tit">选择</span>
-                                    </div>
-                                </div>
-                                <div class="two_tab_detail two_tab_detail_service">
-                                    <div class="two_tab_l">
-                                        <span class="two_tab_pic"></span>
-                                        <div class="two_tab_tit">
-                                            <span class="two_tab_ellipsis">RabbitMQ</span>
-                                            <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="two_tab_r">
-                                        <span class="change_tit">选择</span>
-                                    </div>
-                                </div>
                             </div>
-                            <div ng-if="true">
+                            <div ng-show="bsi.work.length===0">
                                 <div class="noData">
                                     <span class="noImage"></span>
                                     <p>未选择任何后端服务</p>
@@ -669,48 +642,22 @@
                         </div>
                         <div class="right">
                             <span>已选择</span>
-                            <div ng-if="true">
-                                <div class="two_tab_detail two_tab_detail_service">
+                            <div ng-show="bsi.check.length>0">
+                                <div class="two_tab_detail two_tab_detail_service"  ng-repeat="bsi in bsi.check">
                                     <div class="two_tab_l">
                                         <span class="two_tab_pic"></span>
                                         <div class="two_tab_tit">
-                                            <span class="two_tab_ellipsis">RabbitMQ</span>
-                                            <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
+                                            <span class="two_tab_ellipsis">{{bsi.metadata.name}}</span>
+                                            <span class="two_tab_ellipsis">{{bsi.metadata.name}} 是开源的消息是开源的消息</span>
                                         </div>
                                     </div>
 
                                     <div class="two_tab_r">
-                                        <span class="change_tit">选择</span>
-                                    </div>
-                                </div>
-                                <div class="two_tab_detail two_tab_detail_service">
-                                    <div class="two_tab_l">
-                                        <span class="two_tab_pic"></span>
-                                        <div class="two_tab_tit">
-                                            <span class="two_tab_ellipsis">RabbitMQ</span>
-                                            <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="two_tab_r">
-                                        <span class="change_tit">选择</span>
-                                    </div>
-                                </div>
-                                <div class="two_tab_detail two_tab_detail_service">
-                                    <div class="two_tab_l">
-                                        <span class="two_tab_pic"></span>
-                                        <div class="two_tab_tit">
-                                            <span class="two_tab_ellipsis">RabbitMQ</span>
-                                            <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="two_tab_r">
-                                        <span class="change_tit">选择</span>
+                                        <span class="change_tit" ng-click="delbsi(bsi)">删除</span>
                                     </div>
                                 </div>
                             </div>
-                            <div ng-if="false">
+                            <div ng-show="bsi.check.length===0">
                                 <div class="noData">
                                     <span class="noImage"></span>
                                     <p>未选择任何后端服务</p>
@@ -720,8 +667,8 @@
                     </div>
                 </div>
                 <div class="two-button">
-                    <a href="javascript:void(0)">取消</a>
-                    <a href="javascript:void(0)">确定</a>
+                    <a href="javascript:void(0)" ng-click="close('cancelbsi')">取消</a>
+                    <a href="javascript:void(0)" ng-click="close()">确定</a>
                 </div>
             </div>
             <div ng-show="isShowmodal.createservice">
@@ -865,31 +812,32 @@
                     <a href="javascript:void(0)" ng-click="createvolume.creat()">立即创建</a>
                 </div>
             </div>
+
             <div ng-show="isShowmodal.peizhijuan">
+                <!--<form class="form-horizontal" name="frm" >-->
                 <div class="content">
                     <div class="create_secret">
                         <div class="create_secret_input">
                             <p class="ser_name">配置卷名称<i>*</i></p>
                             <div class="input_set">
                                 <div class="input_set_l">
-                                    <input type="text"  class="input_text" maxlength="24" placeholder="1-24位小写字母、数字或中划线组成，字母开头，字母或数字结尾">
                                     <input ng-model="volume.metadata.name"
-                                           style="margin-top: 10px; width: 640px;" type="text" name="username"
+                                           type="text" name="username"
                                            ng-blur="nameblur()"
                                            onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"
                                            ng-focus="namefocus()"
                                            class="input_text" maxlength="24" placeholder="1-24位小写字母、数字或中划线组成，字母开头，字母或数字结尾">
                                     <span class="input_close" style="display:none;">×</span>
                                 </div>
-                                <span class="btn_set_new error_btn" style="display:none"></span>
-                                <span class="btn_set_new ok_btn"></span>
+                                <span class="btn_set_new error_btn" ng-if="!secretNamerr.rexed || secretNamerr.nil"></span>
+                                <span class="btn_set_new ok_btn" ng-if="secretNamerr.rexed &&  !secretNamerr.nil"></span>
                             </div>
                         </div>
                         <div class="create_secret_input" style="margin-top:40px">
                             <p class="ser_name">设置<i>*</i></p>
                             <div class="input_set">
-                                <span class="checkbox_peizhi"><i ng-class="{'active': !postVolumeScret}" ng-click="checkVolume(false)"></i>配置信息</span>
-                                <span class="checkbox_peizhi"><i ng-class="{'active': postVolumeScret}" ng-click="checkVolume(true)"></i>上传配置文件</span>
+                                <span class="checkbox_peizhi" ng-class="{'active': !postVolumeScret}" ng-click="checkVolume(false)"><i></i>配置信息</span>
+                                <span class="checkbox_peizhi" ng-class="{'active': postVolumeScret}" ng-click="checkVolume(true)"><i></i>上传配置文件</span>
                             </div>
                         </div>
                         <div class="post_secret">
@@ -910,8 +858,8 @@
                                             <input  type="text"  placeholder="请输入'KEY'" ng-model="item.key">
                                         </div>
                                         <div class="four_list_r"> <input  type="text"  placeholder="请输入'VALUE'" ng-model="item.value"></div>
-                                        <a ng-if="$index !== volume.configitems.length-1" ng-click="rmovekv($index)" href="javascript:void(0)" class="ser_set ser_close two_radius">×</a>
-                                        <a ng-if="$index === volume.configitems.length-1" ng-click="addConfig()" href="javascript:void(0)" class="ser_set ser_add two_radius">+</a>
+                                        <a ng-if="$index !== volume.configitems.length-1" ng-click="rmovekv($index)" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                        <a ng-if="$index === volume.configitems.length-1" ng-click="addConfig()" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                     </li>
                                 </ul>
                             </div>
@@ -924,8 +872,8 @@
                                             <div class="col-sm-3 browse" ng-click="add($index)">浏览文件<input type="file" class="file-input" value="选择"/></div>
                                             <div class="col-sm-2 browse-con" style="margin-left:15px;" ng-click="openValue(item.value)">查看内容</div>
                                             <div class="col-sm-1" >
-                                                <a ng-if="$index !== volume.configarr.length-1" ng-click="deletekv($index)" href="javascript:void(0)" class="ser_set ser_close two_radius">×</a>
-                                                <a ng-if="$index === volume.configarr.length-1" ng-click="addvolume()" href="javascript:void(0)" class="ser_set ser_add two_radius">+</a>
+                                                <a ng-if="$index !== volume.configarr.length-1" ng-click="deletekv($index)" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                                <a ng-if="$index === volume.configarr.length-1" ng-click="addvolume()" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                             </div>
                                         </div>
                                     </li>
@@ -937,9 +885,13 @@
                 </div>
                 <div class="two-button">
                     <a href="javascript:void(0)">取消</a>
-                    <a href="javascript:void(0)">立即创建</a>
+                    <!--<a href="javascript:;" ng-if="!frm.$invalid&&grid.configpost" style="background-color: #F8B551; margin-top: 35px; color: white;" ng-click="cearteconfig()">创建配置卷</a>-->
+                    <!--<a href="javascript:;" ng-if="!grid.configpost" disabled="disabled" >创建配置卷</a>-->
+                    <a href="javascript:;" ng-click="cearteconfig()">创建配置卷</a>
                 </div>
+                <!--</form>-->
             </div>
+
         </div>
     </div>
     <div class="clear"></div>
@@ -1049,7 +1001,7 @@
                             <div class="service_area_select two_radius">
                                 <div uib-dropdown on-toggle="toggled(open)">
                                     <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                        <span class="service_per_tit">{{container.imaged.checkbox}}</span>
+                                        <span class="service_per_tit service_copy_tit two_tab_ellipsis">{{container.imaged.checkbox}}</span>
                                         <b class="ser_bg_btn"></b>
                                     </a>
                                     <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
@@ -1111,92 +1063,6 @@
                             <li></li>
                         </ul>
                     </div>
-                    <!-- 挂载后端服务模块-->
-                    <div class="one_list_block clboth">
-                        <p class="one_name">挂载后端服务</p>
-                        <span class="two_detail">此处可以绑定应用与在平台中申请的诸如Mysql、HDFS、MongoDB等服务。<i class="four_question">什么是后端服务？</i></span>
-                    </div>
-
-                    <div class="one_list_block clboth one_list_jl">
-                        <div class="two_tab_detail two_tab_detail_service">
-                            <div class="two_tab_l">
-                                <span class="two_tab_pic"></span>
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis">RabbitMQ</span>
-                                    <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                </div>
-                            </div>
-
-                            <div class="two_tab_r">
-                                <span class="change_tit">更改</span>
-                            </div>
-                        </div>
-
-                        <div class="two_tab_detail two_tab_detail_service">
-                            <div class="two_tab_l">
-                                <span class="two_tab_pic"></span>
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis">RabbitMQ</span>
-                                    <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                </div>
-                            </div>
-
-                            <div class="two_tab_r">
-                                <span class="change_tit">更改</span>
-                            </div>
-                        </div>
-
-                        <div class="two_tab_detail two_tab_detail_service">
-                            <div class="two_tab_l">
-                                <span class="two_tab_pic"></span>
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis">RabbitMQ</span>
-                                    <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                </div>
-                            </div>
-
-                            <div class="two_tab_r">
-                                <span class="change_tit">更改</span>
-                            </div>
-                        </div>
-
-                        <div class="two_tab_detail two_tab_detail_service">
-                            <div class="two_tab_l">
-                                <span class="two_tab_pic"></span>
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis">RabbitMQ</span>
-                                    <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                </div>
-                            </div>
-
-                            <div class="two_tab_r">
-                                <span class="change_tit">更改</span>
-                            </div>
-                        </div>
-
-                        <div class="two_tab_detail two_tab_detail_service">
-                            <div class="two_tab_l">
-                                <span class="two_tab_pic"></span>
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis">RabbitMQ</span>
-                                    <span class="two_tab_ellipsis">RabbitMQ 是开源的消息是开源的消息</span>
-                                </div>
-                            </div>
-
-                            <div class="two_tab_r">
-                                <span class="change_tit">更改</span>
-                            </div>
-                        </div>
-
-
-
-                        <div class="tab_select tab_select_service" ng-click="openModal('后端服务','backservice')">
-                            <span class="tab_select_tit tab_select_tit_two">选择后端服务</span>
-                        </div>
-
-
-                    </div>
-                    <p class="set_add_service clboth" ng-click="openModal('申请后端服务','createservice')">申请后端服务</p>
                     <!-- 挂载数据卷模块-->
                     <div class="one_list_block clboth mt_ten">
                         <div class="three_top">
@@ -1212,13 +1078,13 @@
                                 <div class="service_area_select service_area_select_gj two_radius">
                                     <div uib-dropdown>
                                         <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                            <span class="service_per_tit">{{persistentitem.persistentVolumeClaim.claimName}}</span>
+                                            <span class="service_per_tit two_tab_ellipsis">{{persistentitem.persistentVolumeClaim.claimName}}</span>
                                             <b class="ser_bg_btn"></b>
                                         </a>
                                         <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
                                             <li class="zx_active" ng-repeat="item in persistentite" ng-click="persistened(persistentitem,item.metadata.name)">
                                                 <a href="javascript:void(0);">
-                                                    <span>{{item.metadata.name}}</span></a>
+                                                    <span class="drop_name_tit two_tab_ellipsis" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a>
                                             </li>
 
                                         </ul>
@@ -1247,12 +1113,12 @@
                                 <div class="service_area_select service_area_select_gj two_radius">
                                     <div uib-dropdown on-toggle="toggled(open)">
                                         <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                            <span class="service_per_tit">{{config.configMap.name}}</span>
+                                            <span class="service_per_tit two_tab_ellipsis" title="{{config.configMap.name}}">{{config.configMap.name}}</span>
                                             <b class="ser_bg_btn"></b>
                                         </a>
                                         <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
                                             <li class="zx_active" ng-repeat="item in configmap" ng-click="configmaped(config,item.metadata.name)"><a href="javascript:void(0);">
-                                                <span>{{item.metadata.name}}</span></a></li>
+                                                <span class="drop_name_tit two_tab_ellipsis" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a></li>
                                             <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
                                             <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
                                         </ul>
@@ -1283,12 +1149,12 @@
                                 <div class="service_area_select service_area_select_gj two_radius">
                                     <div uib-dropdown on-toggle="toggled(open)">
                                         <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                            <span class="service_per_tit">{{secret.secret.secretName}}</span>
+                                            <span class="service_per_tit two_tab_ellipsis" title="{{secret.secret.secretName}}">{{secret.secret.secretName}}</span>
                                             <b class="ser_bg_btn"></b>
                                         </a>
                                         <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
                                             <li class="zx_active" ng-repeat="item in secretsitems" ng-click="secretsed(secret,item.metadata.name)"><a href="javascript:void(0);">
-                                                <span>{{item.metadata.name}}</span></a></li>
+                                                <span class="drop_name_tit two_tab_ellipsis" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a></li>
                                             <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
                                             <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
                                         </ul>
@@ -1308,8 +1174,7 @@
                             <p class="one_name">启动命令</p>
                             <span class="two_detail">这里定义的启动命令将会覆盖镜像中定义的启动命令，如果不需要，请不要填写。<i class="four_question">如何进行端口配置？</i></span>
                         </div>
-                        <!--<input type="text" ng-model="container.args" class="four_list_r four_list_three" placeholder="如：/datafoundry">-->
-                        <input type="text" class="four_list_r four_list_three" placeholder="如：/datafoundry">
+                        <input type="text" ng-model="container.args" class="four_list_r four_list_three" placeholder="如：/datafoundry">
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -1376,7 +1241,7 @@
                                 <span class="chenghao">X</span>
                                 <div uib-dropdown on-toggle="toggled(open)">
                                     <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                        <span class="mleft">{{dc.spec.replicas}}</span>
+                                        <span class="mleft service_per_tit service_copy_tit two_tab_ellipsis">{{dc.spec.replicas}}</span>
                                         <b class="xl_bg"></b>
                                     </a>
                                     <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
@@ -1455,6 +1320,38 @@
                 </div>
             </div>
         </div>
+
+        <!-- 挂载后端服务模块-->
+        <div class="one_list_block clboth">
+            <p class="one_name">挂载后端服务</p>
+            <span class="two_detail">此处可以绑定应用与在平台中申请的诸如Mysql、HDFS、MongoDB等服务。<i class="four_question">什么是后端服务？</i></span>
+        </div>
+
+        <div class="one_list_block clboth one_list_jl">
+            <div class="two_tab_detail two_tab_detail_service" ng-repeat="bsi in bsi.check">
+                <div class="two_tab_l">
+                    <span class="two_tab_pic"></span>
+                    <div class="two_tab_tit">
+                        <span class="two_tab_ellipsis">{{bsi.metadata.name}}</span>
+                        <span class="two_tab_ellipsis">{{bsi.metadata.name}} 是开源的消息是开源的消息</span>
+                    </div>
+                </div>
+
+                <div class="two_tab_r">
+                    <span class="change_tit" ng-click="openModal('后端服务','backservice')">更改</span>
+                </div>
+            </div>
+
+
+            <div class="tab_select tab_select_service" ng-click="openModal('后端服务','backservice')">
+                <span class="tab_select_tit tab_select_tit_two">选择后端服务</span>
+            </div>
+
+
+        </div>
+        <p class="set_add_service clboth" ng-click="openModal('申请后端服务','createservice')">申请后端服务</p>
+
+
         <div class="create_top clboth">
             <div class="left">
                 <p class="ser_name_left">域名设置</p>
@@ -1500,6 +1397,9 @@
                 </div>
             </div>
         </div>
+
+
+
         <div class="create_top clboth">
             <div class="left">
                 <p class="ser_name_left">自动部署</p>

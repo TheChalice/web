@@ -1272,6 +1272,7 @@ angular.module('console.service.createnew', [
                     return;
                 }
                 if (n && n.length > 0) {
+                    $scope.secretNamerr.nil = false;
                     if (rex.test(n)) {
                         $scope.secretNamerr.rexed = false;
                         $scope.secretNamerr.repeated=false;
@@ -1519,6 +1520,12 @@ angular.module('console.service.createnew', [
                 //挂卷
                 var clonedc = angular.copy($scope.dc);
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
+                    if (con.args) {
+                        clonedc.spec.template.spec.containers[i].args= clonedc.spec.template.spec.containers[i].args.split(' ');
+                    }else {
+                        delete clonedc.spec.template.spec.containers[i].args
+                    }
+
                     if (!clonedc.othersetting) {
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                         delete clonedc.spec.template.spec.containers[i].env
