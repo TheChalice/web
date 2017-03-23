@@ -1174,7 +1174,8 @@ angular.module('console.service.createnew', [
                     $scope.createsercet.grid.nameerr = false;
                     //console.log('createconfig----',res);
                     $scope.loaded = false;
-                    $state.go('console.resource_management', {index: 3});
+
+                   $scope.close();
                 }, function (res) {
                     if (res.status == 409) {
                         $scope.createsercet.grid.nameerr = true;
@@ -1328,7 +1329,7 @@ angular.module('console.service.createnew', [
                 for(var i = 0 ; i < $scope.volume.configarr.length; i++){
                     if( !$scope.volume.configarr[i].key || !$scope.volume.configarr[i].value){
                         $scope.volume.configarr.splice(i,1);
-                    }
+                    };
                 }
                 var arr = $scope.volume.configitems.concat($scope.volume.configarr);
 
@@ -1353,6 +1354,7 @@ angular.module('console.service.createnew', [
 
                     }
                 }, function (res) {
+                    $scope.close();
                     //$state.go('console.create_config_volume');
                 })
             }
