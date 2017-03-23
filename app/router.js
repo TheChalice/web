@@ -410,18 +410,32 @@ define([
                 })
                 .state('console.service_create', {
                     url: '/service/create',
-                    templateUrl: 'views/service_create/service_create.html',
-                    controller: 'ServiceCreateCtrl',
+                    templateUrl: 'views/service_create_new/service_create_new.html',
+                    controller: 'ServiceCreatenewCtrl',
                     params: {
                         image: null,
                         ports: null
                     },
                     resolve: {
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load(['views/service_create/service_create.js'])
+                            return $ocLazyLoad.load(['views/service_create_new/service_create_new.js'])
                         }]
                     }
                 })
+                //.state('console.service_create', {
+                //    url: '/service/create',
+                //    templateUrl: 'views/service_create/service_create.html',
+                //    controller: 'ServiceCreateCtrl',
+                //    params: {
+                //        image: null,
+                //        ports: null
+                //    },
+                //    resolve: {
+                //        dep: ['$ocLazyLoad', function ($ocLazyLoad) {
+                //            return $ocLazyLoad.load(['views/service_create/service_create.js'])
+                //        }]
+                //    }
+                //})
                 .state('console.service_detail', {
                     url: '/service/:name',
                     params: {
