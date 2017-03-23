@@ -204,7 +204,11 @@ angular.module('console.service.createnew', [
                 'backservice': false
             }
             /*关闭弹出层*/
-            $scope.close = function () {
+            $scope.close = function (model) {
+                if (model === 'cancelbsi') {
+                    $scope.bsi.check=angular.copy($scope.bsi.checkcopy);
+                    $scope.bsi.work=angular.copy($scope.bsi.workcopy);
+                }
                 var width = $('.create_new_modal').width()
                 $('.create_new_modal').animate({
                     left: (width) + "px"
@@ -217,6 +221,7 @@ angular.module('console.service.createnew', [
             /*打开弹出层*/
             $scope.whatmodal = '';
             $scope.openModal = function (name, modal,index) {
+
                 //console.log(index);
                 if(index||index===0){
                     console.log(index);
@@ -228,6 +233,10 @@ angular.module('console.service.createnew', [
                     left: 0
                 }, 'normal', 'linear');
                 $scope.whatmodal = modal;
+                if (modal === 'backservice') {
+                    $scope.bsi.checkcopy=angular.copy($scope.bsi.check);
+                    $scope.bsi.workcopy=angular.copy($scope.bsi.work);
+                }
             }
             //页面逻辑
             $scope.routeconf = {
@@ -567,64 +576,8 @@ angular.module('console.service.createnew', [
                 $scope.requests.residuecpu = $scope.requests.cpu - $scope.requests.usecpu;
                 $scope.requests.residuememory = $scope.requests.memory - $scope.requests.usememory;
             }
-            // 创建服务
-            var createService = function () {
-                //prepareService($scope.service, dc);
-                $scope.service.metadata.name = $scope.dc.metadata.name;
-                $scope.service.metadata.labels.app = $scope.dc.metadata.name;
-                $scope.service.spec.selector.app = $scope.dc.metadata.name;
-                $scope.service.spec.selector.deploymentconfig = $scope.dc.metadata.name;
-                var ps = [];
-                if ($scope.portsArr) {
-                    angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
-                        ps.push({
-                            name: con[i].hostPort + '-tcp',
-                            port: parseInt(con[i].hostPort),
-                            protocol: "TCP",
-                            targetPort: parseInt(con[i].containerPort)
-                        });
-                    })
-
-                }
-                if (ps.length > 0) {
-                    $scope.service.spec.ports = ps;
-                } else {
-                    $scope.service.spec.ports = null;
-                }
-                //$log.info('$scope.service0-0-0-0-', $scope.service.spec.ports);
-                Service.create({
-                    namespace: $rootScope.namespace,
-                    region: $rootScope.region
-                }, $scope.service, function (res) {
-                    $log.info("create service success", res);
-                    $scope.service = res;
-                }, function (res) {
-                    $log.info("create service fail", res);
-                });
-            };
 
 
-            // 创建路由
-            var createRoute = function (service) {
-                $scope.route.metadata.name = $scope.dc.metadata.name;
-                $scope.route.metadata.labels.app = $scope.dc.metadata.name;
-                $scope.route.spec.host = $scope.routeconf.host + $scope.routeconf.suffix;
-                $scope.route.spec.to.name = $scope.dc.metadata.name;
-                //选择的route的端口
-                $scope.route.spec.port.targetPort = $scope.grid.port + '-tcp';
-                Route.create({
-                    namespace: $rootScope.namespace,
-                    region: $rootScope.region
-                }, $scope.route, function (res) {
-                    $log.info("create route success", res);
-                    $scope.route = res;
-                }, function (res) {
-                    $log.info("create route fail", res);
-                });
-            };
-
-
-            //  服务分类
             $scope.marketclass = {
                 serviceCat: 'all',
                 vendor: 'all'
@@ -915,7 +868,7 @@ angular.module('console.service.createnew', [
                     "name": ""
                 },
                 "data": {},
-                "configitems": [],
+                "configitems": [{key:'',value:''}],
                 "configarr": [{key:'',value:'',showLog:false}]
 
             }
@@ -1320,15 +1273,15 @@ angular.module('console.service.createnew', [
                 }
                 if (n && n.length > 0) {
                     if (rex.test(n)) {
-                        $scope.namerr.rexed = false;
-                        $scope.namerr.repeated=false;
-                        if ($scope.cfmnamearr) {
+                        $scope.secretNamerr.rexed = false;
+                        $scope.secretNamerr.repeated=false;
+                        if ($scope.configmap) {
                             //console.log($scope.buildConfiglist);
-                            angular.forEach($scope.cfmnamearr, function (bsiname, i) {
+                            angular.forEach($scope.configmap, function (bsiname, i) {
                                 console.log(bsiname);
                                 if (bsiname.metadata.name === n) {
                                     console.log(bsiname,n);
-                                    $scope.namerr.repeated = true;
+                                    $scope.secretNamerr.repeated = true;
 
                                 }
                                 //console.log($scope.namerr.repeated);
@@ -1336,27 +1289,71 @@ angular.module('console.service.createnew', [
                         }
 
                     } else {
-                        $scope.namerr.rexed = true;
+                        $scope.secretNamerr.rexed = true;
                     }
                 } else {
-                    $scope.namerr.rexed = false;
+                    $scope.secretNamerr.rexed = false;
                 }
             })
-            $scope.namerr = {
-                nil: false,
+            $scope.secretNamerr = {
+                nil: true,
                 rexed: false,
                 repeated: false
             }
             $scope.nameblur = function () {
                 //console.log($scope.buildConfig.metadata.name);
                 if (!$scope.volume.metadata.name) {
-                    $scope.namerr.nil = true
+                    $scope.secretNamerr.nil = true
                 } else {
-                    $scope.namerr.nil = false
+                    $scope.secretNamerr.nil = false
                 }
             }
             $scope.namefocus = function () {
-                $scope.namerr.nil = false
+                $scope.secretNamerr.nil = true
+            }
+            ///// 创建配置卷
+            $scope.cearteconfig = function () {
+                $log.info('qqqqq',$scope.secretNamerr)
+                if (!$scope.secretNamerr.nil && !$scope.secretNamerr.rexed && !$scope.secretNamerr.repeated && !$scope.grid.configpost) {
+
+                }else {
+                    return;
+                }
+                for(var i = 0 ; i < $scope.volume.configitems.length; i++){
+                    if( !$scope.volume.configitems[i].key || !$scope.volume.configitems[i].value){
+                        $scope.volume.configitems.splice(i,1);
+                    }
+                }
+                for(var i = 0 ; i < $scope.volume.configarr.length; i++){
+                    if( !$scope.volume.configarr[i].key || !$scope.volume.configarr[i].value){
+                        $scope.volume.configarr.splice(i,1);
+                    }
+                }
+                var arr = $scope.volume.configitems.concat($scope.volume.configarr);
+
+                angular.forEach(arr, function (item, i) {
+                    $scope.volume.data[item.key] = item.value;
+                })
+
+                delete $scope.volume.configitems;
+                delete $scope.volume.configarr;
+                configmaps.create({namespace: $rootScope.namespace,region:$rootScope.region}, $scope.volume, function (res) {
+                    $scope.volume = {
+                        "kind": "ConfigMap",
+                        "apiVersion": "v1",
+                        "metadata": {
+                            "name": ""
+                        },
+                        "data": {},
+                        "configitems": [
+                            {key:'',value:''}
+                        ],
+                        "configarr": [{key:'',value:'',showLog:false}]
+
+                    }
+                }, function (res) {
+                    //$state.go('console.create_config_volume');
+                })
             }
             // 创建服务
             var createService = function () {
@@ -1458,9 +1455,39 @@ angular.module('console.service.createnew', [
                     //console.log("get image stream tag err", res);
                 });
             }
+
             //绑定dsi
+            $scope.bsi={
+                check:[],
+                work:[]
+            }
+            BackingServiceInstance.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
+                $scope.bsis=res.items;
+                $scope.bsi.work=angular.copy($scope.bsis)
+                //console.log('bsi',res);
+            })
+            $scope.addbsi= function (bsisd) {
+                angular.forEach($scope.bsi.work, function (bsi,i) {
+                    if (bsi.metadata.name === bsisd.metadata.name) {
+                        $scope.bsi.work.splice(i,1)
+                    }
+                })
+                $scope.bsi.check.push(bsisd)
+                //console.log('$scope.bsi', $scope.bsi);
+            }
+
+            $scope.delbsi= function (bsisd) {
+                angular.forEach($scope.bsi.check, function (bsi,i) {
+                    if (bsi.metadata.name === bsisd.metadata.name) {
+                        $scope.bsi.check.splice(i,1)
+                    }
+                })
+                $scope.bsi.work.push(bsisd);
+
+            }
+
             var bindService = function (dc) {
-                angular.forEach($scope.bsi.items, function (bsi) {
+                angular.forEach($scope.bsi.check, function (bsi) {
                     var bindObj = {
                         metadata: {
                             name: bsi.metadata.name,
@@ -1473,17 +1500,18 @@ angular.module('console.service.createnew', [
                         bindKind: 'DeploymentConfig'
                     };
 
-                    if (bsi.bind) {  //未绑定设置为绑定
-                        BackingServiceInstance.bind.create({
-                            namespace: $rootScope.namespace,
-                            name: bsi.metadata.name,
-                            region: $rootScope.region
-                        }, bindObj, function (res) {
-                            $log.info("bind service success", res);
-                        }, function (res) {
-                            $log.info("bind service fail", res);
-                        });
-                    }
+
+                    //if (bsi.bind) {  //未绑定设置为绑定
+                    BackingServiceInstance.bind.create({
+                        namespace: $rootScope.namespace,
+                        name: bsi.metadata.name,
+                        region: $rootScope.region
+                    }, bindObj, function (res) {
+                        $log.info("bind service success", res);
+                    }, function (res) {
+                        $log.info("bind service fail", res);
+                    });
+                    //}
                 });
             };
             $scope.creat = function () {
@@ -1603,7 +1631,7 @@ angular.module('console.service.createnew', [
                     region: $rootScope.region
                 }, clonedc, function (res) {
                     $log.info("create dc success", res);
-                    //bindService(clonedc);
+                    bindService(clonedc);
                     $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
                 }, function (res) {
                     //todo 错误处理
