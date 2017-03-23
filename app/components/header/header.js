@@ -13,6 +13,19 @@ angular.module("console.header", [
             templateUrl: 'components/header/header.html',
             controller: ['$timeout','$log', 'Project', 'account', 'regions', 'Toast', 'Addmodal', '$http', '$location', 'orgList', '$rootScope', '$scope', '$window', '$state', 'Cookie', '$stateParams',
                 function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams) {
+                    //账户中心设置
+                    function setheight(){
+                        var window_height = $(window).height() - $("#header").height();
+                        $(".zx_account_set").css("min-height",window_height);
+                    }
+                    setheight();
+                    $(window).resize( function(){
+                        setheight();
+                    });
+
+                    $(".df_help").on("click",function(){
+                        $(".zx_account_set").toggleClass("zx_account_set_hover");
+                    })
                     ///////分区
                     //$scope.curregion = $rootScope.region;
                     //console.log('$rootScope.user',$rootScope.user);

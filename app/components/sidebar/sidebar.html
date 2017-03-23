@@ -1,10 +1,12 @@
 <div id="sidebar">
+    <a href="javascript:void(0);" class="zx_set_btn"></a>
     <ul class="nav nav-pills nav-stacked nav-jia-pills">
         <li class="side_pass">
             <a href="javascript:void(0);" style="cursor: default">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;-->
-                大数据PaaS平台
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;
+                <span class="side_tit">大数据平台</span>
+                <p class="num_detail">大数据平台</p>
             </a>
         </li>
 
@@ -54,41 +56,46 @@
 
         <li ui-sref-active="active">
             <a ui-sref="console.dashboard">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;-->
-                仪表盘
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-dashboard"></span>&nbsp;&nbsp;
+                <span class="side_tit">仪表盘</span>
+                <p class="num_detail">仪表盘</p>
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.build_create')||$state.includes('console.build_detail')}">
             <a ui-sref="console.build">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-build"></span>&nbsp;&nbsp;-->
-                代码构建
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-build"></span>&nbsp;&nbsp;
+                <span class="side_tit">代码构建</span>
+                <p class="num_detail">代码构建</p>
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.image_detail')}">
             <a ui-sref="console.image">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-repository"></span>&nbsp;&nbsp;-->
-                镜像仓库
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-repository"></span>&nbsp;&nbsp;
+                <span class="side_tit">镜像仓库</span>
+                <p class="num_detail">镜像仓库</p>
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.service_create')||$state.includes('console.service_detail')}">
             <a ui-sref="console.service">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-deployment"></span>&nbsp;&nbsp;-->
-                服务部署
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-deployment"></span>&nbsp;&nbsp;
+                <span class="side_tit">服务部署</span>
+                <p class="num_detail">服务部署</p>
             </a>
         </li>
         <li ui-sref-active="active"
             ng-class="{'active':$state.includes('console.apply_instance')}">
             <a ui-sref="console.backing_service">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-service"></span>&nbsp;&nbsp;-->
-                后端服务
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-service"></span>&nbsp;&nbsp;
+                <span class="side_tit">后端服务</span>
+                <p class="num_detail">后端服务</p>
             </a>
         </li>
 
@@ -102,9 +109,10 @@
          -->
         <li ui-sref-active="active">
             <a ui-sref="console.resource_management">
-                <!--<i class="fa fa-caret-left"></i>-->
-                <!--<span class="icon25 icon25-resource"></span>&nbsp;&nbsp;-->
-                资源管理
+                <i class="fa fa-caret-left"></i>
+                <span class="icon25 icon25-resource"></span>&nbsp;&nbsp;
+                <span class="side_tit">资源管理</span>
+                <p class="num_detail">资源管理</p>
             </a>
         </li>
         <!--<li ui-sref-active="active"-->

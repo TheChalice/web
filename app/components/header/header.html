@@ -1,14 +1,33 @@
 <div id="header" class="navbar-fixed-top">
     <a id="header-brand" href="https://yun.citic.com/" target="_blank">
-        <img src="components/header/img/logo_sm_df.png" alt="logo" class="header_logo">
+        <!--<img src="components/header/img/logo_sm_df.png" alt="logo" class="header_logo">-->
+        <div class="zx_logo"></div>
     </a>
 
-    <div id="header-title" class="hidden-xs" style="margin-left: 1px">
-        <span style="float: left;cursor: pointer; margin-right: 10px" ng-click="back()"
-              class="icon25 icon25-back" ng-if="hasBack()">
-        </span>
-        <span style='float: left;'>{{console.state | stateTitleFilter}}</span>
+    <div class="data_bg header_area_select">
+        <div uib-dropdown on-toggle="toggled(open)">
+            <a href="javascript:void(0);" class="per_block" uib-dropdown-toggle>
+                <span class="header_per_tit">默认组织</span>
+                <b class="xl_bg"></b>
+            </a>
+            <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                <li class="zx_active"><a href="javascript:void(0);"><span>默认组织</span></a></li>
+                <li><a href="javascript:void(0);"><span>南京组织</span></a></li>
+                <li><a href="javascript:void(0);"><span>上海组织</span></a></li>
+                <li class="zx_mange"><a href="javascript:void(0);"><span>管理组织</span></a></li>
+            </ul>
+
+        </div>
     </div>
+
+
+
+    <!--<div id="header-title" class="hidden-xs" style="margin-left: 1px">-->
+        <!--<span style="float: left;cursor: pointer; margin-right: 10px" ng-click="back()"-->
+              <!--class="icon25 icon25-back" ng-if="hasBack()">-->
+        <!--</span>-->
+        <!--<span style='float: left;'>{{console.state | stateTitleFilter}}</span>-->
+    <!--</div>-->
     <div id="header-menu">
         <!--消息图标-->
         <!--<a class="icon25 icon25-msg" ui-sref="console.notification" uib-tooltip="消息" tooltip-placement="bottom" ng-click="checkInbox()" style="margin-right:20px;">-->
@@ -19,7 +38,6 @@
         <!--<a href="javascript:void(0);" ui-sref="console.notification" class="df_news data_bg">-->
             <!--<i class="df_h_com df_h_news"></i><span class="df_news_tit">消息</span>-->
         <!--</a>-->
-
 
 
         <!--<div class="header_area data_bg">-->
@@ -39,6 +57,7 @@
                 <!--&lt;!&ndash;</span>&ndash;&gt;-->
             <!--</div>-->
         <!--</div>-->
+
 
         <!--<div class="header_area data_bg">-->
             <!--<div class="dropdown" uib-dropdown>-->
@@ -62,15 +81,22 @@
 
         <!--<a class="icon25 icon25-guide" href="javascript:;" uib-tooltip="指南" tooltip-placement="bottom"-->
         <!--</a>-->
-
-        <div class="header_per data_bg" style="display:block;border-left:1px solid #f2f2f2">
+        <a href="javascript:void(0);" class="df_news data_bg df_help">
+            <!--<i class="df_h_com df_h_news"></i>-->
+            <span class="df_news_tit">帮助</span>
+        </a>
+        <a href="javascript:void(0);" ui-sref="console.notification" class="df_news data_bg">
+            <!--<i class="df_h_com df_h_news"></i>-->
+            <span class="df_news_tit">消息</span>
+        </a>
+        <div class="header_per data_bg">
             <div uib-dropdown on-toggle="toggled(open)">
             <a href="javascript:;" id="user-menu" class="per_block" uib-dropdown-toggle>
-                <i class="df_h_com" ng-class="{'df_h_per':!orgimage,'df_o_per':orgimage}"></i>
+                <!--<i class="df_h_com" ng-class="{'df_h_per':!orgimage,'df_o_per':orgimage}"></i>-->
                 <!--<img src="components/header/img/user-icon-default1.png" alt="icon" class="hidden-xs" style="width: 37px;height: 37px;padding: 3px;background-color: #e6e9f2;margin-top: -4px;margin-left:20px;border-radius: 2px;"><span>{{user.metadata.name}} | {{checked||namespace}}&nbsp;&nbsp;</span>-->
                 <span class="header_per_tit" title="{{projectname}}">{{projectname}}</span>
                 <!--<i class="fa fa-chevron-circle-down" style="color: #e6e9f2;"></i>-->
-                <b class="h_caret"></b>
+                <b class="xl_bg"></b>
             </a>
             <ul class="projectname" uib-dropdown-menu
                 aria-labelledby="user-menu" style="max-height: 338px;border-top:0;border-right:0;overflow:auto;top:53px;right:0px;background: #f7fafc;border-radius:0;">
@@ -152,8 +178,51 @@
                      <!--<a href="javascript:;" ng-click="logout()"><i class="df_h_com df_quit"></i>退出登录</a>-->
                  <!--</li>-->
              <!--</ul>-->
+
+
         </div>
     </div>
+    </div>
+
+    <!-- 账户中心-->
+    <div class="zx_account_set">
+        <div class="zx_account_top">
+            <span class="zx_account_tit">账户中心</span>
+            <div class="zx_account_detail">
+                <div class="zx_account_one">
+                    <div class="zx_t">
+                        <span class="zx_person"></span>
+                        <span class="zx_name">jiasx</span>
+                    </div>
+                    <div class="zx_list">
+                        <a href="javascript:void(0)" class="zx_list_one"></a>
+                        <a href="javascript:void(0)" class="zx_list_two"></a>
+                        <a href="javascript:void(0)" class="zx_list_three"></a>
+                    </div>
+                </div>
+
+                <div class="zx_account_two">
+                    <span class="price_tit">账户余额</span>
+                    <div class="zx_account_price">
+                        <div class="price_num"><span class="per_yuan">90.0</span>&nbsp;元</div>
+                        <a href="javascript:void(0)" class="charge_btn">立即充值</a>
+                    </div>
+                </div>
+
+
+            </div>
+            <ul class="zx_list_set">
+                <li><span class="zx_list_l">基本资料</span><span class="zx_list_btn"></span></li>
+                <li><span class="zx_list_l">账户安全</span><span class="zx_list_btn"></span></li>
+                <li><span class="zx_list_l">收支细名</span><span class="zx_list_btn"></span></li>
+            </ul>
+
+        </div>
+
+        <div class="zx_account_bottom">
+            <a href="javascript:void(0)" class="zx_quit">退出控制台</a>
+        </div>
+
     </div>
 
 </div>
