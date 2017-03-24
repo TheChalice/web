@@ -460,6 +460,29 @@ angular.module('console.service', [
                     //
 
 
+                } else if (data.type == "DELETED") {
+                    for (var k = 0; k < $scope.items.length; k++) {
+                        //data.object.metadata.name.split('-')[0]
+                        //console.log($scope.items[k].metadata.name, data.object.metadata.name.split('-')[0]);
+                        if (data.object.spec.selector.deploymentconfig == $scope.items[k].metadata.name) {
+                            //console.log(data.object.status);
+                            $scope.items[k].spec.replicas = 0
+                            $scope.items[k].status.replicas =0
+                            $scope.$apply()
+                        }
+                    }
+                    //angular.forEach($scope.items, function(item, i){
+                    //    if (item.rc.metadata.name == data.object.metadata.name) {
+                    //        $scope.items[i].rc = data.object;
+                    //        console.log('updatedata========',data);
+                    //        console.log('$scope.items[i]-----------',$scope.items[i]);
+                    //        isNormal($scope.items);
+                    //        $scope.$apply();
+                    //    }
+                    //});
+                    //
+
+
                 }
             }
             $scope.$watch('items', function (n, o) {
