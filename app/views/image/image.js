@@ -673,7 +673,7 @@ angular.module('console.image', [
                         class: 'doc'
                     });
                 })
-                platform.query({id:58}, function (dfdata) {
+                platform.query({id:5}, function (dfdata) {
                     angular.forEach(dfdata, function (dfitem, k) {
                         $scope.imagecenterDF.push({
                             name: dfitem,
