@@ -31,7 +31,7 @@ angular.module("console.header", [
                             useorg: $rootScope.namespace
                         });
                     }
-                    balance.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                    balance.get({namespace: $rootScope.user.metadata.name, region: $rootScope.region}, function (data) {
                         $scope.balance = data
                         //console.log('balance', data);
                     });

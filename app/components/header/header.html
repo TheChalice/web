@@ -7,7 +7,7 @@
     <div class="data_bg header_area_select">
         <div uib-dropdown on-toggle="toggled(open)">
             <a href="javascript:void(0);" class="per_block" uib-dropdown-toggle>
-                <span class="header_per_tit">{{projectname}}</span>
+                <span class="header_per_tit">{{projectname===user.metadata.name?'默认组织':projectname}}</span>
                 <b class="xl_bg"></b>
             </a>
             <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
@@ -94,7 +94,7 @@
             <a href="javascript:;" id="user-menu" class="per_block mycheck" uib-dropdown-toggle>
                 <!--<i class="df_h_com" ng-class="{'df_h_per':!orgimage,'df_o_per':orgimage}"></i>-->
                 <!--<img src="components/header/img/user-icon-default1.png" alt="icon" class="hidden-xs" style="width: 37px;height: 37px;padding: 3px;background-color: #e6e9f2;margin-top: -4px;margin-left:20px;border-radius: 2px;"><span>{{user.metadata.name}} | {{checked||namespace}}&nbsp;&nbsp;</span>-->
-                <span class="header_per_tit" title="{{projectname}}">{{projectname}}</span>
+                <span class="header_per_tit" title="{{user.metadata.name}}">{{user.metadata.name}}</span>
                 <!--<i class="fa fa-chevron-circle-down" style="color: #e6e9f2;"></i>-->
                 <b class="xl_bg"></b>
             </a>
