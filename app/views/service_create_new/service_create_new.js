@@ -28,6 +28,91 @@ angular.module('console.service.createnew', [
                     }
                 }
             };
+            $scope.error={
+                dcnameerr:{
+                    rexed:false,
+                    repeated:false,
+                    null:true
+
+                }
+            }
+            $scope.stepup={
+                twoerr:false,
+                hasimage:false
+            }
+            //dcname
+            var dcnamer = /^[a-z]([a-z0-9_]{0,22})?[a-z0-9]$/;
+            $scope.$watch('dc.metadata.name', function (n,o) {
+                //console.log(n, $scope.frm.dcname.$error);
+                if (n && n.length > 0) {
+                    $scope.error.dcnameerr.null=false
+                    // console.log($scope.buildConfig.metadata.name);
+                    if (dcnamer.test(n)) {
+                        $scope.error.dcnameerr.rexed = false;
+                        $scope.error.dcnameerr.repeated = false;
+                        if ($scope.serviceNameArr) {
+                            //console.log($scope.serviceNameArr);
+                            angular.forEach($scope.serviceNameArr, function (build, i) {
+                                if (build === n) {
+                                    $scope.error.dcnameerr.repeated = true;
+                                }
+                            })
+                        }
+                    } else {
+                        $scope.error.dcnameerr.rexed = true;
+                    }
+                } else {
+                    $scope.error.dcnameerr.null=true
+                    $scope.error.dcnameerr.rexed = false;
+                }
+                //console.log($scope.frm.dcname.$dirty,$scope.error.dcnameerr);
+            })
+            //conname
+            $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
+                if (n) {
+                    $scope.stepup.twoerr=true;
+                    $scope.stepup.hasimage=true;
+                    $scope.stepup.two=false;
+                    angular.forEach(n, function (con,i) {
+
+                        if (con.name && con.name.length > 0) {
+                            con.namerr.null=false
+                            // console.log($scope.buildConfig.metadata.name);
+                            if (dcnamer.test(con.name)) {
+                                con.namerr.rexed = false;
+                                con.namerr.repeated = false;
+                                angular.forEach(n, function (incon,k) {
+                                    //angular.forEach($scope.serviceNameArr, function (build, i) {
+                                    if (i !== k) {
+                                        if (incon.name === con.name) {
+                                            con.namerr.repeated = true;
+                                        }
+                                    }
+
+                                })
+                                //})
+
+                            } else {
+                                con.namerr.rexed = true;
+                            }
+                        } else {
+                            con.namerr.null=true
+                            con.namerr.rexed = false;
+                        }
+                        if (con.image === "") {
+                            $scope.stepup.hasimage=false;
+                        }
+                        if (con.namerr.rexed || con.namerr.null || con.namerr.repeated) {
+                            $scope.stepup.twoerr=false;
+                        }
+                    })
+                    if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
+                        $scope.stepup.two=true;
+                    }
+                }
+
+
+            },true)
             //数组去重
             Array.prototype.unique = function () {
                 this.sort(); //先排序
@@ -40,6 +125,19 @@ angular.module('console.service.createnew', [
                 return res;
             }
             //输入框判断
+            DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                $scope.serviceNameArr=[];
+                for (var i = 0; i < data.items.length; i++) {
+                    $scope.serviceNameArr.push(data.items[i].metadata.name);
+                }
+                $scope.serviceNameArr.sort();
+                //$scope.grid.namerepeat = true;
+                //console.log('serviceNameArr',$scope.serviceNameArr);
+
+            }, function (res) {
+                $log.info('loadDcList', res);
+                //todo ������
+            });
 
             $('.input_text').on('keyup', function () {
                 var txt = $(this).val();
@@ -245,7 +343,7 @@ angular.module('console.service.createnew', [
                 host: '',
                 suffix: '.like.datapp.c.citic'
             }
-            $scope.changebuild={
+            $scope.changebuild= {
                 ConfigChange:true,
                 ImageChange:true
             }
@@ -350,6 +448,11 @@ angular.module('console.service.createnew', [
                                 image: "",    //imageStreamTag
                                 othersetting: false,
                                 retract: false,
+                                namerr:{
+                                    rexed:false,
+                                    repeated:false,
+                                    null:true
+                                },
                                 env: [{name: '', value: ''}],
                                 args: '',
                                 resources: {
@@ -414,6 +517,11 @@ angular.module('console.service.createnew', [
                     image: "",    //imageStreamTag
                     othersetting: false,
                     retract: false,
+                    namerr:{
+                        rexed:false,
+                        repeated:false,
+                        null:true
+                    },
                     env: [{name: '', value: ''}],
                     args: '',
                     resources: {
@@ -452,14 +560,41 @@ angular.module('console.service.createnew', [
 
                     }
                 })
+                angular.forEach($scope.dc.spec.template.spec.containers,function(item,i){
+                    if(i!==$scope.dc.spec.template.spec.containers.length-1){
+                        item.retract = true;
+
+                    }
+                })
             }
             //高级设置
             $scope.changed = function (con) {
                 con.othersetting = true
             }
+            //删除con
+            $scope.delcon = function($index) {
+                if($scope.dc.spec.template.spec.containers.length>1){
+                    $scope.dc.spec.template.spec.containers.splice($index, 1);
+
+                }else{
+
+                }
+            }
             //收起
-            $scope.pickup = function (con) {
-                con.retract = true
+            $scope.pickup = function ($index) {
+                $scope.dc.spec.template.spec.containers[$index].retract =true;
+
+            }
+            $scope.pickdown = function ($index) {
+                angular.forEach($scope.dc.spec.template.spec.containers,function(item,i){
+                    if(i==$index){
+                        item.retract = false;
+                    }else{
+                        item.retract = true;
+
+                    }
+
+                })
             }
             //数据卷
             persistent.get({
@@ -1174,8 +1309,7 @@ angular.module('console.service.createnew', [
                     $scope.createsercet.grid.nameerr = false;
                     //console.log('createconfig----',res);
                     $scope.loaded = false;
-
-                   $scope.close();
+                    close()
                 }, function (res) {
                     if (res.status == 409) {
                         $scope.createsercet.grid.nameerr = true;
@@ -1233,7 +1367,7 @@ angular.module('console.service.createnew', [
                     if (arr && arr.length > 0) {
 
                         var kong = false;
-                        var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+                        var r =/^[a-z]([a-z0-9_\.]{0,22}[a-z0-9]$)?/;
                         angular.forEach(arr, function (item, i) {
                             if (!item.key || !item.value) {
                                 $scope.grid.keynull = true;
@@ -1266,7 +1400,7 @@ angular.module('console.service.createnew', [
             }, true);
 
             //  验证配置卷名称
-            var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            var secretrex =/^[a-z]([a-z0-9_]{0,22}[a-z0-9]$)?/;
 
             $scope.$watch('volume.metadata.name', function (n, o) {
                 if (n === o) {
@@ -1274,19 +1408,14 @@ angular.module('console.service.createnew', [
                 }
                 if (n && n.length > 0) {
                     $scope.secretNamerr.nil = false;
-                    if (rex.test(n)) {
+                    if (secretrex.test(n)) {
                         $scope.secretNamerr.rexed = false;
                         $scope.secretNamerr.repeated=false;
                         if ($scope.configmap) {
-                            //console.log($scope.buildConfiglist);
                             angular.forEach($scope.configmap, function (bsiname, i) {
-                                console.log(bsiname);
                                 if (bsiname.metadata.name === n) {
-                                    console.log(bsiname,n);
                                     $scope.secretNamerr.repeated = true;
-
                                 }
-                                //console.log($scope.namerr.repeated);
                             })
                         }
 
@@ -1315,7 +1444,6 @@ angular.module('console.service.createnew', [
             }
             ///// 创建配置卷
             $scope.cearteconfig = function () {
-                $log.info('qqqqq',$scope.secretNamerr)
                 if (!$scope.secretNamerr.nil && !$scope.secretNamerr.rexed && !$scope.secretNamerr.repeated && !$scope.grid.configpost) {
 
                 }else {
@@ -1329,7 +1457,7 @@ angular.module('console.service.createnew', [
                 for(var i = 0 ; i < $scope.volume.configarr.length; i++){
                     if( !$scope.volume.configarr[i].key || !$scope.volume.configarr[i].value){
                         $scope.volume.configarr.splice(i,1);
-                    };
+                    }
                 }
                 var arr = $scope.volume.configitems.concat($scope.volume.configarr);
 
@@ -1354,7 +1482,6 @@ angular.module('console.service.createnew', [
 
                     }
                 }, function (res) {
-                    $scope.close();
                     //$state.go('console.create_config_volume');
                 })
             }
@@ -1460,7 +1587,7 @@ angular.module('console.service.createnew', [
             }
 
             //绑定dsi
-            $scope.bsi={
+            $scope.bsi= {
                 check:[],
                 work:[]
             }
