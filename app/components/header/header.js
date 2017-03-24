@@ -341,6 +341,7 @@ angular.module("console.header", [
                         //$scope.checked = $rootScope.user.metadata.name;
                         $rootScope.namespace = $rootScope.user.metadata.name;
                         Cookie.set('namespace', $rootScope.user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
+                        $state.reload();
                     }
 
                     //$scope.goto = function (ind) {
