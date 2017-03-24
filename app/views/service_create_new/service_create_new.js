@@ -401,7 +401,7 @@ angular.module('console.service.createnew', [
             };
             //环境变量
             $scope.addenv = function (containers) {
-                containers.unshift({name: '', value: ''})
+                containers.push({name: '', value: ''})
             }
             $scope.delenv = function (containers, i) {
                 containers.splice(i, 1)
@@ -486,7 +486,7 @@ angular.module('console.service.createnew', [
                 persistentitem.persistentVolumeClaim.claimName = name;
             }
             $scope.addpersistent = function (containers) {
-                containers.unshift({
+                containers.push({
                     persistentVolumeClaim: {
                         claimName: '名称'
                     },
@@ -514,7 +514,7 @@ angular.module('console.service.createnew', [
                 config.configMap.name = name;
             }
             $scope.addconfigmap = function (containers) {
-                containers.unshift({
+                containers.push({
                     configMap: {
                         name: '名称'
                     },
@@ -542,7 +542,7 @@ angular.module('console.service.createnew', [
                 secret.secret.secretName = name;
             }
             $scope.addsecret = function (containers) {
-                containers.unshift({
+                containers.push({
                     secret: {
                         secretName: '名称'
                     },
@@ -1032,7 +1032,7 @@ angular.module('console.service.createnew', [
             }
             //$scope.secretsarr = [];
             $scope.addSecret = function () {
-                $scope.createsercet.secrets.secretsarr.unshift({key: '', value: ''});
+                $scope.createsercet.secrets.secretsarr.push({key: '', value: ''});
                 //console.log($scope.secretsarr);
             }
             $scope.rmsecret = function (idx) {
