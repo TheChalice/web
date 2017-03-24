@@ -457,6 +457,7 @@ angular.module("console.header", [
                         //    $state.reload();
                         //}else {
                             $state.go('console.dashboard');
+                            $state.reload();
                         //}
                         //$state.go('console.dashboard');
                         //}
