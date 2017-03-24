@@ -30,6 +30,28 @@ angular.module('console.service', [
                     refresh(newVal);
                 }
             });
+            $scope.restartDc= function (idx) {
+                ReplicationController.remove({
+                    namespace: $rootScope.namespace,
+                    labelSelector: 'openshift.io/deployment-config.name=' + $scope.items[idx].metadata.name,
+                    region:$rootScope.region
+                }, function (res) {
+                    // $log.info("remove rcs success", res);
+                    //rmDc(dc)
+                    deletepod.delete({
+                        namespace: $rootScope.namespace,
+                        region:$rootScope.region,
+                        name: $scope.items[idx].metadata.name
+
+                    }, function (data) {
+                        //$scope.items.splice(idx,1)
+                    },function(err){
+
+                    })
+                }, function (res) {
+                    // $log.info("remove rcs err", res);
+                });
+            }
             $scope.del= function (idx) {
                 $log.info('$scope.items[idx]$scope.items[idx]', $scope.items[idx])
                 DeploymentConfig.remove({
