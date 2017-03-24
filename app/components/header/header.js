@@ -11,8 +11,8 @@ angular.module("console.header", [
             restrict: 'EA',
             replace: true,
             templateUrl: 'components/header/header.html',
-            controller: ['$timeout','$log', 'Project', 'account', 'regions', 'Toast', 'Addmodal', '$http', '$location', 'orgList', '$rootScope', '$scope', '$window', '$state', 'Cookie', '$stateParams',
-                function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams) {
+            controller: ['$timeout','$log', 'Project', 'account', 'regions', 'Toast', 'Addmodal', '$http', '$location', 'orgList', '$rootScope', '$scope', '$window', '$state', 'Cookie', '$stateParams','balance',
+                function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams,balance) {
                     //账户中心设置
                     function setheight(){
                         var window_height = $(window).height() - $("#header").height();
@@ -23,9 +23,18 @@ angular.module("console.header", [
                         setheight();
                     });
 
-                    $(".df_help").on("click",function(){
+                    $(".mycheck").on("click",function(){
                         $(".zx_account_set").toggleClass("zx_account_set_hover");
                     })
+                    $scope.gotoorg= function () {
+                        $state.go('console.org', {
+                            useorg: $rootScope.namespace
+                        });
+                    }
+                    balance.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                        $scope.balance = data
+                        //console.log('balance', data);
+                    });
                     ///////分区
                     //$scope.curregion = $rootScope.region;
                     //console.log('$rootScope.user',$rootScope.user);
@@ -443,12 +452,12 @@ angular.module("console.header", [
                         //        useorg: namespace
                         //    });
                         //} else {
-                        console.log('$state.current.name', $state.current.name);
-                        if ($state.current.name === 'console.dashboard') {
-                            $state.reload();
-                        }else {
+                        //console.log('$state.current.name', $state.current.name);
+                        //if ($state.current.name === 'console.dashboard') {
+                        //    $state.reload();
+                        //}else {
                             $state.go('console.dashboard');
-                        }
+                        //}
                         //$state.go('console.dashboard');
                         //}
                     }
