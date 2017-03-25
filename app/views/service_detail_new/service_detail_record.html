@@ -1,0 +1,37 @@
+<!--部署记录-->
+<div class="config_note_block">
+        <div class="config_note block_h_set">
+            <p class="pic_clock"><span class="year_tit">{{rcs.items[0].metadata.creationTimestamp | timesy}}年</span></p>
+            <p class="pic_line"></p>
+            <div class="block_one">
+
+                <ul class="block_list">
+                    <li class="transition_set list_active" ng-repeat="item in rcs.items">
+                    <div class="time_detail">
+                        <span class="data_minute">{{item.metadata.creationTimestamp | timeshm}}</span>
+                        <span class="data_year">{{item.metadata.creationTimestamp | timesmd}}</span>
+                    </div>
+                    <p class="list_name" ng-class="{'list_lost':item.metadata.annotations['openshift.io/deployment.phase']=='Failed','list_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete'}">
+                        <i class="note_btn" ng-class="{'note_error':item.metadata.annotations['openshift.io/deployment.phase']=='Failed','note_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete'}"></i>{{item.metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}</p>
+                    <p><span class="lose_time">耗时：</span>{{item.metadata.creationTimestamp | dateRelative2}}</p>
+                    <p><span class="lose_kind">出发类型：</span><span ng-if="!item.dc.status.details.causes.length">未知</span>
+                        <span ng-if="item.dc.status.details.causes.length">
+                            <span ng-repeat="cause in item.dc.status.details.causes">
+                              <span ng-switch="cause.type">
+                                <span ng-switch-when="ImageChange">镜像变化</span>
+                                <span ng-switch-when="ConfigChange">配置变化</span>
+                                <span ng-switch-default>{{cause.type}}</span>
+                              </span>
+                            </span>
+                          </span></p>
+                    </li>
+
+
+
+
+
+
+                </ul>
+            </div>
+        </div>
+</div>

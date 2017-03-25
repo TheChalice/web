@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        <i class="faa faa-pod"></i>
+        {{pod.metadata.name}} - 容器详情
+        <a ng-click="cancel()" href="javascript:;" class="modal-close">
+            <i class="fa fa-times-circle pull-right"></i>
+        </a>
+    </h5>
+</div>
+<div class="modal-body" style="padding: 25px 40px;text-align: left;">
+    <div class="container-detail">
+        <!--<h2><a href="javascript:;" ng-click="back()" class="faa faa-back"></a>&nbsp;&nbsp;{{container.name}}</h2>-->
+        <uib-tabset class="tab-default" active="active">
+            <!--<uib-tab index="1" heading="性能监控">-->
+                <!--<div>-->
+                    <!--<div ng-if="!grid.cpu" class="graph">-->
+                        <!--<p>CPU</p>-->
+                        <!--<h4>Application is not available</h4>-->
+                        <!--<p>The application is currently not serving requests at this endpoint. It may not have been started or is still starting.</p>-->
+                    <!--</div>-->
+                    <!--<highchart ng-if="grid.cpu" style="width:100%" config="chartConfigCpu"></highchart>-->
+                    <!--<div ng-if="!grid.mem" class="graph">-->
+                        <!--<p>内存</p>-->
+                        <!--<h4>Application is not available</h4>-->
+                        <!--<p>The application is currently not serving requests at this endpoint. It may not have been started or is still starting.</p>-->
+                    <!--</div>-->
+                    <!--<highchart ng-if="grid.mem" style="width:100%" config="chartConfigMem"></highchart>-->
+                    <!--<highchart ng-if="false" style="width:100%" config="chartConfigIo"></highchart>-->
+                <!--</div>-->
+            <!--</uib-tab>-->
+            <uib-tab index="1" heading="日志">
+                <div class="well well-log" style="margin: 0;">
+                    <pre style="color:#e4e4e4" id="sc" ng-bind-html=log></pre>
+                </div>
+            </uib-tab>
+
+            <uib-tab index="2" heading="Terminal" ng-click="terminalSelect()">
+                <kubernetes-container-terminal pod="pod" container="container.name" prevent="!terminalTabWasSelected">
+                </kubernetes-container-terminal>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+
+    <style>
+        .container-detail .graph {
+            padding: 8px;
+        }
+        .container-detail .graph p {
+            font-size: 12px;
+        }
+        .container-detail > h2 {
+            font-size: 14px;
+            font-weight: normal;
+            color: #5a6378;
+            margin: 0 0 25px 0;
+        }
+        .container-detail .tab-default .tab-content {
+            padding: 15px 10px;
+        }
+        .container-detail .tab-default li .nav-link {
+            padding: 5px 15px;
+        }
+        .container-detail .terminal-wrapper, .container-detail .terminal-wrapper .terminal {
+            width: 100%;
+        }
+        .container-detail .terminal-actions {
+            position: absolute;
+        }
+        .container-detail .terminal-actions .btn {
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
+
+</div>

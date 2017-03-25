@@ -1,0 +1,144 @@
+
+<div class="create_new_detail">
+    <div class="detail_new_content">
+        <!--<ul>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('服务部署','fuwubushu')">服务部署</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('服务监控','fuwujiankong')">服务监控</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('部署记录','bushujilu')">部署记录</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('配置信息','peizhixinxi')">配置信息</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('操作日志','caozuorizhi')" >操作日志</a></li>-->
+
+        <!--</ul>-->
+        <div class="content-one">
+            <div>
+                <div>{{dc.metadata.name.substring(0,2)}}</div>
+                <div>
+                    <div>{{dc.metadata.name}}</div>
+                    <div>
+                        <!--{{item| dateRelative}}-->
+                        部署时间：{{dc.metadata.creationTimestamp | dateRelative}}
+                        运行状态：<span ng-if="dc.state == 'normal'">运行中</span>
+                    </div>
+                    <div>
+                        域名：<a href="http://{{dc.route.spec.host}}">{{dc.route.spec.host}}</a>
+                    </div>
+                    <div>
+                        <a  href="javascript:void(0)" ng-click="openModal('修改配置','xiugaipeizhi')">修改配置</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <!--<a class="btn pull-right"-->
+                   <!--ng-show="dc.state != 'normal'"-->
+                   <!--ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"-->
+                   <!--ng-disabled=startBtn.dianlz-->
+                   <!--ng-click="startDc()">{{startBtn.name}}</a>-->
+                <!--<a class="btn pull-right"-->
+                   <!--ng-show="dc.state == 'normal'"-->
+                   <!--ng-class="{'btn-green':stopBtn.dianl, 'btn-orange': stopBtn.dianlz}"-->
+                   <!--ng-disabled=stopBtn.dianlz-->
+                   <!--ng-click="stopDc()">{{stopBtn.name}}</a>-->
+                <a  ng-show="dc.state != 'normal'"
+                    ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"
+                    ng-disabled=startBtn.dianlz
+                    ng-click="startDc()">{{startBtn.name}}</a>
+                <a  ng-show="dc.state == 'normal'"
+                    ng-class="{'btn-green':stopBtn.dianl, 'btn-orange': stopBtn.dianlz}"
+                    ng-disabled=stopBtn.dianlz
+                    ng-click="stopDc()">{{stopBtn.name}}</a>
+                <a  href="javascript:void(0)" ng-click="delete()">删除</a>
+            </div>
+        </div>
+        <div class="content-two">
+            <div>
+                <div ng-click="openModal('服务监控','fuwujiankong')">
+                    <p>服务监控</p>
+                    <div>
+                        <span>{{dc.status.replicas || 0}}</span>
+                        <span>/{{getdc.spec.replicas}}</span>
+                    </div>
+                </div>
+                <div>
+                    <p>
+                       <i></i>
+                        <span>运行中</span>
+                        <span>{{dc.status.replicas || 0}}</span>
+                    </p>
+                    <p>
+                       <i></i>
+                        <span>异常</span>
+                        <span>0</span>
+                    </p>
+                    <div class="zhexian">
+                        <b></b><b></b>
+                    </div>
+                </div>
+            </div>
+            <div ng-click="openModal('部署记录','bushujilu')">
+                <p>部署记录</p>
+                <div>
+                    <span>{{rcs.items[0].metadata.creationTimestamp | dateRelative}}</span>
+                    <!--<span>3月20日</span>-->
+                    <span>{{rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}</span>
+                </div>
+                <div class="zhexian">
+                    <b></b><b></b>
+                </div>
+            </div>
+            <div ng-click="openModal('配置信息','peizhixinxi')">
+                <p>配置信息</p>
+                <div class="zhexian">
+                    <b></b><b></b>
+                </div>
+            </div>
+            <div ng-click="openModal('操作日志','caozuorizhi')">
+                <p>操作日志</p>
+                <span>{{eventsws.items[0].metadata.creationTimestamp | duration3}} {{eventsws.items[0].type}}</span><br>
+                <span> {{eventsws.items[0].message}}</span>
+                <div class="zhexian">
+                    <b></b><b></b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal-->
+    <div class="create_new_nav">
+        <div class="create_new_nav_top" style="line-height: 42px;">
+            <span ng-click="back()" class="cnew_back"><i class="btn_create_set back_jia_btn"></i>返回</span>
+            <span class="cnew_tit">创建服务</span>
+        </div>
+        <div class="detail_new_modal">
+            <div class="nav">
+                <span class="cnew_back" ng-click="close()">
+                    <i class="btn_create_set close_jia_btn"></i> 关闭
+                </span>
+                        <span class="cnew_tit">
+                    {{name}}
+                </span>
+            </div>
+            <div ng-show="isShowmodal.fuwubushu">
+            </div>
+            <div ng-show="isShowmodal.fuwujiankong">
+                <div ng-include="'views/service_detail_new/service_control_new.html'">
+
+                </div>
+            </div>
+            <div ng-show="isShowmodal.bushujilu">
+                <div ng-include="'views/service_detail_new/service_detail_record.html'">
+
+                </div>
+            </div>
+            <div ng-show="isShowmodal.peizhixinxi">
+                <div ng-include="'views/service_detail_new/service_config_new.html'">
+
+                </div>
+            </div>
+            <div ng-show="isShowmodal.caozuorizhi">
+                <div ng-include="'views/service_detail_new/logModal_new.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

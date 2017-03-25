@@ -409,10 +409,11 @@ define([
                     }
                 })
                 .state('console.service_create', {
-                    url: '/service/create',
+                    url: '/service/create/:dc',
                     templateUrl: 'views/service_create_new/service_create_new.html',
                     controller: 'ServiceCreatenewCtrl',
                     params: {
+                        dc:null,
                         image: null,
                         ports: null
                     },
@@ -441,11 +442,11 @@ define([
                     params: {
                         from: null
                     },
-                    templateUrl: 'views/service_detail/service_detail.html',
+                    templateUrl: 'views/service_detail_new/service_detail_new.html',
                     controller: 'ServiceDetailCtrl',
                     resolve: {
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
-                            return $ocLazyLoad.load(['views/service_detail/service_detail.js'])
+                            return $ocLazyLoad.load(['views/service_detail_new/service_detail_new.js'])
                         }]
                     }
                 })
