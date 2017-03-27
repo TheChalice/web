@@ -79,10 +79,10 @@ li {
   margin-right: 4px;
 }
 .cnew_back .back_jia_btn {
-  background: url('/app/views/service_create_new/img/back_btn.png') no-repeat;
+  background: url('img/back_btn.png') no-repeat;
 }
 .cnew_back .close_jia_btn {
-  background: url('/app/views/service_create_new/img/close_btn.png') no-repeat;
+  background: url('img/close_btn.png') no-repeat;
 }
 .cnew_tit {
   border-left: 1px solid #e5e5e5;
@@ -428,9 +428,9 @@ li {
 .config_new .block_room_list .list_rom{text-indent:12px;}
 .config_new .block_one_right .room_name{float:left;margin-right:60px;}
 .config_new .block_one_right .port_name{float:left;margin-right:60px;}
-.config_new .con_new_btn{background: url('/app/views/service_detail_new/img/config_new_btn.png') no-repeat;width:14px;height:14px;display:block;float:left;
+.config_new .con_new_btn{background: url('img/config_new_btn.png') no-repeat;width:14px;height:14px;display:block;float:left;
     margin-right:6px;margin-top:1px;}
-.config_new .con_new_btn_active{background: url('/app/views/service_detail_new/img/config_new_btn_active.png') no-repeat;width:14px;height:14px;display:block;float:left;
+.config_new .con_new_btn_active{background: url('img/config_new_btn_active.png') no-repeat;width:14px;height:14px;display:block;float:left;
     margin-right:6px;margin-top:1px;}
 .config_new .block_one_room .block_mid{margin-top:20px;}
 .config_new .block_one_room  .mt15{margin-top:15px;}
@@ -463,7 +463,7 @@ li {
 .config_note .block_list{width:604px;}
 .config_note .block_list li{width:604px;height:42px;line-height:42px;margin-bottom:20px;}
 .config_note .block_list li:hover{background:#f7f8fe;}
-.config_note .block_list li:hover .list_name:before{content:"";position:absolute;background:url('/app/views/service_detail_new/img/pic_select_active.png') no-repeat center;}
+.config_note .block_list li:hover .list_name:before{content:"";position:absolute;background:url('img/pic_select_active.png') no-repeat center;}
 .config_note .block_list li p{float:left;font-size:12px;color:#333;}
 .config_note .block_list li p:nth-of-type(1){width:230px;padding-left:16px;}
 .config_note .block_list li p:nth-of-type(2){width:236px}
@@ -473,12 +473,12 @@ li {
 .config_note .block_list .list_lost{color:#ee6462;}
 .config_note .block_list .list_ok{color:#56c35e;}
 .config_note .note_btn{width:17px;height:17px;display:inline-block;vertical-align:sub;margin-right:10px;}
-.config_note .note_error{background:url('/app/views/service_detail_new/img/note_error.png') no-repeat;}
-.config_note .note_ok{background:url('/app/views/service_detail_new/img/note_ok.png') no-repeat;}
+.config_note .note_error{background:url('img/note_error.png') no-repeat;}
+.config_note .note_ok{background:url('img/note_ok.png') no-repeat;}
 .config_note .block_one{border-left:1px solid #adb9f5;margin-left:40px;padding-left:15px;position:relative;}
-.config_note .pic_clock{background:url('/app/views/service_detail_new/img/pic_clock.png') no-repeat;width:36px;height:36px;display:block;position: relative;left: 23px;}
+.config_note .pic_clock{background:url('img/pic_clock.png') no-repeat;width:36px;height:36px;display:block;position: relative;left: 23px;}
 .config_note .pic_line{position: relative;width:1px;height:35px;background:#adb9f5;left: 40px;}
-.config_note .list_name:before{content:"";position:absolute;background:url('/app/views/service_detail_new/img/pic_select_nor.png') no-repeat center;
+.config_note .list_name:before{content:"";position:absolute;background:url('img/pic_select_nor.png') no-repeat center;
     width:12px;height:12px;position:absolute;left:-10px;margin-top:9px;padding:10px;}
 .config_note .year_tit{position:absolute;width:auto;display:block;left:-52px;font-size:20px;color:#5b73eb;left:-72px;top:6px;}
 .config_note .time_detail{position:absolute;left:-80px;margin-top:4px;text-align:right;}

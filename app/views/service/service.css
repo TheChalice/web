@@ -12,6 +12,39 @@
         -webkit-transform: rotate(360deg);
     }
 }
+.service_top{
+    margin-top: -13px;
+    margin-bottom: 35px;
+}
+.service_top a {
+    color:#5b73eb;
+}
+.hidden-xs{
+    padding-left: 15px;
+}
+.hidden-xs.jia:before {
+    content: "";
+    position: absolute;
+    font-size: 26px;
+    top: 9px;
+    left: 24px;
+    background: url(./img/images_44.png) no-repeat;
+    width: 14px;
+    height: 14px;
+    background-size: 14px 14px;
+}
+.hidden-xs.refresh:before {
+    content: "";
+    position: absolute;
+    font-size: 26px;
+    top: 10px;
+    left: 146px;
+    background: url(./img/images_46.png) no-repeat;
+    width: 14px;
+    height: 14px;
+    background-size: 14px 14px;
+}
+
 
 /*����Ϊ��ʱ״̬*/
 .blank_block{margin-bottom:0;}
@@ -36,9 +69,12 @@
     text-align: center;
     border: none;
 }
+.table-default > tbody > tr > td{
+    border-top: 1px solid #f0f0f0;
+}
 .service .table-default{
     border: none;
-    border-bottom:1px solid #f0f0f0;
+    border-bottom:1px solid #f0f0f0;overflow:auto;
 }
 .service .table-default > tbody > tr:last-child{
 
@@ -55,7 +91,7 @@
 #service .btn-blue:hover{
     background: #6c81ed;
 }
-#service .service_drop{position:absolute;top:30px;border-radius:0;min-width:78px;left:-1px;border:1px solid #ebebed;border-top:0;}
+#service .service_drop{position:absolute;top:30px;border-radius:0;min-width:78px;left:-13px;border:1px solid #ebebed;border-top:0;}
 #service .dropdown-menu > li {background:#fff; width:130px; text-align: center;}
 #service .dropdown-menu > li:hover {background:#eef1fd;}
 #service .open .ser_bg_btn{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg);top:9px;}
@@ -74,3 +110,12 @@
 .btn-refresh:hover{
     color:#5b73eb;
 }
+
+@media (min-width: 1920px) {
+    #service .service_drop{left:-1px}
+}
+
+/*服务部署*/
+/*.address_tit{width:200px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;}*/
+/*服务部署列表*/
+.jia_tab_table .jia_tr_list{border-bottom:1px solid #f00;height:42px;}
