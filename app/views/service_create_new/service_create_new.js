@@ -7,9 +7,13 @@ angular.module('console.service.createnew', [
             ]
         }
     ])
-    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret',
-        function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret) {
-
+    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret','Metrics','$stateParams',
+        function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret,Metrics,$stateParams) {
+            $scope.updata=false;
+            if ($stateParams.dc) {
+                console.log('$stateParams.dc', $stateParams.dc);
+                $scope.updata=true
+            }
 
             $scope.slider = {
                 value: 0,
@@ -40,6 +44,40 @@ angular.module('console.service.createnew', [
                 twoerr:false,
                 hasimage:false
             }
+
+            //
+            //$http.get('/registry/api/repositories', {timeout: end.promise, params: {project_id: 1}})
+            //    .success(function (docdata) {
+            //        angular.forEach(docdata, function (docitem, i) {
+            //            $scope.imagecenterDoc.push({
+            //                name: docitem,
+            //                lasttag: null,
+            //                canbuild: true,
+            //                class: 'doc'
+            //            });
+            //        })
+            //        $http.get('/registry/api/repositories', {
+            //                params: {project_id: 58}
+            //            })
+            //            .success(function (dfdata) {
+            //                angular.forEach(dfdata, function (dfitem, k) {
+            //                    $scope.imagecenterDF.push({
+            //                        name: dfitem,
+            //                        lasttag: null,
+            //                        canbuild: true,
+            //                        class: 'df'
+            //                    });
+            //                });
+            //                $scope.imagecenterpoj = $scope.imagecenterDoc.concat($scope.imagecenterDF);
+            //                //console.log('imagecenterpoj', $scope.imagecenterpoj);
+            //                $scope.imagecentercopy = angular.copy($scope.imagecenterpoj);
+            //                $scope.grid.imagecentertotal = $scope.imagecentercopy.length
+            //
+            //
+            //            })
+            //    }).error(function (err) {
+
+            //})
             //dcname
             var dcnamer = /^[a-z]([a-z0-9_]{0,22})?[a-z0-9]$/;
             $scope.$watch('dc.metadata.name', function (n,o) {
@@ -265,6 +303,23 @@ angular.module('console.service.createnew', [
                     backrestore($scope.backState)
                 }
             }
+
+            //图片预加载
+            var images = new Array()
+            function preload() {
+                for (var i = 0; i < arguments.length; i++) {
+                    images[i] = new Image()
+                    images[i].src = arguments[i]
+                }
+            };
+            preload(
+                "views/service_create_new/img/add_hover.png",
+                "views/service_create_new/img/del_hover.png",
+                "views/service_create_new/img/input_close_hover.png",
+                "views/service_create_new/img/vol_btn_hover.png",
+                "views/service_create_new/img/vol_hover.png"
+            );
+
             function initModal() {
                 var widthnav = $('.create_new_nav').width();
                 $('.create_new_modal').css('left', widthnav);
@@ -411,97 +466,335 @@ angular.module('console.service.createnew', [
                     "tls": {}
                 }
             };
-            //Dc
-            $scope.dc = {
-                kind: "DeploymentConfig",
-                apiVersion: "v1",
-                metadata: {
-                    name: "",
-                    labels: {
-                        app: ""
-                    },
-                    annotations: {
-                        "dadafoundry.io/images-from": "public",
-                        "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                    },
-                    ImageChange:true,
-                    ConfigChange:true
-                },
-                spec: {
-                    strategy: {},
-                    triggers: [],
-                    replicas: 1,
-                    selector: {
-                        app: "",
-                        deploymentconfig: ""
-                    },
-                    template: {
-                        metadata: {
-                            labels: {
-                                app: "",
-                                deploymentconfig: ""
-                            }
-                        },
-                        spec: {
-                            containers: [{
-                                name: "",
-                                image: "",    //imageStreamTag
-                                othersetting: false,
-                                retract: false,
-                                namerr:{
-                                    rexed:false,
-                                    repeated:false,
-                                    null:true
-                                },
-                                env: [{name: '', value: ''}],
-                                args: '',
-                                resources: {
-                                    limits: {
-                                        cpu: null,
-                                        memory: null
-                                    },
-                                    requests: {
-                                        cpu: null,
-                                        memory: null
-                                    }
-                                },
-                                "imagePullPolicy": "Always",
-                                volumeMounts: [],
-                                secretsobj: {
-                                    secretarr: [{
-                                        secret: {
-                                            secretName: '名称'
-                                        },
-                                        mountPath: ''
-                                    }]
-                                    ,
-                                    configmap: [{
-                                        configMap: {
-                                            name: '名称'
-                                        },
-                                        mountPath: ''
-                                    }]
-                                    ,
-                                    persistentarr: [{
-                                        persistentVolumeClaim: {
-                                            claimName: '名称'
-                                        },
-                                        mountPath: ''
-                                    }]
-
-                                }
-                            }],
-                            "restartPolicy": "Always",
-                            "terminationGracePeriodSeconds": 30,
-                            "dnsPolicy": "ClusterFirst",
-                            "securityContext": {},
-                            volumes: [],
+            //bsi
+            $scope.bsi= {
+                check:[],
+                work:[]
+            }
+            if ($scope.updata) {
+                DeploymentConfig.get({namespace: $rootScope.namespace, name:$stateParams.dc ,region:$rootScope.region}, function (res) {
+                    $scope.dc = res;
+                    $scope.error={
+                        dcnameerr:{
+                            rexed:true,
+                            repeated:true,
+                            null:false
 
                         }
+                    }
+                    if (!$scope.dc.spec.template.spec.volumes) {
+                        $scope.dc.spec.template.spec.volumes=[];
+                    }
+                    //console.log('$scope.dc', $scope.dc);
+                    BackingServiceInstance.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
+                        $log.info("backingServiceInstance", res.items);
+                        $scope.bsis=res.items;
+                        //$scope.bsi.work=angular.copy($scope.bsis)
+                        angular.forEach(res.items, function (item,i) {
+                            angular.forEach(item.spec.binding, function (bind,j) {
+                                if (bind.bind_deploymentconfig === $scope.dc.metadata.name) {
+                                    item.bind=true
+
+                                }
+                            })
+                            if (item.bind) {
+                                $scope.bsi.check.push(item);
+
+                                //console.log('$scope.bsi',$scope.bsi);
+                            }else {
+                                $scope.bsi.work.push(item)
+                            }
+
+
+                        })
+
+
+
+                    }, function (res) {
+                        //todo 错误处理
+                        // $log.info("loadBsi err", res);
+                    });
+                    Route.get({namespace: $rootScope.namespace,name:$scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+                        $scope.routeconf.checkcon=res.spec.port.targetPort.split('-')[1];
+                        $scope.routeconf.checkport=res.spec.port.targetPort.split('-')[0];
+                        $scope.routeconf.host=res.spec.host.split('.like.datapp.c.citic')[0];
+                        console.log('route',res);
+
+                    }, function (err) {
+
+                    })
+                    angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
+                        if (!con.volumeMounts) {
+                            con.volumeMounts=[];
+                        }
+                        con.imagename=con.image.split('/')[2].split('@')[0]
+                        con.namerr= {
+                                rexed:true,
+                                repeated:true,
+                                null:false
+                        }
+
+                        if (!con.env) {
+                            con.env= [{name: '', value: ''}]
+                        }
+
+                        //获取卷
+
+
+                        if (!con.env) {
+                            con.env= [{name: '', value: ''}]
+                        }
+                        con.secretsobj={
+                            secretarr: []
+                            ,
+                            configmap: []
+                            ,
+                            persistentarr: []
+
+                        }
+                        angular.forEach(con.volumeMounts, function (volue,k) {
+
+                            if (volue.name.indexOf('secrat') > -1) {
+                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                if (volue.name === vol.name) {
+                                    var modelvol ={
+                                        secret: {
+                                            secretName: vol.secret.secretName
+                                        },
+                                        mountPath: volue.mountPath
+                                    }
+                                    con.secretsobj.secretarr.push(modelvol)
+
+
+                                }
+                            })
+                            }else if (volue.name.indexOf('config') > -1) {
+                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                    if (volue.name === vol.name) {
+                                        var modelvol ={
+                                            configMap: {
+                                                name: vol.configMap.name
+                                            },
+                                            mountPath: volue.mountPath
+                                        }
+                                        con.secretsobj.configmap.push(modelvol)
+                                        //con.secretsobj.configmap[j].configMap=angular.copy(vol.configMap)
+                                        //console.log('config');
+                                    }
+                                })
+                            }else if (volue.name.indexOf('persistent') > -1) {
+                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                    if (volue.name === vol.name) {
+                                        var modelvol ={
+                                            persistentVolumeClaim: {
+                                                claimName: vol.persistentVolumeClaim.claimName
+                                            },
+                                            mountPath: volue.mountPath
+                                        }
+                                        con.secretsobj.persistentarr.push(modelvol)
+                                        //con.secretsobj.persistentarr[j].persistentVolumeClaim=angular.copy(vol.persistentVolumeClaim)
+                                        console.log('persistent');
+                                    }
+                                })
+                            }
+                        })
+                        if (con.secretsobj.secretarr.length === 0) {
+                            con.secretsobj.secretarr.push({
+                                secret: {
+                                    secretName: '名称'
+                                },
+                                mountPath: ''
+                            })
+                        }
+                        if (con.secretsobj.configmap.length === 0) {
+                            con.secretsobj.configmap.push({
+                                configMap: {
+                                    name: '名称'
+                                },
+                                mountPath: ''
+                            })
+                        }
+                        if (con.secretsobj.persistentarr.length === 0) {
+                            con.secretsobj.persistentarr.push({
+                                persistentVolumeClaim: {
+                                    claimName: '名称'
+                                },
+                                mountPath: ''
+                            })
+                        }
+
+                        console.log(con);
+                        //$scope.$apply()
+                        if (con.resources.limits&&con.resources.limits.cpu && con.resources.limits.memory) {
+                            con.resources.limits.cpu=parseInt(con.resources.limits.cpu)
+                            con.resources.limits.memory=parseInt(con.resources.limits.memory)
+                        }else {
+                            con.resources.limits={}
+                            con.resources.limits.cpu=0
+                            con.resources.limits.memory=0
+                        }
+                            //console.log('con.imagename', con.imagename);
+                        for(var k in $scope.dc.metadata.annotations){
+                            //console.log(k.indexOf('dadafoundry.io/image-'));
+                            if (k.indexOf('dadafoundry.io/image-')>-1) {
+                                //console.log(k.indexOf('dadafoundry.io/image-'));
+                                if ($scope.dc.metadata.annotations[k].split(':')[0] == con.name) {
+                                    con.imagetag=$scope.dc.metadata.annotations[k].split(':')[1];
+                                    ImageStream.get({
+                                        namespace: $rootScope.namespace,
+                                        region: $rootScope.region
+                                    }, function (res) {
+                                        $scope.updataimages = [];
+                                        angular.forEach(res.items, function (item,k) {
+                                            if (item.status.tags) {
+                                                $scope.updataimages.push(item)
+                                            }
+                                        })
+                                        angular.forEach($scope.updataimages, function (item,k) {
+                                            //console.log('item',item);
+                                            if (item.metadata.name === con.imagename) {
+                                                //$scope.updataimages[i].checkbox=con.imagetag
+                                                //console.log(i,$scope.dc.spec.template.spec.containers);
+
+                                                $scope.dc.spec.template.spec.containers[i].imaged = angular.copy(item);
+                                                ImageStreamTag.get({
+                                                    namespace: $rootScope.namespace,
+                                                    name: con.imagename + ':' + con.imagetag,
+                                                    region: $rootScope.region
+                                                }, function (res) {
+                                                    //console.log('item.ist', res);
+
+                                                    $scope.dc.spec.template.spec.containers[i].imaged.checkbox = con.imagetag;
+                                                    //= res;
+                                                    $scope.dc.spec.template.spec.containers[i].imaged.ist = res;
+                                                    $scope.dc.spec.template.spec.containers[i].image = res.image.dockerImageReference;
+                                                    for (var k in res.image.dockerImageMetadata.Config.ExposedPorts) {
+                                                        var arr = k.split('/');
+                                                        if (arr.length == 2) {
+                                                            $scope.dc.spec.template.spec.containers[i].containerPort = parseInt(arr[0])
+                                                            $scope.dc.spec.template.spec.containers[i].hostPort = parseInt(arr[0])
+                                                        }
+                                                    }
+                                                    //console.log('$scope.dc.spec.template.spec.containers[i].imaged',$scope.dc.spec.template.spec.containers[i].imaged);
+                                                }, function (res) {
+                                                    //console.log("get image stream tag err", res);
+                                                });
+                                            }
+
+
+                                        })
+
+                                        console.log('$scope.images', $scope.updataimages);
+                                    })
+
+                                }
+                            }
+                        }
+
+                        //console.log(con.imagename,con.imagetag);
+                    })
+                }, function (res) {
+                    //todo 错误处理
+                });
+            }else {
+                $scope.dc = {
+                    kind: "DeploymentConfig",
+                    apiVersion: "v1",
+                    metadata: {
+                        name: "",
+                        labels: {
+                            app: ""
+                        },
+                        annotations: {
+                            "dadafoundry.io/images-from": "public",
+                            "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                        },
+                        ImageChange:true,
+                        ConfigChange:true
                     },
-                },
-                status: {}
-            };
+                    spec: {
+                        strategy: {},
+                        triggers: [],
+                        replicas: 1,
+                        selector: {
+                            app: "",
+                            deploymentconfig: ""
+                        },
+                        template: {
+                            metadata: {
+                                labels: {
+                                    app: "",
+                                    deploymentconfig: ""
+                                }
+                            },
+                            spec: {
+                                containers: [{
+                                    name: "",
+                                    image: "",    //imageStreamTag
+                                    othersetting: false,
+                                    retract: false,
+                                    namerr: {
+                                        rexed:false,
+                                        repeated:false,
+                                        null:true
+                                    },
+                                    env: [{name: '', value: ''}],
+                                    args: '',
+                                    resources: {
+                                        limits: {
+                                            cpu: null,
+                                            memory: null
+                                        }
+                                    },
+                                    "imagePullPolicy": "Always",
+                                    volumeMounts: [],
+                                    secretsobj: {
+                                        secretarr: [{
+                                            secret: {
+                                                secretName: '名称'
+                                            },
+                                            mountPath: ''
+                                        }]
+                                        ,
+                                        configmap: [{
+                                            configMap: {
+                                                name: '名称'
+                                            },
+                                            mountPath: ''
+                                        }]
+                                        ,
+                                        persistentarr: [{
+                                            persistentVolumeClaim: {
+                                                claimName: '名称'
+                                            },
+                                            mountPath: ''
+                                        }]
+
+                                    }
+                                }],
+                                "restartPolicy": "Always",
+                                "terminationGracePeriodSeconds": 30,
+                                "dnsPolicy": "ClusterFirst",
+                                "securityContext": {},
+                                volumes: [],
+
+                            }
+                        },
+                    },
+                    status: {}
+                };
+                //绑定dsi
+
+                BackingServiceInstance.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
+                    $scope.bsis=res.items;
+                    $scope.bsi.work=angular.copy($scope.bsis)
+                    //console.log('bsi',res);
+                })
+
+
+            }
+            //Dc
+
             //环境变量
             $scope.addenv = function (containers) {
                 containers.push({name: '', value: ''})
@@ -517,7 +810,7 @@ angular.module('console.service.createnew', [
                     image: "",    //imageStreamTag
                     othersetting: false,
                     retract: false,
-                    namerr:{
+                    namerr: {
                         rexed:false,
                         repeated:false,
                         null:true
@@ -526,10 +819,6 @@ angular.module('console.service.createnew', [
                     args: '',
                     resources: {
                         limits: {
-                            cpu: null,
-                            memory: null
-                        },
-                        requests: {
                             cpu: null,
                             memory: null
                         }
@@ -1497,8 +1786,9 @@ angular.module('console.service.createnew', [
                 angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
                     //angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
                     //        console.log('con[i].hostPort',con[i]);
+                    //console.log(con);
                     ps.push({
-                        name: con.hostPort + '-tcp',
+                        name: con.hostPort + '-'+con.name,
                         port: parseInt(con.hostPort),
                         protocol: "TCP",
                         targetPort: parseInt(con.containerPort)
@@ -1529,7 +1819,7 @@ angular.module('console.service.createnew', [
                 $scope.route.spec.host = $scope.routeconf.host + $scope.routeconf.suffix;
                 $scope.route.spec.to.name = $scope.dc.metadata.name;
                 //选择的route的端口
-                $scope.route.spec.port.targetPort = $scope.routeconf.checkport + '-tcp';
+                $scope.route.spec.port.targetPort = $scope.routeconf.checkport +'-'+$scope.routeconf.checkcon;
                 Route.create({
                     namespace: $rootScope.namespace,
                     region: $rootScope.region
@@ -1586,16 +1876,6 @@ angular.module('console.service.createnew', [
                 });
             }
 
-            //绑定dsi
-            $scope.bsi= {
-                check:[],
-                work:[]
-            }
-            BackingServiceInstance.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
-                $scope.bsis=res.items;
-                $scope.bsi.work=angular.copy($scope.bsis)
-                //console.log('bsi',res);
-            })
             $scope.addbsi= function (bsisd) {
                 angular.forEach($scope.bsi.work, function (bsi,i) {
                     if (bsi.metadata.name === bsisd.metadata.name) {
@@ -1649,18 +1929,22 @@ angular.module('console.service.createnew', [
                 //挂卷
                 var clonedc = angular.copy($scope.dc);
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
+                    var imagetag = 'dadafoundry.io/image-' + con.name;
+                    clonedc.metadata.annotations[imagetag] = con.name + ":" + con.imaged.checkbox;
                     if (con.args) {
                         clonedc.spec.template.spec.containers[i].args= clonedc.spec.template.spec.containers[i].args.split(' ');
                     }else {
                         delete clonedc.spec.template.spec.containers[i].args
                     }
-
-                    if (!clonedc.othersetting) {
+                    console.log(con.othersetting, '!clonedc.othersetting');
+                    if (!con.othersetting) {
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                         delete clonedc.spec.template.spec.containers[i].env
                         delete clonedc.spec.template.spec.containers[i].args
                     } else {
+                        console.log(con.secretsobj.secretarr.length);
                         if (con.secretsobj.secretarr.length > 0) {
+                            console.log(con.secretsobj.secretarr);
                             angular.forEach(con.secretsobj.secretarr, function (secret, k) {
                                 if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.name !== '名称') {
                                     secret.name = "con" + i + "secrat" + k;
@@ -1697,7 +1981,12 @@ angular.module('console.service.createnew', [
                         }
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                     }
-                    delete clonedc.spec.template.spec.containers[i].resources
+                    if (clonedc.spec.template.spec.containers[i].resources.limits.cpu && clonedc.spec.template.spec.containers[i].resources.limits.memory) {
+
+                    }else {
+                        delete clonedc.spec.template.spec.containers[i].resources
+                    }
+
 
                 })
                 angular.forEach(clonedc.spec.template.spec.volumes, function (volume, i) {
@@ -1738,43 +2027,67 @@ angular.module('console.service.createnew', [
                 //}
                 //addport
                 // 删除同名服务,创建dc之前执行该方法
-                Service.delete({
-                    namespace: $rootScope.namespace,
-                    name: clonedc.metadata.name,
-                    region: $rootScope.region
-                }, function (res) {
-                    //console.log("deleService-yes", res);
-                }, function (res) {
-                    //console.log("deleService-no", res);
-                })
-                //  删除同名路由,创建dc之前执行该方法
-                Route.delete({
-                    namespace: $rootScope.namespace,
-                    name: clonedc.metadata.name,
-                    region: $rootScope.region
-                }, function (res) {
-                }, function (res) {
-                })
-                createService();
-                //console.log('$scope.routeconf.route', $scope.routeconf.route);
-
-                if ($scope.routeconf.host) {
-                    //console.log('$scope.grid.port',$scope.grid.port);
-                    createRoute();
-                }
-                DeploymentConfig.create({
-                    namespace: $rootScope.namespace,
-                    region: $rootScope.region
-                }, clonedc, function (res) {
-                    $log.info("create dc success", res);
-                    bindService(clonedc);
-                    $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
-                }, function (res) {
-                    //todo 错误处理
-                    $log.info("create dc fail", res);
-                    if (res.status == 409) {
-                        $scope.grid.createdcerr = true;
+                //console.log('clonedc', clonedc);
+                if ($scope.updata) {
+                    if ($scope.routeconf.host) {
+                        //console.log('$scope.grid.port',$scope.grid.port);
+                        updateRoute();
                     }
-                });
+                    DeploymentConfig.put({
+                        namespace: $rootScope.namespace,
+                        name: clonedc.metadata.name,
+                        region: $rootScope.region
+                    }, clonedc, function (res) {
+                        // $log.info("update dc success", res);
+                        //$scope.getdc.spec.replicas = $scope.dc.spec.replicas;
+                        bindService(clonedc);
+                        $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
+                    }, function (res) {
+                        //todo 错误处理
+
+                        // $log.info("update dc fail", res);
+                    });
+                }else {
+                    Service.delete({
+                        namespace: $rootScope.namespace,
+                        name: clonedc.metadata.name,
+                        region: $rootScope.region
+                    }, function (res) {
+                        //console.log("deleService-yes", res);
+                    }, function (res) {
+                        //console.log("deleService-no", res);
+                    })
+                    //  删除同名路由,创建dc之前执行该方法
+                    Route.delete({
+                        namespace: $rootScope.namespace,
+                        name: clonedc.metadata.name,
+                        region: $rootScope.region
+                    }, function (res) {
+                    }, function (res) {
+
+                    })
+                    createService();
+                    //console.log('$scope.routeconf.route', $scope.routeconf.route);
+
+                    if ($scope.routeconf.host) {
+                        //console.log('$scope.grid.port',$scope.grid.port);
+                        createRoute();
+                    }
+                    DeploymentConfig.create({
+                        namespace: $rootScope.namespace,
+                        region: $rootScope.region
+                    }, clonedc, function (res) {
+                        $log.info("create dc success", res);
+                        bindService(clonedc);
+                        $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
+                    }, function (res) {
+                        //todo 错误处理
+                        $log.info("create dc fail", res);
+                        if (res.status == 409) {
+                            $scope.grid.createdcerr = true;
+                        }
+                    });
+                }
+
             }
         }]);
