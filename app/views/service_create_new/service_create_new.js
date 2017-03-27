@@ -502,7 +502,30 @@ angular.module('console.service.createnew', [
                         console.log('route',res);
 
                     }, function (err) {
-
+                        $scope.route = {
+                            "kind": "Route",
+                            "apiVersion": "v1",
+                            "metadata": {
+                                "name": "",
+                                "labels": {
+                                    "app": ""
+                                },
+                                annotations: {
+                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                                }
+                            },
+                            "spec": {
+                                "host": "",
+                                "to": {
+                                    "kind": "Service",
+                                    "name": ""
+                                },
+                                "port": {
+                                    "targetPort": ""
+                                },
+                                "tls": {}
+                            }
+                        };
                     })
                     angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
                         if (!con.volumeMounts) {
@@ -2077,21 +2100,31 @@ angular.module('console.service.createnew', [
                         //console.log('$scope.grid.port',$scope.grid.port);
                         //createRoute();
                         updataRoute()
+                    }else {
+                        createRoute()
                     }
-                    DeploymentConfig.put({
-                        namespace: $rootScope.namespace,
-                        name: clonedc.metadata.name,
-                        region: $rootScope.region
-                    }, clonedc, function (res) {
-                        // $log.info("update dc success", res);
-                        //$scope.getdc.spec.replicas = $scope.dc.spec.replicas;
-                        bindService(clonedc);
-                        $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
-                    }, function (res) {
-                        //todo 错误处理
+                    DeploymentConfig.get({namespace: $rootScope.namespace, name:$stateParams.dc ,region:$rootScope.region}, function (res) {
 
-                        // $log.info("update dc fail", res);
-                    });
+                        //clonedc.
+                        clonedc.metadata.resourceVersion=res.metadata.resourceVersion
+                        DeploymentConfig.put({
+                            namespace: $rootScope.namespace,
+                            name: clonedc.metadata.name,
+                            region: $rootScope.region
+                        }, clonedc, function (res) {
+                            // $log.info("update dc success", res);
+                            //$scope.getdc.spec.replicas = $scope.dc.spec.replicas;
+                            bindService(clonedc);
+                            $state.go('console.service_detail', {name: clonedc.metadata.name,from: 'create'});
+                        }, function (res) {
+                            //todo 错误处理
+
+                            // $log.info("update dc fail", res);
+                        });
+                    }, function (err) {
+
+                    })
+
                 }else {
                     Service.delete({
                         namespace: $rootScope.namespace,
