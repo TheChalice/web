@@ -13,6 +13,16 @@ define(['angular', 'moment'], function (angular, moment) {
                 return moment(timestamp).fromNow(dropSuffix);
             };
         }])
+        .filter('dateRelative2', [function() {
+            // dropSuffix will tell moment whether to include the "ago" text
+            return function(timestamp, dropSuffix) {
+
+                if (!timestamp) {
+                    return "-";
+                }
+                return moment(timestamp).fromNow(true);
+            };
+        }])
         .filter('duration', [function() {
             return function(um) {
                 if (!um) {
@@ -155,15 +165,15 @@ define(['angular', 'moment'], function (angular, moment) {
                     return items;
                 }
 
-                    angular.forEach(items, function (item) {
-                        if (condition.label === item.label) {
-                            item.show = true
-                            filtered.push(item);
-                        }else {
-                            item.show=false
-                        }
-                    });
-                    return filtered;
+                angular.forEach(items, function (item) {
+                    if (condition.label === item.label) {
+                        item.show = true
+                        filtered.push(item);
+                    }else {
+                        item.show=false
+                    }
+                });
+                return filtered;
 
 
 
@@ -173,12 +183,8 @@ define(['angular', 'moment'], function (angular, moment) {
             return function(phase){
                 if(phase === 'coupon'){
                     return "充值卡"
-                }else if(phase === 'hongpay'){
-                    return "鸿支付"
-                }else if(phase == 'Pending'){
-                    return "创建中"
-                }else if(phase == 'Bound'){
-                    return "未挂载"
+                }else if(phase === 'wechat'){
+                    return "微信支付"
                 }else{
                     return phase || "账户余额"
                 }
@@ -202,15 +208,39 @@ define(['angular', 'moment'], function (angular, moment) {
         .filter("timescon",[function(){
             return function(times){
                 if(times){
-                   //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
                     return moment(times).format('YYYY-MM-DD HH:mm:ss');
+                }
+            }
+        }])
+        .filter("timeshm",[function(){
+            return function(times){
+                if(times){
+                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    return moment(times).format('HH:mm');
+                }
+            }
+        }])
+        .filter("timesy",[function(){
+            return function(times){
+                if(times){
+                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    return moment(times).format('YYYY');
+                }
+            }
+        }])
+        .filter("timesmd",[function(){
+            return function(times){
+                if(times){
+                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    return moment(times).format('MM-DD');
                 }
             }
         }])
         .filter("timesconbuy",[function(){
             return function(times){
                 if(times){
-                   //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
                     return moment(parseInt(moment(times).format('X'))-28800).format('YYYY-MM-DD HH:mm:ss');
                 }
             }

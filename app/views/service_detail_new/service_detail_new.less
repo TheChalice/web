@@ -27,18 +27,13 @@ ul,li{
   transition: all 0.3s;
   border:1px solid @blue;
   border-radius:2px;
-  &:hover{
-    color:#fff;
-    background: @blue;
-  }
 }
 
 .zhexian{
   height:3px;
-  position: relative;
-  wight:20px;
-  bottom:0;
-  right:0;
+  position: absolute;
+  bottom:24px;
+  right:12px;
   & b:first-child{
     display: inline-block;
     height:0px;
@@ -87,25 +82,37 @@ ul,li{
   font-size:14px;
 }
 .log-modal{
+  ul{
+    overflow: hidden;
+    li{
+      float: left;
+      width: 17.5%;
+      color: #fff;
+      padding:0 40px;
+    }
+    li:last-child{
+      width: 30%;
+    }
+  }
   .nav_top{
     height:42px;
     clear:both;
     background:#22272b;
-    ul{
-      overflow: hidden;
-      li{
-        float: left;
-        width: 18%;
-        color: #fff;
-        line-height: 42px;
-        padding:0 40px;
-      }
-      li:last-child{
-        width: 28%;
-      }
+    overflow:hidden;
+    li{
+      line-height: 42px;
     }
-
   }
+  .nav_body{
+    position: absolute;
+    top:40px;
+    bottom:0;
+    overflow-y: auto;
+    ul{
+      margin-top: 15px;
+    }
+  }
+
   .well{
     padding:0;
   }
@@ -116,18 +123,11 @@ ul,li{
     position:absolute;
     top:42px;
     bottom:0;
-    left:0;
+    left:-1px;
     right:0;
     height:100%;
     background-color:#151718;
     font-size:12px;
-    pre{
-      color: #fff;
-      position:absolute;
-      top:0;
-      bottom:0;
-      height:100%;
-    }
   }
 }
 .detail_new_modal{
@@ -171,6 +171,7 @@ ul,li{
         text-align: center;
         color:#fff;
         margin-right: 20px;
+        text-transform: uppercase;
       }
       & > div:last-child{
         float: left;
@@ -194,6 +195,10 @@ ul,li{
         & > div:nth-child(4){
           a{
             &:extend(.btn-common);
+            &:hover{
+              color:#fff;
+              background: @blue;
+            }
           }
         }
 
@@ -213,6 +218,16 @@ ul,li{
         }
       }
       a:nth-child(2){
+        &:extend(.btn-common);
+        width:80px;
+        color:#fff;
+        background: @blue;
+        margin-right: 15px;
+        &:hover{
+          background: @blue-hover;
+        }
+      }
+      a:nth-child(3){
         &:extend(.btn-common);
         width:80px;
         color:@font9;
@@ -236,11 +251,19 @@ ul,li{
       margin-right: 20px;
       color:#fff;
       margin-top:20px;
+      position: relative;
+      border-radius: 3px;
+    }
+    & > div:not(:first-child){
+      border: 3px solid transparent;
+      &:hover{
+        border: 3px solid #7ecef4;
+      }
     }
     & > div:first-child,div:nth-child(4){
       width:360px;
     }
-    & > div:nth-child(2),div:nth-child(3){
+    & > div:nth-child(2),& > div:nth-child(3){
       width:180px;
     }
     & > div:first-child{//服务监控
@@ -270,16 +293,14 @@ ul,li{
         }
       }
       & > div:nth-child(2){//右边
-        .zhexian{
-          bottom:-36px;
-          left:149px;
-        }
+        padding: 2px;
         &:hover .zhexian b{
           border-color: @blue;
         }
         border : 1px solid #f0f0f0;
         &:hover{
-          border-color: @blue;
+          border: 3px solid @blue;
+          padding: 0;
         }
         p{
           i{
@@ -310,13 +331,9 @@ ul,li{
       }
     }
     & > div:nth-child(2){
-      background: @blue;
+      background: url(./img/images_08.png) no-repeat;
       padding: 15px;
-      .zhexian{
 
-        bottom:4px;
-        left:135px;
-      }
       &:hover .zhexian b{
         border-color: #fff;
       }
@@ -336,16 +353,30 @@ ul,li{
       span:nth-child(2){
       }
       span:nth-child(3){
-        padding-left:30px;
+        padding-left:28px;
+        position:relative;
+        i{
+          display:inline-block;
+          height:17px;
+          width:17px;
+          background-color: #fff;
+          position: absolute;
+          top:1px;
+          left:1px;
+          &.succ{
+            background:url(./img/images_52.png) no-repeat;
+          }
+          &.fail{
+            background:url(./img/images_49.png) no-repeat;
+          }
+        }
+
       }
     }
     & > div:nth-child(3){
-      background: @blue;
+      background: url(./img/images_08.png) no-repeat;
       padding: 15px;
-      .zhexian{
-        bottom:-106px;
-        left:134px;
-      }
+
       &:hover .zhexian b{
         border-color: #fff;
       }
@@ -354,11 +385,10 @@ ul,li{
       }
     }
     & > div:nth-child(4){
-      background: @blue;
+      background: url(./img/images_06.png) no-repeat;
       padding: 15px;
       .zhexian{
-        bottom:0;
-        left:316px;
+        bottom:41px;
       }
       &:hover .zhexian b{
         border-color: #fff;
@@ -371,9 +401,7 @@ ul,li{
         display: inline-block;
         margin-bottom: 15px;
       }
-
     }
-
   }
 }
 

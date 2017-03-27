@@ -1,27 +1,25 @@
 <div class="log-modal">
     <div class="well well-log">
         <div class="nav_top">
-            <ul class="nav_set">
-                <li>
-                    <span>时间</span>
-                    <span>名称</span>
-                    <span>类型</span>
-                    <span>状态</span>
-                    <span>事件</span>
-                </li>
-            </ul>
-            <ul class="nav_detail">
-                <li  ng-repeat="event in eventsws.items  | orderBy : 'mysort'">
-                    <span>{{event.metadata.creationTimestamp | timescon2}}</span>
-                    <span>{{event.involvedObject.name}}</span>
-                    <span>{{event.involvedObject.kind}}</span>
-                    <span>{{event.type}}</span>
-                    <span>{{event.message}}</span>
-                </li>
-
+            <ul style="line-height: 42px;">
+                <li>时间</li>
+                <li>名称</li>
+                <li>类型</li>
+                <li>状态</li>
+                <li>事件</li>
             </ul>
         </div>
-        <pre ng-bind-html=log></pre>
+        <div class="nav_body">
+            <ul ng-repeat="event in eventsws.items  | orderBy : 'mysort'">
+                <li>{{event.metadata.creationTimestamp | timescon2}}</li>
+                <li>{{event.involvedObject.name}}</li>
+                <li>{{event.involvedObject.kind}}</li>
+                <li>{{event.type}}</li>
+                <li>{{event.message}}</li>
+            </ul>
+        </div>
     </div>
 </div>
+
+
 

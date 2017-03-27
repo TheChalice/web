@@ -78,8 +78,8 @@
                 <p>部署记录</p>
                 <div>
                     <span>{{rcs.items[0].metadata.creationTimestamp | dateRelative}}</span>
-                    <!--<span>3月20日</span>-->
-                    <span>{{rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}</span>
+                    <span>3月20日</span>
+                    <span><i  ng-class="{true:'succ',false:'fail'}[rcs.items[0].metadata.annotations['openshift.io/deployment.phase']==='Complete']"> </i>{{rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}</span>
                 </div>
                 <div class="zhexian">
                     <b></b><b></b>

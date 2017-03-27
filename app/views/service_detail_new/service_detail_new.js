@@ -12,8 +12,15 @@ angular.module('console.service.detail', [
         ]
     }
 ])
-    .controller('ServiceDetailCtrl', ['$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey','Metrics','MetricsService',
-    function ($sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey,Metrics,MetricsService) {
+    .controller('ServiceDetailCtrl', ['$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey','Metrics','MetricsService','ContainerModal_new',
+    function ($sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey,Metrics,MetricsService,ContainerModal_new) {
+        //随机颜色
+        (function(){
+            var colorRandom = ['#00b7ee','#ec6941','#5f52a0','f19149'];
+            var index = parseInt(Math.random()*3);
+            var color = colorRandom[index];
+            $('.detail_new_content .content-one > div:first-child > div:first-child').css('background',color);
+        })();
         $scope.isShowmodal = {
             'fuwubushu': false,
             'fuwujiankong': false,
@@ -23,7 +30,12 @@ angular.module('console.service.detail', [
 
         }
 
-
+        if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+            //console.log($(".create_new_nav"));
+            $(".create_new_nav").addClass("create_new_nav_new")
+        } else {
+            $(".create_new_nav").removeClass("create_new_nav_new")
+        }
         function initModal() {
             var $detailModal = $('.detail_new_modal');
             var widthnav = $(window).width();
@@ -45,10 +57,9 @@ angular.module('console.service.detail', [
             });
         }
 
-
-        //$(window).resize(function(){
-        //    initModalH();
-        //})
+        $(window).resize(function(){
+            initModalH();
+        })
         /*关闭弹出层*/
         $scope.close = function () {
             var $detailModal = $('.detail_new_modal');
@@ -72,11 +83,22 @@ angular.module('console.service.detail', [
                 left: 0,
                 right:0
             }, 'normal', 'linear');
-            //setTimeout(function () {
-                initModalH();
-            //},0)
             $scope.whatmodal = modal;
         }
+        //图片欲加载
+        var images = new Array()
+        function preload() {
+            for (var i = 0; i < arguments.length; i++) {
+                images[i] = new Image()
+                images[i].src = arguments[i]
+            }
+        };
+        preload(
+            "views/service/img/images_44.png",
+            "views/service/img/images_46.png"
+        );
+
+
 
         //////服务监控
         $scope.cpuData = [];
@@ -332,25 +354,19 @@ angular.module('console.service.detail', [
 
 
         };
-      var test11 = function(name,idx) {
-            //var o = $scope.pods.items[idx];
+      var checkMetrics = function(name,idx) {
             var obj = {};
             angular.forEach($scope.pods.items, function (pod, i) {
                 if (pod.metadata.name == name) {
                     obj = pod
                 }
             })
-            //console.log('pod', obj);
-            //console.log('pod', obj.spec.containers[idx]);
-            var pod = obj.spec.containers[0];
-            getMetrics(obj, pod);
+            var pods = obj.spec.containers[idx];
+            getMetrics(obj, pods);
         };
 
         // 控制台
         $scope.containerModal = function (name, idx) {
-            console.log('======',name)
-            console.log('+++++++',idx)
-            console.log('------',$scope.pods)
             //var o = $scope.pods.items[idx];
             var obj = {};
             angular.forEach($scope.pods.items, function (pod, i) {
@@ -362,7 +378,6 @@ angular.module('console.service.detail', [
             ContainerModal_new.open(obj, pod);
         };
         //页面逻辑
-
         //pod数量验证
         $scope.service_noticename = false;
         $scope.$watch('dc.spec.replicas', function (n,o) {
@@ -1865,7 +1880,11 @@ angular.module('console.service.detail', [
 
             //todo 获取更多的配置
         };
-
+        /////切换pod展示pod的监控信息
+        $scope.checkpodname = function(name,idx){
+            $scope.activePod = name
+            checkMetrics(name,idx);
+        }
         var loadPods = function (dc) {
             var labelSelector = 'deploymentconfig=' + dc;
             $scope.dc.status.replicas = 0;
@@ -1879,8 +1898,9 @@ angular.module('console.service.detail', [
                         })
                     }
                 })
-                //test11(res.items[0].spec.containers[0].podname,0);
-                //console.log('POD000', $scope.pods);
+                $scope.activePod = res.items[0].metadata.name;
+                checkMetrics($scope.activePod,0);
+                console.log('POD000', $scope.pods);
                 $scope.dc.status.replicas = 0;
                 for (var i = 0; i < res.items.length; i++) {
                     $scope.pods.items[i].reason = res.items[i].status.phase;
@@ -3118,258 +3138,267 @@ angular.module('console.service.detail', [
             }).result;
         };
     }])
-    //.service('ContainerModal_new', ['$uibModal', function ($uibModal) {
-    //    this.open = function (pod, obj) {
-    //        return $uibModal.open({
-    //            backdrop: 'static',
-    //            templateUrl: 'views/service_detail_new/containerModal.html',
-    //            size: 'default modal-lg',
-    //            controller: ['$base64', '$sce', 'ansi_ups', '$rootScope', '$scope', '$log', '$uibModalInstance', 'ImageStream', 'Pod', 'Ws', 'Metrics', 'MetricsService',
-    //                function ($base64, $sce, ansi_ups, $rootScope, $scope, $log, $uibModalInstance, ImageStream, Pod, Ws, Metrics, MetricsService) {
-    //                    $scope.pod = pod;
-    //                    //console.log("pod-=-=-=-=-!!!!", pod);
-    //                    $scope.grid = {
-    //                        show: false,
-    //                        mem: false,
-    //                        cpu: false
-    //                    };
-    //                    var loglast = function () {
-    //                        setTimeout(function () {
-    //                            $('#sc').scrollTop(1000000);
-    //
-    //                        }, 200)
-    //                    }
-    //                    $scope.ok = function () {
-    //                        $uibModalInstance.close(true);
-    //                    };
-    //                    $scope.cancel = function () {
-    //                        $uibModalInstance.dismiss();
-    //                    };
-    //
-    //                    var imageStreamName = function (image) {
-    //                        if (!image) {
-    //                            return "";
-    //                        }
-    //                        var match = image.match(/\/([^/]*)@sha256/);
-    //                        if (!match) {
-    //                            return image.split(":");
-    //                        }
-    //                        return match[1];
-    //                    };
-    //
-    //                    var preparePod = function (pod) {
-    //                        var status = pod.status.containerStatuses;
-    //                        var statusMap = {};
-    //                        for (var i = 0; i < status.length; i++) {
-    //                            statusMap[status[i].name] = status[i];
-    //                        }
-    //
-    //                        var containers = pod.spec.containers;
-    //
-    //                        angular.forEach(pod.spec.containers, function (container) {
-    //                            if (statusMap[container.name]) {
-    //                                container.status = statusMap[container.name];
-    //                            }
-    //                            if (container.image.indexOf('@') != -1) {
-    //                                ImageStream.get({
-    //                                    namespace: $rootScope.namespace,
-    //                                    name: imageStreamName(container.image),
-    //                                    region:$rootScope.region
-    //                                }, function (res) {
-    //                                    if (res.kind == 'ImageStream') {
-    //                                        angular.forEach(res.status.tags, function (tag) {
-    //                                            angular.forEach(tag.items, function (item) {
-    //                                                if (container.image.indexOf(item.image)) {
-    //                                                    container.tag = tag.tag;
-    //                                                }
-    //                                            });
-    //                                        });
-    //                                    }
-    //                                });
-    //
-    //                            } else {
-    //                                container.tag = imageStreamName(container.image)[1];
-    //                            }
-    //                        });
-    //                        // console.log('====', $scope.pod)
-    //                    };
-    //                    preparePod($scope.pod);
-    //                    var watchpod = function (resourceVersion, contair) {
-    //                        Ws.watch({
-    //                            api: 'k8s',
-    //                            resourceVersion: resourceVersion,
-    //                            namespace: $rootScope.namespace,
-    //                            type: 'pods',
-    //                            name: $scope.pod.metadata.name + '/log',
-    //                            pod: contair,
-    //                            protocols: 'base64.binary.k8s.io'
-    //                        }, function (res) {
-    //                            //console.log(res);
-    //                            //var data = JSON.parse(res.data);
-    //                            //updateRcs(data);
-    //                            //console.log(data);
-    //                            if (res.data && typeof res.data == "string") {
-    //                                $scope.result += $base64.decode(res.data);
-    //                                var html = ansi_ups.ansi_to_html($scope.result);
-    //                                $scope.log = $sce.trustAsHtml(html);
-    //                                loglast()
-    //                                $scope.$apply();
-    //
-    //                            }
-    //
-    //                            //loglast()
-    //                        }, function () {
-    //                            $log.info("webSocket startRC");
-    //                        }, function () {
-    //                            $log.info("webSocket stopRC");
-    //                            var key = Ws.key($rootScope.namespace, 'pods', $scope.pod);
-    //                            if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
-    //                                return;
-    //                            }
-    //                            //watchpod($scope.resourceVersion);
-    //                        });
-    //                    };
-    //
-    //                    //$scope.containerDetail = function (idx) {
-    //                    //var o = pod.spec.containers[idx];
-    //                    //$scope.grid.show = true;
-    //
-    //                    //};
-    //
-    //                    $scope.back = function () {
-    //                        $scope.grid.show = false;
-    //                    };
-    //
-    //                    $scope.search = function () {
-    //                        // console.log("sinceTime", $scope.grid.st);
-    //                        $scope.getLog($scope.container.name);
-    //                    };
-    //
-    //                    $scope.getLog = function (container) {
-    //                        var params = {
-    //                            namespace: $rootScope.namespace,
-    //                            name: pod.metadata.name,
-    //                            container: container,
-    //                            sinceTime: $scope.grid.st ? $scope.grid.st.toISOString() : (new Date(0)).toISOString()
-    //                        };
-    //                        //console.log('container', container);
-    //                        Pod.get({namespace: $rootScope.namespace, name: pod.metadata.name,region:$rootScope.region}, function (podcenter) {
-    //                            //console.log(podcenter.metadata.resourceVersion);
-    //                            watchpod(podcenter.metadata.resourceVersion, container)
-    //                        })
-    //                    };
-    //
-    //                    $scope.terminalSelect = function () {
-    //                        $scope.terminalTabWasSelected = true;
-    //                    };
-    //
-    //                    $scope.terminalTabWasSelected = false;
-    //
-    //                    //var setChart = function (name, data) {
-    //                    //    data = prepareData(name, data);
-    //                    //    return {
-    //                    //        options: {
-    //                    //            chart: {
-    //                    //                type: 'areaspline'
-    //                    //            },
-    //                    //            title: {
-    //                    //                text: name,
-    //                    //                align: 'left',
-    //                    //                x: 0,
-    //                    //                style: {
-    //                    //                    fontSize: '12px'
-    //                    //                }
-    //                    //            },
-    //                    //            tooltip: {
-    //                    //                backgroundColor: '#666',
-    //                    //                borderWidth: 0,
-    //                    //                shadow: false,
-    //                    //                style: {
-    //                    //                    color: '#fff'
-    //                    //                },
-    //                    //                formatter: function () {
-    //                    //                    if (name == 'CPU') {
-    //                    //                        return this.y.toFixed(2);
-    //                    //                    }
-    //                    //                    return (this.y / 1000000).toFixed(2) + 'M';
-    //                    //                }
-    //                    //            },
-    //                    //            legend: {
-    //                    //                enabled: false
-    //                    //            }
-    //                    //        },
-    //                    //        series: [{
-    //                    //            color: '#f6a540',
-    //                    //            fillOpacity: 0.3,
-    //                    //            marker: {
-    //                    //                enabled: false
-    //                    //            },
-    //                    //            data: data,
-    //                    //            pointStart: (new Date()).getTime() - 30 * 60 * 1000 + 8 * 3600 * 1000,
-    //                    //            pointInterval: 30000 //时间间隔
-    //                    //        }],
-    //                    //        xAxis: {
-    //                    //            type: 'datetime',
-    //                    //            gridLineWidth: 1
-    //                    //        },
-    //                    //        yAxis: {
-    //                    //            gridLineDashStyle: 'ShortDash',
-    //                    //            title: {
-    //                    //                text: ''
-    //                    //            }
-    //                    //        },
-    //                    //        size: {
-    //                    //            width: 798,
-    //                    //            height: 130
-    //                    //        },
-    //                    //        func: function (chart) {
-    //                    //            //setup some logic for the chart
-    //                    //        }
-    //                    //    };
-    //                    //};
-    //
-    //                    var prepareData = function (tp, data) {
-    //                        var res = [];
-    //                        MetricsService.normalize(data, tp);
-    //                        for (var i = 0; i < data.length - 1; i++) {
-    //                            res.push(data[i].value);
-    //                        }
-    //                        return res;
-    //                    };
-    //
-    //                    //var getMetrics = function (pod, container) {
-    //                    //    var st = (new Date()).getTime() - 30 * 60 * 1000;
-    //                    //    var gauges = container.name + '/' + pod.metadata.uid + '/memory/usage';
-    //                    //    var counters = container.name + '/' + pod.metadata.uid + '/cpu/usage';
-    //                    //    Metrics.mem.query({gauges: gauges, buckets: 61, start: st}, function (res) {
-    //                    //        // $log.info("metrics mem", res);
-    //                    //        $scope.chartConfigMem = setChart('内存', res);
-    //                    //        $scope.grid.mem = true;
-    //                    //    }, function (res) {
-    //                    //        // $log.info("metrics mem err", res);
-    //                    //        $scope.chartConfigMem = setChart('内存', []);
-    //                    //        $scope.grid.mem = false;
-    //                    //    });
-    //                    //    Metrics.cpu.query({counters: counters, buckets: 61, start: st}, function (res) {
-    //                    //        // $log.info("metrics cpu", res);
-    //                    //        $scope.chartConfigCpu = setChart('CPU', res);
-    //                    //        $scope.grid.cpu = true;
-    //                    //    }, function (res) {
-    //                    //        // $log.info("metrics cpu err", res);
-    //                    //        $scope.chartConfigCpu = setChart('CPU', []);
-    //                    //        $scope.grid.cpu = false;
-    //                    //    });
-    //                    //};
-    //                    //console.log('$scope.container', obj.name);
-    //                    $scope.container = obj.name;
-    //                    $scope.getLog(obj.name);
-    //                    //terminal(o.name);
-    //                    //getMetrics(pod, obj);
-    //                    //$scope.chartConfigIo = setChart('网络IO', []);
-    //                }]
-    //        }).result;
-    //    };
-    //}])
+    .service('ContainerModal_new', ['$uibModal', function ($uibModal) {
+        this.open = function (pod, obj) {
+            return $uibModal.open({
+                backdrop: 'static',
+                templateUrl: 'views/service_detail_new/containerModal.html',
+                size: 'default modal-lg',
+                controller: ['$base64', '$sce', 'ansi_ups', '$rootScope', '$scope', '$log', '$uibModalInstance', 'ImageStream', 'Pod', 'Ws', 'Metrics', 'MetricsService',
+                    function ($base64, $sce, ansi_ups, $rootScope, $scope, $log, $uibModalInstance, ImageStream, Pod, Ws, Metrics, MetricsService) {
+                        $scope.pod = pod;
+                        //console.log("pod-=-=-=-=-!!!!", pod);
+                        $scope.grid = {
+                            show: false,
+                            mem: false,
+                            cpu: false
+                        };
+                        $scope.check_tpac = true;
+                        $scope.check_cttp = function(num){
+                            if(num == 1){
+                                $scope.check_tpac = true;
+                            }else if(num == 2){
+                                $scope.check_tpac = false;
+                            }
+                        }
+                        var loglast = function () {
+                            setTimeout(function () {
+                                $('#sc').scrollTop(1000000);
+
+                            }, 200)
+                        }
+                        $scope.ok = function () {
+                            $uibModalInstance.close(true);
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss();
+                        };
+
+                        var imageStreamName = function (image) {
+                            if (!image) {
+                                return "";
+                            }
+                            var match = image.match(/\/([^/]*)@sha256/);
+                            if (!match) {
+                                return image.split(":");
+                            }
+                            return match[1];
+                        };
+
+                        var preparePod = function (pod) {
+                            var status = pod.status.containerStatuses;
+                            var statusMap = {};
+                            for (var i = 0; i < status.length; i++) {
+                                statusMap[status[i].name] = status[i];
+                            }
+
+                            var containers = pod.spec.containers;
+
+                            angular.forEach(pod.spec.containers, function (container) {
+                                if (statusMap[container.name]) {
+                                    container.status = statusMap[container.name];
+                                }
+                                if (container.image.indexOf('@') != -1) {
+                                    ImageStream.get({
+                                        namespace: $rootScope.namespace,
+                                        name: imageStreamName(container.image),
+                                        region:$rootScope.region
+                                    }, function (res) {
+                                        if (res.kind == 'ImageStream') {
+                                            angular.forEach(res.status.tags, function (tag) {
+                                                angular.forEach(tag.items, function (item) {
+                                                    if (container.image.indexOf(item.image)) {
+                                                        container.tag = tag.tag;
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+
+                                } else {
+                                    container.tag = imageStreamName(container.image)[1];
+                                }
+                            });
+                            // console.log('====', $scope.pod)
+                        };
+                        preparePod($scope.pod);
+                        var watchpod = function (resourceVersion, contair) {
+                            Ws.watch({
+                                api: 'k8s',
+                                resourceVersion: resourceVersion,
+                                namespace: $rootScope.namespace,
+                                type: 'pods',
+                                name: $scope.pod.metadata.name + '/log',
+                                pod: contair,
+                                protocols: 'base64.binary.k8s.io'
+                            }, function (res) {
+                                //console.log(res);
+                                //var data = JSON.parse(res.data);
+                                //updateRcs(data);
+                                //console.log(data);
+                                if (res.data && typeof res.data == "string") {
+                                    $scope.result += $base64.decode(res.data);
+                                    var html = ansi_ups.ansi_to_html($scope.result);
+                                    $scope.log = $sce.trustAsHtml(html);
+                                    console.log('$scope.log$scope.log---',$scope.log);
+                                    loglast()
+                                    $scope.$apply();
+
+                                }
+
+                                //loglast()
+                            }, function () {
+                                $log.info("webSocket startRC");
+                            }, function () {
+                                $log.info("webSocket stopRC");
+                                var key = Ws.key($rootScope.namespace, 'pods', $scope.pod);
+                                if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
+                                    return;
+                                }
+                                //watchpod($scope.resourceVersion);
+                            });
+                        };
+
+                        //$scope.containerDetail = function (idx) {
+                        //var o = pod.spec.containers[idx];
+                        //$scope.grid.show = true;
+
+                        //};
+
+                        $scope.back = function () {
+                            $scope.grid.show = false;
+                        };
+
+                        $scope.search = function () {
+                            // console.log("sinceTime", $scope.grid.st);
+                            $scope.getLog($scope.container.name);
+                        };
+
+                        $scope.getLog = function (container) {
+                            var params = {
+                                namespace: $rootScope.namespace,
+                                name: pod.metadata.name,
+                                container: container,
+                                sinceTime: $scope.grid.st ? $scope.grid.st.toISOString() : (new Date(0)).toISOString()
+                            };
+                            //console.log('container', container);
+                            Pod.get({namespace: $rootScope.namespace, name: pod.metadata.name,region:$rootScope.region}, function (podcenter) {
+                               console.log('______======',podcenter);
+                                watchpod(podcenter.metadata.resourceVersion, container)
+                            })
+                        };
+
+                        //$scope.terminalSelect = function () {
+                            $scope.terminalTabWasSelected = true;
+                        //};
+
+                        //$scope.terminalTabWasSelected = false;
+
+                        //var setChart = function (name, data) {
+                        //    data = prepareData(name, data);
+                        //    return {
+                        //        options: {
+                        //            chart: {
+                        //                type: 'areaspline'
+                        //            },
+                        //            title: {
+                        //                text: name,
+                        //                align: 'left',
+                        //                x: 0,
+                        //                style: {
+                        //                    fontSize: '12px'
+                        //                }
+                        //            },
+                        //            tooltip: {
+                        //                backgroundColor: '#666',
+                        //                borderWidth: 0,
+                        //                shadow: false,
+                        //                style: {
+                        //                    color: '#fff'
+                        //                },
+                        //                formatter: function () {
+                        //                    if (name == 'CPU') {
+                        //                        return this.y.toFixed(2);
+                        //                    }
+                        //                    return (this.y / 1000000).toFixed(2) + 'M';
+                        //                }
+                        //            },
+                        //            legend: {
+                        //                enabled: false
+                        //            }
+                        //        },
+                        //        series: [{
+                        //            color: '#f6a540',
+                        //            fillOpacity: 0.3,
+                        //            marker: {
+                        //                enabled: false
+                        //            },
+                        //            data: data,
+                        //            pointStart: (new Date()).getTime() - 30 * 60 * 1000 + 8 * 3600 * 1000,
+                        //            pointInterval: 30000 //时间间隔
+                        //        }],
+                        //        xAxis: {
+                        //            type: 'datetime',
+                        //            gridLineWidth: 1
+                        //        },
+                        //        yAxis: {
+                        //            gridLineDashStyle: 'ShortDash',
+                        //            title: {
+                        //                text: ''
+                        //            }
+                        //        },
+                        //        size: {
+                        //            width: 798,
+                        //            height: 130
+                        //        },
+                        //        func: function (chart) {
+                        //            //setup some logic for the chart
+                        //        }
+                        //    };
+                        //};
+
+                        var prepareData = function (tp, data) {
+                            var res = [];
+                            MetricsService.normalize(data, tp);
+                            for (var i = 0; i < data.length - 1; i++) {
+                                res.push(data[i].value);
+                            }
+                            return res;
+                        };
+
+                        //var getMetrics = function (pod, container) {
+                        //    var st = (new Date()).getTime() - 30 * 60 * 1000;
+                        //    var gauges = container.name + '/' + pod.metadata.uid + '/memory/usage';
+                        //    var counters = container.name + '/' + pod.metadata.uid + '/cpu/usage';
+                        //    Metrics.mem.query({gauges: gauges, buckets: 61, start: st}, function (res) {
+                        //        // $log.info("metrics mem", res);
+                        //        $scope.chartConfigMem = setChart('内存', res);
+                        //        $scope.grid.mem = true;
+                        //    }, function (res) {
+                        //        // $log.info("metrics mem err", res);
+                        //        $scope.chartConfigMem = setChart('内存', []);
+                        //        $scope.grid.mem = false;
+                        //    });
+                        //    Metrics.cpu.query({counters: counters, buckets: 61, start: st}, function (res) {
+                        //        // $log.info("metrics cpu", res);
+                        //        $scope.chartConfigCpu = setChart('CPU', res);
+                        //        $scope.grid.cpu = true;
+                        //    }, function (res) {
+                        //        // $log.info("metrics cpu err", res);
+                        //        $scope.chartConfigCpu = setChart('CPU', []);
+                        //        $scope.grid.cpu = false;
+                        //    });
+                        //};
+                        //console.log('$scope.container', obj.name);
+                        $scope.container = obj.name;
+                        $scope.getLog(obj.name);
+                        //terminal(o.name);
+                        //getMetrics(pod, obj);
+                        //$scope.chartConfigIo = setChart('网络IO', []);
+                    }]
+            }).result;
+        };
+    }])
     .filter('rcStatusFilter', [function () {
         return function (phase) {
             if (phase == "New" || phase == "Pending" || phase == "Running") {
@@ -3387,255 +3416,3 @@ angular.module('console.service.detail', [
             }
         };
     }])
-    .service('ContainerModal_new', ['$uibModal', function ($uibModal) {
-    this.open = function (pod, obj) {
-        return $uibModal.open({
-            backdrop: 'static',
-            templateUrl: 'views/service_detail_new/containerModal.html',
-            size: 'default modal-lg',
-            controller: ['$base64', '$sce', 'ansi_ups', '$rootScope', '$scope', '$log', '$uibModalInstance', 'ImageStream', 'Pod', 'Ws', 'Metrics', 'MetricsService',
-                function ($base64, $sce, ansi_ups, $rootScope, $scope, $log, $uibModalInstance, ImageStream, Pod, Ws, Metrics, MetricsService) {
-                    $scope.pod = pod;
-                    //console.log("pod-=-=-=-=-!!!!", pod);
-                    $scope.grid = {
-                        show: false,
-                        mem: false,
-                        cpu: false
-                    };
-                    var loglast = function () {
-                        setTimeout(function () {
-                            $('#sc').scrollTop(1000000);
-
-                        }, 200)
-                    }
-                    $scope.ok = function () {
-                        $uibModalInstance.close(true);
-                    };
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss();
-                    };
-
-                    var imageStreamName = function (image) {
-                        if (!image) {
-                            return "";
-                        }
-                        var match = image.match(/\/([^/]*)@sha256/);
-                        if (!match) {
-                            return image.split(":");
-                        }
-                        return match[1];
-                    };
-
-                    var preparePod = function (pod) {
-                        var status = pod.status.containerStatuses;
-                        var statusMap = {};
-                        for (var i = 0; i < status.length; i++) {
-                            statusMap[status[i].name] = status[i];
-                        }
-
-                        var containers = pod.spec.containers;
-
-                        angular.forEach(pod.spec.containers, function (container) {
-                            if (statusMap[container.name]) {
-                                container.status = statusMap[container.name];
-                            }
-                            if (container.image.indexOf('@') != -1) {
-                                ImageStream.get({
-                                    namespace: $rootScope.namespace,
-                                    name: imageStreamName(container.image),
-                                    region:$rootScope.region
-                                }, function (res) {
-                                    if (res.kind == 'ImageStream') {
-                                        angular.forEach(res.status.tags, function (tag) {
-                                            angular.forEach(tag.items, function (item) {
-                                                if (container.image.indexOf(item.image)) {
-                                                    container.tag = tag.tag;
-                                                }
-                                            });
-                                        });
-                                    }
-                                });
-
-                            } else {
-                                container.tag = imageStreamName(container.image)[1];
-                            }
-                        });
-                        // console.log('====', $scope.pod)
-                    };
-                    preparePod($scope.pod);
-                    var watchpod = function (resourceVersion, contair) {
-                        Ws.watch({
-                            api: 'k8s',
-                            resourceVersion: resourceVersion,
-                            namespace: $rootScope.namespace,
-                            type: 'pods',
-                            name: $scope.pod.metadata.name + '/log',
-                            pod: contair,
-                            protocols: 'base64.binary.k8s.io'
-                        }, function (res) {
-                            //console.log(res);
-                            //var data = JSON.parse(res.data);
-                            //updateRcs(data);
-                            //console.log(data);
-                            if (res.data && typeof res.data == "string") {
-                                $scope.result += $base64.decode(res.data);
-                                var html = ansi_ups.ansi_to_html($scope.result);
-                                $scope.log = $sce.trustAsHtml(html);
-                                loglast()
-                                $scope.$apply();
-
-                            }
-
-                            //loglast()
-                        }, function () {
-                            $log.info("webSocket startRC");
-                        }, function () {
-                            $log.info("webSocket stopRC");
-                            var key = Ws.key($rootScope.namespace, 'pods', $scope.pod);
-                            if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
-                                return;
-                            }
-                            //watchpod($scope.resourceVersion);
-                        });
-                    };
-
-                    //$scope.containerDetail = function (idx) {
-                    //var o = pod.spec.containers[idx];
-                    //$scope.grid.show = true;
-
-                    //};
-
-                    $scope.back = function () {
-                        $scope.grid.show = false;
-                    };
-
-                    $scope.search = function () {
-                        // console.log("sinceTime", $scope.grid.st);
-                        $scope.getLog($scope.container.name);
-                    };
-
-                    $scope.getLog = function (container) {
-                        var params = {
-                            namespace: $rootScope.namespace,
-                            name: pod.metadata.name,
-                            container: container,
-                            sinceTime: $scope.grid.st ? $scope.grid.st.toISOString() : (new Date(0)).toISOString()
-                        };
-                        //console.log('container', container);
-                        Pod.get({namespace: $rootScope.namespace, name: pod.metadata.name,region:$rootScope.region}, function (podcenter) {
-                            //console.log(podcenter.metadata.resourceVersion);
-                            watchpod(podcenter.metadata.resourceVersion, container)
-                        })
-                    };
-
-                    $scope.terminalSelect = function () {
-                        $scope.terminalTabWasSelected = true;
-                    };
-
-                    $scope.terminalTabWasSelected = false;
-
-                    var setChart = function (name, data) {
-                        data = prepareData(name, data);
-                        return {
-                            options: {
-                                chart: {
-                                    type: 'areaspline'
-                                },
-                                title: {
-                                    text: name,
-                                    align: 'left',
-                                    x: 0,
-                                    style: {
-                                        fontSize: '12px'
-                                    }
-                                },
-                                tooltip: {
-                                    backgroundColor: '#666',
-                                    borderWidth: 0,
-                                    shadow: false,
-                                    style: {
-                                        color: '#fff'
-                                    },
-                                    formatter: function () {
-                                        if (name == 'CPU') {
-                                            return this.y.toFixed(2);
-                                        }
-                                        return (this.y / 1000000).toFixed(2) + 'M';
-                                    }
-                                },
-                                legend: {
-                                    enabled: false
-                                }
-                            },
-                            series: [{
-                                color: '#f6a540',
-                                fillOpacity: 0.3,
-                                marker: {
-                                    enabled: false
-                                },
-                                data: data,
-                                pointStart: (new Date()).getTime() - 30 * 60 * 1000 + 8 * 3600 * 1000,
-                                pointInterval: 30000 //时间间隔
-                            }],
-                            xAxis: {
-                                type: 'datetime',
-                                gridLineWidth: 1
-                            },
-                            yAxis: {
-                                gridLineDashStyle: 'ShortDash',
-                                title: {
-                                    text: ''
-                                }
-                            },
-                            size: {
-                                width: 798,
-                                height: 130
-                            },
-                            func: function (chart) {
-                                //setup some logic for the chart
-                            }
-                        };
-                    };
-
-                    var prepareData = function (tp, data) {
-                        var res = [];
-                        MetricsService.normalize(data, tp);
-                        for (var i = 0; i < data.length - 1; i++) {
-                            res.push(data[i].value);
-                        }
-                        return res;
-                    };
-
-                    var getMetrics = function (pod, container) {
-                        var st = (new Date()).getTime() - 30 * 60 * 1000;
-                        var gauges = container.name + '/' + pod.metadata.uid + '/memory/usage';
-                        var counters = container.name + '/' + pod.metadata.uid + '/cpu/usage';
-                        Metrics.mem.query({gauges: gauges, buckets: 61, start: st}, function (res) {
-                            // $log.info("metrics mem", res);
-                            $scope.chartConfigMem = setChart('内存', res);
-                            $scope.grid.mem = true;
-                        }, function (res) {
-                            // $log.info("metrics mem err", res);
-                            $scope.chartConfigMem = setChart('内存', []);
-                            $scope.grid.mem = false;
-                        });
-                        Metrics.cpu.query({counters: counters, buckets: 61, start: st}, function (res) {
-                            // $log.info("metrics cpu", res);
-                            $scope.chartConfigCpu = setChart('CPU', res);
-                            $scope.grid.cpu = true;
-                        }, function (res) {
-                            // $log.info("metrics cpu err", res);
-                            $scope.chartConfigCpu = setChart('CPU', []);
-                            $scope.grid.cpu = false;
-                        });
-                    };
-                    //console.log('$scope.container', obj.name);
-                    $scope.container = obj.name;
-                    $scope.getLog(obj.name);
-                    //terminal(o.name);
-                    getMetrics(pod, obj);
-                    $scope.chartConfigIo = setChart('网络IO', []);
-                }]
-        }).result;
-    };
-}])

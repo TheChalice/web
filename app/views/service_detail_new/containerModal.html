@@ -1,7 +1,6 @@
-<div class="modal-header">
+<div class="modal-header" style="padding:5px 15px;">
     <h5 class="modal-title">
-        <i class="faa faa-pod"></i>
-        {{pod.metadata.name}} - 容器详情
+        {{pod.metadata.name}} 控制台
         <a ng-click="cancel()" href="javascript:;" class="modal-close">
             <i class="fa fa-times-circle pull-right"></i>
         </a>
@@ -10,17 +9,17 @@
 <div class="modal-body" style="padding:0;text-align: left;overflow: hidden;background: #000;">
     <div class="container-detail">
         <ul class="top-tab">
-            <li class="active">终端</li>
-            <li>日志</li>
+            <li ng-class="{active:check_tpac}" ng-click="check_cttp(1)">终端</li>
+            <li ng-class="{active:!check_tpac}" ng-click="check_cttp(2)">日志</li>
         </ul>
         <div class="tab-con">
-            <div>
+            <div ng-show="check_tpac">
                 <kubernetes-container-terminal pod="pod" container="container.name" prevent="!terminalTabWasSelected">
                 </kubernetes-container-terminal>
             </div>
-            <div style="display: none">
+            <div ng-show="!check_tpac">
                 <div class="well well-log" style="margin: 0;">
-                    <pre style="color:#e4e4e4" id="sc" ng-bind-html=log></pre>
+                    <pre style="color:#fff" id="sc" ng-bind-html=log></pre>
                 </div>
             </div>
 

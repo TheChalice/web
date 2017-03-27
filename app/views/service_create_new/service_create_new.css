@@ -665,7 +665,7 @@ p{margin:0;}
 .create_secret .input_text{
     width:472px;
     height:30px;
-    border:1px solid #d4d4d4;
+    border:1px solid #e5e5e5;
     padding-left:10px;
     font-size:12px;
 }
@@ -729,27 +729,27 @@ p{margin:0;}
     margin-left: 30px;
 }
 /*jia 20161118 add begin 新建持久化卷 */
-.enduring_tit{text-align:center;font-size:16px;margin-top:40px;margin-bottom:30px;}
-.price_one{font-size:20px;color:#f13b47;}
-.rzslider{height:8px;}
-.rzslider .rz-bar{height:10px;}
-.rzslider .rz-bar.rz-selection{background:#5b74eb;}
-.rzslider .rz-bar{background:#e6e9f2;}
-.rzslider .rz-pointer:after,.rzslider .rz-pointer:hover:after,.rzslider .rz-pointer:active:after,.rzslider .rz-pointer .rz-active{background:none!important;}
-.rzslider .rz-pointer{background:#fff url(./img/vol_btn_hover.png) no-repeat;width:19px;height:20px;margin-top:8px;
+.cjhj_main .enduring_tit{text-align:center;font-size:16px;margin-top:40px;margin-bottom:30px;}
+.cjhj_main .price_one{font-size:20px;color:#f13b47;}
+.cjhj_main .rzslider{height:8px;}
+.cjhj_main .rzslider .rz-bar{height:10px;}
+.cjhj_main .rzslider .rz-bar.rz-selection{background:#5b74eb;}
+.cjhj_main .rzslider .rz-bar{background:#e6e9f2;}
+.cjhj_main .rzslider .rz-pointer:after,.cjhj_main .rzslider .rz-pointer:hover:after,.rzslider .rz-pointer:active:after,.cjhj_main .rzslider .rz-pointer .rz-active{background:none!important;}
+.cjhj_main .rzslider .rz-pointer{background:#fff url(./img/vol_btn_hover.png) no-repeat;width:19px;height:20px;margin-top:8px;
     border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;-webkit-transition: all 0.03s;-moz-transition: all 0.03s;transition: all 0.03s;}
-.rzslider .rz-pointer:hover{background:#fff url('./img/vol_btn_active.png') no-repeat;}
-.rzslider .rz-pointer:active{background:#fff url('./img/vol_btn_active.png') no-repeat;}
-.rzslider .rz-ticks .rz-tick{background:none;}
-.rzslider .rz-ticks .rz-tick.rz-selected{background:none;}
-.rzslider .rz-bubble{background:#000;border-radius:4px;padding:3px 8px;max-width:200px;color:#fff;font-size:12px;bottom:18px;
+.cjhj_main .rzslider .rz-pointer:hover{background:#fff url('./img/vol_btn_active.png') no-repeat;}
+.cjhj_main .rzslider .rz-pointer:active{background:#fff url('./img/vol_btn_active.png') no-repeat;}
+.cjhj_main .rzslider .rz-ticks .rz-tick{background:none;}
+.cjhj_main .rzslider .rz-ticks .rz-tick.rz-selected{background:none;}
+.cjhj_main .rzslider .rz-bubble{background:#000;border-radius:4px;padding:3px 8px;max-width:200px;color:#fff;font-size:12px;bottom:18px;
     -webkit-transition: all 0.2s;-moz-transition: all 0.2s;transition: all 0.2s;}
 .ser_slider{}
-.slider_right{float:left;width:354px;}
-.ser_slider .enduring_tit{font-size:12px;color:#7e7e7e;margin-top:60px;margin-bottom:20px;}
-.ser_slider .volume_modal{height:72px;}
-.one_room{margin-top:130px;}
-.ser_slider .rzslider .rz-bar{height:6px;}
+.cjhj_main .slider_right{float:left;width:354px;}
+.cjhj_main .ser_slider .enduring_tit{font-size:12px;color:#7e7e7e;margin-top:60px;margin-bottom:20px;}
+.cjhj_main .ser_slider .volume_modal{height:72px;}
+.cjhj_main .one_room{margin-top:130px;}
+.cjhj_main .ser_slider .rzslider .rz-bar{height:6px;}
 
 .post_secret{
 
@@ -779,6 +779,7 @@ p{margin:0;}
     float: left;
     overflow: hidden;
     width: 100%;
+    margin-top:23px;
 }
 .peizi_input_two > div{
     float: left;

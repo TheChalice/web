@@ -863,11 +863,11 @@
                                 </ul>
                             </div>
                             <div class="peizi_input_two" ng-if="postVolumeScret">
-                                <label>添加文件</label>
+                                <label style="font-weight:normal;">添加文件</label>
                                 <ul>
                                     <li ng-repeat="item in volume.configarr">
                                         <div class="row two_con" style="margin:0;">
-                                            <div class="col-sm-5" style="padding:0;"><input type="text" ng-model="item.key"></div>
+                                            <div class="col-sm-5" style="padding:0;"><input type="text" ng-model="item.key" style="border:1px solid #e5e5e5;"></div>
                                             <div class="col-sm-3 browse" ng-click="add($index)">浏览文件<input type="file" class="file-input" value="选择"/></div>
                                             <div class="col-sm-2 browse-con" style="margin-left:15px;" ng-click="openValue(item.value)">查看内容</div>
                                             <div class="col-sm-1" >

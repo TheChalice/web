@@ -1,298 +1,296 @@
 <!--配置信息页面-->
 <div class="config_new_block">
-<div class="config_new block_h_set">
-    <div class="block_one">
-        <div class="block_num">
-            <p class="radius_set">1</p>
-        </div>
-        <div class="block_top">
-            <p>服务信息</p>
-        </div>
-        <div class="block_mid">
+    <div class="config_new block_h_set">
+            <div class="block_one">
+                <div class="block_num">
+                    <p class="radius_set">1</p>
+                </div>
+                <div class="block_top">
+                    <p>服务信息</p>
+                </div>
+                <div class="block_mid">
 
-            <div class="block_one_set">
-                <div class="block_one_left">
-                    <p class="name_tit">服务名称</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="name_detail">{{dc.metadata.name}}</p>
-                </div>
-            </div>
-
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">服务副本</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="name_detail">{{getdc.spec.replicas}}个</p>
-                </div>
-            </div>
-
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">资源限制</p>
-                </div>
-                <div class="block_one_right">
-                    <div class="block_room">
-                        <ul>
-                            <li><p>容器/名称</p></li>
-                            <li><p>已用CPU</p></li>
-                            <li><p>已用内存</p></li>
-                        </ul>
-                        <div class="block_room_config">
-                        <div class="block_room_list" ng-repeat="container in dc.spec.template.spec.containers">
-                            <div class="list_one">
-                                <div class="list_name list_tu"><img src="views/service_detail_new/img/nor_pic.png" class="tu_pic"><p>{{container.name}}</p></div>
-                                <div class="list_name list_cpu"><p>{{container.resources.limits.cpu||0}}核</p></div>
-                                <div class="list_name list_rom"><p>{{container.resources.limits.cpu||0}}G</p></div>
-                            </div>
+                    <div class="block_one_set">
+                        <div class="block_one_left">
+                            <p class="name_tit">服务名称</p>
                         </div>
+                        <div class="block_one_right">
+                            <p class="name_detail">{{dc.metadata.name}}</p>
+                        </div>
+                    </div>
 
-                            <!--<div class="block_room_list" ng-show="">-->
-                                <!--<div class="list_one">-->
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">服务副本</p>
+                        </div>
+                        <div class="block_one_right">
+                            <p class="name_detail">{{getdc.spec.replicas}}个</p>
+                        </div>
+                    </div>
+
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">资源限制</p>
+                        </div>
+                        <div class="block_one_right">
+                            <div class="block_room">
+                                <ul>
+                                    <li><p>容器/名称</p></li>
+                                    <li><p>已用CPU</p></li>
+                                    <li><p>已用内存</p></li>
+                                </ul>
+                                <div class="block_room_config">
+                                    <div class="block_room_list" ng-repeat="container in dc.spec.template.spec.containers">
+                                        <div class="list_one">
+                                            <div class="list_name list_tu"><img src="views/service_detail_new/img/nor_pic.png" class="tu_pic"><p>{{container.name}}</p></div>
+                                            <div class="list_name list_cpu"><p>{{container.resources.limits.cpu||0}}核</p></div>
+                                            <div class="list_name list_rom"><p>{{container.resources.limits.cpu||0}}G</p></div>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="block_room_list" ng-show="">-->
+                                    <!--<div class="list_one">-->
                                     <!--<div class="list_name list_tu"><img src="views/service_detail_new/img/nor_pic.png" class="tu_pic"><p>datafoundry</p></div>-->
                                     <!--<div class="list_name list_cpu"><p>1核</p></div>-->
                                     <!--<div class="list_name list_rom"><p>2G</p></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
 
-                            <!--<div class="block_room_list" ng-show="">-->
-                                <!--<div class="list_one">-->
+                                    <!--<div class="block_room_list" ng-show="">-->
+                                    <!--<div class="list_one">-->
                                     <!--<div class="list_name list_tu"><img src="views/service_detail_new/img/nor_pic.png" class="tu_pic"><p>datafoundry</p></div>-->
                                     <!--<div class="list_name list_cpu"><p>1核</p></div>-->
                                     <!--<div class="list_name list_rom"><p>2G</p></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
 
 
-                        </div>
+                                </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">重启策略</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="name_detail">always</p>
-                </div>
-            </div>
-
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">域名设置</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="room_name">容器：{{routeconfed.checkcon}}</p>
-                    <p class="port_name">端口协议：{{grid.port}}</p>
-                    <p class="url_name">域名：{{grid.host}}</p>
-                </div>
-            </div>
-
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">自动部署</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="name_detail"><i class="con_new_btn" ng-class="{'active': grid.configChange}"></i>配置变化触发自动部署</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 容器信息模块-->
-    <div class="block_one block_one_room">
-        <div class="block_num block_num_two">
-            <p class="radius_set">2</p>
-        </div>
-        <div class="block_top">
-            <p>容器信息</p>
-        </div>
-        <!-- 容器信息模块１-->
-        <div class="block_mid" ng-repeat="container in dc.spec.template.spec.containers">
-
-            <div class="block_one_set">
-                <div class="block_one_left">
-                    <p class="name_tit">容器名称</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="name_detail">{{container.name}}</p>
-                </div>
-            </div>
-
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">镜像</p>
-                </div>
-                <div class="block_one_right">
-                    <div class="two_tab_detail">
-                        <div class="two_tab_l">
-                            <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                            <!--<span class="two_tab_pic"></span>-->
-                            <div class="two_tab_tit">
-                                <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
-                                <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>
                             </div>
                         </div>
-                        <div class="two_tab_r">
-                            <span class="version_tit">版本</span>
-                            <span class="version_tit_num">{{container.tag}}</span>
+                    </div>
+
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">重启策略</p>
+                        </div>
+                        <div class="block_one_right">
+                            <p class="name_detail">always</p>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">镜像端口</p>
-                </div>
-                <div class="block_one_right">
-                    <ul class="three_list three_list_room">
-                        <li>容器端口：</li>
-                        <li><span class="room_tit">{{container.port.port}}</span></li>
-                    </ul>
-                    <ul class="three_list three_list_serivce">
-                        <li>服务端口：</li>
-                        <li><span class="room_tit ">{{container.port.targetPort}}</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">环境变量</p>
-                </div>
-                <div class="block_one_right" ng-repeat="env in envs">
-                    <p class="name_key">键：{{env.name}}</p>
-                    <p class="name_value">值：{{env.value}}</p>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">挂载持久化卷</p>
-                </div>
-                <div class="block_one_right">
-                    <ul class="three_list three_list_room">
-                        <li>持久化卷：</li>
-                        <li><span class="room_tit">12312321</span></li>
-                    </ul>
-                    <ul class="three_list three_list_serivce">
-                        <li>挂载路径：</li>
-                        <li><span class="room_tit ">1233</span></li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="clear"></div>
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">挂载配置卷</p>
-                </div>
-                <div class="block_one_right">
-                    <ul class="three_list three_list_room">
-                        <li>配置卷：</li>
-                        <li><span class="room_tit">12312321</span></li>
-                    </ul>
-                    <ul class="three_list three_list_serivce">
-                        <li>挂载路径：</li>
-                        <li><span class="room_tit ">1233</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">挂载密钥</p>
-                </div>
-                <div class="block_one_right">
-                    <ul class="three_list three_list_room">
-                        <li>密钥：</li>
-                        <li><span class="room_tit">12312321</span></li>
-                    </ul>
-                    <ul class="three_list three_list_serivce">
-                        <li>挂载路径：</li>
-                        <li><span class="room_tit ">1233</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="block_one_set mt30">
-                <div class="block_one_left">
-                    <p class="name_tit">启动命令</p>
-                </div>
-                <div class="block_one_right">
-                    <p class="name_detail">datafoundry</p>
-                </div>
-            </div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">域名设置</p>
+                        </div>
+                        <div class="block_one_right">
+                            <p class="room_name">容器：{{routeconfed.checkcon}}</p>
+                            <p class="port_name">端口协议：{{grid.port}}</p>
+                            <p class="url_name">域名：{{grid.host}}</p>
+                        </div>
+                    </div>
 
-        </div>
-        <!--&lt;!&ndash; 容器信息模块２&ndash;&gt;-->
-        <!--<div class="block_mid">-->
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">自动部署</p>
+                        </div>
+                        <div class="block_one_right">
+                            <p class="name_detail"><i class="con_new_btn" ng-class="{'active': grid.configChange}"></i>配置变化触发自动部署</p>
+                        </div>
+                    </div>
 
-            <!--<div class="block_one_set">-->
+                </div>
+            </div>
+            <!-- 容器信息模块-->
+            <div class="block_one block_one_room">
+                <div class="block_num block_num_two">
+                    <p class="radius_set">2</p>
+                </div>
+                <div class="block_top">
+                    <p>容器信息</p>
+                </div>
+                <!-- 容器信息模块１-->
+                <div class="block_mid" ng-repeat="container in dc.spec.template.spec.containers">
+
+                    <div class="block_one_set">
+                        <div class="block_one_left">
+                            <p class="name_tit">容器名称</p>
+                        </div>
+                        <div class="block_one_right">
+                            <p class="name_detail">{{container.name}}</p>
+                        </div>
+                    </div>
+
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">镜像</p>
+                        </div>
+                        <div class="block_one_right">
+                            <div class="two_tab_detail">
+                                <div class="two_tab_l">
+                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                    <!--<span class="two_tab_pic"></span>-->
+                                    <div class="two_tab_tit">
+                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
+                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>
+                                    </div>
+                                </div>
+                                <div class="two_tab_r">
+                                    <span class="version_tit">版本</span>
+                                    <span class="version_tit_num">{{container.tag}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">镜像端口</p>
+                        </div>
+                        <div class="block_one_right">
+                            <ul class="three_list three_list_room">
+                                <li>容器端口：</li>
+                                <li><span class="room_tit">{{container.port.port}}</span></li>
+                            </ul>
+                            <ul class="three_list three_list_serivce">
+                                <li>服务端口：</li>
+                                <li><span class="room_tit ">{{container.port.targetPort}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">环境变量</p>
+                        </div>
+                        <div class="block_one_right" ng-repeat="env in envs">
+                            <p class="name_key">键：{{env.name}}</p>
+                            <p class="name_value">值：{{env.value}}</p>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">挂载持久化卷</p>
+                        </div>
+                        <div class="block_one_right">
+                            <ul class="three_list three_list_room">
+                                <li>持久化卷：</li>
+                                <li><span class="room_tit">12312321</span></li>
+                            </ul>
+                            <ul class="three_list three_list_serivce">
+                                <li>挂载路径：</li>
+                                <li><span class="room_tit ">1233</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">挂载配置卷</p>
+                        </div>
+                        <div class="block_one_right">
+                            <ul class="three_list three_list_room">
+                                <li>配置卷：</li>
+                                <li><span class="room_tit">12312321</span></li>
+                            </ul>
+                            <ul class="three_list three_list_serivce">
+                                <li>挂载路径：</li>
+                                <li><span class="room_tit ">1233</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">挂载密钥</p>
+                        </div>
+                        <div class="block_one_right">
+                            <ul class="three_list three_list_room">
+                                <li>密钥：</li>
+                                <li><span class="room_tit">12312321</span></li>
+                            </ul>
+                            <ul class="three_list three_list_serivce">
+                                <li>挂载路径：</li>
+                                <li><span class="room_tit ">1233</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">启动命令</p>
+                        </div>
+                        <div class="block_one_right">
+                            <p class="name_detail">datafoundry</p>
+                        </div>
+                    </div>
+
+                </div>
+                <!--&lt;!&ndash; 容器信息模块２&ndash;&gt;-->
+                <!--<div class="block_mid">-->
+
+                <!--<div class="block_one_set">-->
                 <!--<div class="block_one_left">-->
-                    <!--<p class="name_tit">容器名称</p>-->
+                <!--<p class="name_tit">容器名称</p>-->
                 <!--</div>-->
                 <!--<div class="block_one_right">-->
-                    <!--<p class="name_detail">datafoundry</p>-->
+                <!--<p class="name_detail">datafoundry</p>-->
                 <!--</div>-->
-            <!--</div>-->
+                <!--</div>-->
 
-            <!--<div class="block_one_set mt30">-->
+                <!--<div class="block_one_set mt30">-->
                 <!--<div class="block_one_left">-->
-                    <!--<p class="name_tit">镜像</p>-->
+                <!--<p class="name_tit">镜像</p>-->
                 <!--</div>-->
                 <!--<div class="block_one_right">-->
-                    <!--<div class="two_tab_detail">-->
-                        <!--<div class="two_tab_l">-->
-                            <!--<span class="two_tab_pic"></span>-->
-                            <!--<div class="two_tab_tit">-->
-                                <!--<span class="two_tab_ellipsis ng-binding">ergesssssa</span>-->
-                                <!--<span class="two_tab_ellipsis ng-binding">ergesssssa是开源的消息是开源的消息</span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="two_tab_r">-->
-                            <!--<span class="version_tit">版本</span>-->
-                            <!--<span class="version_tit_num">4.51</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--<div class="two_tab_detail">-->
+                <!--<div class="two_tab_l">-->
+                <!--<span class="two_tab_pic"></span>-->
+                <!--<div class="two_tab_tit">-->
+                <!--<span class="two_tab_ellipsis ng-binding">ergesssssa</span>-->
+                <!--<span class="two_tab_ellipsis ng-binding">ergesssssa是开源的消息是开源的消息</span>-->
                 <!--</div>-->
-            <!--</div>-->
-            <!--<div class="clear"></div>-->
-            <!--<div class="block_one_set mt30">-->
+                <!--</div>-->
+                <!--<div class="two_tab_r">-->
+                <!--<span class="version_tit">版本</span>-->
+                <!--<span class="version_tit_num">4.51</span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+                <!--<div class="block_one_set mt30">-->
                 <!--<div class="block_one_left">-->
-                    <!--<p class="name_tit">镜像端口</p>-->
+                <!--<p class="name_tit">镜像端口</p>-->
                 <!--</div>-->
                 <!--<div class="block_one_right">-->
-                    <!--<ul class="three_list three_list_room">-->
-                        <!--<li>容器端口：</li>-->
-                        <!--<li><span class="room_tit">80</span></li>-->
-                    <!--</ul>-->
-                    <!--<ul class="three_list three_list_serivce">-->
-                        <!--<li>服务端口：</li>-->
-                        <!--<li><span class="room_tit ">80</span></li>-->
-                    <!--</ul>-->
+                <!--<ul class="three_list three_list_room">-->
+                <!--<li>容器端口：</li>-->
+                <!--<li><span class="room_tit">80</span></li>-->
+                <!--</ul>-->
+                <!--<ul class="three_list three_list_serivce">-->
+                <!--<li>服务端口：</li>-->
+                <!--<li><span class="room_tit ">80</span></li>-->
+                <!--</ul>-->
                 <!--</div>-->
-            <!--</div>-->
-            <!--<div class="clear"></div>-->
-            <!--<div class="block_one_set mt30">-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+                <!--<div class="block_one_set mt30">-->
                 <!--<div class="block_one_left">-->
-                    <!--<p class="name_tit">环境变量</p>-->
+                <!--<p class="name_tit">环境变量</p>-->
                 <!--</div>-->
                 <!--<div class="block_one_right">-->
-                    <!--<p class="name_key">键：abcddsdf</p>-->
-                    <!--<p class="name_value">值：abcddsdf</p>-->
+                <!--<p class="name_key">键：abcddsdf</p>-->
+                <!--<p class="name_value">值：abcddsdf</p>-->
                 <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
 
 
+            </div>
+            <a class="btn btn-blue two_radius mb60"><span class="hidden-xs" ui-sref="console.service_create({dc:dc.metadata.name})"> &nbsp;创建服务</span></a>
     </div>
-    <a class="btn btn-blue two_radius mb60"><span class="hidden-xs" ui-sref="console.service_create({dc:dc.metadata.name})"> &nbsp;创建服务</span></a>
-</div>
-
 </div>

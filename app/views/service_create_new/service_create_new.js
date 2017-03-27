@@ -80,32 +80,35 @@ angular.module('console.service.createnew', [
             //})
             //dcname
             var dcnamer = /^[a-z]([a-z0-9_]{0,22})?[a-z0-9]$/;
-            $scope.$watch('dc.metadata.name', function (n,o) {
-                //console.log(n, $scope.frm.dcname.$error);
-                if (n && n.length > 0) {
-                    $scope.error.dcnameerr.null=false
-                    // console.log($scope.buildConfig.metadata.name);
-                    if (dcnamer.test(n)) {
-                        $scope.error.dcnameerr.rexed = false;
-                        $scope.error.dcnameerr.repeated = false;
-                        if ($scope.serviceNameArr) {
-                            //console.log($scope.serviceNameArr);
-                            angular.forEach($scope.serviceNameArr, function (build, i) {
-                                if (build === n) {
-                                    $scope.error.dcnameerr.repeated = true;
-                                }
-                            })
+            if (!$scope.updata) {
+                $scope.$watch('dc.metadata.name', function (n,o) {
+                    //console.log(n, $scope.frm.dcname.$error);
+                    if (n && n.length > 0) {
+                        $scope.error.dcnameerr.null=false
+                        // console.log($scope.buildConfig.metadata.name);
+                        if (dcnamer.test(n)) {
+                            $scope.error.dcnameerr.rexed = false;
+                            $scope.error.dcnameerr.repeated = false;
+                            if ($scope.serviceNameArr) {
+                                //console.log($scope.serviceNameArr);
+                                angular.forEach($scope.serviceNameArr, function (build, i) {
+                                    if (build === n) {
+                                        $scope.error.dcnameerr.repeated = true;
+                                    }
+                                })
+                            }
+                        } else {
+                            $scope.error.dcnameerr.rexed = true;
                         }
                     } else {
-                        $scope.error.dcnameerr.rexed = true;
+                        $scope.error.dcnameerr.null=true
+                        $scope.error.dcnameerr.rexed = false;
                     }
-                } else {
-                    $scope.error.dcnameerr.null=true
-                    $scope.error.dcnameerr.rexed = false;
-                }
-                //console.log($scope.frm.dcname.$dirty,$scope.error.dcnameerr);
-            })
-            //conname
+                    //console.log($scope.frm.dcname.$dirty,$scope.error.dcnameerr);
+                })
+                //conname
+
+            }
             $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
                 if (n) {
                     $scope.stepup.twoerr=true;
@@ -441,31 +444,7 @@ angular.module('console.service.createnew', [
                     "sessionAffinity": "None"
                 }
             };
-            //Route
-            $scope.route = {
-                "kind": "Route",
-                "apiVersion": "v1",
-                "metadata": {
-                    "name": "",
-                    "labels": {
-                        "app": ""
-                    },
-                    annotations: {
-                        "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                    }
-                },
-                "spec": {
-                    "host": "",
-                    "to": {
-                        "kind": "Service",
-                        "name": ""
-                    },
-                    "port": {
-                        "targetPort": ""
-                    },
-                    "tls": {}
-                }
-            };
+
             //bsi
             $scope.bsi= {
                 check:[],
@@ -476,8 +455,8 @@ angular.module('console.service.createnew', [
                     $scope.dc = res;
                     $scope.error={
                         dcnameerr:{
-                            rexed:true,
-                            repeated:true,
+                            rexed:false,
+                            repeated:false,
                             null:false
 
                         }
@@ -515,6 +494,8 @@ angular.module('console.service.createnew', [
                         // $log.info("loadBsi err", res);
                     });
                     Route.get({namespace: $rootScope.namespace,name:$scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+                        //Route
+                        $scope.route = res;
                         $scope.routeconf.checkcon=res.spec.port.targetPort.split('-')[1];
                         $scope.routeconf.checkport=res.spec.port.targetPort.split('-')[0];
                         $scope.routeconf.host=res.spec.host.split('.like.datapp.c.citic')[0];
@@ -784,7 +765,31 @@ angular.module('console.service.createnew', [
                     status: {}
                 };
                 //绑定dsi
-
+//Route
+                $scope.route = {
+                    "kind": "Route",
+                    "apiVersion": "v1",
+                    "metadata": {
+                        "name": "",
+                        "labels": {
+                            "app": ""
+                        },
+                        annotations: {
+                            "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                        }
+                    },
+                    "spec": {
+                        "host": "",
+                        "to": {
+                            "kind": "Service",
+                            "name": ""
+                        },
+                        "port": {
+                            "targetPort": ""
+                        },
+                        "tls": {}
+                    }
+                };
                 BackingServiceInstance.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
                     $scope.bsis=res.items;
                     $scope.bsi.work=angular.copy($scope.bsis)
@@ -1826,8 +1831,9 @@ angular.module('console.service.createnew', [
                 }, $scope.route, function (res) {
                     $log.info("create route success", res);
                     $scope.route = res;
-                }, function (res) {
-                    $log.info("create route fail", res);
+                }, function (err) {
+                    $log.info("create route fail", err);
+
                 });
             };
             //选择镜像
@@ -1924,6 +1930,21 @@ angular.module('console.service.createnew', [
                     //}
                 });
             };
+            var updataRoute= function () {
+                $scope.route.spec.host = $scope.routeconf.host + $scope.routeconf.suffix;
+                console.log('updataRoute');
+                Route.put({
+                    namespace: $rootScope.namespace,
+                    name: $scope.dc.metadata.name,
+                    region:$rootScope.region
+                }, $scope.route, function (res) {
+                    $log.info("create route success", res);
+                    //alert(111)
+                    //$scope.route = res;
+                }, function (err) {
+                    // $log.info("create route fail", res);
+                });
+            }
             $scope.creat = function () {
 
                 //挂卷
@@ -2029,9 +2050,10 @@ angular.module('console.service.createnew', [
                 // 删除同名服务,创建dc之前执行该方法
                 //console.log('clonedc', clonedc);
                 if ($scope.updata) {
-                    if ($scope.routeconf.host) {
+                    if ($scope.routeconf.host&&$scope.route.metadata.resourceVersion) {
                         //console.log('$scope.grid.port',$scope.grid.port);
-                        updateRoute();
+                        //createRoute();
+                        updataRoute()
                     }
                     DeploymentConfig.put({
                         namespace: $rootScope.namespace,
