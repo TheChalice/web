@@ -97,9 +97,6 @@ angular.module('console.service.detail', [
             "views/service/img/images_44.png",
             "views/service/img/images_46.png"
         );
-
-
-
         //////服务监控
         $scope.cpuData = [];
         $scope.memData = [];
@@ -834,6 +831,89 @@ angular.module('console.service.detail', [
 
 
                 });
+                angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
+                    con.secretsobj={
+                        secretarr: []
+                        ,
+                        configmap: []
+                        ,
+                        persistentarr: []
+
+                    }
+
+                    angular.forEach(con.volumeMounts, function (volue,k) {
+
+                        if (volue.name.indexOf('secrat') > -1) {
+                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                if (volue.name === vol.name) {
+                                    var modelvol ={
+                                        secret: {
+                                            secretName: vol.secret.secretName
+                                        },
+                                        mountPath: volue.mountPath
+                                    }
+                                    con.secretsobj.secretarr.push(modelvol)
+
+
+                                }
+                            })
+                        }else if (volue.name.indexOf('config') > -1) {
+                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                if (volue.name === vol.name) {
+                                    var modelvol ={
+                                        configMap: {
+                                            name: vol.configMap.name
+                                        },
+                                        mountPath: volue.mountPath
+                                    }
+                                    con.secretsobj.configmap.push(modelvol)
+                                    //con.secretsobj.configmap[j].configMap=angular.copy(vol.configMap)
+                                    //console.log('config');
+                                }
+                            })
+                        }else if (volue.name.indexOf('persistent') > -1) {
+                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                if (volue.name === vol.name) {
+                                    var modelvol ={
+                                        persistentVolumeClaim: {
+                                            claimName: vol.persistentVolumeClaim.claimName
+                                        },
+                                        mountPath: volue.mountPath
+                                    }
+                                    con.secretsobj.persistentarr.push(modelvol)
+                                    //con.secretsobj.persistentarr[j].persistentVolumeClaim=angular.copy(vol.persistentVolumeClaim)
+                                    console.log('persistent');
+                                }
+                            })
+                        }
+                    })
+                    if (con.secretsobj.secretarr.length === 0) {
+                        con.secretsobj.secretarr.push({
+                            secret: {
+                                secretName: '名称'
+                            },
+                            mountPath: ''
+                        })
+                    }
+                    if (con.secretsobj.configmap.length === 0) {
+                        con.secretsobj.configmap.push({
+                            configMap: {
+                                name: '名称'
+                            },
+                            mountPath: ''
+                        })
+                    }
+                    if (con.secretsobj.persistentarr.length === 0) {
+                        con.secretsobj.persistentarr.push({
+                            persistentVolumeClaim: {
+                                claimName: '名称'
+                            },
+                            mountPath: ''
+                        })
+                    }
+
+                    console.log(con);
+                })
                 for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
                     if ($scope.dc.spec.triggers) {
                         for (var j = 0; j < $scope.dc.spec.triggers.length; j++) {
@@ -885,6 +965,7 @@ angular.module('console.service.detail', [
                         }
                     }
                 }
+
                 loadRcs(res.metadata.name);
 
                 loadBsi($scope.dc.metadata.name);

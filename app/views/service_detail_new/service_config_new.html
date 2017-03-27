@@ -174,14 +174,14 @@
                         <div class="block_one_left">
                             <p class="name_tit">挂载持久化卷</p>
                         </div>
-                        <div class="block_one_right">
+                        <div class="block_one_right" ng-repeat="persistentitem in container.secretsobj.persistentarr">
                             <ul class="three_list three_list_room">
                                 <li>持久化卷：</li>
-                                <li><span class="room_tit">12312321</span></li>
+                                <li><span class="room_tit">{{persistentitem.persistentVolumeClaim.claimName}}</span></li>
                             </ul>
                             <ul class="three_list three_list_serivce">
                                 <li>挂载路径：</li>
-                                <li><span class="room_tit ">1233</span></li>
+                                <li><span class="room_tit ">{{persistentitem.mountPath}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -191,14 +191,14 @@
                         <div class="block_one_left">
                             <p class="name_tit">挂载配置卷</p>
                         </div>
-                        <div class="block_one_right">
+                        <div class="block_one_right"  ng-repeat="config in container.secretsobj.configmap">
                             <ul class="three_list three_list_room">
                                 <li>配置卷：</li>
-                                <li><span class="room_tit">12312321</span></li>
+                                <li><span class="room_tit">{{config.configMap.name}}</span></li>
                             </ul>
                             <ul class="three_list three_list_serivce">
                                 <li>挂载路径：</li>
-                                <li><span class="room_tit ">1233</span></li>
+                                <li><span class="room_tit ">{{config.mountPath}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -207,14 +207,14 @@
                         <div class="block_one_left">
                             <p class="name_tit">挂载密钥</p>
                         </div>
-                        <div class="block_one_right">
+                        <div class="block_one_right" ng-repeat="secret in container.secretsobj.secretarr">
                             <ul class="three_list three_list_room">
                                 <li>密钥：</li>
-                                <li><span class="room_tit">12312321</span></li>
+                                <li><span class="room_tit">{{secret.secret.secretName}}</span></li>
                             </ul>
                             <ul class="three_list three_list_serivce">
                                 <li>挂载路径：</li>
-                                <li><span class="room_tit ">1233</span></li>
+                                <li><span class="room_tit ">{{secret.mountPath}}</span></li>
                             </ul>
                         </div>
                     </div>
