@@ -510,9 +510,9 @@ angular.module('console.service.createnew', [
                         }
                         con.imagename=con.image.split('/')[2].split('@')[0]
                         con.namerr= {
-                                rexed:true,
-                                repeated:true,
-                                null:false
+                            rexed:true,
+                            repeated:true,
+                            null:false
                         }
 
                         if (!con.env) {
@@ -536,19 +536,19 @@ angular.module('console.service.createnew', [
                         angular.forEach(con.volumeMounts, function (volue,k) {
 
                             if (volue.name.indexOf('secrat') > -1) {
-                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
-                                if (volue.name === vol.name) {
-                                    var modelvol ={
-                                        secret: {
-                                            secretName: vol.secret.secretName
-                                        },
-                                        mountPath: volue.mountPath
+                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                    if (volue.name === vol.name) {
+                                        var modelvol ={
+                                            secret: {
+                                                secretName: vol.secret.secretName
+                                            },
+                                            mountPath: volue.mountPath
+                                        }
+                                        con.secretsobj.secretarr.push(modelvol)
+
+
                                     }
-                                    con.secretsobj.secretarr.push(modelvol)
-
-
-                                }
-                            })
+                                })
                             }else if (volue.name.indexOf('config') > -1) {
                                 angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
                                     if (volue.name === vol.name) {
@@ -614,7 +614,7 @@ angular.module('console.service.createnew', [
                             con.resources.limits.cpu=0
                             con.resources.limits.memory=0
                         }
-                            //console.log('con.imagename', con.imagename);
+                        //console.log('con.imagename', con.imagename);
                         for(var k in $scope.dc.metadata.annotations){
                             //console.log(k.indexOf('dadafoundry.io/image-'));
                             if (k.indexOf('dadafoundry.io/image-')>-1) {
@@ -1957,7 +1957,18 @@ angular.module('console.service.createnew', [
                     }else {
                         delete clonedc.spec.template.spec.containers[i].args
                     }
-                    console.log(con.othersetting, '!clonedc.othersetting');
+                    angular.forEach(con.env, function (envd,j) {
+                        if (envd.name === '') {
+                            //console.log('envd.name', envd.name);
+                            delete clonedc.spec.template.spec.containers[i].env.splice(i,1)
+                        }
+                    })
+                    if (clonedc.spec.template.spec.containers[i].env.length === 0) {
+                        console.log('delete');
+                        delete clonedc.spec.template.spec.containers[i].env
+                    }
+
+                    console.log(clonedc, '!clonedc.othersetting');
                     if (!con.othersetting) {
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                         delete clonedc.spec.template.spec.containers[i].env
@@ -1967,7 +1978,7 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.secretarr.length > 0) {
                             console.log(con.secretsobj.secretarr);
                             angular.forEach(con.secretsobj.secretarr, function (secret, k) {
-                                if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.name !== '名称') {
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.secretName !== '名称') {
                                     secret.name = "con" + i + "secrat" + k;
                                     var secretcopy = angular.copy(secret);
                                     clonedc.spec.template.spec.volumes.push(secretcopy)
@@ -1983,22 +1994,34 @@ angular.module('console.service.createnew', [
                         }
                         if (con.secretsobj.configmap.length > 0) {
                             angular.forEach(con.secretsobj.configmap, function (config, k) {
-                                config.name = "con" + i + "config" + k;
-                                var configcopy = angular.copy(config);
-                                clonedc.spec.template.spec.volumes.push(configcopy)
-                                delete clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap
-                                con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.configmap[k])
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap.name !== '名称') {
+                                    config.name = "con" + i + "config" + k;
+                                    var configcopy = angular.copy(config);
+                                    clonedc.spec.template.spec.volumes.push(configcopy)
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap
+                                    con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.configmap[k])
+                                }else {
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.configmap[k]
+                                }
+
                             });
 
                         }
                         if (con.secretsobj.persistentarr.length > 0) {
+
                             angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
-                                persistent.name = "con" + i + "persistent" + k;
-                                var persistentcopy = angular.copy(persistent);
-                                clonedc.spec.template.spec.volumes.push(persistentcopy)
-                                delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim
-                                con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称') {
+                                    persistent.name = "con" + i + "persistent" + k;
+                                    var persistentcopy = angular.copy(persistent);
+                                    clonedc.spec.template.spec.volumes.push(persistentcopy)
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName
+                                    con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
+                                }else {
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k]
+                                }
                             });
+
+
                         }
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                     }
