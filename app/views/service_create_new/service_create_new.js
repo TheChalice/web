@@ -181,22 +181,22 @@ angular.module('console.service.createnew', [
                 //todo ������
             });
 
-            $('.input_text').on('keyup', function () {
-                var txt = $(this).val();
-                if (txt != '') {
-                    $('.input_close').show();
-                } else {
-                    $('.input_close').hide();
-                }
-            });
-            $('.input_close').on("click", function () {
-                $(this).hide();
-                $('.input_text').val('');
-            });
-
-            $('.input_text').focus(function () {
-                $('.input_close').hide();
-            });
+            //$('.input_text').on('keyup', function () {
+            //    var txt = $(this).val();
+            //    if (txt != '') {
+            //        $('.input_close').show();
+            //    } else {
+            //        $('.input_close').hide();
+            //    }
+            //});
+            //$('.input_close').on("click", function () {
+            //    $(this).hide();
+            //    $('.input_text').val('');
+            //});
+            //
+            //$('.input_text').focus(function () {
+            //    $('.input_close').hide();
+            //});
             //高级设置
             //$(".adv_tit").on("click",function(){
             //    $(this).hide();
@@ -534,9 +534,9 @@ angular.module('console.service.createnew', [
                         }
                         con.imagename=con.image.split('/')[2].split('@')[0]
                         con.namerr= {
-                                rexed:true,
-                                repeated:true,
-                                null:false
+                            rexed:true,
+                            repeated:true,
+                            null:false
                         }
 
                         if (!con.env) {
@@ -556,19 +556,19 @@ angular.module('console.service.createnew', [
                         angular.forEach(con.volumeMounts, function (volue,k) {
 
                             if (volue.name.indexOf('secrat') > -1) {
-                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
-                                if (volue.name === vol.name) {
-                                    var modelvol ={
-                                        secret: {
-                                            secretName: vol.secret.secretName
-                                        },
-                                        mountPath: volue.mountPath
+                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                    if (volue.name === vol.name) {
+                                        var modelvol ={
+                                            secret: {
+                                                secretName: vol.secret.secretName
+                                            },
+                                            mountPath: volue.mountPath
+                                        }
+                                        con.secretsobj.secretarr.push(modelvol)
+
+
                                     }
-                                    con.secretsobj.secretarr.push(modelvol)
-
-
-                                }
-                            })
+                                })
                             }else if (volue.name.indexOf('config') > -1) {
                                 angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
                                     if (volue.name === vol.name) {
@@ -634,7 +634,7 @@ angular.module('console.service.createnew', [
                             con.resources.limits.cpu=0
                             con.resources.limits.memory=0
                         }
-                            //console.log('con.imagename', con.imagename);
+                        //console.log('con.imagename', con.imagename);
                         for(var k in $scope.dc.metadata.annotations){
                             //console.log(k.indexOf('dadafoundry.io/image-'));
                             if (k.indexOf('dadafoundry.io/image-')>-1) {
@@ -1865,6 +1865,43 @@ angular.module('console.service.createnew', [
                 });
             };
             //选择镜像
+            //search image
+            $scope.$watch('imagesearch', function (n,o) {
+                //var imagearr = [];
+                if (n !== '') {
+                    var imagesearch = n.replace(/\//g, '\\/');
+                    var reg = eval('/' + imagesearch + '/');
+                    if($scope.images){
+                        $scope.images=[]
+                        angular.forEach($scope.imagescopy, function (image,i) {
+                            if (reg.test(image.metadata.name)) {
+                                $scope.images.push(image)
+                            }
+                        })
+                    }
+                    if($scope.docimage){
+                        $scope.docimage=[]
+                        angular.forEach($scope.docimagecopy, function (image,i) {
+                            if (reg.test(image.metadata.name)) {
+                                $scope.docimage.push(image)
+                            }
+                        })
+                    }
+                    if($scope.dfimage){
+                        $scope.dfimage=[]
+                        angular.forEach($scope.dfimagecopy, function (image,i) {
+                            if (reg.test(image.metadata.name)) {
+                                $scope.dfimage.push(image)
+                            }
+                        })
+                    }
+                }else {
+                    $scope.images=angular.copy($scope.imagescopy);
+                    $scope.docimage=angular.copy($scope.docimagecopy);
+                    $scope.dfimage=angular.copy($scope.dfimagecopy);
+                }
+
+            })
             //myimage
             ImageStream.get({
                 namespace: $rootScope.namespace,
@@ -1879,6 +1916,7 @@ angular.module('console.service.createnew', [
                 angular.forEach($scope.images, function (item,i) {
                     $scope.images[i].checkbox=item.status.tags[0].tag.split('-').length>1?item.status.tags[0].tag.split('-')[1]:item.status.tags[0].tag
                 })
+                $scope.imagescopy=angular.copy($scope.images);
                 console.log('$scope.images', $scope.images);
 
 
@@ -1908,7 +1946,9 @@ angular.module('console.service.createnew', [
 
                         //console.log(i, docdata.length);
                         if (i === docdata.length-1) {
-                            console.log('$scope.docimage', $scope.docimage);
+                            $scope.docimagecopy=angular.copy($scope.docimage);
+                            //console.log('$scope.images', $scope.images);
+                            //console.log('$scope.docimage', $scope.docimage);
                         }
                     })
 
@@ -1938,9 +1978,9 @@ angular.module('console.service.createnew', [
                             $scope.dfimage[i].checkbox=tags[0]
                         })
                         //console.log('data', tag);
-
                         //console.log(i, docdata.length);
                         if (i === dfdata.length-1) {
+                            $scope.dfimagecopy=angular.copy($scope.dfimage);
                             console.log('$scope.docimage', $scope.dfimage);
                         }
                     })
@@ -2060,12 +2100,12 @@ angular.module('console.service.createnew', [
                     }else {
                         delete clonedc.spec.template.spec.containers[i].args
                     }
-                     angular.forEach(con.env, function (envd,j) {
-                         if (envd.name === '') {
-                             //console.log('envd.name', envd.name);
-                             delete clonedc.spec.template.spec.containers[i].env.splice(i,1)
-                         }
-                     })
+                    angular.forEach(con.env, function (envd,j) {
+                        if (envd.name === '') {
+                            //console.log('envd.name', envd.name);
+                            delete clonedc.spec.template.spec.containers[i].env.splice(i,1)
+                        }
+                    })
                     if (clonedc.spec.template.spec.containers[i].env.length === 0) {
                         console.log('delete');
                         delete clonedc.spec.template.spec.containers[i].env
@@ -2112,16 +2152,16 @@ angular.module('console.service.createnew', [
                         }
                         if (con.secretsobj.persistentarr.length > 0) {
                             angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
-                                    if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称') {
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称') {
                                     persistent.name = "con" + i + "persistent" + k;
                                     var persistentcopy = angular.copy(persistent);
                                     clonedc.spec.template.spec.volumes.push(persistentcopy)
                                     delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName
                                     con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
-                                    }else {
-                                        delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k]
-                                    }
-                                });
+                                }else {
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k]
+                                }
+                            });
 
 
                         }
