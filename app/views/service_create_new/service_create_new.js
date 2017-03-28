@@ -2128,7 +2128,7 @@ angular.module('console.service.createnew', [
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                     }
                     if (clonedc.spec.template.spec.containers[i].resources.limits.cpu && clonedc.spec.template.spec.containers[i].resources.limits.memory) {
-
+                        clonedc.spec.template.spec.containers[i].resources.limits.memory=clonedc.spec.template.spec.containers[i].resources.limits.memory+'G'
                     }else {
                         delete clonedc.spec.template.spec.containers[i].resources
                     }
