@@ -23,7 +23,7 @@
                         域名：<a href="http://{{dc.route.spec.host}}">{{dc.route.spec.host}}</a>
                     </div>
                     <div>
-                        <a  href="javascript:void(0)" ng-click="openModal('配置信息','peizhixinxi')">修改配置</a>
+                        <a  href="javascript:void(0)" ng-click="openModal('修改配置','xiugaipeizhi')">修改配置</a>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,8 @@
             </div>
         </div>
         <div class="content-two">
-            <div>
-                <div ng-click="openModal('服务监控','fuwujiankong')">
+            <div ng-click="openModal('服务监控','fuwujiankong')">
+                <div>
                     <p>服务监控</p>
                     <div>
                         <span>{{dc.status.replicas || 0}}</span>
@@ -79,7 +79,13 @@
                 <div>
                     <span>{{rcs.items[0].metadata.creationTimestamp | dateRelative}}</span>
                     <span>3月20日</span>
-                    <span><i  ng-class="{true:'succ',false:'fail'}[rcs.items[0].metadata.annotations['openshift.io/deployment.phase']==='Complete']"> </i>{{rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}</span>
+                    <span ng-switch="rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter">
+                        <i ng-switch-when="部署成功" class="succ"> </i>
+                        <i ng-switch-when="部署失败" class="err"> </i>
+                        <i ng-switch-when="正在部署" class="run"> </i>
+                        <i ng-switch-when="部署错误" class="warn"> </i>
+                        {{rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}
+                    </span>
                 </div>
                 <div class="zhexian">
                     <b></b><b></b>

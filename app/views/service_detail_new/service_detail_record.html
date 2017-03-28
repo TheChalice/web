@@ -11,9 +11,18 @@
                         <span class="data_minute">{{item.metadata.creationTimestamp | timeshm}}</span>
                         <span class="data_year">{{item.metadata.creationTimestamp | timesmd}}</span>
                     </div>
-                    <p class="list_name" ng-class="{'list_lost':item.metadata.annotations['openshift.io/deployment.phase']=='Failed','list_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete'}">
-                        <i class="note_btn" ng-class="{'note_error':item.metadata.annotations['openshift.io/deployment.phase']=='Failed','note_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete'}"></i>{{item.metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}</p>
-                    <p><span class="lose_time">耗时：</span>{{item.metadata.creationTimestamp | dateRelative2}}</p>
+                    <p class="list_name" ng-switch="rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter" ng-class="{'list_lost':item.metadata.annotations['openshift.io/deployment.phase']=='Failed','list_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete'}">
+                        <i class="note_btn" ng-class="{'note_failed':item.metadata.annotations['openshift.io/deployment.phase']=='Failed','note_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete','note_running':item.metadata.annotations['openshift.io/deployment.phase']=='New'||'Pending'||'Running','note_error':item.metadata.annotations['openshift.io/deployment.phase']=='Error','note_cancelled':item.metadata.annotations['openshift.io/deployment.phase']=='Cancelled'}"></i>
+
+                        <!--<i ng-switch-when="部署成功" class="note_btn note_ok"> </i>-->
+                        <!--<i ng-switch-when="部署失败" class="note_btn note_failed"> </i>-->
+                        <!--<i ng-switch-when="正在部署" class="note_btn note_running"> </i>-->
+                        <!--<i ng-switch-when="部署错误" class="note_btn note_error"> </i>-->
+                        <!--<i ng-switch-when="终止" class="note_btn note_cancelled"> </i>-->
+                        {{item.metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}
+                    </p>
+
+                        <p><span class="lose_time">耗时：</span>{{item.metadata.creationTimestamp | dateRelative2}}</p>
                     <p><span class="lose_kind">出发类型：</span><span ng-if="!item.dc.status.details.causes.length">未知</span>
                         <span ng-if="item.dc.status.details.causes.length">
                             <span ng-repeat="cause in item.dc.status.details.causes">
@@ -25,88 +34,7 @@
                             </span>
                           </span></p>
                     </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_ok"><i class="note_btn note_ok"></i>部署成功</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
 
-                    <li class="transition_set list_active">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_ok"><i class="note_btn note_ok"></i>部署成功</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
-                    <li class="transition_set">
-                        <div class="time_detail">
-                            <span class="data_minute">16:28</span>
-                            <span class="data_year">1月20日</span>
-                        </div>
-                        <p class="list_name list_lost"><i class="note_btn note_error"></i>部署失败</p>
-                        <p><span class="lose_time">耗时：</span>2分钟</p>
-                        <p><span class="lose_kind">出发类型：</span>配置变化</p>
-                    </li>
 
 
 

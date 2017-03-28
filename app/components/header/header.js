@@ -378,13 +378,7 @@ angular.module("console.header", [
                     };
 
                     preload(
-                        "components/sidebar/img/build-active.png",
-                        "components/sidebar/img/dashboard-active.png",
-                        "components/sidebar/img/deployment-active.png",
-                        "components/sidebar/img/make-active.png",
-                        "components/sidebar/img/repository-active.png",
-                        "components/sidebar/img/resource-active.png",
-                        "components/sidebar/img/service-active.png",
+
                         //"pub/img/myimageh.png",
                         //"pub/img/registimageh.png",
                         //"pub/img/imagecenterh.png",

@@ -7,8 +7,8 @@ angular.module('console.service.createnew', [
             ]
         }
     ])
-    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret','Metrics','$stateParams',
-        function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret,Metrics,$stateParams) {
+    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret','Metrics','$stateParams','platform','platformlist',
+        function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret,Metrics,$stateParams,platform,platformlist) {
             $scope.updata=false;
             if ($stateParams.dc) {
                 console.log('$stateParams.dc', $stateParams.dc);
@@ -32,15 +32,18 @@ angular.module('console.service.createnew', [
                     }
                 }
             };
-            $scope.error={
-                dcnameerr:{
+            $scope.error= {
+                dcnameerr: {
                     rexed:false,
                     repeated:false,
                     null:true
 
+                },
+                con:{
+                    image:null
                 }
             }
-            $scope.stepup={
+            $scope.stepup= {
                 twoerr:false,
                 hasimage:false
             }
@@ -151,8 +154,6 @@ angular.module('console.service.createnew', [
                         $scope.stepup.two=true;
                     }
                 }
-
-
             },true)
             //数组去重
             Array.prototype.unique = function () {
@@ -1004,23 +1005,31 @@ angular.module('console.service.createnew', [
             //配额
             $http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region=' + $rootScope.region).success(function (data) {
                 if (data.items && data.items[0] && data.items[0].spec) {
+
                     $scope.requests.residuecpu = $scope.requests.cpu = data.items[0].spec.hard['requests.cpu'];
                     $scope.requests.residuememory = $scope.requests.memory = data.items[0].spec.hard['requests.memory'].replace('Gi', '');
                 }
-
-
+            })
+            $scope.$watch('dc.spec.replicas', function (n,o) {
+                if (n === o) {
+                    return
+                }
+                $scope.count()
             })
             $scope.count = function () {
                 $scope.requests.usecpu = 0;
                 $scope.requests.usememory = 0;
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
                     if (item.resources.limits.cpu) {
-                        $scope.requests.usecpu += item.resources.limits.cpu - 0
+                        item.usecpu=item.resources.limits.cpu*$scope.dc.spec.replicas
+                        $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
                     if (item.resources.limits.memory) {
-                        $scope.requests.usememory += item.resources.limits.memory - 0
+                        item.usememory=item.resources.limits.memory *$scope.dc.spec.replicas
+                        $scope.requests.usememory =$scope.requests.usememory+ item.usememory
                     }
                 })
+                console.log('$scope.requests',$scope.requests);
                 $scope.requests.residuecpu = $scope.requests.cpu - $scope.requests.usecpu;
                 $scope.requests.residuememory = $scope.requests.memory - $scope.requests.usememory;
             }
@@ -1157,8 +1166,8 @@ angular.module('console.service.createnew', [
             //console.time('time');
             market.get({region: $rootScope.region, type: 'volume'}, function (data) {
                 $scope.createvolume.plans = data.plans;
-                console.log(data.plans, 'plan');
-                console.timeEnd('time');
+                //console.log(data.plans, 'plan');
+                //console.timeEnd('time');
                 $scope.createvolume.getPlan = false;
 
             })
@@ -1856,6 +1865,7 @@ angular.module('console.service.createnew', [
                 });
             };
             //选择镜像
+            //myimage
             ImageStream.get({
                 namespace: $rootScope.namespace,
                 region: $rootScope.region
@@ -1873,32 +1883,107 @@ angular.module('console.service.createnew', [
 
 
             })
+            //docimage
+
+            platform.query({id:1}, function (docdata) {
+                $scope.docimage=[]
+                //console.log('docdata',docdata);
+                angular.forEach(docdata, function (item,i) {
+                    $scope.docimage.push({
+                        checkbox:"",
+                        type:'our',
+                        metadata:{
+                            name:item
+                        },
+                        status:{
+                            tags:[]
+                        }
+                    })
+                    platformlist.query({id:item},function (tags) {
+                        angular.forEach(tags, function (tag,j) {
+                            $scope.docimage[i].status.tags.push({tag:tag})
+                            $scope.docimage[i].checkbox=tags[0]
+                        })
+                        //console.log('data', tag);
+
+                        //console.log(i, docdata.length);
+                        if (i === docdata.length-1) {
+                            console.log('$scope.docimage', $scope.docimage);
+                        }
+                    })
+
+                })
+                //
+
+            })
+            //dfimage
+            platform.query({id:5}, function (dfdata) {
+                console.log(dfdata);
+                $scope.dfimage=[]
+                //console.log('docdata',docdata);
+                angular.forEach(dfdata, function (item,i) {
+                    $scope.dfimage.push({
+                        checkbox:"",
+                        type:'our',
+                        metadata:{
+                            name:item
+                        },
+                        status:{
+                            tags:[]
+                        }
+                    })
+                    platformlist.query({id:item},function (tags) {
+                        angular.forEach(tags, function (tag,j) {
+                            $scope.dfimage[i].status.tags.push({tag:tag})
+                            $scope.dfimage[i].checkbox=tags[0]
+                        })
+                        //console.log('data', tag);
+
+                        //console.log(i, docdata.length);
+                        if (i === dfdata.length-1) {
+                            console.log('$scope.docimage', $scope.dfimage);
+                        }
+                    })
+
+                })
+            })
             $scope.checkboximage= function (image) {
                 console.log('$scope.changeimage', image);
-
-                ImageStreamTag.get({
-                    namespace: $rootScope.namespace,
-                    name: image.metadata.name + ':' + image.checkbox,
-                    region: $rootScope.region
-                }, function (res) {
-                    console.log('item.ist', res);
-
+                $scope.error.image=null;
+                if (image.type && image.type === 'our') {
                     $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged = image;
+                    console.log('$scope.dc.spec.template.spec.containers[$scope.changeimage].imaged', $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged);
                     //= res;
-                    $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged.ist = res;
-                    $scope.dc.spec.template.spec.containers[$scope.changeimage].image = res.image.dockerImageReference;
-                    for (var k in res.image.dockerImageMetadata.Config.ExposedPorts) {
-                        var arr = k.split('/');
-                        if (arr.length == 2) {
-                            $scope.dc.spec.template.spec.containers[$scope.changeimage].containerPort = parseInt(arr[0])
-                            $scope.dc.spec.template.spec.containers[$scope.changeimage].hostPort = parseInt(arr[0])
-                        }
-                    }
-
+                    $scope.error.image='our'
+                    $scope.dc.spec.template.spec.containers[$scope.changeimage].image = 'registry.dataos.io/' + image.metadata.name + ':' + image.checkbox;
                     $scope.close();
-                }, function (res) {
-                    //console.log("get image stream tag err", res);
-                });
+
+                }else {
+                    ImageStreamTag.get({
+                        namespace: $rootScope.namespace,
+                        name: image.metadata.name + ':' + image.checkbox,
+                        region: $rootScope.region
+                    }, function (res) {
+                        console.log('item.ist', res);
+
+                        $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged = image;
+                        //= res;
+                        $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged.ist = res;
+                        $scope.dc.spec.template.spec.containers[$scope.changeimage].image = res.image.dockerImageReference;
+                        for (var k in res.image.dockerImageMetadata.Config.ExposedPorts) {
+                            var arr = k.split('/');
+                            if (arr.length == 2) {
+                                $scope.dc.spec.template.spec.containers[$scope.changeimage].containerPort = parseInt(arr[0])
+                                $scope.dc.spec.template.spec.containers[$scope.changeimage].hostPort = parseInt(arr[0])
+                            }
+                        }
+
+                        $scope.close();
+                    }, function (res) {
+                        //console.log("get image stream tag err", res);
+                    });
+                }
+
             }
 
             $scope.addbsi= function (bsisd) {
@@ -1934,8 +2019,6 @@ angular.module('console.service.createnew', [
                         bindResourceVersion: '',
                         bindKind: 'DeploymentConfig'
                     };
-
-
                     //if (bsi.bind) {  //未绑定设置为绑定
                     BackingServiceInstance.bind.create({
                         namespace: $rootScope.namespace,
@@ -1965,10 +2048,8 @@ angular.module('console.service.createnew', [
                 });
             }
             $scope.creat = function () {
-
                 //挂卷
                 var clonedc = angular.copy($scope.dc);
-
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
                     con.volumeMounts=[];
                     clonedc.spec.template.spec.volumes=[];
@@ -2030,8 +2111,7 @@ angular.module('console.service.createnew', [
 
                         }
                         if (con.secretsobj.persistentarr.length > 0) {
-
-                                angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
+                            angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
                                     if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称') {
                                     persistent.name = "con" + i + "persistent" + k;
                                     var persistentcopy = angular.copy(persistent);
@@ -2064,7 +2144,7 @@ angular.module('console.service.createnew', [
                     clonedc.spec.triggers.push({type: 'ConfigChange'});
                 }
 
-                if ($scope.changebuild.ImageChange) {
+                if ($scope.changebuild.ImageChange&&$scope.error.image!=='our') {
                     clonedc.spec.triggers.push({
                         "type": "ImageChange",
                         "imageChangeParams": {
@@ -2095,10 +2175,7 @@ angular.module('console.service.createnew', [
                 // 删除同名服务,创建dc之前执行该方法
                 //console.log('clonedc', clonedc);
                 if ($scope.updata) {
-
                     if ($scope.routeconf.host&&$scope.route.metadata.resourceVersion) {
-                        //console.log('$scope.grid.port',$scope.grid.port);
-                        //createRoute();
                         updataRoute()
                     }else {
                         createRoute()
@@ -2124,7 +2201,6 @@ angular.module('console.service.createnew', [
                     }, function (err) {
 
                     })
-
                 }else {
                     Service.delete({
                         namespace: $rootScope.namespace,
@@ -2141,12 +2217,14 @@ angular.module('console.service.createnew', [
                         name: clonedc.metadata.name,
                         region: $rootScope.region
                     }, function (res) {
+
                     }, function (res) {
 
                     })
-                    createService();
+                    if ($scope.error.image!=='our') {
+                        createService();
+                    }
                     //console.log('$scope.routeconf.route', $scope.routeconf.route);
-
                     if ($scope.routeconf.host) {
                         //console.log('$scope.grid.port',$scope.grid.port);
                         createRoute();

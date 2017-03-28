@@ -28,7 +28,7 @@ li {
 .detail_new_content .content-one > div:last-child a:nth-child(3) {
   width: 100px;
   height: 30px;
-  line-height: 30px;
+  line-height: 28px;
   text-align: center;
   font-size: 14px;
   display: inline-block;
@@ -79,10 +79,10 @@ li {
   margin-right: 4px;
 }
 .cnew_back .back_jia_btn {
-  background: url('img/back_btn.png') no-repeat;
+  background: url('/app/views/service_create_new/img/back_btn.png') no-repeat;
 }
 .cnew_back .close_jia_btn {
-  background: url('img/close_btn.png') no-repeat;
+  background: url('/app/views/service_create_new/img/close_btn.png') no-repeat;
 }
 .cnew_tit {
   border-left: 1px solid #e5e5e5;
@@ -148,7 +148,7 @@ li {
 .detail_new_modal .nav {
   height: 42px;
   line-height: 42px;
-  border-bottom: 1px solid #5b73eb;
+  border-bottom: 1px solid #f0f0f0;
   padding-left: 20px;
   background: #fff;
   width: 100%;
@@ -239,7 +239,7 @@ li {
 }
 .detail_new_content .content-two {
   overflow: hidden;
-  height: 380px;
+  height: 400px;
   margin-top: 40px;
 }
 .detail_new_content .content-two > div {
@@ -250,9 +250,7 @@ li {
   margin-top: 20px;
   position: relative;
   border-radius: 3px;
-}
-.detail_new_content .content-two > div:not(:first-child) {
-  border: 3px solid transparent;
+  cursor: pointer;
 }
 .detail_new_content .content-two > div:not(:first-child):hover {
   border: 3px solid #7ecef4;
@@ -267,6 +265,15 @@ li {
 }
 .detail_new_content .content-two > div:first-child {
   overflow: hidden;
+}
+.detail_new_content .content-two > div:first-child:hover > div:last-child {
+  border: 3px solid #5b73eb;
+  border-left: none;
+  padding: 0;
+  padding-left: 2px;
+}
+.detail_new_content .content-two > div:first-child:hover > div:last-child .zhexian b {
+  border-color: #5b73eb;
 }
 .detail_new_content .content-two > div:first-child > div {
   float: left;
@@ -295,13 +302,7 @@ li {
 .detail_new_content .content-two > div:first-child > div:nth-child(2) {
   padding: 2px;
   border: 1px solid #f0f0f0;
-}
-.detail_new_content .content-two > div:first-child > div:nth-child(2):hover .zhexian b {
-  border-color: #5b73eb;
-}
-.detail_new_content .content-two > div:first-child > div:nth-child(2):hover {
-  border: 3px solid #5b73eb;
-  padding: 0;
+  border-left: none;
 }
 .detail_new_content .content-two > div:first-child > div:nth-child(2) p i {
   display: inline-block;
@@ -328,6 +329,10 @@ li {
 .detail_new_content .content-two > div:nth-child(2) {
   background: url(img/images_08.png) no-repeat;
   padding: 15px;
+  border: 1px solid #5b73eb;
+}
+.detail_new_content .content-two > div:nth-child(2):hover {
+  padding: 13px;
 }
 .detail_new_content .content-two > div:nth-child(2):hover .zhexian b {
   border-color: #fff;
@@ -358,14 +363,24 @@ li {
   left: 1px;
 }
 .detail_new_content .content-two > div:nth-child(2) span:nth-child(3) i.succ {
-  background: url(img/images_52.png) no-repeat;
+  background: url(img/img_succ.png) no-repeat;
 }
-.detail_new_content .content-two > div:nth-child(2) span:nth-child(3) i.fail {
-  background: url(img/images_49.png) no-repeat;
+.detail_new_content .content-two > div:nth-child(2) span:nth-child(3) i.err {
+  background: url(img/img_err.png) no-repeat;
+}
+.detail_new_content .content-two > div:nth-child(2) span:nth-child(3) i.run {
+  background: url(img/img_run.png) no-repeat;
+}
+.detail_new_content .content-two > div:nth-child(2) span:nth-child(3) i.warn {
+  background: url(img/img_warn.png) no-repeat;
 }
 .detail_new_content .content-two > div:nth-child(3) {
   background: url(img/images_08.png) no-repeat;
   padding: 15px;
+  border: 1px solid #5b73eb;
+}
+.detail_new_content .content-two > div:nth-child(3):hover {
+  padding: 13px;
 }
 .detail_new_content .content-two > div:nth-child(3):hover .zhexian b {
   border-color: #fff;
@@ -376,9 +391,13 @@ li {
 .detail_new_content .content-two > div:nth-child(4) {
   background: url(img/images_06.png) no-repeat;
   padding: 15px;
+  border: 1px solid #5b73eb;
 }
 .detail_new_content .content-two > div:nth-child(4) .zhexian {
-  bottom: 41px;
+  bottom: 24px;
+}
+.detail_new_content .content-two > div:nth-child(4):hover {
+  padding: 13px;
 }
 .detail_new_content .content-two > div:nth-child(4):hover .zhexian b {
   border-color: #fff;
@@ -391,7 +410,13 @@ li {
   display: inline-block;
   margin-bottom: 15px;
 }
-
+.detail_new_content .content-two > div:nth-child(4) span:nth-of-type(2) {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  width: 310px;
+}
 /*配置信息页面*/
 .config_new{padding:30px 40px 20px;position:relative;overflow:auto;}
 .config_new .mt30{margin-top:30px;}
@@ -413,7 +438,7 @@ li {
     text-align:center;font-size:14px;color:#5b73eb;line-height:26px;}
 .block_room{width:535px;}
 .config_new .block_room_list{height:auto;padding-top:10px;padding-bottom:10px;border-bottom:1px solid #f0f0f0;}
-.config_new .block_room ul{height:36px;line-height:36px;border-bottom:1px solid #f0f0f0;width:535px;}
+.config_new .block_room ul{height:36px;border-bottom:1px solid #f0f0f0;width:535px;}
 .config_new .block_room li{float:left;text-align:left;}
 .config_new .block_room li:nth-child(1){width:270px;}
 .config_new .block_room li:nth-child(2){width:207px;}
@@ -449,7 +474,7 @@ li {
 .config_new .two_tab_detail_service:last-child{margin-right:0;}
 .config_new .clear{clear:both;overflow:hidden;}
 .config_new .three_list_room,.config_new .three_list_serivce{float:left;width:153px;}
-.config_new .three_list li{width:153px;font-size:12px;color:#333;height:auto;line-height:23px;}
+.config_new .three_list li{width:153px;font-size:12px;color:#333;height:auto;}
 .config_new .three_list li span{color:#333;}
 .config_new .name_key{float:left;margin-right:65px;}
 .config_new .name_key,.config_new .name_value{font-size:12px;color:#333;}
@@ -473,8 +498,11 @@ li {
 .config_note .block_list .list_lost{color:#ee6462;}
 .config_note .block_list .list_ok{color:#56c35e;}
 .config_note .note_btn{width:17px;height:17px;display:inline-block;vertical-align:sub;margin-right:10px;}
-.config_note .note_error{background:url('img/note_error.png') no-repeat;}
-.config_note .note_ok{background:url('img/note_ok.png') no-repeat;}
+.config_note .note_failed{background:url('img/note_failed.png') no-repeat;}/*部署失败*/
+.config_note .note_ok{background:url('img/note_ok.png') no-repeat;}/*部署成功*/
+.config_note .note_running{background:url('img/note_running.png') no-repeat;}/*正在部署*/
+.config_note .note_cancelled{background:url('img/note_cancelled.png') no-repeat;}/*终止*/
+.config_note .note_error{background:url('img/note_error.png') no-repeat;}/*部署错误*/
 .config_note .block_one{border-left:1px solid #adb9f5;margin-left:40px;padding-left:15px;position:relative;}
 .config_note .pic_clock{background:url('img/pic_clock.png') no-repeat;width:36px;height:36px;display:block;position: relative;left: 23px;}
 .config_note .pic_line{position: relative;width:1px;height:35px;background:#adb9f5;left: 40px;}
