@@ -430,12 +430,12 @@ li {
 .config_new .block_one_right .name_detail{font-size:12px;color:#333;}
 .config_new .block_one{border-left:1px solid #adb9f5;padding-left:40px;margin-left:40px;padding-bottom:30px;}
 .config_new .block_one:before{position:absolute;content:"";width: 0;height: 0; border-top: 10px solid transparent; border-right: 10px solid #f0f0f0;
-    border-bottom: 10px solid transparent;left:115px;margin-top:16px;}
+  border-bottom: 10px solid transparent;left:115px;margin-top:16px;}
 .config_new .block_one_right{margin-left:90px;}
 .config_new .block_one .block_num{width:50px;height:32px;background:#fff;position:absolute;left:56px;}
 .config_new .block_one .block_num_two{background:none;}
 .config_new .block_one .block_num p{width:30px;height:30px;background:#fff;border:2px solid #5b73eb;margin:10px auto 0;
-    text-align:center;font-size:14px;color:#5b73eb;line-height:26px;}
+  text-align:center;font-size:14px;color:#5b73eb;line-height:26px;}
 .block_room{width:535px;}
 .config_new .block_room_list{height:auto;padding-top:10px;padding-bottom:10px;border-bottom:1px solid #f0f0f0;}
 .config_new .block_room ul{height:36px;border-bottom:1px solid #f0f0f0;width:535px;}
@@ -454,9 +454,9 @@ li {
 .config_new .block_one_right .room_name{float:left;margin-right:60px;}
 .config_new .block_one_right .port_name{float:left;margin-right:60px;}
 .config_new .con_new_btn{background: url('img/config_new_btn.png') no-repeat;width:14px;height:14px;display:block;float:left;
-    margin-right:6px;margin-top:1px;}
+  margin-right:6px;margin-top:1px;}
 .config_new .con_new_btn_active{background: url('img/config_new_btn_active.png') no-repeat;width:14px;height:14px;display:block;float:left;
-    margin-right:6px;margin-top:1px;}
+  margin-right:6px;margin-top:1px;}
 .config_new .block_one_room .block_mid{margin-top:20px;}
 .config_new .block_one_room  .mt15{margin-top:15px;}
 .config_new .two_tab_ellipsis{white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
@@ -478,7 +478,7 @@ li {
 .config_new .three_list li span{color:#333;}
 .config_new .name_key{float:left;margin-right:65px;}
 .config_new .name_key,.config_new .name_value{font-size:12px;color:#333;}
-.config_new .btn-blue{background:#5b73eb;color:#fff;display:block;padding:6px 12px;width:100px;height:30px;font-size:14px;cursor:pointer;margin-left:80px;}
+.config_new .btn-blue{background:#5b73eb;color:#fff;display:block;padding:6px 12px;width:100px;font-size:14px;cursor:pointer;margin-left:80px;}
 .config_new .btn-blue:hover{background:#6c81ed;}
 .config_new .mb60{margin-bottom:60px}
 .transition_set{-webkit-transition: all 0.3s;-moz-transition: all 0.3s;transition: all 0.3s}
@@ -507,99 +507,125 @@ li {
 .config_note .pic_clock{background:url('img/pic_clock.png') no-repeat;width:36px;height:36px;display:block;position: relative;left: 23px;}
 .config_note .pic_line{position: relative;width:1px;height:35px;background:#adb9f5;left: 40px;}
 .config_note .list_name:before{content:"";position:absolute;background:url('img/pic_select_nor.png') no-repeat center;
-    width:12px;height:12px;position:absolute;left:-10px;margin-top:9px;padding:10px;}
+  width:12px;height:12px;position:absolute;left:-10px;margin-top:9px;padding:10px;}
 .config_note .year_tit{position:absolute;width:auto;display:block;left:-52px;font-size:20px;color:#5b73eb;left:-72px;top:6px;}
 .config_note .time_detail{position:absolute;left:-80px;margin-top:4px;text-align:right;}
 .config_note .time_detail span{width:60px;display:block;line-height:normal;}
 .config_note .data_minute{font-size:14px;color:#333;}
 .config_note .data_year{font-size:12px;color:#999;}
 .control_box{
-    width: 100%;
-    /*overflow: hidden;*/
-    height: 1000px;
-    padding:40px;
+  width: 100%;
+  /*overflow: hidden;*/
+  height: 1000px;
+  padding:40px;
 }
 /*服务监控*/
 .control-title{
-    width: 100%;
-    height: 40px;
+  width: 100%;
+  height: 40px;
 }
 .ct-tl-sl{
-    width: 160px;
-    height: 28px;
-    line-height:28px;
-    border: 1px solid #e5e5e5;
-    position: relative;
-    top: -23px;
-    left: 100px;
+  width: 160px;
+  height: 28px;
+  border: 1px solid #e5e5e5;
+  position: relative;
+  top: -23px;
+  left: 100px;
 }
 .ct-tl-sl a{
-    display: block;
-    width: 100%;
-    height: 100%;
+  display: block;
+  width: 100%;
+  height: 28px;
 }
 .control_box .dropdown-menu{
-    margin-left:-1px;
-    margin-top:-1px;
-    border-radius:0;
+  margin-left:-1px;
+  margin-top:-1px;
+  border-radius:0;
 }
 .control_box>.dropdown-menu>li,.control_box .dropdown-menu>li>a{
-    width: 100%;
-    height: 28px !important;
-    line-height:28px !important;
+  width: 100%;
+  height: 28px !important;
+  line-height:28px !important;
 }
 
 
 .ser_bg_btn{position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 6px;
-    height: 6px;
-    border: solid #a3a3a4;
-    border-width: 1px 1px 0 0;
-    -webkit-transform: rotate(135deg);
-    -moz-transform: rotate(135deg);
-    transform: rotate(135deg);
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
+  right: 10px;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border: solid #a3a3a4;
+  border-width: 1px 1px 0 0;
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  transform: rotate(135deg);
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
 }
 .control-view{
-    width: 100%;
-    overflow: hidden;
-    border: 1px solid #e5e5e5;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
 }
 .ct-vw-tl{
-    width: 100%;
-    height: 28px;
-    line-height: 28px;
+  width: 100%;
+  height: 28px;
+  margin-top: 20px;
 }
 .ct-vw-tl span{
-    margin-left:40px;
+  margin-left:40px;
 }
 .ct-vw-tl a{
-    float: right;
-    margin-right:20px;
+  float: right;
+  margin-right:20px;
 
 }
 .top-tab{
-    width: 100%;
-    overflow: hidden;
+  width: 100%;
+  overflow: hidden;
 }
 .top-tab li{
-    width: 50%;
-    height: 30px;
-    line-height:30px;
-    float: left;
-    background: #2d2f30;
-    color: #fff;
-    text-align: center;
+  width: 50%;
+  height: 30px;
+  line-height:30px;
+  float: left;
+  background: #2d2f30;
+  color: #fff;
+  text-align: center;
 }
 .top-tab li.active{
-    background: #212324;
+  background: #212324;
 
 }
 .tab-con div{
-    float: left;
-    color: #fff;
+  float: left;
+  color: #fff;
+}
+.ct-tl-span{
+  display: inline-block;
+  width:130px;
+  height:28px;
+  line-height: 25px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  padding-left: 10px;
+}
+.cpu_red{
+  color:#5b73eb;
+  cursor:pointer;
+}
+.cpu_red.active{
+  color:#999;
+}
+.mem_pink{
+  color:#f23844;
+  cursor:pointer;
+
+}
+.mem_pink.active{
+  color:#999;
+
 }
