@@ -12,8 +12,8 @@ angular.module('console.service.detail', [
             ]
         }
     ])
-    .controller('ServiceDetailCtrl', ['$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey','Metrics','MetricsService','ContainerModal_new',
-        function ($sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey,Metrics,MetricsService,ContainerModal_new) {
+    .controller('ServiceDetailCtrl', ['$sce', 'ansi_ups', '$http', '$state', '$rootScope', '$scope', '$log', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'ImageStream', 'ImageStreamTag', 'Toast', 'Pod', 'Event', 'Sort', 'Confirm', 'Ws', 'LogModal', 'Secret', 'ImageSelect', 'Service', 'BackingServiceInstanceBd', 'ImageService', 'serviceaccounts', 'ChooseSecret', '$base64', 'secretskey','Metrics','MetricsService','ContainerModal_new','deletepod','resourcequotas',
+        function ($sce, ansi_ups, $http, $state, $rootScope, $scope, $log, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, ImageStream, ImageStreamTag, Toast, Pod, Event, Sort, Confirm, Ws, LogModal, Secret, ImageSelect, Service, BackingServiceInstanceBd, ImageService, serviceaccounts, ChooseSecret, $base64, secretskey,Metrics,MetricsService,ContainerModal_new,deletepod,resourcequotas) {
             //随机颜色
             (function(){
                 var colorRandom = ['#00b7ee','#ec6941','#5f52a0','f19149'];
@@ -463,10 +463,8 @@ angular.module('console.service.detail', [
             };
 
             $scope.portsArr = [];
-
-            $http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region='+$rootScope.region).success(function (data) {
-                //console.log('配额', data.items[0].spec.hard['requests.cpu']);
-                //console.log('配额', data.items[0].spec.hard['requests.memory']);
+            resourcequotas.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (data) {
+                //console.log('resourcequotas', data);
                 if (data.items&&data.items[0]&&data.items[0].spec) {
                     $scope.grid.cpunum = data.items[0].spec.hard['requests.cpu']
                     var gi = data.items[0].spec.hard['requests.memory'].replace('Gi', '')
@@ -474,9 +472,20 @@ angular.module('console.service.detail', [
                     var gb = mb / 1024;
                     $scope.grid.megnum = gi;
                 }
-
-
             })
+            //$http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region='+$rootScope.region).success(function (data) {
+            //    //console.log('配额', data.items[0].spec.hard['requests.cpu']);
+            //    //console.log('配额', data.items[0].spec.hard['requests.memory']);
+            //    if (data.items&&data.items[0]&&data.items[0].spec) {
+            //        $scope.grid.cpunum = data.items[0].spec.hard['requests.cpu']
+            //        var gi = data.items[0].spec.hard['requests.memory'].replace('Gi', '')
+            //        var mb = parseInt(gi) * 1000;
+            //        var gb = mb / 1024;
+            //        $scope.grid.megnum = gi;
+            //    }
+            //
+            //
+            //})
             var rex =/^[0-9]{0,}\.{0,1}\d{1,2}$/;
             $scope.$watch('quota', function (n, o) {
                 if (n === o) {
@@ -1754,10 +1763,20 @@ angular.module('console.service.detail', [
                     name: dc,
                     region:$rootScope.region
                 }, function () {
-                    $http.delete('/api/v1/namespaces/' + $rootScope.namespace + '/pods?' + 'labelSelector=deploymentconfig%3D' + $scope.dc.metadata.name+'&region='+$rootScope.region).success(function (data) {
-                        // console.log(data);
-                    }).error(function (err) {
-                    });
+                    //$http.delete('/api/v1/namespaces/' + $rootScope.namespace + '/pods?' + 'labelSelector=deploymentconfig%3D' + $scope.dc.metadata.name+'&region='+$rootScope.region).success(function (data) {
+                    //    // console.log(data);
+                    //}).error(function (err) {
+                    //});
+                    deletepod.delete({
+                        namespace: $rootScope.namespace,
+                        region:$rootScope.region,
+                        name: $scope.dc.metadata.name
+
+                    }, function (data) {
+                        //$scope.items.splice(idx,1)
+                    },function(err){
+
+                    })
                     // $log.info("remove deploymentConfig success");
 
                     $state.go("console.service");
