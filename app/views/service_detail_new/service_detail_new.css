@@ -567,12 +567,12 @@ li {
     -moz-transition: all 0.3s;
     transition: all 0.3s;
 }
-.control-view{
-    width: 100%;
+.control-view {
+    width: 1000px;
     overflow: hidden;
     border: 1px solid #e5e5e5;
 }
-.ct-vw-tl{
+.ct-vw-tl {
     width: 100%;
     height: 28px;
     margin-top: 20px;
