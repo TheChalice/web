@@ -1,6 +1,6 @@
 <div id="service">
     <div ng-if="items">
-        <div class="service_top">这里汇聚了平台上创建的所有服务。<a  href="javascript:void(0)">如何创建一个服务？</a></div>
+        <div class="service_top">这里汇聚了平台上创建的所有服务。<i class="four_question"> 如何创建一个服务？</i></div>
         <div class="row" style="margin-right:0;">
             <div class="col-sm-4 col-xs-4 serv_jia_btn">
                 <a class="btn btn-blue" ui-sref="console.service_create" style="margin-right:15px;">
@@ -50,7 +50,7 @@
                 <!--<tr ng-repeat="bc in items">-->
                 <ul class="nav_service_main" ng-repeat="dc in items">
                     <li>
-                        <a class="href-blue" style="width:220px;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ui-sref="console.service_detail({name: dc.metadata.name})" uib-tooltip="{{dc.metadata.name}}" tooltip-placement="top">
+                        <a class="href-blue" style="margin:0 auto" ui-sref="console.service_detail({name: dc.metadata.name})" uib-tooltip="{{dc.metadata.name}}" tooltip-placement="top">
                             {{dc.metadata.name}}
                         </a>
                     </li>
@@ -58,14 +58,14 @@
                     <li>10分钟前</li>
                     <li>{{dc.ismn}}</li>
                     <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
-                        <a class="href-blue" style="color: #5B6177;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
+                        <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
                         <a class="href-blue" style="color: gray;cursor: no-drop;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
                     </li>
                     <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
                     <li>
                         <a class="href-blue" ng-click="restartDc($index)"  uib-tooltip="重启" href="javascript:;">重启</a>
-                        <a class = "href-blue" style="margin-right:0px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'"  uib-tooltip="启动" href="javascript:;">启动/停止</a>
-                        <a class = "href-blue" style="margin-right:0px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" uib-tooltip="停止" href="javascript:;">启动/停止</a>
+                        <a class = "href-blue" style="margin-right:0px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'"  uib-tooltip="启动" href="javascript:;">启动</a>
+                        <a class = "href-blue" style="margin-right:0px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" uib-tooltip="停止" href="javascript:;">停止</a>
                         <a class = "href-blue" style="margin-right:0px;" ng-click="del($index)"  uib-tooltip="删除" href="javascript:;">删除</a>
 
                     </li>
@@ -74,9 +74,9 @@
                     <li style="text-align: center;height:44px;line-height:44px;background: #fff;position:relative padding-top:20px;padding-bottom:20px"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></li>
                 </ul>
             </div>
-            <!--<div style="margin-top:20px">-->
-                <!--<span>第1页，第3项</span>-->
-            <!--</div>-->
+            <div style="margin-top:20px" style="display:none;">
+                <span>第1页，第3项</span>
+            </div>
             <div class="text-right" ng-if="grid.total > 0">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"

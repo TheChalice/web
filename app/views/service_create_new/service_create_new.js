@@ -82,7 +82,7 @@ angular.module('console.service.createnew', [
 
             //})
             //dcname
-            var dcnamer = /^[a-z]([a-z0-9_]{0,22})?[a-z0-9]$/;
+            var dcnamer = /^[a-z]([a-z0-9]{0,22})?[a-z0-9]$/;
             if (!$scope.updata) {
                 $scope.$watch('dc.metadata.name', function (n,o) {
                     //console.log(n, $scope.frm.dcname.$error);
@@ -1194,7 +1194,7 @@ angular.module('console.service.createnew', [
             }, function (res) {
                 $scope.createvolume.persmnamearr = res.items;
             })
-            var rex = /^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            var rex = /^[a-z][a-z0-9]{2,28}[a-z0-9]$/;
             $scope.$watch('createvolume.volume.name', function (n, o) {
                 if (n === o) {
                     return;
