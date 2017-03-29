@@ -23,60 +23,60 @@
             </div>
         </div>
         <div class="table-responsive service" style="margin-top: 13px;">
-            <table class="table table-hover table-default">
-                <tr>
-                    <th style="width:6%;">服务名称</th>
-                    <th style="width:14%">创建时间</th>
-                    <th style="width:14%;">更新时间</th>
-                    <th style="width:10%;">
+            <div class="table table-hover table-default">
+                <ul class="nav_service">
+                    <li>服务名称</li>
+                    <li>创建时间</li>
+                    <li>更新时间</li>
+                    <li>
                         <div uib-dropdown on-toggle="toggled(open)">
-                        <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
                             <span style="color:#666;width:90px;display:block;margin:0 auto;position:relative;">状态 ({{grid.changestatus}})
-                            <b class="ser_bg_btn" style="right:-10px;"></b></span>
+                            <b class="ser_bg_btn" style="right:-10px;top:16px;"></b></span>
 
-                        </a>
-                        <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                            <li class="zx_active" ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name><a href="javascript:void(0);" ><span>{{name.name}}</span></a></li>
-                            <!--<li><a href="javascript:void(0);"><span>异常</span></a></li>-->
-                            <!--<li><a href="javascript:void(0);"><span>未启动</span></a></li>-->
-                            <!--<li><a href="javascript:void(0);"><span>正常</span></a></li>-->
+                            </a>
+                            <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                                <li class="zx_active" ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name><a href="javascript:void(0);" ><span>{{name.name}}</span></a></li>
+                                <!--<li><a href="javascript:void(0);"><span>异常</span></a></li>-->
+                                <!--<li><a href="javascript:void(0);"><span>未启动</span></a></li>-->
+                                <!--<li><a href="javascript:void(0);"><span>正常</span></a></li>-->
 
-                        </ul>
-                    </div></th>
-                    <th style="width:8%;">访问地址</th>
-                    <th style="width:13%">实例副本</th>
-                    <th style="width:30%;">操作</th>
-                </tr>
+                            </ul>
+                        </div></li>
+                    <li>访问地址</li>
+                    <li>实例副本</li>
+                    <li>操作</li>
+                </ul>
                 <!--<tr ng-repeat="bc in items">-->
-                <tr ng-repeat="dc in items">
-                    <td>
-                        <a class="href-blue" style="width:80px;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ui-sref="console.service_detail({name: dc.metadata.name})" uib-tooltip="{{dc.metadata.name}}" tooltip-placement="top">
+                <ul class="nav_service_main" ng-repeat="dc in items">
+                    <li>
+                        <a class="href-blue" style="width:220px;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ui-sref="console.service_detail({name: dc.metadata.name})" uib-tooltip="{{dc.metadata.name}}" tooltip-placement="top">
                             {{dc.metadata.name}}
                         </a>
-                    </td>
-                    <td><span uib-tooltip="{{dc.metadata.creationTimestamp  | timescon}}">{{dc.metadata.creationTimestamp | dateRelative}}</span></td>
-                    <td>10分钟前</td>
-                    <td>{{dc.ismn}}</td>
-                    <td style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
-                        <a class="href-blue" style="color: #5B6177;cursor: no-drop;width:380px;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
-                        <a class="href-blue" style="color: #5B6177;cursor: no-drop;width:380px;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
-                    </td>
-                    <td><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</td>
-                    <td>
+                    </li>
+                    <li><span uib-tooltip="{{dc.metadata.creationTimestamp  | timescon}}">{{dc.metadata.creationTimestamp | dateRelative}}</span></li>
+                    <li>10分钟前</li>
+                    <li>{{dc.ismn}}</li>
+                    <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
+                        <a class="href-blue" style="color: #5B6177;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
+                        <a class="href-blue" style="color: gray;cursor: no-drop;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
+                    </li>
+                    <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
+                    <li>
                         <a class="href-blue" ng-click="restartDc($index)"  uib-tooltip="重启" href="javascript:;">重启</a>
                         <a class = "href-blue" style="margin-right:0px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'"  uib-tooltip="启动" href="javascript:;">启动/停止</a>
                         <a class = "href-blue" style="margin-right:0px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" uib-tooltip="停止" href="javascript:;">启动/停止</a>
                         <a class = "href-blue" style="margin-right:0px;" ng-click="del($index)"  uib-tooltip="删除" href="javascript:;">删除</a>
 
-                    </td>
-                </tr>
-                <tr ng-if="items.length===0">
-                  <td colspan="7" style="text-align: center;background: #fff;position:relative padding-top:20px;padding-bottom:20px"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></td>
-                </tr>
-            </table>
-            <div style="margin-top:20px">
-                <span>第1页，第3项</span>
+                    </li>
+                </ul>
+                <ul ng-if="items.length===0" style="margin:0;padding:0;">
+                    <li style="text-align: center;height:44px;line-height:44px;background: #fff;position:relative padding-top:20px;padding-bottom:20px"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></li>
+                </ul>
             </div>
+            <!--<div style="margin-top:20px">-->
+                <!--<span>第1页，第3项</span>-->
+            <!--</div>-->
             <div class="text-right" ng-if="grid.total > 0">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"
