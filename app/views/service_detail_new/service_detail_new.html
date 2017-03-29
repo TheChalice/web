@@ -23,7 +23,7 @@
                         域名：<a href="http://{{dc.route.spec.host}}">{{dc.route.spec.host}}</a>
                     </div>
                     <div>
-                        <a  href="javascript:void(0)" ng-click="openModal('修改配置','xiugaipeizhi')">修改配置</a>
+                        <a  href="javascript:void(0)" ng-click="openModal('配置信息','peizhixinxi')">修改配置</a>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                 <p>部署记录</p>
                 <div>
                     <span>{{rcs.items[0].metadata.creationTimestamp | dateRelative}}</span>
-                    <span>3月20日</span>
+                    <span>{{rcs.items[0].metadata.creationTimestamp | timesmd}}</span>
                     <span ng-switch="rcs.items[0].metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter">
                         <i ng-switch-when="部署成功" class="succ"> </i>
                         <i ng-switch-when="部署失败" class="err"> </i>
