@@ -7,16 +7,26 @@ angular.module('console.service.createnew', [
             ]
         }
     ])
-    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret','Metrics','$stateParams','platform','platformlist',
-        function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret,Metrics,$stateParams,platform,platformlist) {
+    .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret','Metrics','$stateParams','platform','platformlist','$q',
+        function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret,Metrics,$stateParams,platform,platformlist,$q) {
             $scope.updata=false;
+            $scope.btnText = {
+                one:'立即创建',
+                two:'创建中',
+                three:'创建完成'
+            }
             if ($stateParams.dc) {
                 console.log('$stateParams.dc', $stateParams.dc);
+                $scope.btnText = {
+                    one:'重新部署',
+                    two:'部署中...',
+                    three:'部署完成'
+                }
                 $scope.updata=true
             }
 
             $scope.slider = {
-                value: 0,
+                value: 10,
                 options: {
                     floor: 0,
                     ceil: 200,
@@ -39,7 +49,28 @@ angular.module('console.service.createnew', [
                     null:true
 
                 },
-                con:{
+                miyaonameerr: {
+                    rexed:false,
+                    repeated:false,
+                    null:true,
+                    cancreat:false
+
+                },
+                chijiunameerr: {
+                    rexed:false,
+                    repeated:false,
+                    null:true,
+                    cancreat:true
+
+                },
+                peizhinameerr: {
+                    rexed:false,
+                    repeated:false,
+                    null:true,
+                    cancreat:false
+
+                },
+                con: {
                     image:null
                 }
             }
@@ -48,42 +79,97 @@ angular.module('console.service.createnew', [
                 hasimage:false
             }
 
-            //
-            //$http.get('/registry/api/repositories', {timeout: end.promise, params: {project_id: 1}})
-            //    .success(function (docdata) {
-            //        angular.forEach(docdata, function (docitem, i) {
-            //            $scope.imagecenterDoc.push({
-            //                name: docitem,
-            //                lasttag: null,
-            //                canbuild: true,
-            //                class: 'doc'
-            //            });
-            //        })
-            //        $http.get('/registry/api/repositories', {
-            //                params: {project_id: 58}
-            //            })
-            //            .success(function (dfdata) {
-            //                angular.forEach(dfdata, function (dfitem, k) {
-            //                    $scope.imagecenterDF.push({
-            //                        name: dfitem,
-            //                        lasttag: null,
-            //                        canbuild: true,
-            //                        class: 'df'
-            //                    });
-            //                });
-            //                $scope.imagecenterpoj = $scope.imagecenterDoc.concat($scope.imagecenterDF);
-            //                //console.log('imagecenterpoj', $scope.imagecenterpoj);
-            //                $scope.imagecentercopy = angular.copy($scope.imagecenterpoj);
-            //                $scope.grid.imagecentertotal = $scope.imagecentercopy.length
-            //
-            //
-            //            })
-            //    }).error(function (err) {
 
-            //})
-            //dcname
+            $scope.changeimage= function (str) {
+                console.log(str);
+            }
+
+            $scope.$watch('checkimage', function (n,o) {
+                if (n === o) {
+                    return
+                }
+                if (n) {
+                    $scope.imagesearch="";
+                }
+                if (n === 3&&!$scope.dfimage) {
+                    platform.query({id:5}, function (dfdata) {
+                        console.log(dfdata);
+                        var arr=[];
+                        //$scope.dfimage=[]
+                        //console.log('docdata',docdata);
+                        angular.forEach(dfdata, function (item,i) {
+                            arr.push({
+                                checkbox:"",
+                                type:'our',
+                                metadata: {
+                                    name:item
+                                },
+                                status:{
+                                    tags:[]
+                                }
+                            })
+                            platformlist.query({id:item},function (tags) {
+                                angular.forEach(tags, function (tag,j) {
+                                    arr[i].status.tags.push({tag:tag})
+                                    arr[i].checkbox=tags[0]
+                                })
+                                //console.log('data', tag);
+                                //console.log(i, docdata.length);
+                                if (i === dfdata.length-1) {
+                                    $scope.dfimage=angular.copy(arr);
+                                    $scope.dfimagecopy=angular.copy($scope.dfimage);
+                                    //console.log('$scope.docimage', $scope.dfimage);
+                                }
+                            })
+
+                        })
+                    })
+                }else if(n === 4&&!$scope.docimage){
+                    //docimage
+
+                    platform.query({id:1}, function (docdata) {
+                        var arr=[];
+                        //$scope.docimage=[]
+                        //console.log('docdata',docdata);
+                        angular.forEach(docdata, function (item,i) {
+                            arr.push({
+                                checkbox:"",
+                                type:'our',
+                                metadata:{
+                                    name:item
+                                },
+                                status:{
+                                    tags:[]
+                                }
+                            })
+                            platformlist.query({id:item},function (tags) {
+                                angular.forEach(tags, function (tag,j) {
+                                    arr[i].status.tags.push({tag:tag})
+                                    arr[i].checkbox=tags[0]
+                                })
+                                //console.log('data', tag);
+
+                                //console.log(i, docdata.length);
+                                if (i === docdata.length-1) {
+                                    $scope.docimage=angular.copy(arr);
+                                    $scope.docimagecopy=angular.copy($scope.docimage);
+                                    //console.log('$scope.images', $scope.images);
+                                    //console.log('$scope.docimage', $scope.docimage);
+                                }
+                            })
+
+                        })
+                        //
+
+                    })
+                    //dfimage
+                }
+            })
             var dcnamer = /^[a-z]([a-z0-9]{0,22})?[a-z0-9]$/;
+
+            //namerex
             if (!$scope.updata) {
+                //dcname
                 $scope.$watch('dc.metadata.name', function (n,o) {
                     //console.log(n, $scope.frm.dcname.$error);
                     if (n && n.length > 0) {
@@ -110,51 +196,195 @@ angular.module('console.service.createnew', [
                     //console.log($scope.frm.dcname.$dirty,$scope.error.dcnameerr);
                 })
                 //conname
+                $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
+                    if (n) {
+                        $scope.stepup.twoerr=true;
+                        $scope.stepup.hasimage=true;
+                        $scope.stepup.two=false;
+                        angular.forEach(n, function (con,i) {
 
-            }
-            $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
-                if (n) {
-                    $scope.stepup.twoerr=true;
-                    $scope.stepup.hasimage=true;
-                    $scope.stepup.two=false;
-                    angular.forEach(n, function (con,i) {
-
-                        if (con.name && con.name.length > 0) {
-                            con.namerr.null=false
-                            // console.log($scope.buildConfig.metadata.name);
-                            if (dcnamer.test(con.name)) {
-                                con.namerr.rexed = false;
-                                con.namerr.repeated = false;
-                                angular.forEach(n, function (incon,k) {
-                                    //angular.forEach($scope.serviceNameArr, function (build, i) {
-                                    if (i !== k) {
-                                        if (incon.name === con.name) {
-                                            con.namerr.repeated = true;
+                            if (con.name && con.name.length > 0) {
+                                con.namerr.null=false
+                                // console.log($scope.buildConfig.metadata.name);
+                                if (dcnamer.test(con.name)) {
+                                    con.namerr.rexed = false;
+                                    con.namerr.repeated = false;
+                                    angular.forEach(n, function (incon,k) {
+                                        //angular.forEach($scope.serviceNameArr, function (build, i) {
+                                        if (i !== k) {
+                                            if (incon.name === con.name) {
+                                                con.namerr.repeated = true;
+                                            }
                                         }
-                                    }
 
-                                })
-                                //})
+                                    })
+                                    //})
 
+                                } else {
+                                    con.namerr.rexed = true;
+                                }
                             } else {
-                                con.namerr.rexed = true;
+                                con.namerr.null=true
+                                con.namerr.rexed = false;
                             }
-                        } else {
-                            con.namerr.null=true
-                            con.namerr.rexed = false;
+                            if (con.image === "") {
+                                $scope.stepup.hasimage=false;
+                            }
+                            if (con.namerr.rexed || con.namerr.null || con.namerr.repeated) {
+                                $scope.stepup.twoerr=false;
+                            }
+                        })
+                        if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
+                            $scope.stepup.two=true;
                         }
-                        if (con.image === "") {
-                            $scope.stepup.hasimage=false;
+                    }
+                },true)
+            }
+            //peizhiname
+            $scope.$watch('volume.metadata.name', function (n, o) {
+                if (n === o) {
+                    return;
+                }
+                if (n && n.length > 0) {
+                    $scope.error.peizhinameerr.null=false
+                    if (dcnamer.test(n)) {
+                        $scope.error.peizhinameerr.rexed = false;
+                        $scope.error.peizhinameerr.repeated = false;
+                        if ($scope.configmap) {
+                            angular.forEach($scope.configmap, function (bsiname, i) {
+                                if (bsiname.metadata.name === n) {
+                                    $scope.error.peizhinameerr.repeated = true;
+                                }
+                            })
                         }
-                        if (con.namerr.rexed || con.namerr.null || con.namerr.repeated) {
-                            $scope.stepup.twoerr=false;
+
+                    } else {
+                        $scope.error.peizhinameerr.rexed = true;
+                    }
+                } else {
+                    $scope.error.peizhinameerr.null=true
+                    $scope.error.peizhinameerr.rexed = false;
+                }
+            })
+
+            $scope.$watch('volume', function (n, o) {
+                if (n == o) {
+                    return
+                }
+
+                if (!$scope.postVolumeScret) {
+                    $scope.error.peizhinameerr.cancreat = true;
+                    //var arr = n.configitems;
+                    angular.forEach(n.configitems, function (config,i) {
+                        console.log(config);
+                        if (config.key === "" || config.value === "") {
+                            console.log(config);
+                            $scope.error.peizhinameerr.cancreat = false;
                         }
                     })
-                    if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
-                        $scope.stepup.two=true;
-                    }
+
+                }else {
+                    $scope.error.peizhinameerr.cancreat = true;
+                    angular.forEach(n.configarr, function (config,i) {
+                        console.log(config);
+                        if (config.key === "" || config.value === "") {
+                            $scope.error.peizhinameerr.cancreat = false;
+                        }
+                    })
                 }
-            },true)
+
+
+
+            }, true);
+            //miyaoname
+            $scope.$watch('createsercet.secrets.metadata.name', function (n, o) {
+                if (n === o) {
+                    return;
+                }
+                if (n && n.length > 0) {
+                    $scope.error.miyaonameerr.null=false
+                    if (dcnamer.test(n)) {
+                        $scope.error.miyaonameerr.rexed = false;
+                        $scope.error.miyaonameerr.repeated = false;
+                        if ($scope.secremnamearr) {
+                            //console.log($scope.buildConfiglist);
+                            angular.forEach($scope.secremnamearr, function (bsiname, i) {
+                                //console.log(bsiname);
+                                if (bsiname.metadata.name === n) {
+                                    //console.log(bsiname,n);
+                                    $scope.error.miyaonameerr.repeated = true;
+
+                                }
+                                //console.log($scope.namerr.repeated);
+                            })
+                        }
+
+                    } else {
+                        $scope.error.miyaonameerr.rexed = true;
+                    }
+                } else {
+                    $scope.error.miyaonameerr.null=true
+                    $scope.error.miyaonameerr.rexed = false;
+                }
+            })
+            $scope.$watch('createsercet.secrets', function (n, o) {
+                if (n == o) {
+                    return
+                }
+                if (n.secretsarr) {
+                    $scope.error.miyaonameerr.cancreat = true;
+                    angular.forEach(n.secretsarr, function (secret,i) {
+                        if (secret.key === "" || secret.value === "") {
+                            $scope.error.miyaonameerr.cancreat = false;
+                        }
+                    })
+                    //console.log('n.secretsarr', n.secretsarr);
+                }
+            }, true);
+            //chjiuname
+            $scope.$watch('createvolume.volume.name', function (n, o) {
+                if (n === o) {
+                    return;
+                }
+                if (n && n.length > 0) {
+                    $scope.error.chijiunameerr.null=false
+                    if (dcnamer.test(n)) {
+                        $scope.error.chijiunameerr.rexed = false;
+                        $scope.error.chijiunameerr.repeated = false;
+                        if ($scope.createvolume.persmnamearr) {
+                            //console.log($scope.buildConfiglist);
+                            angular.forEach($scope.createvolume.persmnamearr, function (bsiname, i) {
+                                //console.log(bsiname);
+                                if (bsiname.metadata.name === n) {
+                                    //console.log(bsiname,n);
+                                    $scope.error.chijiunameerr.repeated = true;
+
+                                }
+                                //console.log($scope.namerr.repeated);
+                            })
+                        }
+
+                    } else {
+                        $scope.error.chijiunameerr.rexed = true;
+                    }
+                } else {
+                    $scope.error.chijiunameerr.null=true
+                    $scope.error.chijiunameerr.rexed = false;
+                }
+            });
+            $scope.$watch('slider.value', function (n, o) {
+                if (n == o) {
+                    return
+                }
+                console.log(n);
+                if (n && n > 0) {
+                    //console.log('console.log(n);', n);
+                    $scope.error.chijiunameerr.cancreat = true;
+
+                }else {
+                    $scope.error.chijiunameerr.cancreat = false;
+                }
+            })
             //数组去重
             Array.prototype.unique = function () {
                 this.sort(); //先排序
@@ -271,15 +501,42 @@ angular.module('console.service.createnew', [
                 step3: true
             }
             $scope.backState = 1;
+            $scope.isResolving = {
+                step2:true,
+                step3:true
+            };
             $scope.nexttwo = function (step) {
-                $scope.isShow.step2 = false;
-                $scope.backState = 2;
-                animate(step);
+                $scope.isResolving.step2 = false;
+                function asyncAnimate() {
+                    var deferred = $q.defer();
+                    setTimeout(function(){
+                        deferred.resolve();
+                    },1000)
+                    return deferred.promise;
+                }
+                var promise = asyncAnimate();
+                promise.then(function() {
+                    $scope.isShow.step2 = false;
+                    $scope.backState = 2;
+                    animate(step);
+                })
             }
             $scope.nextthree = function (step) {
-                $scope.isShow.step3 = false;
-                $scope.backState = 3;
-                animate(step);
+                $scope.isResolving.step3 = false;
+                function asyncAnimate() {
+                    var deferred = $q.defer();
+                    setTimeout(function(){
+                        deferred.resolve();
+                    },1000)
+                    return deferred.promise;
+                }
+                var promise = asyncAnimate();
+                promise.then(function() {
+                    $scope.isShow.step3 = false;
+                    $scope.backState = 3;
+                    animate(step);
+                })
+
             }
             function backrestore(step) {
                 var x = $('.scn_jindu li:nth-child(' + step + ')').children();
@@ -300,10 +557,12 @@ angular.module('console.service.createnew', [
                 if ($scope.backState === 2) {
                     $scope.isShow.step2 = true;
                     $scope.isActive.steptwo = false;
+                    $scope.isResolving.step2 = true;
                     backrestore($scope.backState)
                 } else if ($scope.backState === 3) {
                     $scope.isShow.step3 = true;
                     $scope.isActive.stepthree = false;
+                    $scope.isResolving.step3 = true;
                     backrestore($scope.backState)
                 }
             }
@@ -455,8 +714,8 @@ angular.module('console.service.createnew', [
             if ($scope.updata) {
                 DeploymentConfig.get({namespace: $rootScope.namespace, name:$stateParams.dc ,region:$rootScope.region}, function (res) {
                     $scope.dc = res;
-                    $scope.error={
-                        dcnameerr:{
+                    $scope.error= {
+                        dcnameerr: {
                             rexed:false,
                             repeated:false,
                             null:false
@@ -546,7 +805,7 @@ angular.module('console.service.createnew', [
 
                         //获取卷
 
-                        con.secretsobj={
+                        con.secretsobj= {
                             secretarr: []
                             ,
                             configmap: []
@@ -1172,15 +1431,7 @@ angular.module('console.service.createnew', [
                 $scope.createvolume.getPlan = false;
 
             })
-            $scope.$watch('slider.value', function (n, o) {
-                if (n == o) {
-                    return
-                }
-                if (n && n > 0) {
-                    $scope.createvolume.grid.num = false
 
-                }
-            })
             $scope.createvolume.nameblur = function () {
                 //console.log($scope.buildConfig.metadata.name);
 
@@ -1194,35 +1445,8 @@ angular.module('console.service.createnew', [
             }, function (res) {
                 $scope.createvolume.persmnamearr = res.items;
             })
-            var rex = /^[a-z][a-z0-9]{2,28}[a-z0-9]$/;
-            $scope.$watch('createvolume.volume.name', function (n, o) {
-                if (n === o) {
-                    return;
-                }
-                if (n && n.length > 0) {
-                    if (rex.test(n)) {
-                        $scope.createvolume.namerr.rexed = false;
-                        $scope.createvolume.namerr.repeated = false;
-                        if ($scope.createvolume.persmnamearr) {
-                            //console.log($scope.buildConfiglist);
-                            angular.forEach($scope.createvolume.persmnamearr, function (bsiname, i) {
-                                //console.log(bsiname);
-                                if (bsiname.metadata.name === n) {
-                                    //console.log(bsiname,n);
-                                    $scope.createvolume.namerr.repeated = true;
+            var rex = /^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 
-                                }
-                                //console.log($scope.namerr.repeated);
-                            })
-                        }
-
-                    } else {
-                        $scope.createvolume.namerr.rexed = true;
-                    }
-                } else {
-                    $scope.createvolume.namerr.rexed = false;
-                }
-            })
             $scope.createvolume.empty = function () {
                 if ($scope.createvolume.volume.name === '') {
 
@@ -1286,10 +1510,11 @@ angular.module('console.service.createnew', [
                     }
                 }, function (data) {
                     //console.log(data);
+                    $scope.close()
                     //volume.create({namespace: $rootScope.namespace}, $scope.volume, function (res) {
                     //    //alert(11111)
                     //    $scope.loaded = false;
-                    $state.go('console.resource_management', {index: 1});
+                    //$state.go('console.resource_management', {index: 1});
                     //}, function (err) {
                     //    $scope.loaded = false;
                     //    Toast.open('构建失败,请重试');
@@ -1517,55 +1742,7 @@ angular.module('console.service.createnew', [
                     }
                 }
             }
-            $scope.$watch('createsercet.secrets', function (n, o) {
-                if (n == o) {
-                    return
-                }
-                ;
-                //console.log(n);
-                $scope.createsercet.grid.keychongfu = false;
-                $scope.createsercet.grid.keynull = false;
-                $scope.createsercet.grid.keybuhefa = false;
 
-                if (n.metadata.name && n.secretsarr) {
-                    var arr = angular.copy(n.secretsarr);
-                    arr.sort(by("key"));
-                    if (arr && arr.length > 0) {
-                        var kong = false;
-                        var r = /^\.?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/;
-                        angular.forEach(arr, function (item, i) {
-
-                            if (!item.key || !item.value) {
-                                $scope.createsercet.grid.keynull = true;
-                                kong = true;
-                            } else {
-                                if (arr[i] && arr[i + 1]) {
-                                    if (arr[i].key == arr[i + 1].key) {
-                                        $scope.createsercet.grid.keychongfu = true;
-                                        kong = true;
-                                    }
-                                }
-                                if (!r.test(arr[i].key)) {
-                                    //console.log(arr[i].key);
-                                    $scope.createsercet.grid.keybuhefa = true;
-                                    kong = true;
-                                }
-                            }
-                        });
-
-                        if (!kong) {
-                            $scope.createsercet.grid.secreteno = true
-                        } else {
-
-                            $scope.createsercet.grid.secreteno = false
-                        }
-                    } else {
-                        $scope.createsercet.grid.secreteno = false
-                    }
-                } else {
-                    $scope.createsercet.grid.secreteno = false
-                }
-            }, true);
             $scope.nameblurzn = function () {
                 //console.log($scope.buildConfig.metadata.name);
                 if (!$scope.createsercet.secrets.metadata.name) {
@@ -1584,36 +1761,9 @@ angular.module('console.service.createnew', [
             })
 
 
-            var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            //var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 
-            $scope.$watch('createsercet.secrets.metadata.name', function (n, o) {
-                if (n === o) {
-                    return;
-                }
-                if (n && n.length > 0) {
-                    if (rex.test(n)) {
-                        $scope.createsercet.namerr.rexed = false;
-                        $scope.createsercet.namerr.repeated=false;
-                        if ($scope.secremnamearr) {
-                            //console.log($scope.buildConfiglist);
-                            angular.forEach($scope.secremnamearr, function (bsiname, i) {
-                                console.log(bsiname);
-                                if (bsiname.metadata.name === n) {
-                                    console.log(bsiname,n);
-                                    $scope.createsercet.namerr.repeated = true;
 
-                                }
-                                //console.log($scope.namerr.repeated);
-                            })
-                        }
-
-                    } else {
-                        $scope.createsercet.namerr.rexed = true;
-                    }
-                } else {
-                    $scope.createsercet.namerr.rexed = false;
-                }
-            })
 
             $scope.postsecret = function () {
                 if (!$scope.createsercet.namerr.nil && !$scope.createsercet.namerr.rexed && !$scope.createsercet.namerr.repeated) {
@@ -1632,7 +1782,8 @@ angular.module('console.service.createnew', [
                     $scope.createsercet.grid.nameerr = false;
                     //console.log('createconfig----',res);
                     $scope.loaded = false;
-                    close()
+
+                    $scope.close()
                 }, function (res) {
                     if (res.status == 409) {
                         $scope.createsercet.grid.nameerr = true;
@@ -1674,81 +1825,12 @@ angular.module('console.service.createnew', [
                 }
             }
             ////验证配置卷的key,value
-            $scope.$watch('volume', function (n, o) {
-                if (n == o) {
-                    return
-                }
-                //console.log(n);
-                $scope.grid.keychongfu = false;
-                $scope.grid.keynull = false;
-                $scope.grid.keybuhefa = false;
-                if (true) {
-                    var arr = n.configitems.concat(n.configarr);
-                    //var arr = n.configitems;
-                    arr.sort(by("key"));
 
-                    if (arr && arr.length > 0) {
-
-                        var kong = false;
-                        var r =/^[a-z]([a-z0-9_\.]{0,22}[a-z0-9]$)?/;
-                        angular.forEach(arr, function (item, i) {
-                            if (!item.key || !item.value) {
-                                $scope.grid.keynull = true;
-                                kong = true;
-                            } else {
-                                if (arr[i] && arr[i + 1]) {
-                                    if (arr[i].key == arr[i + 1].key) {
-                                        $scope.grid.keychongfu = true;
-                                        kong = true;
-                                    }
-                                }
-                                if (!r.test(arr[i].key)) {
-                                    $scope.grid.keybuhefa = true;
-                                    kong = true;
-                                }
-                            }
-                        });
-                        if (!kong) {
-                            $scope.grid.configpost = true
-                        } else {
-                            $scope.grid.configpost = false
-                        }
-                    } else {
-                        $scope.grid.configpost = false
-                    }
-                } else {
-                    $scope.grid.configpost = false
-                }
-
-            }, true);
 
             //  验证配置卷名称
             var secretrex =/^[a-z]([a-z0-9_]{0,22}[a-z0-9]$)?/;
 
-            $scope.$watch('volume.metadata.name', function (n, o) {
-                if (n === o) {
-                    return;
-                }
-                if (n && n.length > 0) {
-                    $scope.secretNamerr.nil = false;
-                    if (secretrex.test(n)) {
-                        $scope.secretNamerr.rexed = false;
-                        $scope.secretNamerr.repeated=false;
-                        if ($scope.configmap) {
-                            angular.forEach($scope.configmap, function (bsiname, i) {
-                                if (bsiname.metadata.name === n) {
-                                    $scope.secretNamerr.repeated = true;
-                                }
-                            })
-                        }
 
-                    } else {
-                        $scope.secretNamerr.rexed = true;
-                    }
-                } else {
-                    $scope.secretNamerr.rexed = false;
-                }
-            })
             $scope.secretNamerr = {
                 nil: true,
                 rexed: false,
@@ -1767,11 +1849,8 @@ angular.module('console.service.createnew', [
             }
             ///// 创建配置卷
             $scope.cearteconfig = function () {
-                if (!$scope.secretNamerr.nil && !$scope.secretNamerr.rexed && !$scope.secretNamerr.repeated && !$scope.grid.configpost) {
 
-                }else {
-                    return;
-                }
+
                 for(var i = 0 ; i < $scope.volume.configitems.length; i++){
                     if( !$scope.volume.configitems[i].key || !$scope.volume.configitems[i].value){
                         $scope.volume.configitems.splice(i,1);
@@ -1787,10 +1866,10 @@ angular.module('console.service.createnew', [
                 angular.forEach(arr, function (item, i) {
                     $scope.volume.data[item.key] = item.value;
                 })
-
-                delete $scope.volume.configitems;
-                delete $scope.volume.configarr;
-                configmaps.create({namespace: $rootScope.namespace,region:$rootScope.region}, $scope.volume, function (res) {
+                var oldvolume = angular.copy($scope.volume)
+                delete oldvolume.configitems;
+                delete oldvolume.configarr;
+                configmaps.create({namespace: $rootScope.namespace,region:$rootScope.region}, oldvolume, function (res) {
                     $scope.volume = {
                         "kind": "ConfigMap",
                         "apiVersion": "v1",
@@ -1804,6 +1883,7 @@ angular.module('console.service.createnew', [
                         "configarr": [{key:'',value:'',showLog:false}]
 
                     }
+                    $scope.close();
                 }, function (res) {
                     //$state.go('console.create_config_volume');
                 })
@@ -1872,6 +1952,9 @@ angular.module('console.service.createnew', [
             //search image
             $scope.$watch('imagesearch', function (n,o) {
                 //var imagearr = [];
+                if (n === o) {
+                    return
+                }
                 if (n !== '') {
                     var imagesearch = n.replace(/\//g, '\\/');
                     var reg = eval('/' + imagesearch + '/');
@@ -1925,72 +2008,8 @@ angular.module('console.service.createnew', [
 
 
             })
-            //docimage
 
-            platform.query({id:1}, function (docdata) {
-                $scope.docimage=[]
-                //console.log('docdata',docdata);
-                angular.forEach(docdata, function (item,i) {
-                    $scope.docimage.push({
-                        checkbox:"",
-                        type:'our',
-                        metadata:{
-                            name:item
-                        },
-                        status:{
-                            tags:[]
-                        }
-                    })
-                    platformlist.query({id:item},function (tags) {
-                        angular.forEach(tags, function (tag,j) {
-                            $scope.docimage[i].status.tags.push({tag:tag})
-                            $scope.docimage[i].checkbox=tags[0]
-                        })
-                        //console.log('data', tag);
 
-                        //console.log(i, docdata.length);
-                        if (i === docdata.length-1) {
-                            $scope.docimagecopy=angular.copy($scope.docimage);
-                            //console.log('$scope.images', $scope.images);
-                            //console.log('$scope.docimage', $scope.docimage);
-                        }
-                    })
-
-                })
-                //
-
-            })
-            //dfimage
-            platform.query({id:5}, function (dfdata) {
-                console.log(dfdata);
-                $scope.dfimage=[]
-                //console.log('docdata',docdata);
-                angular.forEach(dfdata, function (item,i) {
-                    $scope.dfimage.push({
-                        checkbox:"",
-                        type:'our',
-                        metadata:{
-                            name:item
-                        },
-                        status:{
-                            tags:[]
-                        }
-                    })
-                    platformlist.query({id:item},function (tags) {
-                        angular.forEach(tags, function (tag,j) {
-                            $scope.dfimage[i].status.tags.push({tag:tag})
-                            $scope.dfimage[i].checkbox=tags[0]
-                        })
-                        //console.log('data', tag);
-                        //console.log(i, docdata.length);
-                        if (i === dfdata.length-1) {
-                            $scope.dfimagecopy=angular.copy($scope.dfimage);
-                            console.log('$scope.docimage', $scope.dfimage);
-                        }
-                    })
-
-                })
-            })
             $scope.checkboximage= function (image) {
                 console.log('$scope.changeimage', image);
                 $scope.error.image=null;
@@ -2091,8 +2110,11 @@ angular.module('console.service.createnew', [
                     // $log.info("create route fail", res);
                 });
             }
+            $scope.isComplete = false;
+            $scope.isCreate = true;
             $scope.creat = function () {
                 //挂卷
+                $scope.isCreate = false;
                 var clonedc = angular.copy($scope.dc);
                 clonedc.spec.template.spec.volumes=[];
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
@@ -2246,7 +2268,18 @@ angular.module('console.service.createnew', [
                             // $log.info("update dc success", res);
                             //$scope.getdc.spec.replicas = $scope.dc.spec.replicas;
                             bindService(clonedc);
-                            $state.go('console.service_detail', {name: clonedc.metadata.name,from: 'create'});
+                            $scope.isComplete = true;
+                            function asyncAnimate() {
+                                var deferred = $q.defer();
+                                setTimeout(function(){
+                                    deferred.resolve();
+                                },1000)
+                                return deferred.promise;
+                            }
+                            var promise = asyncAnimate();
+                            promise.then(function() {
+                                $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
+                            })
                         }, function (res) {
                             //todo 错误处理
 
@@ -2287,7 +2320,18 @@ angular.module('console.service.createnew', [
                     }, clonedc, function (res) {
                         $log.info("create dc success", res);
                         bindService(clonedc);
-                        $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
+                        $scope.isComplete = true;
+                        function asyncAnimate() {
+                            var deferred = $q.defer();
+                            setTimeout(function(){
+                                deferred.resolve();
+                            },1000)
+                            return deferred.promise;
+                        }
+                        var promise = asyncAnimate();
+                        promise.then(function() {
+                            $state.go('console.service_detail', {name: clonedc.metadata.name, from: 'create'});
+                        })
                     }, function (res) {
                         //todo 错误处理
                         $log.info("create dc fail", res);
