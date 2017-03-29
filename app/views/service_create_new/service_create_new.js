@@ -321,7 +321,8 @@ angular.module('console.service.createnew', [
                 "views/service_create_new/img/del_hover.png",
                 "views/service_create_new/img/input_close_hover.png",
                 "views/service_create_new/img/vol_btn_hover.png",
-                "views/service_create_new/img/vol_hover.png"
+                "views/service_create_new/img/vol_hover.png",
+                "views/service_create_new/img/no_mql.png"
             );
 
             function initModal() {
@@ -400,7 +401,7 @@ angular.module('console.service.createnew', [
                 checkcon:'选择端口',
                 checkport:'',
                 host: '',
-                suffix: '.like.datapp.c.citic'
+                suffix: '.like.dataapp.c.citic'
             }
             $scope.changebuild= {
                 ConfigChange:true,
@@ -1820,12 +1821,15 @@ angular.module('console.service.createnew', [
                     //angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
                     //        console.log('con[i].hostPort',con[i]);
                     //console.log(con);
-                    ps.push({
-                        name: con.hostPort + '-'+con.name,
-                        port: parseInt(con.hostPort),
-                        protocol: "TCP",
-                        targetPort: parseInt(con.containerPort)
-                    });
+                    if (con.hostPort) {
+                        ps.push({
+                            name: con.hostPort + '-'+con.name,
+                            port: parseInt(con.hostPort),
+                            protocol: "TCP",
+                            targetPort: parseInt(con.containerPort)
+                        });
+                    }
+
                 })
 
 
@@ -2090,9 +2094,14 @@ angular.module('console.service.createnew', [
             $scope.creat = function () {
                 //挂卷
                 var clonedc = angular.copy($scope.dc);
+                clonedc.spec.template.spec.volumes=[];
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
                     con.volumeMounts=[];
-                    clonedc.spec.template.spec.volumes=[];
+
+                })
+
+                angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
+
                     var imagetag = 'dadafoundry.io/image-' + con.name;
                     clonedc.metadata.annotations[imagetag] = con.name + ":" + con.imaged.checkbox;
                     if (con.args) {
@@ -2103,13 +2112,14 @@ angular.module('console.service.createnew', [
                     angular.forEach(con.env, function (envd,j) {
                         if (envd.name === '') {
                             //console.log('envd.name', envd.name);
-                            delete clonedc.spec.template.spec.containers[i].env.splice(i,1)
+                            delete clonedc.spec.template.spec.containers[i].env
                         }
                     })
-                    if (clonedc.spec.template.spec.containers[i].env.length === 0) {
-                        console.log('delete');
-                        delete clonedc.spec.template.spec.containers[i].env
-                    }
+                    console.log('con.env',con.env);
+                    //if (clonedc.spec.template.spec.containers[i].env.length === 0) {
+                    //    console.log('delete');
+                    //    delete clonedc.spec.template.spec.containers[i].env
+                    //}
 
                     console.log(clonedc, '!clonedc.othersetting');
                     if (!con.othersetting) {
@@ -2214,10 +2224,14 @@ angular.module('console.service.createnew', [
                 //addport
                 // 删除同名服务,创建dc之前执行该方法
                 //console.log('clonedc', clonedc);
+                if ($scope.error.image!=='our') {
+                    createService();
+                }
                 if ($scope.updata) {
+
                     if ($scope.routeconf.host&&$scope.route.metadata.resourceVersion) {
                         updataRoute()
-                    }else {
+                    }else if($scope.routeconf.host&&$scope.routeconf.checkcon!=='选择端口'){
                         createRoute()
                     }
                     DeploymentConfig.get({namespace: $rootScope.namespace, name:$stateParams.dc ,region:$rootScope.region}, function (res) {
@@ -2261,11 +2275,9 @@ angular.module('console.service.createnew', [
                     }, function (res) {
 
                     })
-                    if ($scope.error.image!=='our') {
-                        createService();
-                    }
+
                     //console.log('$scope.routeconf.route', $scope.routeconf.route);
-                    if ($scope.routeconf.host) {
+                    if ($scope.routeconf.host&&$scope.routeconf.checkcon!=='选择端口') {
                         //console.log('$scope.grid.port',$scope.grid.port);
                         createRoute();
                     }
