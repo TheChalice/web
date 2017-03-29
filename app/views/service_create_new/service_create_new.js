@@ -795,9 +795,9 @@ angular.module('console.service.createnew', [
                         }
                         con.imagename=con.image.split('/')[2].split('@')[0]
                         con.namerr= {
-                                rexed:true,
-                                repeated:true,
-                                null:false
+                            rexed:true,
+                            repeated:true,
+                            null:false
                         }
 
                         if (!con.env) {
@@ -817,19 +817,19 @@ angular.module('console.service.createnew', [
                         angular.forEach(con.volumeMounts, function (volue,k) {
 
                             if (volue.name.indexOf('secrat') > -1) {
-                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
-                                if (volue.name === vol.name) {
-                                    var modelvol ={
-                                        secret: {
-                                            secretName: vol.secret.secretName
-                                        },
-                                        mountPath: volue.mountPath
+                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                    if (volue.name === vol.name) {
+                                        var modelvol ={
+                                            secret: {
+                                                secretName: vol.secret.secretName
+                                            },
+                                            mountPath: volue.mountPath
+                                        }
+                                        con.secretsobj.secretarr.push(modelvol)
+
+
                                     }
-                                    con.secretsobj.secretarr.push(modelvol)
-
-
-                                }
-                            })
+                                })
                             }else if (volue.name.indexOf('config') > -1) {
                                 angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
                                     if (volue.name === vol.name) {
@@ -895,7 +895,7 @@ angular.module('console.service.createnew', [
                             con.resources.limits.cpu=0
                             con.resources.limits.memory=0
                         }
-                            //console.log('con.imagename', con.imagename);
+                        //console.log('con.imagename', con.imagename);
                         for(var k in $scope.dc.metadata.annotations){
                             //console.log(k.indexOf('dadafoundry.io/image-'));
                             if (k.indexOf('dadafoundry.io/image-')>-1) {
@@ -1851,7 +1851,7 @@ angular.module('console.service.createnew', [
             ///// 创建配置卷
             $scope.cearteconfig = function () {
 
-                
+
                 for(var i = 0 ; i < $scope.volume.configitems.length; i++){
                     if( !$scope.volume.configitems[i].key || !$scope.volume.configitems[i].value){
                         $scope.volume.configitems.splice(i,1);
@@ -2132,12 +2132,12 @@ angular.module('console.service.createnew', [
                     }else {
                         delete clonedc.spec.template.spec.containers[i].args
                     }
-                     angular.forEach(con.env, function (envd,j) {
-                         if (envd.name === '') {
-                             //console.log('envd.name', envd.name);
-                             delete clonedc.spec.template.spec.containers[i].env
-                         }
-                     })
+                    angular.forEach(con.env, function (envd,j) {
+                        if (envd.name === '') {
+                            //console.log('envd.name', envd.name);
+                            delete clonedc.spec.template.spec.containers[i].env
+                        }
+                    })
                     console.log('con.env',con.env);
                     //if (clonedc.spec.template.spec.containers[i].env.length === 0) {
                     //    console.log('delete');
@@ -2154,7 +2154,7 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.secretarr.length > 0) {
                             console.log(con.secretsobj.secretarr);
                             angular.forEach(con.secretsobj.secretarr, function (secret, k) {
-                                if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.secretName !== '名称') {
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.secretName !== '名称'&&clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].mountPath!=="") {
                                     secret.name = "con" + i + "secrat" + k;
                                     var secretcopy = angular.copy(secret);
                                     clonedc.spec.template.spec.volumes.push(secretcopy)
@@ -2170,7 +2170,7 @@ angular.module('console.service.createnew', [
                         }
                         if (con.secretsobj.configmap.length > 0) {
                             angular.forEach(con.secretsobj.configmap, function (config, k) {
-                                if (clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap.name !== '名称') {
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap.name !== '名称'&&clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].mountPath!=="") {
                                     config.name = "con" + i + "config" + k;
                                     var configcopy = angular.copy(config);
                                     clonedc.spec.template.spec.volumes.push(configcopy)
@@ -2185,16 +2185,16 @@ angular.module('console.service.createnew', [
                         }
                         if (con.secretsobj.persistentarr.length > 0) {
                             angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
-                                    if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称') {
+                                if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称'&&clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].mountPath!=="") {
                                     persistent.name = "con" + i + "persistent" + k;
                                     var persistentcopy = angular.copy(persistent);
                                     clonedc.spec.template.spec.volumes.push(persistentcopy)
                                     delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName
                                     con.volumeMounts.push(clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k])
-                                    }else {
-                                        delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k]
-                                    }
-                                });
+                                }else {
+                                    delete clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k]
+                                }
+                            });
 
 
                         }
@@ -2283,11 +2283,11 @@ angular.module('console.service.createnew', [
                             })
                         }, function (res) {
                             //todo 错误处理
-
+                            $scope.isCreate = false;
                             // $log.info("update dc fail", res);
                         });
                     }, function (err) {
-
+                        $scope.isCreate = false;
                     })
                 }else {
                     Service.delete({
@@ -2336,6 +2336,7 @@ angular.module('console.service.createnew', [
                     }, function (res) {
                         //todo 错误处理
                         $log.info("create dc fail", res);
+                        $scope.isCreate = false;
                         if (res.status == 409) {
                             $scope.grid.createdcerr = true;
                         }
