@@ -165,7 +165,7 @@ angular.module('console.service.createnew', [
                     //dfimage
                 }
             })
-            var dcnamer = /^[a-z]([a-z0-9]{0,22})?[a-z0-9]$/;
+            var dcnamer = /^[a-z]([a-z0-9-]{0,22})?[a-z0-9]$/;
 
             //namerex
             if (!$scope.updata) {
