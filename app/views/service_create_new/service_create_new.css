@@ -74,7 +74,7 @@ ul,li{list-style:none;padding: 0}
     background-image:url(img/icon_09.png);
 }
 .scn_jindu li div.solid  >div.active{
-    background-color:#8c9df1;
+    background-color:#5b73eb;
 }
 .scn_jindu li div.circle span{
     position:absolute;
@@ -162,7 +162,7 @@ ul,li{list-style:none;padding: 0}
 }
 /*错误提示*/
 /*模块1*/
-.create_one_block{padding-left:40px;padding-bottom:40px;margin-bottom:35px;}
+.create_one_block{padding-bottom:40px;margin-bottom:35px;}
 .ser_name{float:left;font-size:12px;color:#333;width:96px;height:30px;line-height:30px;}
 .ser_name i{color:#ef6464;}
 .create_one_block .input_text{width:466px;height:30px;border:1px solid #d4d4d4;padding-left:10px;font-size:12px;}
@@ -302,10 +302,10 @@ ul,li{list-style:none;padding: 0}
 .ser_add:hover{background: url(img/add_hover.png) no-repeat;background-size:28px 28px;}
 
 /*添加标题*/
-.set_add_service{font-size:12px;color:#5b73eb;position:relative;margin-left:112px;width:112px;padding:6px;cursor:pointer;line-height:normal;}
-.set_add_service:before{content:"";position:absolute;color:#5b73eb;left:-16px;
-    background: url(img/jia_sm_btn.png) no-repeat;width:13px;height:13px;background-size:13px 13px;top:6px;}
-
+.set_add_service{font-size:12px;color:#5b73eb;position:relative;margin-left:106px;width:112px;padding:6px;cursor:pointer;line-height:normal;}
+.set_add_service:before{content:"";position:absolute;color:#5b73eb;left:-12px;
+    background: url(img/jia_sm_btn.png) no-repeat;width:13px;height:13px;background-size:13px 13px;top:7px;}
+/*添加标题*/
 
 .four_list_two{overflow:visible;}
 .create_two_block .service_area_select_gj{margin-left:0;width:160px;margin-right:24px;}
@@ -335,9 +335,14 @@ ul,li{list-style:none;padding: 0}
 .create_two_block .dropdown-menu > li > a{height:30px!important;line-height:normal!important;background:#fff;padding:8px 10px;}
 .create_two_block > li > a:hover{background:#f6f7f9;}
 .service_area_select .open .ser_bg_btn{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg);top:12px;}
+
+.service_area_select:hover .ser_bg_btn{border:solid #5a73eb;border-width:1px 1px 0 0;}
 .ser_bg_btn{position:absolute;right:10px;top:10px;width:6px;height:6px;border:solid #a3a3a4;border-width:1px 1px 0 0;
     -webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);transform:rotate(135deg);-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
-.create_two_block .service_drop .zx_active a{color:#5b73eb;}
+.create_two_block .service_drop .zx_active a{color:#333;}
+.create_two_block .service_drop .zx_active a:hover{background:#eef1fd;}
+.colored {color:#5b73eb;}
+
 
 .create_two_block .service_drop_gj{min-width:160px;}
 
@@ -459,6 +464,7 @@ ul,li{list-style:none;padding: 0}
     border: 0;
     color: #333;
     font-size: 12px;
+    background:#fff;
 }
 .right .zx_area_drop{
     top: 29px;
@@ -468,7 +474,7 @@ ul,li{list-style:none;padding: 0}
     border: 1px solid #f0f0f0;
     border-top: none;overflow:auto;max-height:170px;
     background: #fff;
-    border-top: none;overflow:auto;max-height:170px;width:60px;
+    width:60px;
 }
 .right .zx_area_drop li span{width:auto;}
 .right .cqcl .zx_area_drop{
@@ -477,7 +483,7 @@ ul,li{list-style:none;padding: 0}
     border-top: none;
 }
 .area_select .zx_area_drop li a{
-    height:30px!important;line-height:normal!important;padding:8px 10px;
+    height:30px!important;line-height:normal!important;padding:0px 4px;
 }
 .right .cqcl .area_select{
     width:185px;
@@ -490,7 +496,7 @@ ul,li{list-style:none;padding: 0}
     left:-27px;width:17px;height:17px;
 }
 .right .cqcl .zx_area_drop li{
-    width: 185px;
+    width: 183px;
 }
 .ymqz_input{
     width:300px;
@@ -517,19 +523,18 @@ ul,li{list-style:none;padding: 0}
 }
 .checkbox_info{
     display: inline-block;
-    border: 1px solid #d4d4d4;
     height: 16px;
     width: 16px;
     border-radius: 3px;
     position:relative;
     top:2px;
     left:0;
-    background: url('../../pub/img/WechatIMG2.png')
+    background: url('../../pub/img/WechatIMG2.png') no-repeat;
 }
 .checkbox_info.active{
     width: 16px;
     height: 16px;
-    background: url('../../pub/img/WechatIMG1.png');
+    background: url('../../pub/img/WechatIMG1.png') no-repeat;
     /* 有图时替换*/
     /*background: url();有图时替换*/
 }
@@ -907,6 +912,12 @@ p{margin:0;}
 .inputred:focus {
     border-color: red!important;
 }
+
+/*20170330 jia add*/
+.area_select .zx_area_drop_jia li a{padding:8px 10px;}
+.area_select .zx_area_drop_jia li a:hover{background:#eef1fd;}
+.area_select .zx_area_drop li a:hover{background:#eef1fd;}
+
 
 .ownerSL div{
     width: 196px;

@@ -705,8 +705,10 @@
                                                     <b class="ser_bg_btn"></b>
                                                 </a>
                                                 <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
-                                                    <li class="zx_active" ng-repeat="item in configmap" ng-click="configmaped(config,item.metadata.name)"><a href="javascript:void(0);">
-                                                        <span class="drop_name_tit two_tab_ellipsis" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a></li>
+                                                    <li class="zx_active" ng-repeat="item in configmap" ng-click="configmaped(config,item.metadata.name)">
+                                                        <a href="javascript:void(0);">
+                                                            <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===config.configMap.name}" title="{{item.metadata.name}}">{{item.metadata.name}}</span>
+                                                        </a></li>
                                                     <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
                                                     <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
                                                 </ul>
@@ -741,8 +743,10 @@
                                                     <b class="ser_bg_btn"></b>
                                                 </a>
                                                 <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
-                                                    <li class="zx_active" ng-repeat="item in secretsitems" ng-click="secretsed(secret,item.metadata.name)"><a href="javascript:void(0);">
-                                                        <span class="drop_name_tit two_tab_ellipsis" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a></li>
+                                                    <li class="zx_active" ng-repeat="item in secretsitems" ng-click="secretsed(secret,item.metadata.name)">
+                                                        <a href="javascript:void(0);">
+                                                            <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===secret.secret.secretName}" title="{{item.metadata.name}}">{{item.metadata.name}}</span>
+                                                        </a></li>
                                                     <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
                                                     <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
                                                 </ul>
@@ -834,7 +838,10 @@
                                             <b class="xl_bg"></b>
                                         </a>
                                         <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                            <li ng-repeat="time in copy" ng-click="dc.spec.replicas=time.times"><a href="javascript:void(0);"><span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{time.times}}">{{time.times}}倍</span></a></li>
+                                            <li ng-repeat="time in copy" ng-click="dc.spec.replicas=time.times">
+                                                <a href="javascript:void(0);">
+                                                    <span class="service_per_tit service_copy_tit two_tab_ellipsis" ng-class="{colored:time.times===dc.spec.replicas}" title="{{time.times}}">{{time.times}}倍</span>
+                                                </a></li>
                                         </ul>
 
                                     </div>
@@ -980,7 +987,10 @@
                                             <b class="xl_bg"></b>
                                         </a>
                                         <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                            <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort"><a href="javascript:void(0);"><span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span></a></li>
+                                            <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
+                                                <a href="javascript:void(0);">
+                                                    <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
+                                                </a></li>
                                             <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
                                             <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
                                         </ul>
