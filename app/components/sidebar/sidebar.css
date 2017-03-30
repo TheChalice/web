@@ -92,6 +92,7 @@
 /*20170306 jia*/
 #sidebar ul > li > a{color:#fff;font-size:14px;padding:0px 18px;}
 #sidebar ul > li > a:hover{background:#2c4d66;}
+#sidebar ul > li > a:focus{background:#2c4d66!important;}
 #sidebar{background:#264359;}
 #sidebar ul > li.active > a{background:#2c4d66;padding:0px 18px;}
 #sidebar ul > li.active > a > i{position:absolute;left:0;top:0;color:#ea3031;bottom:0;}

@@ -1,4 +1,4 @@
-
+#service{background:#fff;}
 .zhuan {
     transform-origin:50% 50%;
     animation: rotateq 1s infinite linear;
@@ -80,6 +80,7 @@
 #service .btn-blue{
     background: #5b73eb;
 }
+#service .btn-blue:focus{color:#fff;}
 #service .btn-blue:hover{
     background: #6c81ed;
 }

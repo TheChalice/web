@@ -476,10 +476,11 @@ li {
 .config_new .two_tab_detail_service:last-child{margin-right:0;}
 .config_new .clear{clear:both;overflow:hidden;}
 .config_new .three_list_room,.config_new .three_list_serivce{float:left;width:153px;}
-.config_new .three_list li{width:153px;font-size:12px;color:#333;height:auto;line-height:normal;float:left;}
+.config_new .three_list li{width:180px;font-size:12px;color:#333;height:auto;line-height:normal;float:left;}
 .config_new .three_list li span{color:#333;}
 .config_new .name_key{float:left;margin-right:65px;}
-.config_new .name_key,.config_new .name_value{font-size:12px;color:#333;width:180px;float:left;text-align:justify;word-break:break-all;}
+.config_new .three_list_detail li{font-size:12px;color:#333;width:180px;float:left;text-align:justify;word-break:break-all;margin-bottom:6px;}
+.config_new .three_list_detail li:nth-child(2){margin-left:6px;}
 .config_new .btn-blue{background:#5b73eb;color:#fff;display:block;padding:6px 12px;width:100px;font-size:14px;cursor:pointer;margin-left:80px;}
 .config_new .btn-blue:hover{background:#6c81ed;}
 .config_new .mb60{margin-bottom:60px}
