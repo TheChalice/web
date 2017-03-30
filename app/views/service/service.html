@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li><span uib-tooltip="{{dc.metadata.creationTimestamp  | timescon}}">{{dc.metadata.creationTimestamp | dateRelative}}</span></li>
-                    <li>10分钟前</li>
+                    <li>{{dc.rc.metadata.creationTimestamp | dateRelative}}</li>
                     <li>{{dc.ismn}}</li>
                     <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
                         <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
