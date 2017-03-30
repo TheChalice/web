@@ -5,7 +5,6 @@ angular.module("console.header", [
             files: ['components/header/header.css']
         }
     ])
-
     .directive('cHeader', [function () {
         return {
             restrict: 'EA',
@@ -464,7 +463,6 @@ angular.module("console.header", [
                 }]
         }
     }])
-
     .filter('stateTitleFilter', [function () {
         return function (state) {
             switch (state) {
