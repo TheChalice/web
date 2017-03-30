@@ -22,6 +22,8 @@
 .hidden-xs{
     padding-left: 15px;
 }
+.four_question{color:#5b73eb;font-size:12px;font-style: normal;padding-left:12px;cursor:pointer;}
+.four_question:hover{text-decoration:underline;}
 .hidden-xs.jia:before {
     content: "";
     position: absolute;
@@ -126,7 +128,7 @@ ul,li{list-style:none;}
 
 .nav_service_main{padding:0px;margin:0;height:auto;overflow:hidden;}
 .nav_service_main li{width:14%;float:left;text-align:center;height:44px;padding-top:14px;padding-bottom:14px;border-bottom:1px solid #f0f0f0;}
-.nav_service_main li:nth-child(1){width:20%;}
+.nav_service_main li:nth-child(1){width:20%;text-align:left;padding-left:20px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
 .nav_service_main li:nth-child(2){width:12%;}
 .nav_service_main li:nth-child(3){width:12%;}
 .nav_service_main li:nth-child(4){width:14%;}
