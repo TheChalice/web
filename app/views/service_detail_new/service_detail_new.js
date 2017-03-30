@@ -1321,7 +1321,19 @@ angular.module('console.service.detail', [
                 }
 
                 $scope.bsi = res;
+                $scope.bindingBsi = [];
 
+                angular.forEach($scope.bsi.items, function (item) {
+
+                    angular.forEach(item.spec.binding, function (bind) {
+                        // console.log("============", bind.bind_deploymentconfig, o.dc.metadata.name);
+                        //console.log(bind.bind_deploymentconfig, o.dc.metadata.name);
+                        if (bind.bind_deploymentconfig == $scope.dc.metadata.name) {
+                            $scope.bindingBsi.push({name:item.metadata.name});
+                            //console.log('$scope.bindingBs',$scope.bindingBsi);
+                        }
+                    })
+                });
             }, function (res) {
                 //todo 错误处理
                 // $log.info("loadBsi err", res);
