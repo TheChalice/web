@@ -143,60 +143,59 @@
                     </div>
                 </div>
 
-                    <div class="block_one_set mt30">
-                        <div class="block_one_left">
-                            <p class="name_tit">镜像</p>
-                        </div>
-                        <div class="block_one_right">
-                            <div class="two_tab_detail">
-                                <div class="two_tab_l">
-                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                                    <!--<span class="two_tab_pic"></span>-->
-                                    <div class="two_tab_tit">
-                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
-                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>
-                                    </div>
+                <div class="block_one_set mt30">
+                    <div class="block_one_left">
+                        <p class="name_tit">镜像</p>
+                    </div>
+                    <div class="block_one_right">
+                        <div class="two_tab_detail">
+                            <div class="two_tab_l">
+                                <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                <!--<span class="two_tab_pic"></span>-->
+                                <div class="two_tab_tit">
+                                    <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
+                                    <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>
                                 </div>
-                                <div class="two_tab_r">
-                                    <span class="version_tit">版本</span>
-                                    <span class="version_tit_num" title="{{container.tag}}">{{container.tag}}</span>
-                                </div>
+                            </div>
+                            <div class="two_tab_r">
+                                <span class="version_tit">版本</span>
+                                <span class="version_tit_num" title="{{container.tag}}">{{container.tag}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="clear"></div>
-                    <div class="block_one_set mt30">
-                        <div class="block_one_left">
-                            <p class="name_tit">镜像端口</p>
-                        </div>
-                        <div class="block_one_right">
-                            <ul class="three_list three_list_room">
-                                <li>容器端口：</li>
-                                <li><span class="room_tit">{{container.port.port}}</span></li>
-                            </ul>
-                            <ul class="three_list three_list_serivce">
-                                <li>服务端口：</li>
-                                <li><span class="room_tit ">{{container.port.targetPort}}</span></li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="clear"></div>
+                <div class="block_one_set mt30">
+                    <div class="block_one_left">
+                        <p class="name_tit">镜像端口</p>
                     </div>
-                    <div class="clear"></div>
-                    <div class="block_one_set mt30">
-                        <div class="block_one_left">
-                            <p class="name_tit">环境变量</p>
-                        </div>
-                        <div class="block_one_right" >
-                            <div class="block_one_list">
-                                <ul class="three_list">
-                                    <li>键：</li>
-                                    <li>值：</li>
-                                </ul>
-                                <div class="clear"></div>
-                                <ul class="three_list three_list_detail clear" ng-repeat="env in envs">
-                                    <li>{{env.name}}</li>
-                                    <li>{{env.value}}</li>
-                                </ul>
-                            </div>
+                    <div class="block_one_right">
+                        <ul class="three_list">
+                            <li>容器端口：</li>
+                            <li><span class="room_tit">{{container.port.port}}</span></li>
+                        </ul>
+                        <ul class="three_list three_list_serivce">
+                            <li>服务端口：</li>
+                            <li><span class="room_tit ">{{container.port.targetPort}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="block_one_set mt30">
+                    <div class="block_one_left">
+                        <p class="name_tit">环境变量</p>
+                    </div>
+                    <div class="block_one_right" >
+                        <div class="block_one_list">
+                            <ul class="three_list">
+                                <li>键：</li>
+                                <li>值：</li>
+                            </ul>
+                            <div class="clear"></div>
+                            <ul class="three_list three_list_detail clear" ng-repeat="env in envs">
+                                <li>{{env.name}}</li>
+                                <li>{{env.value}}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -322,6 +321,6 @@
 
 
         </div>
-        <a class="btn btn-blue two_radius mb60" ui-sref="console.service_create({dc:dc.metadata.name})"><span class="hidden-xs" ui-sref="console.service_create({dc:dc.metadata.name})">修改配置</span></a>
+        <a class="btn btn-blue two_radius mb60" ui-sref="console.service_create({dc:dc.metadata.name})"><span class="hidden-xs" ui-sref="console.service_create({dc:dc.metadata.name})">创建服务</span></a>
     </div>
 </div>
