@@ -7,8 +7,8 @@ angular.module('console.service', [
             ]
         }
     ])
-    .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod','deletepod',
-        function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod,deletepod) {
+    .controller('ServiceCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'DeploymentConfig', 'ReplicationController', 'Route', 'BackingServiceInstance', 'GLOBAL', 'Confirm', 'Sort', 'Ws', 'Pod','deletepod','Service',
+        function ($rootScope, $scope, $log, $state, $stateParams, DeploymentConfig, ReplicationController, Route, BackingServiceInstance, GLOBAL, Confirm, Sort, Ws, Pod,deletepod,Service) {
             $(".service_close").on("click",function(){
                 $(".sevice_alert_jia").slideUp();
             });
@@ -60,7 +60,16 @@ angular.module('console.service', [
                 }, function (res) {
                     console.log('res', res);
                 })
-
+                Service.delete({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+                    // console.log("deleService-yes",res);
+                }, function (res) {
+                    // console.log("deleService-no",res);
+                })
+                Route.delete({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+                    // console.log("deleRoute-yes",res);
+                }, function (res) {
+                    // console.log("deleRoute-no",res);
+                })
                 ReplicationController.remove({
                     namespace: $rootScope.namespace,
                     labelSelector: 'openshift.io/deployment-config.name=' + $scope.items[idx].metadata.name,
