@@ -1547,6 +1547,6 @@ input:focus{border-color: #5b73eb!important;}
     top: 50%;
     left: 50%;
     height:30px;
-    width:30px;
+    width:60px;
     /*transform: translate(-50%,-50%);*/
 }

@@ -65,8 +65,7 @@ angular.module('console.service.detail', [
             var $detailModal = $('.detail_new_modal');
             var $window_width = $(window).width();
             $detailModal.animate({
-                left: $window_width,
-                right:-$window_width
+                left: $window_width
             }, 'normal', 'linear', function () {
                 $scope.isShowmodal[$scope.whatmodal] = false;
                 $scope.whatmodal = '';
