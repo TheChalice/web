@@ -12,149 +12,149 @@
             <div ng-show="isShowmodal.selectimage">
                 <div class="content">
                     <div class="selectimage_main_set">
-                    <div class="selectimage_main">
-                        <div class="searchbar_image">
-                            <input type="text" class="form-control" ng-model="imagesearch"  placeholder="请输入镜像名称">
+                        <div class="selectimage_main">
+                            <div class="searchbar_image">
+                                <input type="text" class="form-control" ng-model="imagesearch"  placeholder="请输入镜像名称">
+                            </div>
+                            <div class="select_main_block">
+
+                                <uib-tabset class="tab_image" active="checkimage">
+                                    <uib-tab index="1">
+                                        <uib-tab-heading>
+                                            构建镜像
+                                        </uib-tab-heading>
+                                        <div class="select_block_one create_two_block">
+                                            <div class="two_tab_detail" ng-repeat="item in images">
+                                                <div class="two_tab_l">
+                                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                                    <div class="two_tab_tit">
+                                                        <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.name}}是开源的消息是开源的消息</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="two_tab_r">
+                                                    <span class="version_tit">版本</span>
+                                                    <div class="service_area_select two_radius">
+                                                        <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
+                                                            <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{item.checkbox}}">{{item.checkbox}}</span>
+                                                                <b class="ser_bg_btn"></b>
+                                                            </a>
+                                                            <ul class="service_drop service_drop_select dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
+                                                                <li class="zx_active" ng-repeat="tag in item.status.tags" ng-click="item.checkbox=tag.tag"><a href="javascript:void(0);"><span class="drop_name_tit drop_name_tit_two two_tab_ellipsis" title="{{tag.tag}}">{{tag.tag}}</span></a></li>
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+                                                    <span class="change_tit" ng-click="checkboximage(item)">使用</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </uib-tab>
+                                    <uib-tab index="2" >
+                                        <uib-tab-heading ng-click="changeimage('df')">
+                                            私有镜像
+                                        </uib-tab-heading>
+                                        <div class="select_block_one create_two_block">
+                                            <div class="no_sql">
+                                                <div class="no_mql"></div>
+                                                <p>无镜像数据</p>
+                                            </div>
+
+
+                                        </div>
+                                    </uib-tab>
+
+                                    <uib-tab index="3">
+                                        <uib-tab-heading>
+                                            DataFoundry镜像
+                                        </uib-tab-heading>
+                                        <div class="new-loading" ng-show="!dfimage">
+                                            <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+                                            <span style="color:#666">加载中...</span>
+                                        </div>
+                                        <div class="select_block_one create_two_block">
+                                            <div class="two_tab_detail"  ng-repeat="item in dfimage" ng-show="dfimage">
+                                                <div class="two_tab_l">
+                                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                                    <div class="two_tab_tit">
+                                                        <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.name}} 是开源的消息是开源的消息</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="two_tab_r">
+                                                    <span class="version_tit">版本</span>
+                                                    <div class="service_area_select two_radius">
+                                                        <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
+                                                            <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{item.checkbox}}">{{item.checkbox}}</span>
+                                                                <b class="ser_bg_btn"></b>
+                                                            </a>
+                                                            <ul class="service_drop dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
+                                                                <li class="zx_active"  ng-repeat="tag in item.status.tags" ng-click="item.checkbox=tag.tag"><a href="javascript:void(0);"><span>{{tag.tag}}</span></a></li>
+
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+                                                    <span class="change_tit" ng-click="checkboximage(item)">使用</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </uib-tab>
+
+                                    <uib-tab index="4">
+                                        <uib-tab-heading>
+                                            DataHub镜像
+                                        </uib-tab-heading>
+                                        <div class="new-loading" ng-show="!docimage">
+                                            <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+                                            <span style="color:#666;">加载中...</span>
+                                        </div>
+                                        <div class="select_block_one create_two_block">
+                                            <div class="two_tab_detail"  ng-repeat="item in docimage" ng-show="docimage">
+                                                <div class="two_tab_l">
+                                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                                    <div class="two_tab_tit">
+                                                        <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.name}} 是开源的消息是开源的消息</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="two_tab_r">
+                                                    <span class="version_tit">版本</span>
+                                                    <div class="service_area_select two_radius">
+                                                        <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
+                                                            <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{item.checkbox}}">{{item.checkbox}}</span>
+                                                                <b class="ser_bg_btn"></b>
+                                                            </a>
+                                                            <ul class="service_drop dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
+                                                                <li class="zx_active"  ng-repeat="tag in item.status.tags" ng-click="item.checkbox=tag.tag"><a href="javascript:void(0);"><span>{{tag.tag}}</span></a></li>
+
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+                                                    <span class="change_tit" ng-click="checkboximage(item)">使用</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </uib-tab>
+
+                                </uib-tabset>
+
+                            </div>
                         </div>
-                        <div class="select_main_block">
-
-                        <uib-tabset class="tab_image" active="checkimage">
-                            <uib-tab index="1">
-                                <uib-tab-heading>
-                                    构建镜像
-                                </uib-tab-heading>
-                                <div class="select_block_one create_two_block">
-                                    <div class="two_tab_detail" ng-repeat="item in images">
-                                        <div class="two_tab_l">
-                                            <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                                            <div class="two_tab_tit">
-                                                <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
-                                                <span class="two_tab_ellipsis">{{item.metadata.name}}是开源的消息是开源的消息</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="two_tab_r">
-                                            <span class="version_tit">版本</span>
-                                            <div class="service_area_select two_radius">
-                                                <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
-                                                    <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{item.checkbox}}">{{item.checkbox}}</span>
-                                                        <b class="ser_bg_btn"></b>
-                                                    </a>
-                                                    <ul class="service_drop service_drop_select dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
-                                                        <li class="zx_active" ng-repeat="tag in item.status.tags" ng-click="item.checkbox=tag.tag"><a href="javascript:void(0);"><span class="drop_name_tit drop_name_tit_two two_tab_ellipsis" title="{{tag.tag}}">{{tag.tag}}</span></a></li>
-                                                    </ul>
-
-                                                </div>
-                                            </div>
-                                            <span class="change_tit" ng-click="checkboximage(item)">使用</span>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-
-                            </uib-tab>
-                            <uib-tab index="2" >
-                                <uib-tab-heading ng-click="changeimage('df')">
-                                    私有镜像
-                                </uib-tab-heading>
-                                <div class="select_block_one create_two_block">
-                                        <div class="no_sql">
-                                            <div class="no_mql"></div>
-                                            <p>无镜像数据</p>
-                                        </div>
-
-
-                                </div>
-                            </uib-tab>
-
-                            <uib-tab index="3">
-                                <uib-tab-heading>
-                                    DataFoundry镜像
-                                </uib-tab-heading>
-                                <div class="new-loading" ng-show="!dfimage">
-                                    <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
-                                    <span style="color:#666">加载中...</span>
-                                </div>
-                                <div class="select_block_one create_two_block">
-                                    <div class="two_tab_detail"  ng-repeat="item in dfimage" ng-show="dfimage">
-                                        <div class="two_tab_l">
-                                            <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                                            <div class="two_tab_tit">
-                                                <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
-                                                <span class="two_tab_ellipsis">{{item.metadata.name}} 是开源的消息是开源的消息</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="two_tab_r">
-                                            <span class="version_tit">版本</span>
-                                            <div class="service_area_select two_radius">
-                                                <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
-                                                    <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{item.checkbox}}">{{item.checkbox}}</span>
-                                                        <b class="ser_bg_btn"></b>
-                                                    </a>
-                                                    <ul class="service_drop dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
-                                                        <li class="zx_active"  ng-repeat="tag in item.status.tags" ng-click="item.checkbox=tag.tag"><a href="javascript:void(0);"><span>{{tag.tag}}</span></a></li>
-
-                                                    </ul>
-
-                                                </div>
-                                            </div>
-                                            <span class="change_tit" ng-click="checkboximage(item)">使用</span>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </uib-tab>
-
-                            <uib-tab index="4">
-                                <uib-tab-heading>
-                                    DataHub镜像
-                                </uib-tab-heading>
-                                <div class="new-loading" ng-show="!docimage">
-                                    <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
-                                    <span style="color:#666;">加载中...</span>
-                                </div>
-                                <div class="select_block_one create_two_block">
-                                    <div class="two_tab_detail"  ng-repeat="item in docimage" ng-show="docimage">
-                                        <div class="two_tab_l">
-                                            <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                                            <div class="two_tab_tit">
-                                                <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
-                                                <span class="two_tab_ellipsis">{{item.metadata.name}} 是开源的消息是开源的消息</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="two_tab_r">
-                                            <span class="version_tit">版本</span>
-                                            <div class="service_area_select two_radius">
-                                                <div uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
-                                                    <a href="javascript:void(0);" class="service_block dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{item.checkbox}}">{{item.checkbox}}</span>
-                                                        <b class="ser_bg_btn"></b>
-                                                    </a>
-                                                    <ul class="service_drop dropdown-menu" uib-dropdown-menu="" aria-labelledby="user-menu">
-                                                        <li class="zx_active"  ng-repeat="tag in item.status.tags" ng-click="item.checkbox=tag.tag"><a href="javascript:void(0);"><span>{{tag.tag}}</span></a></li>
-
-                                                    </ul>
-
-                                                </div>
-                                            </div>
-                                            <span class="change_tit" ng-click="checkboximage(item)">使用</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </uib-tab>
-
-                        </uib-tabset>
-
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -223,52 +223,52 @@
             <div ng-show="isShowmodal.createservice">
                 <div class="content">
                     <div class="create_service_block">
-                    <div class="create_service">
-                        <div class="ser_sort">
-                            <p class="sort_tit">服务分类</p>
-                            <ul class="serveClassify">
-                                <li ng-repeat='item in cation'  ng-class='{"active":marketclass.serviceCat == $index}' ng-click="selectServe('serviceCat', $index)">
-                                    <span>{{item}}</span>
-                                </li>
-                                <!--<li><span>计算</span></li>-->
-                                <!--<li><span>存储</span></li>-->
-                                <!--<li><span>消息</span></li>-->
-                                <!--<li><span>键值存储</span></li>-->
-                                <!--<li><span>分布式协调</span></li>-->
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="ser_sort">
-                            <p class="sort_tit">服务提供者</p>
-                            <ul>
-                                <li ng-repeat='item in providers'  ng-class='{"active":marketclass.vendor == $index}' ng-click="selectServe('vendor', $index)">
-                                    <span>{{item}}</span>
-                                </li>
-                                <!--<li class="active"><span>数据库</span></li>-->
-                                <!--<li><span>计算</span></li>-->
-                                <!--<li><span>存储</span></li>-->
-                                <!--<li><span>消息</span></li>-->
-                                <!--<li><span>键值存储</span></li>-->
-                                <!--<li><span>分布式协调</span></li>-->
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="create_main">
-                            <div class="two_tab_detail two_tab_detail_service" ng-repeat="item in market">
-                                <div class="two_tab_l">
-                                    <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
-                                    <div class="two_tab_tit">
-                                        <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
-                                        <span class="two_tab_ellipsis">{{item.spec.description}}</span>
+                        <div class="create_service">
+                            <div class="ser_sort">
+                                <p class="sort_tit">服务分类</p>
+                                <ul class="serveClassify">
+                                    <li ng-repeat='item in cation'  ng-class='{"active":marketclass.serviceCat == $index}' ng-click="selectServe('serviceCat', $index)">
+                                        <span>{{item}}</span>
+                                    </li>
+                                    <!--<li><span>计算</span></li>-->
+                                    <!--<li><span>存储</span></li>-->
+                                    <!--<li><span>消息</span></li>-->
+                                    <!--<li><span>键值存储</span></li>-->
+                                    <!--<li><span>分布式协调</span></li>-->
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="ser_sort">
+                                <p class="sort_tit">服务提供者</p>
+                                <ul>
+                                    <li ng-repeat='item in providers'  ng-class='{"active":marketclass.vendor == $index}' ng-click="selectServe('vendor', $index)">
+                                        <span>{{item}}</span>
+                                    </li>
+                                    <!--<li class="active"><span>数据库</span></li>-->
+                                    <!--<li><span>计算</span></li>-->
+                                    <!--<li><span>存储</span></li>-->
+                                    <!--<li><span>消息</span></li>-->
+                                    <!--<li><span>键值存储</span></li>-->
+                                    <!--<li><span>分布式协调</span></li>-->
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="create_main">
+                                <div class="two_tab_detail two_tab_detail_service" ng-repeat="item in market">
+                                    <div class="two_tab_l">
+                                        <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
+                                        <div class="two_tab_tit">
+                                            <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
+                                            <span class="two_tab_ellipsis">{{item.spec.description}}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="two_tab_r">
-                                    <span class="change_tit">申请</span>
+                                    <div class="two_tab_r">
+                                        <span class="change_tit">申请</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
             <div ng-show="isShowmodal.miyao">
@@ -279,11 +279,11 @@
                             <div class="input_set">
                                 <div class="input_set_l">
                                     <input autocomplete="off"
-                                    ng-model="createsercet.secrets.metadata.name"
-                                    type="text"
-                                    class="input_text"
-                                    ng-class="{inputred:error.miyaonameerr.rexed||error.miyaonameerr.repeated}"
-                                    placeholder="2-2-24位小写字母、数字或中划线组成">
+                                           ng-model="createsercet.secrets.metadata.name"
+                                           type="text"
+                                           class="input_text"
+                                           ng-class="{inputred:error.miyaonameerr.rexed||error.miyaonameerr.repeated}"
+                                           placeholder="2-2-24位小写字母、数字或中划线组成">
                                     <span class="input_close" ng-show="createsercet.secrets.metadata.name!==''"  ng-click="createsercet.secrets.metadata.name=''"></span>
                                 </div>
                                 <span class="btn_set_new error_btn" ng-show="error.miyaonameerr.repeated"></span>
@@ -323,12 +323,12 @@
                             <div class="input_set input_set_two">
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off"
-                                        class="input_text one_input_text ng-pristine ng-untouched ng-valid ng-valid-maxlength"
-                                        placeholder="2-2-24位小写字母、数字或中划线组成"
-                                        type="text"
-                                        ng-class="{inputred:error.chijiunameerr.rexed||error.chijiunameerr.repeated}"
-                                        class="form-control"
-                                        ng-model="createvolume.volume.name">
+                                           class="input_text one_input_text ng-pristine ng-untouched ng-valid ng-valid-maxlength"
+                                           placeholder="2-2-24位小写字母、数字或中划线组成"
+                                           type="text"
+                                           ng-class="{inputred:error.chijiunameerr.rexed||error.chijiunameerr.repeated}"
+                                           class="form-control"
+                                           ng-model="createvolume.volume.name">
                                     <span class="input_close" ng-show="createvolume.volume.name!==''"  ng-click="createvolume.volume.name=''"></span>
                                 </div>
                                 <span class="btn_set_new error_btn" ng-show="error.chijiunameerr.repeated"></span>
@@ -361,7 +361,7 @@
                 </div>
             </div>
             <div ng-show="isShowmodal.peizhijuan">
-                        <!--<form class="form-horizontal" name="frm" >-->
+                <!--<form class="form-horizontal" name="frm" >-->
                 <div class="content">
                     <div class="create_secret">
                         <div class="create_secret_input">
@@ -383,7 +383,7 @@
                             </div>
                         </div>
                         <div class="create_secret_input" style="margin-top:40px">
-                            <p class="ser_name">设置<i>*</i></p>
+                            <p class="ser_name">配置方式<i>*</i></p>
                             <div class="input_set">
                                 <span class="checkbox_peizhi" ng-class="{'active': !postVolumeScret}" ng-click="checkVolume(false)"><i></i>配置信息</span>
                                 <span class="checkbox_peizhi" ng-class="{'active': postVolumeScret}" ng-click="checkVolume(true)"><i></i>上传配置文件</span>
@@ -396,10 +396,10 @@
                                     <li>VALUE</li>
                                 </ul>
                                 <!--<div style="width: 100%;height: 20px;">-->
-                                    <!--<small ng-if="grid.keybuhefa" class="err-tip"><i class="fa fa-info-circle"></i>&nbsp;key值不合法</small>-->
+                                <!--<small ng-if="grid.keybuhefa" class="err-tip"><i class="fa fa-info-circle"></i>&nbsp;key值不合法</small>-->
 
-                                    <!--<small ng-if="grid.keychongfu" class="err-tip"><i class="fa fa-info-circle"></i>&nbsp;key值重复-->
-                                    <!--</small>-->
+                                <!--<small ng-if="grid.keychongfu" class="err-tip"><i class="fa fa-info-circle"></i>&nbsp;key值重复-->
+                                <!--</small>-->
                                 <!--</div>-->
                                 <ul class="peizhi_list">
                                     <li ng-repeat="item in volume.configitems" class="scretList">
@@ -417,8 +417,8 @@
                                 <ul>
                                     <li ng-repeat="item in volume.configarr">
                                         <div class="row two_con" style="margin:0;">
-                                            <div class="col-sm-5" style="padding:0;"><input type="text" ng-model="item.key" style="border:1px solid #e5e5e5;"></div>
-                                            <div class="col-sm-3 browse" ng-click="add($index)">浏览文件<input type="file" class="file-input" value="选择"/></div>
+                                            <div class="col-sm-6" style="padding:0;"><input type="text" ng-model="item.key" style="border:1px solid #e5e5e5;"></div>
+                                            <div class="col-sm-2 browse" ng-click="add($index)">浏览文件<input type="file" class="file-input" value="选择"/></div>
                                             <div class="col-sm-2 browse-con" style="margin-left:15px;" ng-click="openValue(item.value)">查看内容</div>
                                             <div class="col-sm-1" >
                                                 <a ng-if="$index !== volume.configarr.length-1" ng-click="deletekv($index)" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
@@ -439,7 +439,7 @@
                     <a href="javascript:void(0);" style="color:#999;cursor: no-drop;" ng-show="!error.peizhinameerr.cancreat||error.peizhinameerr.repeated||error.peizhinameerr.null||error.peizhinameerr.rexed">创建配置卷</a>
                     <a href="javascript:void(0);"  ng-show="error.peizhinameerr.cancreat&&!error.peizhinameerr.repeated&&!error.peizhinameerr.null&&!error.peizhinameerr.rexed"  ng-click="cearteconfig()">创建配置卷</a>
                 </div>
-               <!--</form>-->
+                <!--</form>-->
             </div>
 
         </div>
@@ -490,571 +490,572 @@
     <!---------------------------- 模块1 创建服务模块 开始------------------------------->
     <!--ng-show="isShow.step2"-->
     <form class="form-dccreat" name="frm">
-    <div class="create_one_block ng-hide" ng-show="isShow.step2">
-        <div class="create_one_top">
-            <p class="ser_name">服务名称<i>*</i></p>
-            <div class="input_set">
-                <div class="input_set_l">
-                    <input type="text" autocomplete="off" name="dcname" ng-class="{inputred:error.dcnameerr.rexed||error.dcnameerr.repeated}" ng-blur="error.dcname=true" ng-disabled="updata" ng-focus="error.dcname=false" ng-model="dc.metadata.name" class="input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
-                    <span class="input_close" ng-show="dc.metadata.name!==''"  ng-click="dc.metadata.name=''"></span>
+        <div class="create_one_block ng-hide" ng-show="isShow.step2">
+            <div class="create_one_top">
+                <p class="ser_name">服务名称<i>*</i></p>
+                <div class="input_set">
+                    <div class="input_set_l">
+                        <input type="text" autocomplete="off" name="dcname" ng-class="{inputred:error.dcnameerr.rexed||error.dcnameerr.repeated}" ng-blur="error.dcname=true" ng-disabled="updata" ng-focus="error.dcname=false" ng-model="dc.metadata.name" class="input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
+                        <span class="input_close" ng-show="dc.metadata.name!==''"  ng-click="dc.metadata.name=''"></span>
+                    </div>
+                    <!--<span class="btn_set_new error_btn" style="display:none;"></span>-->
+                    <span class="btn_set_new error_btn ng-hide" ng-show="error.dcnameerr.repeated"></span>
+                    <!--<span class="btn_set_new ok_btn" ng-show="frm.dcname.$dirty&amp;&amp;!error.dcnameerr.repeated&amp;&amp;!error.dcnameerr.null&amp;&amp;!error.dcnameerr.rexed"></span>-->
+                    <div class="error_block_tit ng-hide" ng-show="error.dcnameerr.rexed">
+                        <p>小写字母、数字或下划线组成</p>
+                    </div>
+
+
+
                 </div>
-                <!--<span class="btn_set_new error_btn" style="display:none;"></span>-->
-                <span class="btn_set_new error_btn ng-hide" ng-show="error.dcnameerr.repeated"></span>
-                <!--<span class="btn_set_new ok_btn" ng-show="frm.dcname.$dirty&amp;&amp;!error.dcnameerr.repeated&amp;&amp;!error.dcnameerr.null&amp;&amp;!error.dcnameerr.rexed"></span>-->
-                <div class="error_block_tit ng-hide" ng-show="error.dcnameerr.rexed">
-                    <p>小写字母、数字或下划线组成</p>
-                </div>
-
-
-
             </div>
+            <span class="ser_next_one mt36 ser_next_gray two_radius ng-hide" ng-show="error.dcnameerr.repeated||error.dcnameerr.null||error.dcnameerr.rexed">下一步</span>
+            <!--<div class="clear"></div>-->
+            <span class="ser_next_one mt36 ser_next_active two_radius" ng-show="!error.dcnameerr.repeated&&!error.dcnameerr.null&&!error.dcnameerr.rexed&&isResolving.step2" ng-click="nexttwo(2)">下一步</span>
+
+            <span class="next_one_load" ng-show="!isResolving.step2"><i></i>加载中...</span>
         </div>
-        <span class="ser_next_one mt36 ser_next_gray two_radius ng-hide" ng-show="error.dcnameerr.repeated||error.dcnameerr.null||error.dcnameerr.rexed">下一步</span>
-        <!--<div class="clear"></div>-->
-        <span class="ser_next_one mt36 ser_next_active two_radius" ng-show="!error.dcnameerr.repeated&&!error.dcnameerr.null&&!error.dcnameerr.rexed&&isResolving.step2" ng-click="nexttwo(2)">下一步</span>
+        <!---------------------------- 模块1 创建服务模块 结束------------------------------->
 
-        <span class="next_one_load" ng-show="!isResolving.step2"><i></i>加载中...</span>
-    </div>
-    <!---------------------------- 模块1 创建服务模块 结束------------------------------->
-
-    <!---------------------------- 模块2 配置容器模块 开始------------------------------->
+        <!---------------------------- 模块2 配置容器模块 开始------------------------------->
         <!--ng-show="!isShow.step2&&isShow.step3"-->
-    <div class="create_two_block" ng-show="!isShow.step2&&isShow.step3">
-        <div ng-repeat="container in dc.spec.template.spec.containers">
-            <div class="block_one"   ng-hide="dc.spec.template.spec.containers[$index].retract" >
-                <div class="one_btn clboth">
-                    <a href="javascript:void(0)" class="one_del" ng-click="delcon($index)" ng-class="{active:dc.spec.template.spec.containers.length==1}">删除</a>
-                    <a href="javascript:void(0)" class="one_pack" ng-show="!dc.spec.template.spec.containers[index].retract" ng-click="pickup($index)">收起</a>
-                </div>
-                <div class="one_list clboth">
-                    <div class="one_list_block">
-                        <p class="one_name">容器名称<i>*</i></p>
-                        <div class="input_set input_set_two">
-                            <div class="input_set_l">
-                                <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
-                                       ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
-                                <span class="input_close" ng-show="container.name!==''"  ng-click="container.name=''"></span>
-                            </div>
-                            <span class="btn_set_new error_btn ng-hide" ng-show="container.namerr.repeated"></span>
-                            <!--<span class="btn_set_new ok_btn" ng-show="!error.dcnameerr.repeated&&!error.dcnameerr.null&&!error.dcnameerr.rexed"></span>-->
-                            <div class="error_block_tit ng-hide" ng-show="container.namerr.rexed">
-                                <p>小写字母、数字或下划线组成</p>
+        <div class="create_two_block" ng-show="!isShow.step2&&isShow.step3">
+            <div ng-repeat="container in dc.spec.template.spec.containers">
+                <div class="block_one"   ng-hide="dc.spec.template.spec.containers[$index].retract" >
+                    <div class="one_btn clboth">
+                        <a href="javascript:void(0)" class="one_del" ng-click="delcon($index)" ng-class="{active:dc.spec.template.spec.containers.length==1}">删除</a>
+                        <a href="javascript:void(0)" class="one_pack" ng-show="!dc.spec.template.spec.containers[index].retract" ng-click="pickup($index)">收起</a>
+                    </div>
+                    <div class="one_list clboth">
+                        <div class="one_list_block">
+                            <p class="one_name">容器名称<i>*</i></p>
+                            <div class="input_set input_set_two">
+                                <div class="input_set_l">
+                                    <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
+                                           ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
+                                    <span class="input_close" ng-show="container.name!==''"  ng-click="container.name=''"></span>
+                                </div>
+                                <span class="btn_set_new error_btn ng-hide" ng-show="container.namerr.repeated"></span>
+                                <!--<span class="btn_set_new ok_btn" ng-show="!error.dcnameerr.repeated&&!error.dcnameerr.null&&!error.dcnameerr.rexed"></span>-->
+                                <div class="error_block_tit ng-hide" ng-show="container.namerr.rexed">
+                                    <p>小写字母、数字或下划线组成</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="clboth_ten"></div>
-                    <div class="one_list_block clboth add_mb15">
-                        <p class="one_name">添加镜像<i>*</i></p>
-                        <span class="two_detail">镜像是容器运行的前提，配置容器前请确保已经选择镜像。</span>
-                    </div>
-                    <div class="one_list_block clboth one_list_jl">
-                        <div class="two_tab_detail" ng-show="container.imaged">
-                            <div class="two_tab_l" >
-                                <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis">{{container.imaged.metadata.name}}</span>
-                                    <span class="two_tab_ellipsis">{{container.imaged.metadata.name}}是开源的消息是开源的消息</span>
+                        <div class="clboth_ten"></div>
+                        <div class="one_list_block clboth add_mb15">
+                            <p class="one_name">添加镜像<i>*</i></p>
+                            <span class="two_detail">镜像是容器运行的前提，配置容器前请确保已经选择镜像。</span>
+                        </div>
+                        <div class="one_list_block clboth one_list_jl">
+                            <div class="two_tab_detail" ng-show="container.imaged">
+                                <div class="two_tab_l" >
+                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                    <div class="two_tab_tit">
+                                        <span class="two_tab_ellipsis">{{container.imaged.metadata.name}}</span>
+                                        <span class="two_tab_ellipsis">{{container.imaged.metadata.name}}是开源的消息是开源的消息</span>
+                                    </div>
+                                </div>
+
+                                <div class="two_tab_r">
+                                    <span class="version_tit">版本</span>
+                                    <div class="service_area_select two_radius">
+                                        <div uib-dropdown on-toggle="toggled(open)">
+                                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis">{{container.imaged.checkbox}}</span>
+                                                <b class="ser_bg_btn"></b>
+                                            </a>
+                                            <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                                                <li class="zx_active"  ng-repeat="tag in container.imaged.status.tags" ng-click="container.imaged.checkbox=tag.tag"><a href="javascript:void(0);"><span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{tag.tag}}">{{tag.tag}}</span></a></li>
+                                                <!--<li><a href="javascript:void(0);"><span>3.11</span></a></li>-->
+                                                <!--<li><a href="javascript:void(0);"><span>3.12</span></a></li>-->
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    <span class="change_tit" ng-click="openModal('选择镜像','selectimage',$index)">更改</span>
                                 </div>
                             </div>
 
-                            <div class="two_tab_r">
-                                <span class="version_tit">版本</span>
-                                <div class="service_area_select two_radius">
+                            <div class="tab_select"ng-hide="container.imaged.metadata" ng-click="openModal('选择镜像','selectimage',$index)">
+                                <span class="tab_select_tit">选择镜像</span>
+                            </div>
+
+
+                        </div>
+                        <div class="clboth_ten"></div>
+                        <div class="one_list_block clboth">
+                            <div class="three_top add_mb15">
+                                <p class="one_name">镜像端口</p>
+                                <span class="two_detail">取镜像中定义的端口。</span>
+                            </div>
+                            <div class="input_set" style="float: none;padding-left:92px;">
+                                <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 113px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
+                                <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>自定义端口</span>
+                            </div>
+                            <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
+                                <div>TCP容器端口</div>
+                                <div>TCP服务端口</div>
+                            </div>
+                            <div style="overflow: hidden;" ng-show="container.isOwnerI">
+                                <ul class="three_list three_list_room">
+                                    <!--<li>容器端口：</li>-->
+                                    <li><span class="room_tit">{{container.containerPort}}</span></li>
+
+                                </ul>
+
+                                <ul class="three_list three_list_serivce">
+                                    <!--<li>服务端口：</li>-->
+                                    <li><span class="room_tit">{{container.hostPort}}</span></li>
+                                </ul>
+                            </div>
+                            <div style="overflow: hidden;padding-top: 8px;" ng-show="!container.isOwnerI">
+                                <ul style="overflow: hidden;padding-left: 92px;">
+                                    <li class="ownerSL"  ng-repeat="port in container.port">
+                                        <div>
+                                            <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.hostPort">
+                                        </div>
+                                        <div > <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.containerPort" ></div>
+                                        <a ng-click="delport(container.port,$index)" ng-show="$index!==container.port.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                        <a ng-click="addport(container.port)" ng-show="$index===container.port.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="adv_set clboth">
+                            <p class="adv_tit" ng-show="!container.othersetting" ng-click="changed(container)">高级设置</p>
+                        </div>
+                        <!--ng-show="container.othersetting"-->
+                        <div class="adv_set_detail" ng-show="container.othersetting">
+                            <!--环境变量模块-->
+                            <div class="one_list_block clboth mt_ten">
+                                <div class="three_top add_mb15">
+                                    <p class="one_name">环境变量</p>
+                                    <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question">如何进行端口配置？</i></span>
+                                </div>
+                                <ul class="four_name">
+                                    <li>键</li>
+                                    <li>值</li>
+                                </ul>
+                                <ul class="four_list">
+                                    <li ng-repeat="envitem in container.env">
+                                        <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="1-24位小写字母、数字、或下划线组成">
+                                        <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="0-2048个 ASCII字符组成">
+                                        <a ng-click="delenv(container.env,$index)" ng-show="$index!==container.env.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                        <a ng-click="addenv(container.env)" ng-show="$index===container.env.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
+                                    </li>
+                                    <!--<li>-->
+                                    <!--<input type="text" class="four_list_l" placeholder="请输入'键'">-->
+                                    <!--<input type="text" class="four_list_r" placeholder="请输入'值'">-->
+                                    <!---->
+                                    <!--</li>-->
+
+                                    <li></li>
+                                </ul>
+                            </div>
+
+                            <!-- 挂载数据卷模块-->
+                            <div class="one_list_block clboth mt_ten">
+                                <div class="three_top add_mb15">
+                                    <p class="one_name">挂载持久化卷</p>
+                                    <span class="two_detail">为确保容器重启后数据不会丢失，可以为数据所在的容器路径挂载一个持久化卷。</span>
+                                </div>
+                                <ul class="four_name">
+                                    <li>数据卷</li>
+                                    <li>挂载路径</li>
+                                </ul>
+                                <ul class="four_list four_list_two">
+                                    <li ng-repeat="persistentitem in container.secretsobj.persistentarr">
+                                        <div class="service_area_select service_area_select_gj two_radius">
+                                            <div uib-dropdown>
+                                                <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                                    <span class="service_per_tit two_tab_ellipsis">{{persistentitem.persistentVolumeClaim.claimName}}</span>
+                                                    <b class="ser_bg_btn"></b>
+                                                </a>
+                                                <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
+                                                    <li class="zx_active" ng-repeat="item in persistentite" ng-click="persistened(persistentitem,item.metadata.name)">
+                                                        <a href="javascript:void(0);">
+                                                            <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===persistentitem.persistentVolumeClaim.claimName}" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a>
+                                                    </li>
+
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <input type="text" class="four_list_r four_list_r_two" ng-model="persistentitem.mountPath" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
+                                        <a ng-click="delpersistent(container.secretsobj.persistentarr,$index)"  ng-show="$index!==container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                        <a ng-click="addpersistent(container.secretsobj.persistentarr)" ng-show="$index===container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="set_add_service clboth" ng-click="openModal('创建持久化卷','chijiuhuajuan')">创建持久化卷</p>
+                            <div class="clboth_two"></div>
+                            <!--挂载配置卷模块-->
+                            <div class="one_list_block clboth mt_ten">
+                                <div class="three_top add_mb15">
+                                    <p class="one_name">挂载配置卷</p>
+                                    <span class="two_detail">为了减少由于程序中的配置文件发生改变而引起的重新打包构建，可以将容器中的配置文件挂载出来，当配置文件发生改变时，不需要重新构建代码，直接部署服务即可。</span>
+                                </div>
+                                <ul class="four_name">
+                                    <li>配置卷</li>
+                                    <li>挂载路径</li>
+                                </ul>
+                                <ul class="four_list four_list_two">
+                                    <li ng-repeat="config in container.secretsobj.configmap">
+                                        <div class="service_area_select service_area_select_gj two_radius">
+                                            <div uib-dropdown on-toggle="toggled(open)">
+                                                <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                                    <span class="service_per_tit two_tab_ellipsis" title="{{config.configMap.name}}">{{config.configMap.name}}</span>
+                                                    <b class="ser_bg_btn"></b>
+                                                </a>
+                                                <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
+                                                    <li class="zx_active" ng-repeat="item in configmap" ng-click="configmaped(config,item.metadata.name)">
+                                                        <a href="javascript:void(0);">
+                                                            <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===config.configMap.name}" title="{{item.metadata.name}}">{{item.metadata.name}}</span>
+                                                        </a></li>
+                                                    <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
+                                                    <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <input type="text" class="four_list_r four_list_r_two" ng-model="config.mountPath" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
+                                        <a ng-click="delconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index!==container.secretsobj.configmap.length-1" class="ser_set ser_close two_radius"></a>
+                                        <a ng-click="addconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index===container.secretsobj.configmap.length-1" class="ser_set ser_add two_radius"></a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <p class="set_add_service clboth" ng-click="openModal('创建配置卷','peizhijuan')">创建配置卷</p>
+                            <div class="clboth_two"></div>
+                            <!--挂载密钥模块-->
+                            <div class="one_list_block clboth mt_ten">
+                                <div class="three_top add_mb15">
+                                    <p class="one_name">挂载密钥</p>
+                                    <span class="two_detail">这里用来将敏感信息配置传递给容器，例如代码库的用户名和密码。<i class="four_question">如何进行端口配置？</i></span>
+                                </div>
+                                <ul class="four_name">
+                                    <li>密钥</li>
+                                    <li>挂载路径</li>
+                                </ul>
+                                <ul class="four_list four_list_two">
+                                    <li ng-repeat="secret in container.secretsobj.secretarr">
+                                        <div class="service_area_select service_area_select_gj two_radius">
+                                            <div uib-dropdown on-toggle="toggled(open)">
+                                                <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                                    <span class="service_per_tit two_tab_ellipsis" title="{{secret.secret.secretName}}">{{secret.secret.secretName}}</span>
+                                                    <b class="ser_bg_btn"></b>
+                                                </a>
+                                                <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
+                                                    <li class="zx_active" ng-repeat="item in secretsitems" ng-click="secretsed(secret,item.metadata.name)">
+                                                        <a href="javascript:void(0);">
+                                                            <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===secret.secret.secretName}" title="{{item.metadata.name}}">{{item.metadata.name}}</span>
+                                                        </a></li>
+                                                    <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
+                                                    <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <input type="text" ng-model="secret.mountPath" class="four_list_r four_list_r_two" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
+                                        <a  ng-click="delsecret(container.secretsobj.secretarr)" ng-show="$index!==container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                        <a  ng-click="addsecret(container.secretsobj.secretarr)" ng-show="$index===container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="set_add_service clboth" ng-click="openModal('创建密钥','miyao')">创建密钥</p>
+                            <div class="clboth_two"></div>
+                            <!--启动命令模块-->
+                            <div class="one_list_block clboth mt_ten">
+                                <div class="three_top add_mb15">
+                                    <p class="one_name">启动命令</p>
+                                    <span class="two_detail">这里定义的启动命令将会覆盖镜像中定义的启动命令，如果不需要，请不要填写。<i class="four_question">如何进行端口配置？</i></span>
+                                </div>
+                                <input type="text" ng-model="container.args" class="four_list_r four_list_three" placeholder="如：/usr/sbin/sshd -D">
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block_two"  ng-show="dc.spec.template.spec.containers[$index].retract">
+                    <div class="block_two_l">
+                        <img src="views/service_detail_new/img/nor_pic.png" class="select_tu">
+                        <span class="select_mirror" ng-show="!container.imaged">未选择镜像</span>
+                        <span class="select_mirror" ng-show="container.imaged">{{container.name}}</span>
+                    </div>
+                    <div class="block_two_r">
+                        <span class="bx_tit"  ng-show="!container.imaged">必须选择镜像</span>
+                        <span class="select_open" ng-click="pickdown($index)">展开</span>
+                    </div>
+                </div>
+            </div>
+            <p class="add_container clboth" ng-click=addcon()>新增容器</p>
+            <span class="ser_btn ser_back_btn mt14 two_radius" ng-click="preStep()">上一步</span>
+            <!--<span class="ser_btn ser_next_btn mt14 two_radius" ng-click="nextthree(3)">下一步</span>-->
+            <span class="ser_btn ser_next_btn mt14 two_radius ng-hide" ng-show="stepup.two&&isResolving.step3" ng-click="nextthree(3)">下一步</span>
+            <span class="ser_next_one mt14 ser_next_gray two_radius" style="margin-left: 20px;" ng-show="!stepup.two">下一步</span>
+            <span class="next_one_load" style="margin-top: 14px;margin-left: 20px;" ng-show="!isResolving.step3"><i></i>加载中...</span>
+
+        </div>
+
+        <!---------------------------- 模块2 配置容器模块 结束------------------------------->
+        <!---------------------------- 模块3 访问服务模块 开始------------------------------->
+        <!--ng-show="!isShow.step3"-->
+        <div class="create_three_block" ng-show="!isShow.step3">
+
+            <!--<div class="create_three_block" ng-show="true">-->
+            <div class="create_top">
+                <div class="zyxz">
+                    <div class="left">
+                        <p class="ser_name_left">资源限制</p>
+                    </div>
+                    <div class="right">
+                        <p class="ser_name_right">在套餐范围内为服务包含的容器定义CPU和内存使用限制</p>
+                        <div class="row">
+                            <div class="col-xs-2" style="padding-left: 15px;">
+                                <span>容器/名称</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>CPU总量（{{requests.cpu}}核）</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>内存总量（{{requests.memory}}GB）</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>服务副本数</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>已用CPU</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <span>已用内存</span>
+                            </div>
+                        </div>
+                        <div class="dingwei">
+                            <div class="abosolute-cheng">
+                                <div class="area_select two_radius" ng-class="{'hasrelative':dc.spec.template.spec.containers.length>1}">
+                                    <span class="chenghao"></span>
                                     <div uib-dropdown on-toggle="toggled(open)">
                                         <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                            <span class="service_per_tit service_copy_tit two_tab_ellipsis">{{container.imaged.checkbox}}</span>
-                                            <b class="ser_bg_btn"></b>
+                                            <span class="mleft service_per_tit service_copy_tit two_tab_ellipsis">{{dc.spec.replicas}}倍</span>
+                                            <b class="xl_bg"></b>
                                         </a>
-                                        <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                            <li class="zx_active"  ng-repeat="tag in container.imaged.status.tags" ng-click="container.imaged.checkbox=tag.tag"><a href="javascript:void(0);"><span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{tag.tag}}">{{tag.tag}}</span></a></li>
-                                            <!--<li><a href="javascript:void(0);"><span>3.11</span></a></li>-->
-                                            <!--<li><a href="javascript:void(0);"><span>3.12</span></a></li>-->
+                                        <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                                            <li ng-repeat="time in copy" ng-click="dc.spec.replicas=time.times">
+                                                <a href="javascript:void(0);">
+                                                    <span class="service_per_tit service_copy_tit two_tab_ellipsis" ng-class="{colored:time.times===dc.spec.replicas}" title="{{time.times}}">{{time.times}}倍</span>
+                                                </a></li>
                                         </ul>
 
                                     </div>
                                 </div>
-                                <span class="change_tit" ng-click="openModal('选择镜像','selectimage',$index)">更改</span>
                             </div>
-                        </div>
-
-                        <div class="tab_select"ng-hide="container.imaged.metadata" ng-click="openModal('选择镜像','selectimage',$index)">
-                            <span class="tab_select_tit">选择镜像</span>
-                        </div>
-
-
-                </div>
-                <div class="clboth_ten"></div>
-                <div class="one_list_block clboth">
-                    <div class="three_top add_mb15">
-                        <p class="one_name">镜像端口</p>
-                        <span class="two_detail">取镜像中定义的端口。</span>
-                    </div>
-                    <div class="input_set" style="float: none;padding-left:92px;">
-                        <span class="checkbox_peizhi" ng-class="{'active': isOwnerI}" style="margin-right: 113px;" ng-click="checkImgC(1)"><i></i>默认端口</span>
-                        <span class="checkbox_peizhi" ng-class="{'active': !isOwnerI}" ng-click="checkImgC(2)"><i></i>自定义端口</span>
-                    </div>
-                    <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
-                        <div>TCP容器端口</div>
-                        <div>TCP服务端口</div>
-                    </div>
-                    <div style="overflow: hidden;" ng-show="isOwnerI">
-                        <ul class="three_list three_list_room">
-                            <!--<li>容器端口：</li>-->
-                            <li><span class="room_tit">{{container.containerPort}}</span></li>
-
-                        </ul>
-
-                        <ul class="three_list three_list_serivce">
-                            <!--<li>服务端口：</li>-->
-                            <li><span class="room_tit">{{container.hostPort}}</span></li>
-                        </ul>
-                    </div>
-                    <div style="overflow: hidden;padding-top: 8px;" ng-show="!isOwnerI">
-                        <ul style="overflow: hidden;padding-left: 92px;">
-                            <li class="ownerSL">
-                                <div>
-                                    <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="">
+                            <div class="row" ng-repeat="container in dc.spec.template.spec.containers" >
+                                <div class="col-xs-2" style="padding-left:15px;padding-right:0px">
+                                    <img src="views/service_detail_new/img/nor_pic.png" class="img_oo">
+                                    <span>{{container.name}}</span>
                                 </div>
-                                <div > <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="" ></div>
-                                <a ng-click="" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
-                            </li>
-                        </ul>
+                                <div class="col-xs-2">
+                                    <input type="number" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数">
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="number" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory"  placeholder="1-32内的整数">
+                                </div>
+                                <div class="col-xs-2">
+
+                                </div>
+                                <div class="col-xs-2">
+                                    {{container.resources.limits.cpu*dc.spec.replicas}}核
+                                </div>
+                                <div class="col-xs-2">
+                                    {{container.resources.limits.memory*dc.spec.replicas}}GB
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row">-->
+                        <!--<div class="col-xs-2" style="padding-right:0;">-->
+                        <!--<i class="img_oo"></i><span>datafoundry</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-2">-->
+                        <!--<input type="text" placeholder="1-16内的整数">-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-2">-->
+                        <!--<input type="text" placeholder="1-32内的整数">-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-2">-->
+
+                        <!--</div>-->
+                        <!--<div class="col-xs-2">-->
+                        <!--1核-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-2">-->
+                        <!--2GB-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="row bottom_heji">
+                            <div class="col-xs-2 col-xs-offset-6">
+                                合计资源
+                            </div>
+                            <div class="col-xs-2">
+                                已用 <span>{{requests.usecpu}}</span>核/剩余{{requests.residuecpu}}核
+                                <div class="error_block_tip" ng-show="error.reqerr.cpuerr">
+                                    <p>超出最大可用资源</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-2" style="white-space: nowrap">
+                                已用 <span>{{requests.usememory}}</span>GB/剩余<span>{{requests.residuememory}}</span>GB
+                                <div class="error_block_tip" ng-show="error.reqerr.memoryerr" >
+                                    <p>超出最大可用资源</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="adv_set clboth">
-                    <p class="adv_tit" ng-show="!container.othersetting" ng-click="changed(container)">高级设置</p>
-                </div>
-                    <!--ng-show="container.othersetting"-->
-                <div class="adv_set_detail" ng-show="container.othersetting">
-                <!--环境变量模块-->
-                <div class="one_list_block clboth mt_ten">
-                    <div class="three_top add_mb15">
-                        <p class="one_name">环境变量</p>
-                        <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question">如何进行端口配置？</i></span>
-                    </div>
-                    <ul class="four_name">
-                        <li>键</li>
-                        <li>值</li>
-                    </ul>
-                    <ul class="four_list">
-                        <li ng-repeat="envitem in container.env">
-                            <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="1-24位小写字母、数字、或下划线组成">
-                            <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="0-2048个 ASCII字符组成">
-                            <a ng-click="delenv(container.env,$index)" ng-show="$index!==container.env.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
-                            <a ng-click="addenv(container.env)" ng-show="$index===container.env.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
-                        </li>
-                        <!--<li>-->
-                            <!--<input type="text" class="four_list_l" placeholder="请输入'键'">-->
-                            <!--<input type="text" class="four_list_r" placeholder="请输入'值'">-->
-                            <!---->
-                        <!--</li>-->
 
-                                <li></li>
-                            </ul>
-                        </div>
-
-                        <!-- 挂载数据卷模块-->
-                        <div class="one_list_block clboth mt_ten">
-                            <div class="three_top add_mb15">
-                                <p class="one_name">挂载持久化卷</p>
-                                <span class="two_detail">为确保容器重启后数据不会丢失，可以为数据所在的容器路径挂载一个持久化卷。</span>
-                            </div>
-                            <ul class="four_name">
-                                <li>数据卷</li>
-                                <li>挂载路径</li>
-                            </ul>
-                            <ul class="four_list four_list_two">
-                                <li ng-repeat="persistentitem in container.secretsobj.persistentarr">
-                                    <div class="service_area_select service_area_select_gj two_radius">
-                                        <div uib-dropdown>
-                                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                                <span class="service_per_tit two_tab_ellipsis">{{persistentitem.persistentVolumeClaim.claimName}}</span>
-                                                <b class="ser_bg_btn"></b>
-                                            </a>
-                                            <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
-                                                <li class="zx_active" ng-repeat="item in persistentite" ng-click="persistened(persistentitem,item.metadata.name)">
-                                                    <a href="javascript:void(0);">
-                                                        <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===persistentitem.persistentVolumeClaim.claimName}" title="{{item.metadata.name}}">{{item.metadata.name}}</span></a>
-                                                </li>
-
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                    <input type="text" class="four_list_r four_list_r_two" ng-model="persistentitem.mountPath" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
-                                    <a ng-click="delpersistent(container.secretsobj.persistentarr,$index)"  ng-show="$index!==container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
-                                    <a ng-click="addpersistent(container.secretsobj.persistentarr)" ng-show="$index===container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="set_add_service clboth" ng-click="openModal('创建持久化卷','chijiuhuajuan')">创建持久化卷</p>
-                        <div class="clboth_two"></div>
-                        <!--挂载配置卷模块-->
-                        <div class="one_list_block clboth mt_ten">
-                            <div class="three_top add_mb15">
-                                <p class="one_name">挂载配置卷</p>
-                                <span class="two_detail">为了减少由于程序中的配置文件发生改变而引起的重新打包构建，可以将容器中的配置文件挂载出来，当配置文件发生改变时，不需要重新构建代码，直接部署服务即可。</span>
-                            </div>
-                            <ul class="four_name">
-                                <li>配置卷</li>
-                                <li>挂载路径</li>
-                            </ul>
-                            <ul class="four_list four_list_two">
-                                <li ng-repeat="config in container.secretsobj.configmap">
-                                    <div class="service_area_select service_area_select_gj two_radius">
-                                        <div uib-dropdown on-toggle="toggled(open)">
-                                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                                <span class="service_per_tit two_tab_ellipsis" title="{{config.configMap.name}}">{{config.configMap.name}}</span>
-                                                <b class="ser_bg_btn"></b>
-                                            </a>
-                                            <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
-                                                <li class="zx_active" ng-repeat="item in configmap" ng-click="configmaped(config,item.metadata.name)">
-                                                    <a href="javascript:void(0);">
-                                                        <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===config.configMap.name}" title="{{item.metadata.name}}">{{item.metadata.name}}</span>
-                                                    </a></li>
-                                                <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
-                                                <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                    <input type="text" class="four_list_r four_list_r_two" ng-model="config.mountPath" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
-                                    <a ng-click="delconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index!==container.secretsobj.configmap.length-1" class="ser_set ser_close two_radius"></a>
-                                    <a ng-click="addconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index===container.secretsobj.configmap.length-1" class="ser_set ser_add two_radius"></a>
-                                </li>
-
-                            </ul>
-                        </div>
-                        <p class="set_add_service clboth" ng-click="openModal('创建配置卷','peizhijuan')">创建配置卷</p>
-                        <div class="clboth_two"></div>
-                        <!--挂载密钥模块-->
-                        <div class="one_list_block clboth mt_ten">
-                            <div class="three_top add_mb15">
-                                <p class="one_name">挂载密钥</p>
-                                <span class="two_detail">这里用来将敏感信息配置传递给容器，例如代码库的用户名和密码。<i class="four_question">如何进行端口配置？</i></span>
-                            </div>
-                            <ul class="four_name">
-                                <li>密钥</li>
-                                <li>挂载路径</li>
-                            </ul>
-                            <ul class="four_list four_list_two">
-                                <li ng-repeat="secret in container.secretsobj.secretarr">
-                                    <div class="service_area_select service_area_select_gj two_radius">
-                                        <div uib-dropdown on-toggle="toggled(open)">
-                                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                                <span class="service_per_tit two_tab_ellipsis" title="{{secret.secret.secretName}}">{{secret.secret.secretName}}</span>
-                                                <b class="ser_bg_btn"></b>
-                                            </a>
-                                            <ul class="service_drop service_drop_gj" uib-dropdown-menu aria-labelledby="user-menu">
-                                                <li class="zx_active" ng-repeat="item in secretsitems" ng-click="secretsed(secret,item.metadata.name)">
-                                                    <a href="javascript:void(0);">
-                                                        <span class="drop_name_tit two_tab_ellipsis" ng-class="{colored:item.metadata.name===secret.secret.secretName}" title="{{item.metadata.name}}">{{item.metadata.name}}</span>
-                                                    </a></li>
-                                                <!--<li><a href="javascript:void(0);"><span>data1</span></a></li>-->
-                                                <!--<li><a href="javascript:void(0);"><span>data2</span></a></li>-->
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                    <input type="text" ng-model="secret.mountPath" class="four_list_r four_list_r_two" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
-                                    <a  ng-click="delsecret(container.secretsobj.secretarr)" ng-show="$index!==container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
-                                    <a  ng-click="addsecret(container.secretsobj.secretarr)" ng-show="$index===container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="set_add_service clboth" ng-click="openModal('创建密钥','miyao')">创建密钥</p>
-                        <div class="clboth_two"></div>
-                        <!--启动命令模块-->
-                        <div class="one_list_block clboth mt_ten">
-                            <div class="three_top add_mb15">
-                                <p class="one_name">启动命令</p>
-                                <span class="two_detail">这里定义的启动命令将会覆盖镜像中定义的启动命令，如果不需要，请不要填写。<i class="four_question">如何进行端口配置？</i></span>
-                            </div>
-                            <input type="text" ng-model="container.args" class="four_list_r four_list_three" placeholder="如：/usr/sbin/sshd -D">
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
             </div>
-
-            <div class="block_two"  ng-show="dc.spec.template.spec.containers[$index].retract">
-                <div class="block_two_l">
-                    <img src="views/service_detail_new/img/nor_pic.png" class="select_tu">
-                    <span class="select_mirror" ng-show="!container.imaged">未选择镜像</span>
-                    <span class="select_mirror" ng-show="container.imaged">{{container.name}}</span>
-                </div>
-                <div class="block_two_r">
-                    <span class="bx_tit"  ng-show="!container.imaged">必须选择镜像</span>
-                    <span class="select_open" ng-click="pickdown($index)">展开</span>
-                </div>
-            </div>
-        </div>
-        <p class="add_container clboth" ng-click=addcon()>新增容器</p>
-        <span class="ser_btn ser_back_btn mt14 two_radius" ng-click="preStep()">上一步</span>
-        <!--<span class="ser_btn ser_next_btn mt14 two_radius" ng-click="nextthree(3)">下一步</span>-->
-        <span class="ser_btn ser_next_btn mt14 two_radius ng-hide" ng-show="stepup.two&&isResolving.step3" ng-click="nextthree(3)">下一步</span>
-        <span class="ser_next_one mt14 ser_next_gray two_radius" style="margin-left: 20px;" ng-show="!stepup.two">下一步</span>
-        <span class="next_one_load" style="margin-top: 14px;margin-left: 20px;" ng-show="!isResolving.step3"><i></i>加载中...</span>
-
-    </div>
-
-    <!---------------------------- 模块2 配置容器模块 结束------------------------------->
-    <!---------------------------- 模块3 访问服务模块 开始------------------------------->
-        <!--ng-show="!isShow.step3"-->
-    <div class="create_three_block" ng-show="!isShow.step3">
-
-    <!--<div class="create_three_block" ng-show="true">-->
-        <div class="create_top">
-            <div class="zyxz">
+            <div class="create_top clboth">
                 <div class="left">
-                    <p class="ser_name_left">资源限制</p>
+                    <p class="ser_name_left">重启策略</p>
                 </div>
                 <div class="right">
-                    <p class="ser_name_right">在套餐范围内为服务包含的容器定义CPU和内存使用限制</p>
-                    <div class="row">
-                        <div class="col-xs-2" style="padding-left: 15px;">
-                            <span>容器/名称</span>
-                        </div>
-                        <div class="col-xs-2">
-                            <span>CPU总量（{{requests.cpu}}核）</span>
-                        </div>
-                        <div class="col-xs-2">
-                            <span>内存总量（{{requests.memory}}GB）</span>
-                        </div>
-                        <div class="col-xs-2">
-                            <span>服务副本数</span>
-                        </div>
-                        <div class="col-xs-2">
-                            <span>已用CPU</span>
-                        </div>
-                        <div class="col-xs-2">
-                            <span>已用内存</span>
+                    <div class="cqcl">
+                        <div class="area_select">
+                            <div uib-dropdown on-toggle="toggled(open)">
+                                <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                    <span class="mleft">Always</span>
+                                    <b class="xl_bg"></b>
+                                </a>
+                                <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                                    <!--<li class="zx_active"><a href="javascript:void(0);"><span>1</span></a></li>-->
+                                    <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
+                                    <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
-                    <div class="dingwei">
-                        <div class="abosolute-cheng">
-                            <div class="area_select two_radius" ng-class="{'hasrelative':dc.spec.template.spec.containers.length>1}">
-                                <span class="chenghao"></span>
-                                <div uib-dropdown on-toggle="toggled(open)">
-                                    <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                        <span class="mleft service_per_tit service_copy_tit two_tab_ellipsis">{{dc.spec.replicas}}倍</span>
-                                        <b class="xl_bg"></b>
-                                    </a>
-                                    <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                        <li ng-repeat="time in copy" ng-click="dc.spec.replicas=time.times">
-                                            <a href="javascript:void(0);">
-                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis" ng-class="{colored:time.times===dc.spec.replicas}" title="{{time.times}}">{{time.times}}倍</span>
-                                            </a></li>
-                                    </ul>
+                </div>
+            </div>
 
+            <!-- 挂载后端服务模块-->
+            <div class="one_list_block clboth">
+                <p class="one_name" style="color:#666;">挂载后端服务</p>
+                <span class="two_detail">此处可以绑定应用与在平台中申请的诸如Mysql、HDFS、MongoDB等服务。<i class="four_question">什么是后端服务？</i></span>
+            </div>
+
+            <div class="one_list_block clboth one_list_jl">
+                <div class="two_tab_detail two_tab_detail_service" ng-repeat="bsi in bsi.check">
+                    <div class="two_tab_l">
+                        <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
+                        <div class="two_tab_tit">
+                            <span class="two_tab_ellipsis">{{bsi.metadata.name}}</span>
+                            <span class="two_tab_ellipsis">{{bsi.metadata.name}} 是开源的消息是开源的消息</span>
+                        </div>
+                    </div>
+
+                    <div class="two_tab_r">
+                        <span class="change_tit" ng-click="openModal('后端服务','backservice')">更改</span>
+                    </div>
+                </div>
+
+
+                <div class="tab_select tab_select_service" ng-click="openModal('后端服务','backservice')">
+                    <span class="tab_select_tit tab_select_tit_two">选择后端服务</span>
+                </div>
+
+
+            </div>
+            <!--<p class="set_add_service clboth" ng-click="openModal('申请后端服务','createservice')">申请后端服务</p>-->
+
+            <div class="clear_three"></div>
+            <div class="create_top clboth">
+                <div class="left">
+                    <p class="ser_name_left">域名设置</p>
+                </div>
+                <div class="right">
+                    <p class="ser_name_right font_normal">
+                        定义服务的访问地址，当前一个域名只支持一个端口，若需要访问多个端口，可以定义多个域名来映射端口。
+                        <i class="four_question">如何进行端口配置？</i>
+                    </p>
+                    <div class="row" style="margin-bottom: 4px">
+                        <div class="col-xs-3">
+                            端口协议
+                        </div>
+                        <div class="col-xs-9">
+                            域名
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 38px;">
+                        <div class="col-xs-3">
+                            <div class="cqcl">
+                                <div class="area_select">
+                                    <div uib-dropdown on-toggle="toggled(open)">
+                                        <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                            <span class="mleft service_per_tit two_tab_ellipsis" title="{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}">{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}</span>
+                                            <b class="xl_bg"></b>
+                                        </a>
+                                        <ul class="dropdown-menu zx_area_drop zx_area_drop_jia" uib-dropdown-menu aria-labelledby="user-menu">
+                                            <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
+                                                <a href="javascript:void(0);">
+                                                    <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
+                                                </a></li>
+                                            <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
+                                            <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
+                                        </ul>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-repeat="container in dc.spec.template.spec.containers" >
-                            <div class="col-xs-2" style="padding-left:15px;padding-right:0px">
-                                <img src="views/service_detail_new/img/nor_pic.png" class="img_oo">
-                                <span>{{container.name}}</span>
-                            </div>
-                            <div class="col-xs-2">
-                                <input type="number" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数">
-                            </div>
-                            <div class="col-xs-2">
-                                <input type="number" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory"  placeholder="1-32内的整数">
-                            </div>
-                            <div class="col-xs-2">
-
-                            </div>
-                            <div class="col-xs-2">
-                                {{container.resources.limits.cpu*dc.spec.replicas}}核
-                            </div>
-                            <div class="col-xs-2">
-                                {{container.resources.limits.memory*dc.spec.replicas}}GB
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="row">-->
-                        <!--<div class="col-xs-2" style="padding-right:0;">-->
-                            <!--<i class="img_oo"></i><span>datafoundry</span>-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-2">-->
-                            <!--<input type="text" placeholder="1-16内的整数">-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-2">-->
-                            <!--<input type="text" placeholder="1-32内的整数">-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-2">-->
-
-                        <!--</div>-->
-                        <!--<div class="col-xs-2">-->
-                            <!--1核-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-2">-->
-                            <!--2GB-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <div class="row bottom_heji">
-                        <div class="col-xs-2 col-xs-offset-6">
-                            合计资源
-                        </div>
-                        <div class="col-xs-2">
-                            已用 <span>{{requests.usecpu}}</span>核/剩余{{requests.residuecpu}}核
-                            <div class="error_block_tip" >
-                                <p>超出最大可用资源</p>
-                            </div>
-                        </div>
-                        <div class="col-xs-2" style="white-space: nowrap">
-                            已用 <span>{{requests.usememory}}</span>GB/剩余<span>{{requests.residuememory}}</span>GB
-                            <div class="error_block_tip" >
-                                <p>超出最大可用资源</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="create_top clboth">
-            <div class="left">
-                <p class="ser_name_left">重启策略</p>
-            </div>
-            <div class="right">
-                <div class="cqcl">
-                    <div class="area_select">
-                        <div uib-dropdown on-toggle="toggled(open)">
-                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                <span class="mleft">Always</span>
-                                <b class="xl_bg"></b>
-                            </a>
-                            <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                <!--<li class="zx_active"><a href="javascript:void(0);"><span>1</span></a></li>-->
-                                <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
-                                <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
-                            </ul>
-
+                        <div class="col-xs-9">
+                            <input type="text" ng-model="routeconf.host" class="ymqz_input" ng-focus="ymqzfocus()"ng-blur="ymqzblur()" placeholder="域名前缀">
+                            <b  class="houzui">
+                                {{routeconf.suffix}}
+                            </b>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 挂载后端服务模块-->
-        <div class="one_list_block clboth">
-            <p class="one_name" style="color:#666;">挂载后端服务</p>
-            <span class="two_detail">此处可以绑定应用与在平台中申请的诸如Mysql、HDFS、MongoDB等服务。<i class="four_question">什么是后端服务？</i></span>
-        </div>
 
-        <div class="one_list_block clboth one_list_jl">
-            <div class="two_tab_detail two_tab_detail_service" ng-repeat="bsi in bsi.check">
-                <div class="two_tab_l">
-                    <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
-                    <div class="two_tab_tit">
-                        <span class="two_tab_ellipsis">{{bsi.metadata.name}}</span>
-                        <span class="two_tab_ellipsis">{{bsi.metadata.name}} 是开源的消息是开源的消息</span>
-                    </div>
+
+            <div class="create_top clboth">
+                <div class="left">
+                    <p class="ser_name_left">自动部署</p>
                 </div>
-
-                <div class="two_tab_r">
-                    <span class="change_tit" ng-click="openModal('后端服务','backservice')">更改</span>
-                </div>
-            </div>
-
-
-            <div class="tab_select tab_select_service" ng-click="openModal('后端服务','backservice')">
-                <span class="tab_select_tit tab_select_tit_two">选择后端服务</span>
-            </div>
-
-
-        </div>
-        <!--<p class="set_add_service clboth" ng-click="openModal('申请后端服务','createservice')">申请后端服务</p>-->
-
-        <div class="clear_three"></div>
-        <div class="create_top clboth">
-            <div class="left">
-                <p class="ser_name_left">域名设置</p>
-            </div>
-            <div class="right">
-                <p class="ser_name_right font_normal">
-                    定义服务的访问地址，当前一个域名只支持一个端口，若需要访问多个端口，可以定义多个域名来映射端口。
-                    <i class="four_question">如何进行端口配置？</i>
-                </p>
-                <div class="row" style="margin-bottom: 4px">
-                    <div class="col-xs-3">
-                        端口协议
-                    </div>
-                    <div class="col-xs-9">
-                        域名
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 38px;">
-                    <div class="col-xs-3">
-                        <div class="cqcl">
-                            <div class="area_select">
-                                <div uib-dropdown on-toggle="toggled(open)">
-                                    <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                        <span class="mleft service_per_tit two_tab_ellipsis" title="{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}">{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}</span>
-                                        <b class="xl_bg"></b>
-                                    </a>
-                                    <ul class="dropdown-menu zx_area_drop zx_area_drop_jia" uib-dropdown-menu aria-labelledby="user-menu">
-                                        <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
-                                            <a href="javascript:void(0);">
-                                                <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
-                                            </a></li>
-                                        <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
-                                        <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
-                                    </ul>
-
-                                </div>
-                            </div>
+                <div class="right">
+                    <p class="ser_name_right font_normal">
+                        这里有以下两种触发自动部署的事件，由于新的服务启动成功后，才会停止旧的服务，所以用户对服务的访问不会间断。
+                    </p>
+                    <div class="row" style="margin-bottom:0px;">
+                        <div class="col-xs-3">
+                            <i class="checkbox_info" ng-click="changebuild.ImageChange=!changebuild.ImageChange" ng-class="{active:changebuild.ImageChange}"></i>
+                            <span class="pz_label">配置变化触发自动部署</span>
+                        </div>
+                        <div class="col-xs-9">
+                            <i class="four_question">修改服务的某项配置后，将自动重新部署服务</i>
                         </div>
                     </div>
-                    <div class="col-xs-9">
-                        <input type="text" ng-model="routeconf.host" class="ymqz_input" ng-focus="ymqzfocus()"ng-blur="ymqzblur()" placeholder="域名前缀">
-                        <b  class="houzui">
-                            {{routeconf.suffix}}
-                        </b>
+                    <div class="row" ng-show="error.image!=='our'">
+                        <div class="col-xs-3">
+                            <i class="checkbox_info" ng-click="changebuild.ConfigChange=!changebuild.ConfigChange" ng-class="{active:changebuild.ConfigChange}"></i>
+                            <span class="pz_label">镜像变化触发自动部署</span>
+                        </div>
+                        <div class="col-xs-9">
+                            <i class="four_question">重新构建代码后，将自动部署新的镜像</i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-
-        <div class="create_top clboth">
-            <div class="left">
-                <p class="ser_name_left">自动部署</p>
-            </div>
-            <div class="right">
-                <p class="ser_name_right font_normal">
-                    这里有以下两种触发自动部署的事件，由于新的服务启动成功后，才会停止旧的服务，所以用户对服务的访问不会间断。
-                </p>
-                <div class="row" style="margin-bottom:0px;">
-                    <div class="col-xs-3">
-                        <i class="checkbox_info" ng-click="changebuild.ImageChange=!changebuild.ImageChange" ng-class="{active:changebuild.ImageChange}"></i>
-                        <span class="pz_label">配置变化触发自动部署</span>
-                    </div>
-                    <div class="col-xs-9">
-                        <i class="four_question">修改服务的某项配置后，将自动重新部署服务</i>
-                    </div>
-                </div>
-                <div class="row" ng-show="error.image!=='our'">
-                    <div class="col-xs-3">
-                        <i class="checkbox_info" ng-click="changebuild.ConfigChange=!changebuild.ConfigChange" ng-class="{active:changebuild.ConfigChange}"></i>
-                        <span class="pz_label">镜像变化触发自动部署</span>
-                    </div>
-                    <div class="col-xs-9">
-                        <i class="four_question">重新构建代码后，将自动部署新的镜像</i>
-                    </div>
-                </div>
+            <div class="create_top clboth">
+                <span class="ser_btn ser_back_btn mt14 two_radius" ng-click="preStep()">上一步</span>
+                <span class="ser_btn ser_next_btn mt14 two_radius" ng-click="creat()" ng-show="isCreate">{{btnText.one}}</span>
+                <span class="next_one_load" style="margin-top:14px;margin-left:20px" ng-show = "!isCreate&&!isComplete"><i></i>{{btnText.two}}</span>
+                <span class="ser_btn ser_next_btn mt14 two_radius create_complete" ng-show="isComplete"><i></i>{{btnText.three}}</span>
             </div>
         </div>
-        <div class="create_top clboth">
-            <span class="ser_btn ser_back_btn mt14 two_radius" ng-click="preStep()">上一步</span>
-            <span class="ser_btn ser_next_btn mt14 two_radius" ng-click="creat()" ng-show="isCreate">{{btnText.one}}</span>
-            <span class="next_one_load" style="margin-top:14px;margin-left:20px" ng-show = "!isCreate&&!isComplete"><i></i>{{btnText.two}}</span>
-            <span class="ser_btn ser_next_btn mt14 two_radius create_complete" ng-show="isComplete"><i></i>{{btnText.three}}</span>
-        </div>
-    </div>
-    <!---------------------------- 模块3 访问服务模块 结束------------------------------->
+        <!---------------------------- 模块3 访问服务模块 结束------------------------------->
     </form>
 </div>

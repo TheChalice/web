@@ -1020,12 +1020,16 @@ angular.module('console.service.detail', [
 
                 for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
                     for (var j = 0; j < res.spec.ports.length; j++) {
-                        var pObj = {
-                            containerPort: res.spec.ports[j].targetPort,
-                            protocol: res.spec.ports[j].protocol,
-                            hostPort: res.spec.ports[j].port
+                        if ($scope.dc.spec.template.spec.containers[i].name === res.spec.ports[j].name.split('-')[1]) {
+                            var pObj = {
+                                containerPort: res.spec.ports[j].targetPort,
+                                protocol: res.spec.ports[j].protocol,
+                                hostPort: res.spec.ports[j].port
+                            }
+                            $scope.dc.spec.template.spec.containers[i].ports.push(pObj);
+                            console.log('$scope.dc.spec.template.spec.containers[i].ports', $scope.dc.spec.template.spec.containers[i].ports);
                         }
-                        $scope.dc.spec.template.spec.containers[i].ports.push(pObj);
+
                     }
                 }
                 $scope.portsArr = [];
