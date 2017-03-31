@@ -848,6 +848,61 @@ angular.module('console.service.createnew', [
                             }
                         };
                     })
+                    Service.get({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+                        console.log('service',res);
+                        $scope.service=res
+                        //$scope.dc.spec.template.spec.containers[i].port=[];
+                        for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
+                            $scope.dc.spec.template.spec.containers[i].port=[];
+                            for(var k in res.metadata.annotations){
+                                if (k.indexOf('dadafoundry.io/ports-')>-1) {
+                                    if (k.split('-')[1]===$scope.dc.spec.template.spec.containers[i].name) {
+                                        $scope.dc.spec.template.spec.containers[i].isOwnerI=false;
+                                    }else {
+                                        $scope.dc.spec.template.spec.containers[i].isOwnerI=true;
+                                    }
+                                }
+                            }
+                            for (var j = 0; j < res.spec.ports.length; j++) {
+                                if ($scope.dc.spec.template.spec.containers[i].name === res.spec.ports[j].name.split('-')[1]) {
+                                    var pObj = {
+                                        hostPort:res.spec.ports[j].port,
+                                        containerPort:res.spec.ports[j].targetPort
+                                    }
+                                    $scope.dc.spec.template.spec.containers[i].port.push(pObj);
+                                   console.log('$scope.dc.spec.template.spec.containers[i].ports', $scope.dc.spec.template.spec.containers[i].ports);
+                                }
+
+                            }
+                        }
+
+
+                    }, function (err) {
+                        $scope.service = {
+                            "kind": "Service",
+                            "apiVersion": "v1",
+                            "metadata": {
+                                "name": "",
+                                "labels": {
+                                    "app": ""
+                                },
+                                annotations: {
+                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                                }
+                            },
+                            "spec": {
+                                "ports": [],
+                                "selector": {
+                                    "app": "",
+                                    "deploymentconfig": ""
+                                },
+                                //"portalIP": "172.30.189.230",
+                                //"clusterIP": "172.30.189.230",
+                                "type": "ClusterIP",
+                                "sessionAffinity": "None"
+                            }
+                        };
+                    })
                     angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
                         if (!con.volumeMounts) {
                             con.volumeMounts=[];
@@ -880,19 +935,19 @@ angular.module('console.service.createnew', [
                         angular.forEach(con.volumeMounts, function (volue,k) {
 
                             if (volue.name.indexOf('secrat') > -1) {
-                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
-                                    if (volue.name === vol.name) {
-                                        var modelvol ={
-                                            secret: {
-                                                secretName: vol.secret.secretName
-                                            },
-                                            mountPath: volue.mountPath
-                                        }
-                                        con.secretsobj.secretarr.push(modelvol)
-
-
+                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                if (volue.name === vol.name) {
+                                    var modelvol ={
+                                        secret: {
+                                            secretName: vol.secret.secretName
+                                        },
+                                        mountPath: volue.mountPath
                                     }
-                                })
+                                    con.secretsobj.secretarr.push(modelvol)
+
+
+                                }
+                            })
                             }else if (volue.name.indexOf('config') > -1) {
                                 angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
                                     if (volue.name === vol.name) {
@@ -955,10 +1010,10 @@ angular.module('console.service.createnew', [
                             con.resources.limits.memory=parseInt(con.resources.limits.memory)
                         }else {
                             con.resources.limits={}
-                            con.resources.limits.cpu=''
-                            con.resources.limits.memory=''
+                            con.resources.limits.cpu=0
+                            con.resources.limits.memory=0
                         }
-                        //console.log('con.imagename', con.imagename);
+                            //console.log('con.imagename', con.imagename);
                         for(var k in $scope.dc.metadata.annotations){
                             //console.log(k.indexOf('dadafoundry.io/image-'));
                             if (k.indexOf('dadafoundry.io/image-')>-1) {

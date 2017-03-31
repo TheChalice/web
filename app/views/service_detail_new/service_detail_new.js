@@ -1032,6 +1032,7 @@ angular.module('console.service.detail', [
 
                     }
                 }
+                //angular.forEach()
                 $scope.portsArr = [];
                 for (var j = 0; j < $scope.dc.spec.template.spec.containers[0].ports.length; j++) {
                     $scope.portsArr.push($scope.dc.spec.template.spec.containers[0].ports[j]);
@@ -1324,6 +1325,19 @@ angular.module('console.service.detail', [
                 }
 
                 $scope.bsi = res;
+                $scope.bindingBsi = [];
+
+                angular.forEach($scope.bsi.items, function (item) {
+
+                    angular.forEach(item.spec.binding, function (bind) {
+                        // console.log("============", bind.bind_deploymentconfig, o.dc.metadata.name);
+                        //console.log(bind.bind_deploymentconfig, o.dc.metadata.name);
+                        if (bind.bind_deploymentconfig == $scope.dc.metadata.name) {
+                            $scope.bindingBsi.push({name:item.metadata.name});
+                            //console.log('$scope.bindingBs',$scope.bindingBsi);
+                        }
+                    })
+                });
 
             }, function (res) {
                 //todo 错误处理
@@ -1970,8 +1984,8 @@ angular.module('console.service.detail', [
             angular.forEach($scope.bsi.items, function (item) {
                 angular.forEach(item.spec.binding, function (bind) {
                     // console.log("============", bind.bind_deploymentconfig, o.dc.metadata.name);
-                    if (bind.bind_deploymentconfig == o.dc.metadata.name) {
-                        $scope.bindingBsi.push(o.dc.metadata.name);
+                    if (bind.bind_deploymentconfig == $scope.dc.metadata.name) {
+                        $scope.bindingBsi.push($scope.dc.metadata.name);
                     }
                 })
             });

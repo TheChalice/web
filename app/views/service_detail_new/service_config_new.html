@@ -143,78 +143,82 @@
                     </div>
                 </div>
 
-                <div class="block_one_set mt30">
-                    <div class="block_one_left">
-                        <p class="name_tit">镜像</p>
-                    </div>
-                    <div class="block_one_right">
-                        <div class="two_tab_detail">
-                            <div class="two_tab_l">
-                                <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
-                                <!--<span class="two_tab_pic"></span>-->
-                                <div class="two_tab_tit">
-                                    <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
-                                    <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">镜像</p>
+                        </div>
+                        <div class="block_one_right">
+                            <div class="two_tab_detail">
+                                <div class="two_tab_l">
+                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                    <!--<span class="two_tab_pic"></span>-->
+                                    <div class="two_tab_tit">
+                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
+                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>
+                                    </div>
+                                </div>
+                                <div class="two_tab_r">
+                                    <span class="version_tit">版本</span>
+                                    <span class="version_tit_num" title="{{container.tag}}">{{container.tag}}</span>
                                 </div>
                             </div>
-                            <div class="two_tab_r">
-                                <span class="version_tit">版本</span>
-                                <span class="version_tit_num" title="{{container.tag}}">{{container.tag}}</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">镜像端口</p>
+                        </div>
+                        <ul class="three_list" style="overflow: hidden;">
+                            <li>容器端口</li>
+                            <li>服务端口</li>
+                        </ul >
+                        <div class="block_one_right" ng-repeat="port in container.ports" style="overflow: hidden;padding:5px 0px;">
+                            <ul class="three_list" style="overflow: hidden;">
+                                <li><span class="room_tit">{{port.hostPort}}</span></li>
+                                <li><span class="room_tit ">{{port.containerPort}}</span></li>
+                            </ul >
+                            <!--<ul class="three_list three_list_serivce " style="overflow: hidden;width: 100%;">-->
+                                <!--<li>服务端口：</li>-->
+                                <!---->
+                            <!--</ul>-->
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">环境变量</p>
+                        </div>
+                        <div class="block_one_right" >
+                            <div class="block_one_list">
+                                <ul class="three_list">
+                                    <li>键：</li>
+                                    <li>值：</li>
+                                </ul>
+                                <div class="clear"></div>
+                                <ul class="three_list three_list_detail clear" ng-repeat="env in envs">
+                                    <li>{{env.name}}</li>
+                                    <li>{{env.value}}</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="clear"></div>
-                <div class="block_one_set mt30">
-                    <div class="block_one_left">
-                        <p class="name_tit">镜像端口</p>
-                    </div>
-                    <div class="block_one_right" ng-repeat="port in container.ports">
-                        <ul class="three_list">
-                            <li>容器端口：</li>
-                            <li><span class="room_tit">{{port.hostPort}}</span></li>
-                        </ul>
-                        <ul class="three_list three_list_serivce">
-                            <li>服务端口：</li>
-                            <li><span class="room_tit ">{{port.containerPort}}</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="block_one_set mt30">
-                    <div class="block_one_left">
-                        <p class="name_tit">环境变量</p>
-                    </div>
-                    <div class="block_one_right" >
-                        <div class="block_one_list">
-                            <ul class="three_list">
-                                <li>键：</li>
-                                <li>值：</li>
+                    <div class="clear"></div>
+                    <div class="block_one_set mt30">
+                        <div class="block_one_left">
+                            <p class="name_tit">挂载持久化卷</p>
+                        </div>
+                        <div class="block_one_right" ng-repeat="persistentitem in container.secretsobj.persistentarr">
+                            <ul class="three_list three_list_room">
+                                <li>持久化卷：</li>
+                                <li><span class="room_tit">{{persistentitem.persistentVolumeClaim.claimName}}</span></li>
                             </ul>
-                            <div class="clear"></div>
-                            <ul class="three_list three_list_detail clear" ng-repeat="env in envs">
-                                <li>{{env.name}}</li>
-                                <li>{{env.value}}</li>
+                            <ul class="three_list three_list_serivce">
+                                <li>挂载路径：</li>
+                                <li><span class="room_tit ">{{persistentitem.mountPath}}</span></li>
                             </ul>
                         </div>
                     </div>
-                </div>
-                <div class="clear"></div>
-                <div class="block_one_set mt30">
-                    <div class="block_one_left">
-                        <p class="name_tit">挂载持久化卷</p>
-                    </div>
-                    <div class="block_one_right" ng-repeat="persistentitem in container.secretsobj.persistentarr">
-                        <ul class="three_list three_list_room">
-                            <li>持久化卷：</li>
-                            <li><span class="room_tit">{{persistentitem.persistentVolumeClaim.claimName}}</span></li>
-                        </ul>
-                        <ul class="three_list three_list_serivce">
-                            <li>挂载路径：</li>
-                            <li><span class="room_tit ">{{persistentitem.mountPath}}</span></li>
-                        </ul>
-                    </div>
-                </div>
 
                 <div class="clear"></div>
                 <div class="block_one_set mt30">

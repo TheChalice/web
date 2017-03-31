@@ -153,6 +153,7 @@ ul,li{list-style:none;}
 
 .servie_list_toggle{width:120px;margin:0 auto;}
 .servie_list_toggle .ser_bg_btn{right:0px;top:20px;}
+.servie_list_toggle:hover .ser_bg_btn{border:solid #5a73eb;border-width:1px 1px 0 0;}
 #service .servie_list_toggle.open .ser_bg_btn{top:23px;}
 #service .dropdown-menu > li span.colored {color:#5b73eb;}
 #service .service_drop li a:hover{background:#eef1fd!important;}

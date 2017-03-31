@@ -11,7 +11,10 @@ input::-webkit-outer-spin-button {
 input[type=number] {
     -moz-appearance:textfield;
 }
-
+/*输入框状态公共*/
+input::-webkit-input-placeholder{color:#999;}
+input{color:#333;}
+/*输入框状态公共*/
 /*这就是省略号喽*/
 .in_nowrap{white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
 

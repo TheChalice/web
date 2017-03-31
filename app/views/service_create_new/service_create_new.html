@@ -275,7 +275,7 @@
                 <div class="content">
                     <div class="create_secret">
                         <div class="create_secret_input">
-                            <p class="ser_name">服务名称<i>*</i></p>
+                            <p class="ser_name">服务名称 <i>*</i></p>
                             <div class="input_set">
                                 <div class="input_set_l">
                                     <input autocomplete="off"
@@ -323,12 +323,12 @@
                             <div class="input_set input_set_two">
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off"
-                                           class="input_text one_input_text ng-pristine ng-untouched ng-valid ng-valid-maxlength"
-                                           placeholder="2-2-24位小写字母、数字或中划线组成"
-                                           type="text"
-                                           ng-class="{inputred:error.chijiunameerr.rexed||error.chijiunameerr.repeated}"
-                                           class="form-control"
-                                           ng-model="createvolume.volume.name">
+                                        class="input_text one_input_text ng-pristine ng-untouched ng-valid ng-valid-maxlength"
+                                        placeholder="2-24位小写字母、数字或中划线组成"
+                                        type="text"
+                                        ng-class="{inputred:error.chijiunameerr.rexed||error.chijiunameerr.repeated}"
+                                        class="form-control"
+                                        ng-model="createvolume.volume.name">
                                     <span class="input_close" ng-show="createvolume.volume.name!==''"  ng-click="createvolume.volume.name=''"></span>
                                 </div>
                                 <span class="btn_set_new error_btn" ng-show="error.chijiunameerr.repeated"></span>
@@ -601,54 +601,73 @@
                                 <ul class="three_list three_list_room">
                                     <!--<li>容器端口：</li>-->
                                     <li><span class="room_tit">{{container.containerPort}}</span></li>
+                </div>
+                <div class="clboth_ten"></div>
+                <div class="one_list_block clboth">
+                    <div class="three_top add_mb15">
+                        <p class="one_name">镜像端口</p>
+                        <span class="two_detail">取镜像中定义的端口。</span>
+                    </div>
+                    <div class="input_set" style="float: none;padding-left:92px;">
+                        <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 113px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
+                        <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>自定义端口</span>
+                    </div>
+                    <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
+                        <div>TCP容器端口</div>
+                        <div>TCP服务端口</div>
+                    </div>
+                    <div style="overflow: hidden;" ng-show="container.isOwnerI">
+                        <ul class="three_list three_list_room">
+                            <!--<li>容器端口：</li>-->
+                            <li><span class="room_tit">{{container.containerPort}}</span></li>
 
                                 </ul>
 
-                                <ul class="three_list three_list_serivce">
-                                    <!--<li>服务端口：</li>-->
-                                    <li><span class="room_tit">{{container.hostPort}}</span></li>
-                                </ul>
-                            </div>
-                            <div style="overflow: hidden;padding-top: 8px;" ng-show="!container.isOwnerI">
-                                <ul style="overflow: hidden;padding-left: 92px;">
-                                    <li class="ownerSL"  ng-repeat="port in container.port">
-                                        <div>
-                                            <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.hostPort">
-                                        </div>
-                                        <div > <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.containerPort" ></div>
-                                        <a ng-click="delport(container.port,$index)" ng-show="$index!==container.port.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
-                                        <a ng-click="addport(container.port)" ng-show="$index===container.port.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="adv_set clboth">
-                            <p class="adv_tit" ng-show="!container.othersetting" ng-click="changed(container)">高级设置</p>
-                        </div>
-                        <!--ng-show="container.othersetting"-->
-                        <div class="adv_set_detail" ng-show="container.othersetting">
-                            <!--环境变量模块-->
-                            <div class="one_list_block clboth mt_ten">
-                                <div class="three_top add_mb15">
-                                    <p class="one_name">环境变量</p>
-                                    <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question">如何进行端口配置？</i></span>
+                        <ul class="three_list three_list_serivce">
+                            <!--<li>服务端口：</li>-->
+                            <li><span class="room_tit">{{container.hostPort}}</span></li>
+                        </ul>
+                    </div>
+                    <div style="overflow: hidden;" ng-show="!container.isOwnerI">
+                        <ul style="overflow: hidden;padding-left: 92px;">
+                            <li class="ownerSL"  ng-repeat="port in container.port">
+                                <div>
+                                    <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.hostPort">
                                 </div>
-                                <ul class="four_name">
-                                    <li>键</li>
-                                    <li>值</li>
-                                </ul>
-                                <ul class="four_list">
-                                    <li ng-repeat="envitem in container.env">
-                                        <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="1-24位小写字母、数字、或下划线组成">
-                                        <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="0-2048个 ASCII字符组成">
-                                        <a ng-click="delenv(container.env,$index)" ng-show="$index!==container.env.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
-                                        <a ng-click="addenv(container.env)" ng-show="$index===container.env.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
-                                    </li>
-                                    <!--<li>-->
-                                    <!--<input type="text" class="four_list_l" placeholder="请输入'键'">-->
-                                    <!--<input type="text" class="four_list_r" placeholder="请输入'值'">-->
-                                    <!---->
-                                    <!--</li>-->
+                                <div > <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.containerPort" ></div>
+                                <a ng-click="delport(container.port,$index)" ng-show="$index!==container.port.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                                <a ng-click="addport(container.port)" ng-show="$index===container.port.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="adv_set clboth">
+                    <p class="adv_tit" ng-show="!container.othersetting" ng-click="changed(container)">高级设置</p>
+                </div>
+                    <!--ng-show="container.othersetting"-->
+                <div class="adv_set_detail" ng-show="container.othersetting">
+                <!--环境变量模块-->
+                <div class="one_list_block clboth mt_ten">
+                    <div class="three_top add_mb15">
+                        <p class="one_name">环境变量</p>
+                        <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question">如何进行端口配置？</i></span>
+                    </div>
+                    <ul class="four_name">
+                        <li>键</li>
+                        <li>值</li>
+                    </ul>
+                    <ul class="four_list">
+                        <li ng-repeat="envitem in container.env">
+                            <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="1-24位小写字母、数字、或下划线组成">
+                            <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="0-2048个 ASCII字符组成">
+                            <a ng-click="delenv(container.env,$index)" ng-show="$index!==container.env.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
+                            <a ng-click="addenv(container.env)" ng-show="$index===container.env.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
+                        </li>
+                        <!--<li>-->
+                            <!--<input type="text" class="four_list_l" placeholder="请输入'键'">-->
+                            <!--<input type="text" class="four_list_r" placeholder="请输入'值'">-->
+                            <!---->
+                        <!--</li>-->
 
                                     <li></li>
                                 </ul>
@@ -848,21 +867,21 @@
                                                 </a></li>
                                         </ul>
 
-                                    </div>
                                 </div>
                             </div>
-                            <div class="row" ng-repeat="container in dc.spec.template.spec.containers" >
-                                <div class="col-xs-2" style="padding-left:15px;padding-right:0px">
-                                    <img src="views/service_detail_new/img/nor_pic.png" class="img_oo">
-                                    <span>{{container.name}}</span>
-                                </div>
-                                <div class="col-xs-2">
-                                    <input type="number" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数">
-                                </div>
-                                <div class="col-xs-2">
-                                    <input type="number" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory"  placeholder="1-32内的整数">
-                                </div>
-                                <div class="col-xs-2">
+                        </div>
+                        <div class="row" ng-repeat="container in dc.spec.template.spec.containers" >
+                            <div class="col-xs-2" style="padding-left:15px;padding-right:0px">
+                                <img src="views/service_detail_new/img/nor_pic.png" class="img_oo">
+                                <span>{{container.name}}</span>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" min="1" max="16" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" maxlength="2" placeholder="1-16内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" min="1" max="32" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory" maxlength="2"  placeholder="1-32内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
+                            </div>
+                            <div class="col-xs-2">
 
                                 </div>
                                 <div class="col-xs-2">
@@ -875,22 +894,22 @@
                         </div>
                         <!--<div class="row">-->
                         <!--<div class="col-xs-2" style="padding-right:0;">-->
-                        <!--<i class="img_oo"></i><span>datafoundry</span>-->
+                            <!--<i class="img_oo"></i><span>datafoundry</span>-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                        <!--<input type="text" placeholder="1-16内的整数">-->
+                            <!--<input type="text" placeholder="1-16内的整数">-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                        <!--<input type="text" placeholder="1-32内的整数">-->
+                            <!--<input type="text" placeholder="1-32内的整数">-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
 
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                        <!--1核-->
+                            <!--1核-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                        <!--2GB-->
+                            <!--2GB-->
                         <!--</div>-->
                         <!--</div>-->
                         <div class="row bottom_heji">
@@ -955,107 +974,107 @@
                         </div>
                     </div>
 
-                    <div class="two_tab_r">
-                        <span class="change_tit" ng-click="openModal('后端服务','backservice')">更改</span>
-                    </div>
+                <div class="two_tab_r">
+                    <span class="change_tit" ng-click="openModal('后端服务','backservice')">更改</span>
                 </div>
-
-
-                <div class="tab_select tab_select_service" ng-click="openModal('后端服务','backservice')">
-                    <span class="tab_select_tit tab_select_tit_two">选择后端服务</span>
-                </div>
-
-
             </div>
-            <!--<p class="set_add_service clboth" ng-click="openModal('申请后端服务','createservice')">申请后端服务</p>-->
 
-            <div class="clear_three"></div>
-            <div class="create_top clboth">
-                <div class="left">
-                    <p class="ser_name_left">域名设置</p>
-                </div>
-                <div class="right">
-                    <p class="ser_name_right font_normal">
-                        定义服务的访问地址，当前一个域名只支持一个端口，若需要访问多个端口，可以定义多个域名来映射端口。
-                        <i class="four_question">如何进行端口配置？</i>
-                    </p>
-                    <div class="row" style="margin-bottom: 4px">
-                        <div class="col-xs-3">
-                            端口协议
-                        </div>
-                        <div class="col-xs-9">
-                            域名
-                        </div>
+
+            <div class="tab_select tab_select_service" ng-click="openModal('后端服务','backservice')">
+                <span class="tab_select_tit tab_select_tit_two">选择后端服务</span>
+            </div>
+
+
+        </div>
+        <!--<p class="set_add_service clboth" ng-click="openModal('申请后端服务','createservice')">申请后端服务</p>-->
+
+        <div class="clear_three"></div>
+        <div class="create_top clboth">
+            <div class="left">
+                <p class="ser_name_left">域名设置</p>
+            </div>
+            <div class="right">
+                <p class="ser_name_right font_normal">
+                    定义服务的访问地址，当前一个域名只支持一个端口，若需要访问多个端口，可以定义多个域名来映射端口。
+                    <i class="four_question">如何进行端口配置？</i>
+                </p>
+                <div class="row" style="margin-bottom: 4px">
+                    <div class="col-xs-3">
+                        端口协议
                     </div>
-                    <div class="row" style="margin-bottom: 38px;">
-                        <div class="col-xs-3">
-                            <div class="cqcl">
-                                <div class="area_select">
-                                    <div uib-dropdown on-toggle="toggled(open)">
-                                        <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                            <span class="mleft service_per_tit two_tab_ellipsis" title="{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}">{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}</span>
-                                            <b class="xl_bg"></b>
-                                        </a>
-                                        <ul class="dropdown-menu zx_area_drop zx_area_drop_jia" uib-dropdown-menu aria-labelledby="user-menu">
-                                            <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
-                                                <a href="javascript:void(0);">
-                                                    <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
-                                                </a></li>
-                                            <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
-                                            <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
-                                        </ul>
+                    <div class="col-xs-9">
+                        域名
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 38px;">
+                    <div class="col-xs-3">
+                        <div class="cqcl">
+                            <div class="area_select">
+                                <div uib-dropdown on-toggle="toggled(open)">
+                                    <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                                        <span class="mleft service_per_tit two_tab_ellipsis" title="{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}">{{routeconf.checkcon}}&nbsp;&nbsp;{{routeconf.checkport}}</span>
+                                        <b class="xl_bg"></b>
+                                    </a>
+                                    <ul class="dropdown-menu zx_area_drop zx_area_drop_jia" uib-dropdown-menu aria-labelledby="user-menu">
+                                        <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
+                                            <a href="javascript:void(0);">
+                                                <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
+                                            </a></li>
+                                        <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
+                                        <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
+                                    </ul>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-9">
-                            <input type="text" ng-model="routeconf.host" class="ymqz_input" ng-focus="ymqzfocus()"ng-blur="ymqzblur()" placeholder="域名前缀">
-                            <b  class="houzui">
-                                {{routeconf.suffix}}
-                            </b>
-                        </div>
+                    </div>
+                    <div class="col-xs-9">
+                        <input type="text" ng-model="routeconf.host" class="ymqz_input" ng-focus="ymqzfocus()"ng-blur="ymqzblur()" placeholder="域名前缀">
+                        <b  class="houzui">
+                            {{routeconf.suffix}}
+                        </b>
                     </div>
                 </div>
-            </div>
-
-
-
-            <div class="create_top clboth">
-                <div class="left">
-                    <p class="ser_name_left">自动部署</p>
-                </div>
-                <div class="right">
-                    <p class="ser_name_right font_normal">
-                        这里有以下两种触发自动部署的事件，由于新的服务启动成功后，才会停止旧的服务，所以用户对服务的访问不会间断。
-                    </p>
-                    <div class="row" style="margin-bottom:0px;">
-                        <div class="col-xs-3">
-                            <i class="checkbox_info" ng-click="changebuild.ImageChange=!changebuild.ImageChange" ng-class="{active:changebuild.ImageChange}"></i>
-                            <span class="pz_label">配置变化触发自动部署</span>
-                        </div>
-                        <div class="col-xs-9">
-                            <i class="four_question">修改服务的某项配置后，将自动重新部署服务</i>
-                        </div>
-                    </div>
-                    <div class="row" ng-show="error.image!=='our'">
-                        <div class="col-xs-3">
-                            <i class="checkbox_info" ng-click="changebuild.ConfigChange=!changebuild.ConfigChange" ng-class="{active:changebuild.ConfigChange}"></i>
-                            <span class="pz_label">镜像变化触发自动部署</span>
-                        </div>
-                        <div class="col-xs-9">
-                            <i class="four_question">重新构建代码后，将自动部署新的镜像</i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="create_top clboth">
-                <span class="ser_btn ser_back_btn mt14 two_radius" ng-click="preStep()">上一步</span>
-                <span class="ser_btn ser_next_btn mt14 two_radius" ng-click="creat()" ng-show="isCreate">{{btnText.one}}</span>
-                <span class="next_one_load" style="margin-top:14px;margin-left:20px" ng-show = "!isCreate&&!isComplete"><i></i>{{btnText.two}}</span>
-                <span class="ser_btn ser_next_btn mt14 two_radius create_complete" ng-show="isComplete"><i></i>{{btnText.three}}</span>
             </div>
         </div>
-        <!---------------------------- 模块3 访问服务模块 结束------------------------------->
+
+
+
+        <div class="create_top clboth">
+            <div class="left">
+                <p class="ser_name_left">自动部署</p>
+            </div>
+            <div class="right">
+                <p class="ser_name_right font_normal">
+                    这里有以下两种触发自动部署的事件，由于新的服务启动成功后，才会停止旧的服务，所以用户对服务的访问不会间断。
+                </p>
+                <div class="row" style="margin-bottom:0px;">
+                    <div class="col-xs-3">
+                        <i class="checkbox_info" ng-click="changebuild.ImageChange=!changebuild.ImageChange" ng-class="{active:changebuild.ImageChange}"></i>
+                        <span class="pz_label">配置变化触发自动部署</span>
+                    </div>
+                    <div class="col-xs-9">
+                        <i class="four_question">修改服务的某项配置后，将自动重新部署服务</i>
+                    </div>
+                </div>
+                <div class="row" ng-show="error.image!=='our'">
+                    <div class="col-xs-3">
+                        <i class="checkbox_info" ng-click="changebuild.ConfigChange=!changebuild.ConfigChange" ng-class="{active:changebuild.ConfigChange}"></i>
+                        <span class="pz_label">镜像变化触发自动部署</span>
+                    </div>
+                    <div class="col-xs-9">
+                        <i class="four_question">重新构建代码后，将自动部署新的镜像</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="create_top clboth">
+            <span class="ser_btn ser_back_btn mt14 two_radius" ng-click="preStep()">上一步</span>
+            <span class="ser_btn ser_next_btn mt14 two_radius" ng-click="creat()" ng-show="isCreate">{{btnText.one}}</span>
+            <span class="next_one_load" style="margin-top:14px;margin-left:20px" ng-show = "!isCreate&&!isComplete"><i></i>{{btnText.two}}</span>
+            <span class="ser_btn ser_next_btn mt14 two_radius create_complete" ng-show="isComplete"><i></i>{{btnText.three}}</span>
+        </div>
+    </div>
+    <!---------------------------- 模块3 访问服务模块 结束------------------------------->
     </form>
 </div>
