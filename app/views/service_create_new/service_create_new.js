@@ -70,7 +70,7 @@ angular.module('console.service.createnew', [
                     cancreat:false
 
                 },
-                reqerr :{
+                reqerr : {
                     cpuerr:false,
                     memoryerr:false
                 },
@@ -955,8 +955,8 @@ angular.module('console.service.createnew', [
                             con.resources.limits.memory=parseInt(con.resources.limits.memory)
                         }else {
                             con.resources.limits={}
-                            con.resources.limits.cpu=0
-                            con.resources.limits.memory=0
+                            con.resources.limits.cpu=''
+                            con.resources.limits.memory=''
                         }
                         //console.log('con.imagename', con.imagename);
                         for(var k in $scope.dc.metadata.annotations){
@@ -1402,6 +1402,11 @@ angular.module('console.service.createnew', [
                     if ($scope.requests.residuememory < 0) {
                         $scope.requests.residuememory=0
                         $scope.error.reqerr.memoryerr=true
+                    }
+                }else {
+                    $scope.error.reqerr={
+                        cpuerr:false,
+                        memoryerr:false
                     }
                 }
 
