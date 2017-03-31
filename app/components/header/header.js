@@ -24,6 +24,16 @@ angular.module("console.header", [
 
                     $(".mycheck").on("click",function(){
                         $(".zx_account_set").toggleClass("zx_account_set_hover");
+                    });
+                    $(document.body).click(function(e){
+                        var width = $('.header_per').width();
+                        var windowWidth = $(window).width();
+                        if(e.clientY>52||(e.clientY<52&&e.clientX<windowWidth-width)){
+                            $(".zx_account_set").removeClass("zx_account_set_hover");
+                        }
+                        // if($(e.target)!==$(".zx_account_set")&&$(e.target)!==$(".header_per")){
+                        //     $(".zx_account_set").removeClass("zx_account_set_hover");
+                        // }
                     })
                     $scope.gotoorg= function () {
                         $state.go('console.org', {

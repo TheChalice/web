@@ -1,9 +1,6 @@
 
 <div id="service">
-    <div class="new-loading" ng-show="!items">
-        <img style="height:30px;width:30px;" src="pub/img/logo.gif" alt="">
-    </div>
-    <div ng-if="items">
+    <div>
         <div class="service_top">这里汇聚了平台上创建的所有服务。<i class="four_question"> 如何创建一个服务？</i></div>
         <div class="row" style="margin-right:0;">
             <div class="col-sm-4 col-xs-4 serv_jia_btn">
@@ -33,33 +30,38 @@
                     <li>创建时间</li>
                     <li>更新时间</li>
                     <li>
-                        <div uib-dropdown on-toggle="toggled(open)">
-                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                        <div uib-dropdown on-toggle="toggled(open)" class="servie_list_toggle">
+                        <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
                             <span style="color:#666;width:90px;display:block;margin:0 auto;position:relative;">状态 ({{grid.changestatus}})
-                            <b class="ser_bg_btn" style="right:-10px;top:16px;"></b></span>
+                            <b class="ser_bg_btn"></b></span>
 
-                            </a>
-                            <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                <li class="zx_active" ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name><a href="javascript:void(0);" ><span>{{name.name}}</span></a></li>
-                                <!--<li><a href="javascript:void(0);"><span>异常</span></a></li>-->
-                                <!--<li><a href="javascript:void(0);"><span>未启动</span></a></li>-->
-                                <!--<li><a href="javascript:void(0);"><span>正常</span></a></li>-->
+                        </a>
+                        <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                            <li class="zx_active" ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name>
+                                <a href="javascript:void(0);" ><span ng-class="{colored:name.name===grid.changestatus}">{{name.name}}</span></a></li>
+                            <!--<li><a href="javascript:void(0);"><span>异常</span></a></li>-->
+                            <!--<li><a href="javascript:void(0);"><span>未启动</span></a></li>-->
+                            <!--<li><a href="javascript:void(0);"><span>正常</span></a></li>-->
 
-                            </ul>
-                        </div></li>
+                        </ul>
+                    </div></li>
                     <li>访问地址</li>
                     <li>实例副本</li>
                     <li>操作</li>
                 </ul>
                 <!--<tr ng-repeat="bc in items">-->
-                <ul class="nav_service_main" ng-repeat="dc in items">
+                <div class="new-loading" ng-show="!items">
+                    <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+                    <span style="color:#666">加载中...</span>
+                </div>
+                <ul class="nav_service_main" ng-repeat="dc in items" ng-show="items">
                     <li>
                         <a class="href-blue" style="margin:0 auto" ui-sref="console.service_detail({name: dc.metadata.name})" uib-tooltip="{{dc.metadata.name}}" tooltip-placement="top">
                             {{dc.metadata.name}}
                         </a>
                     </li>
                     <li><span uib-tooltip="{{dc.metadata.creationTimestamp  | timescon}}">{{dc.metadata.creationTimestamp | dateRelative}}</span></li>
-                    <li>{{dc.rc.metadata.creationTimestamp | dateRelative}}</li>
+                    <li>10分钟前</li>
                     <li>{{dc.ismn}}</li>
                     <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
                         <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
@@ -68,19 +70,19 @@
                     <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
                     <li>
                         <a class="href-blue" ng-click="restartDc($index)"  uib-tooltip="重启" href="javascript:;">重启</a>
-                        <a class = "href-blue" style="margin-right:0px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'"  uib-tooltip="启动" href="javascript:;">启动</a>
-                        <a class = "href-blue" style="margin-right:0px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" uib-tooltip="停止" href="javascript:;">停止</a>
+                        <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'"  uib-tooltip="启动" href="javascript:;">启动</a>
+                        <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" uib-tooltip="停止" href="javascript:;">停止</a>
                         <a class = "href-blue" style="margin-right:0px;" ng-click="del($index)"  uib-tooltip="删除" href="javascript:;">删除</a>
 
                     </li>
                 </ul>
                 <ul ng-if="items.length===0" style="margin:0;padding:0;">
-                    <li style="text-align: center;height:44px;line-height:44px;background: #fff;position:relative padding-top:20px;padding-bottom:20px"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></li>
+                  <li style="text-align: center;height:44px;line-height:44px;background: #fff;position:relative padding-top:20px;padding-bottom:20px"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></li>
                 </ul>
             </div>
-            <!--<div style="margin-top:20px" style="display:none;">-->
-            <!--<span>第1页，第3项</span>-->
-            <!--</div>-->
+            <div style="margin-top:20px" style="display:none;" ng-show="items">
+                <span>第{{grid.page}}页，共{{grid.total}}项</span>
+            </div>
             <div class="text-right" ng-if="grid.total > 0">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"

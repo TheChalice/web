@@ -1,15 +1,16 @@
 
 <div class="create_new_detail">
     <div class="new-loading" ng-show="!dc">
-        <img style="height:30px;width:30px;" src="pub/img/logo.gif" alt="">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
     </div>
     <div class="detail_new_content" ng-show="dc">
         <!--<ul>-->
-        <!--<li><a href="javascript:(0)" ng-click="openModal('服务部署','fuwubushu')">服务部署</a></li>-->
-        <!--<li><a href="javascript:(0)" ng-click="openModal('服务监控','fuwujiankong')">服务监控</a></li>-->
-        <!--<li><a href="javascript:(0)" ng-click="openModal('部署记录','bushujilu')">部署记录</a></li>-->
-        <!--<li><a href="javascript:(0)" ng-click="openModal('配置信息','peizhixinxi')">配置信息</a></li>-->
-        <!--<li><a href="javascript:(0)" ng-click="openModal('操作日志','caozuorizhi')" >操作日志</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('服务部署','fuwubushu')">服务部署</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('服务监控','fuwujiankong')">服务监控</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('部署记录','bushujilu')">部署记录</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('配置信息','peizhixinxi')">配置信息</a></li>-->
+            <!--<li><a href="javascript:(0)" ng-click="openModal('操作日志','caozuorizhi')" >操作日志</a></li>-->
 
         <!--</ul>-->
         <div class="content-one">
@@ -23,7 +24,7 @@
                         运行状态：<span ng-if="dc.state == 'normal'">运行中</span>
                     </div>
                     <div>
-                        域名：<a href="http://{{dc.route.spec.host}}">{{dc.route.spec.host}}</a>
+                        域名：<a href="http://{{dc.route.spec.host}}">{{dc.route.spec.host||'--'}}</a>
                     </div>
                     <div>
                         <a  href="javascript:void(0)"  ui-sref="console.service_create({dc:dc.metadata.name})">修改配置</a>
@@ -32,15 +33,15 @@
             </div>
             <div>
                 <!--<a class="btn pull-right"-->
-                <!--ng-show="dc.state != 'normal'"-->
-                <!--ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"-->
-                <!--ng-disabled=startBtn.dianlz-->
-                <!--ng-click="startDc()">{{startBtn.name}}</a>-->
+                   <!--ng-show="dc.state != 'normal'"-->
+                   <!--ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"-->
+                   <!--ng-disabled=startBtn.dianlz-->
+                   <!--ng-click="startDc()">{{startBtn.name}}</a>-->
                 <!--<a class="btn pull-right"-->
-                <!--ng-show="dc.state == 'normal'"-->
-                <!--ng-class="{'btn-green':stopBtn.dianl, 'btn-orange': stopBtn.dianlz}"-->
-                <!--ng-disabled=stopBtn.dianlz-->
-                <!--ng-click="stopDc()">{{stopBtn.name}}</a>-->
+                   <!--ng-show="dc.state == 'normal'"-->
+                   <!--ng-class="{'btn-green':stopBtn.dianl, 'btn-orange': stopBtn.dianlz}"-->
+                   <!--ng-disabled=stopBtn.dianlz-->
+                   <!--ng-click="stopDc()">{{stopBtn.name}}</a>-->
                 <a  ng-show="dc.state != 'normal'"
                     ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"
                     ng-disabled=startBtn.dianlz
@@ -63,12 +64,12 @@
                 </div>
                 <div>
                     <p>
-                        <i></i>
+                       <i></i>
                         <span>运行中</span>
                         <span>{{dc.status.replicas || 0}}</span>
                     </p>
                     <p>
-                        <i></i>
+                       <i></i>
                         <span>异常</span>
                         <span>0</span>
                     </p>

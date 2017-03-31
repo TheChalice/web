@@ -40,7 +40,7 @@ angular.module('console.service.detail', [
             var $detailModal = $('.detail_new_modal');
             var widthnav = $(window).width();
             $detailModal.css({
-                'left':widthnav,
+                'left':widthnav
             });
         }
         initModal();
@@ -66,7 +66,7 @@ angular.module('console.service.detail', [
             var $window_width = $(window).width();
             $detailModal.animate({
                 left: $window_width,
-                right: -$window_width
+                right:-$window_width
             }, 'normal', 'linear', function () {
                 $scope.isShowmodal[$scope.whatmodal] = false;
                 $scope.whatmodal = '';
@@ -1321,19 +1321,7 @@ angular.module('console.service.detail', [
                 }
 
                 $scope.bsi = res;
-                $scope.bindingBsi = [];
 
-                angular.forEach($scope.bsi.items, function (item) {
-
-                    angular.forEach(item.spec.binding, function (bind) {
-                        // console.log("============", bind.bind_deploymentconfig, o.dc.metadata.name);
-                        //console.log(bind.bind_deploymentconfig, o.dc.metadata.name);
-                        if (bind.bind_deploymentconfig == $scope.dc.metadata.name) {
-                            $scope.bindingBsi.push({name:item.metadata.name});
-                            //console.log('$scope.bindingBs',$scope.bindingBsi);
-                        }
-                    })
-                });
             }, function (res) {
                 //todo 错误处理
                 // $log.info("loadBsi err", res);
