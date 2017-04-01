@@ -430,7 +430,7 @@ li {
 .config_new{padding:30px 40px 20px;position:relative;overflow:auto;}
 .config_new .mt30{margin-top:30px;}
 .config_new .radius_set{-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;}
-.config_new p{margin:0px;}
+.config_new p{margin:0px;font-size:12px;}
 .config_new .block_top{height:44px;line-height:44px;background:#f0f0f0;}
 .config_new .block_top p{font-size:14px;color:#333;text-indent:20px;}
 .config_new .block_mid{padding:20px;border:1px solid #f0f0f0;background:#fff;height:auto;overflow:hidden;}
@@ -438,6 +438,7 @@ li {
 .config_new .block_one_left .name_tit{font-size:12px;color:#666;}
 .config_new .block_one_right .name_detail{font-size:12px;color:#333;}
 .config_new .block_one{border-left:1px solid #adb9f5;padding-left:40px;margin-left:40px;padding-bottom:30px;}
+.config_new .block_one_room{padding-bottom:0;margin-bottom:40px;}
 .config_new .block_one:before{position:absolute;content:"";width: 0;height: 0; border-top: 10px solid transparent; border-right: 10px solid #f0f0f0;
     border-bottom: 10px solid transparent;left:115px;margin-top:16px;}
 .config_new .block_one_right{margin-left:90px;}

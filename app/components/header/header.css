@@ -282,7 +282,7 @@ overflow: hidden;max-width:100px;}
 .zx_account_set{position:absolute;width:270px;top:52px;bottom:0;right:-270px;background:#fff;-webkit-box-shadow:0px 0px 8px rgba(0,0,0,.1);
     -webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
 .zx_account_set_hover{right:0;}
-.zx_account_tit{font-weight:normal;display:block;color:#333;font-size:14px;height:40px;line-height:40px;text-indent:20px;border-bottom:1px solid #e5e5e5;}
+.zx_account_tit{font-weight:normal;display:block;color:#333;font-size:14px;height:42px;line-height:42px;text-indent:20px;border-bottom:1px solid #e5e5e5;}
 .zx_account_detail{padding:28px 20px 16px;border-bottom:1px solid #e5e5e5;height:auto;overflow:hidden;}
 .zx_account_one .zx_t{float:left;height:40px;line-height:40px;}
 .zx_person{width:40px;height:40px;-webkit-border-radius:100%;background:#868686;display:block;float:left;background: url(img/tou_person.png) no-repeat;}
