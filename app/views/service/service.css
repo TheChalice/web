@@ -50,7 +50,7 @@
 
 /*����Ϊ��ʱ״̬*/
 .blank_block{margin-bottom:0;}
-.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+.blank_tit{font-size:14px;color:#999;margin-left:10px;vertical-align:middle;}
 .serv_jia_btn{padding-left:15px!important;}
 
 .service .table-default > tbody > tr > th {
@@ -124,23 +124,24 @@ ul,li{list-style:none;}
 .service .table-default{border:0;overflow:visible;}
 .nav_service{height:46px;background:#f0f0f0;line-height:46px;padding:0;margin:0;}
 .nav_service li{float:left;width:14%;text-align:center;color:#999;font-size:12px;}
-.nav_service li:nth-child(1){width:20%;}
-.nav_service li:nth-child(2){width:12%;}
-.nav_service li:nth-child(3){width:12%;}
+.nav_service li:nth-child(1){width:18%;}
+.nav_service li:nth-child(2){width:10%;}
+.nav_service li:nth-child(3){width:10%;}
 .nav_service li:nth-child(4){width:14%;}
-.nav_service li:nth-child(5){width:14%;}
-.nav_service li:nth-child(6){width:14%;}
-.nav_service li:nth-child(7){width:14%;}
+.nav_service li:nth-child(5){width:22%;}
+.nav_service li:nth-child(6){width:10%;}
+.nav_service li:nth-child(7){width:16%;}
 
 .nav_service_main{padding:0px;margin:0;height:auto;overflow:hidden;}
+.nav_service_main:hover{background:#eef1fd;}
 .nav_service_main li{width:14%;float:left;text-align:center;height:44px;padding-top:14px;padding-bottom:14px;border-bottom:1px solid #f0f0f0;font-size:12px;}
-.nav_service_main li:nth-child(1){width:20%;text-align:left;padding-left:20px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
-.nav_service_main li:nth-child(2){width:12%;}
-.nav_service_main li:nth-child(3){width:12%;}
+.nav_service_main li:nth-child(1){width:18%;text-align:center;padding-left:20px;padding-right:20px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
+.nav_service_main li:nth-child(2){width:10%;}
+.nav_service_main li:nth-child(3){width:10%;}
 .nav_service_main li:nth-child(4){width:14%;}
-.nav_service_main li:nth-child(5){width:14%;}
-.nav_service_main li:nth-child(6){width:14%;}
-.nav_service_main li:nth-child(7){width:14%;}
+.nav_service_main li:nth-child(5){width:22%;}
+.nav_service_main li:nth-child(6){width:10%;}
+.nav_service_main li:nth-child(7){width:16%;}
 
 /*.service .table-default .nav_service_main:hover{background:#eef1fd;}*/
 /*.nav_service_main .href-tit{color:#5b73eb}*/
@@ -157,3 +158,24 @@ ul,li{list-style:none;}
 #service .servie_list_toggle.open .ser_bg_btn{top:23px;}
 #service .dropdown-menu > li span.colored {color:#5b73eb;}
 #service .service_drop li a:hover{background:#eef1fd!important;}
+
+.servie_page_num{font-size:12px;color:#999;}
+
+/*分页公共样式*/
+.service_page_uib .pagination>li>a,.service_page_uib .pagination>li>span{margin-right:10px;width:30px;height:28px;text-align:center;padding:0;
+line-height:28px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;color:#999;}
+.service_page_uib .pagination>li:first-child>a{width:48px;color:#999;}
+.service_page_uib .pagination>li:last-child>a{width:48px;color:#999;}
+.service_page_uib .pagination>li:first-child>a, .service_page_uib .pagination>li:first-child>span{
+    -webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;}
+.service_page_uib .pagination>li>a:hover{color:#5b73ed;}
+
+.service_page_uib .pagination>li>a:focus,.service_page_uib .pagination>li>a:hover,.service_page_uib .pagination>li>span:focus,.service_page_uib .pagination>li>span:hover{
+    background:#fff;border-color:#5b73ed;
+}
+.service_page_uib .pagination>li.active a{color:#fff;}
+/*分页公共样式*/
+
+/*列表数据为空*/
+.service_block_blank{margin:0;padding:0;}
+.service_block_blank .blank_block{margin-bottom:0;border-bottom: 1px solid #f0f0f0;height: 84px;padding-top: 32px;}

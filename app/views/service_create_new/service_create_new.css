@@ -165,7 +165,7 @@ ul,li{list-style:none;padding: 0}
 .create_one_block{padding-bottom:40px;margin-bottom:35px;}
  .ser_name{float:left;font-size:12px;color:#666;width:96px;height:30px;line-height:30px;}
  .ser_name i{color:#ef6464;}
-.create_one_block .input_text{width:466px;height:30px;border:1px solid #d4d4d4;padding-left:4px;font-size:12px;padding-right:4px;}
+.create_one_block .input_text{width:466px;height:30px;border:1px solid #d4d4d4;padding-left:4px;font-size:12px;}
 .create_one_block .create_one_top{overflow:hidden;height:30px;}
  .ser_next_one{width:100px;line-height:30px;text-align:center;font-size:14px;cursor:pointer;color:#666;display:block;
 height:30px;float:left;overflow:hidden;}
@@ -234,7 +234,7 @@ margin-top:8px;margin-left:12px;-webkit-animation:create_rotate 1s linear infini
  .one_name{float:left;font-size:12px;color:#666;width:92px;}
  .one_name i{color:#ef6464;}
 .create_two_block .one_input_text{width:406px;height:30px;border:1px solid #d4d4d4;padding-left:10px;font-size:12px;}
-.create_two_block .two_detail{color:#999;font-size:12px;}
+.create_two_block .two_detail{color:#999;font-size:12px;display:block;margin-left:92px;}
 .input_set_two .input_set_l{width:414px;}
 
 /*公共选择展示模块*/
@@ -347,6 +347,7 @@ max-height:170px;overflow:auto;width:78px;}
     -webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);transform:rotate(135deg);-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
 .create_two_block .service_drop .zx_active a{color:#333;}
 .create_two_block .service_drop .zx_active a:hover{background:#eef1fd;}
+.create_two_block .jx_toggle .zx_active a{padding:0px 4px;}
 .colored {color:#5b73eb;}
 
 
@@ -457,7 +458,7 @@ max-height:170px;overflow:auto;width:78px;}
     border: 1px solid #e8e9e9;
     position: relative;
 }
-.right:hover .xl_bg{border:solid #5a73eb;border-width:1px 1px 0 0;}
+.right .three_step:hover .xl_bg{border:solid #5a73eb;border-width:1px 1px 0 0;}
 .right .area_select .open .xl_bg{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg);top:12px;}
 .right .xl_bg{
     top:10px;
@@ -945,7 +946,7 @@ p{margin:0;}
     margin-top:10px;
 }
 .ownerSL div{
-    width: 196px;
+    width: 183px;
     font-size: 12px;
     color: #999;
     height: auto;
@@ -959,7 +960,7 @@ p{margin:0;}
 }
 .serImgTop div{
     float: left;
-    width: 196px;
+    width: 183px;
     height: 24px;
     line-height:24px;font-size:12px;color:#666;
 }

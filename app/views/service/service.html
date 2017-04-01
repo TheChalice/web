@@ -64,38 +64,39 @@
                     <li>{{dc.rc.metadata.creationTimestamp | dateRelative}}</li>
                     <li>{{dc.ismn}}</li>
                     <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
-                        <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
-                        <a class="href-blue" style="color: gray;cursor: no-drop;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
+                        <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="{{dc.route.spec.host}}" target="_blank"><span class="address_tit" uib-tooltip="{{dc.route.spec.host}}" tooltip-placement="top">{{dc.route.spec.host}}</span></a>
+                        <a class="href-blue" style="color: gray;cursor: no-drop;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" uib-tooltip="{{dc.route.spec.host}}" tooltip-placement="top">{{dc.route.spec.host}}</span></a>
                     </li>
                     <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
                     <li>
                         <a class="href-blue" ng-click="restartDc($index)" href="javascript:;">重启</a>
                         <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'" href="javascript:;">启动</a>
                         <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" href="javascript:;">停止</a>
-                        <a class = "href-blue" style="margin-right:0px;" ng-click="del($index)"  uib-tooltip="删除" href="javascript:;">删除</a>
+                        <a class = "href-blue" style="margin-right:0px;" ng-click="del($index)"  href="javascript:;">删除</a>
 
                     </li>
                 </ul>
-                <ul ng-if="items.length===0" style="margin:0;padding:0;">
-                  <li style="text-align: center;height:44px;line-height:44px;background: #fff;position:relative;padding-top:20px;padding-bottom:20px"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></li>
+                <ul ng-if="items.length===0" class="service_block_blank">
+                    <li style="text-align: center;background: #fff;position:relative;"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.service_create">去创建！</a></span></p></li>
                 </ul>
             </div>
-            <div style="margin-top:20px" style="display:none;" ng-show="items">
-                <span>第{{grid.page}}页，共{{grid.total}}项</span>
+            <div style="margin-top:20px;float:left;" style="display:none;" ng-show="items">
+                <span class="servie_page_num">第 {{grid.page}} 页，共 {{grid.total}} 项</span>
             </div>
-            <div class="text-right" ng-if="grid.total > 0">
+            <div class="text-right service_page_uib" ng-if="grid.total > 0">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"
                                 total-items="grid.total"
                                 items-per-page="grid.size"
                                 class="pagination-sm"
                                 boundary-links="true"
+                                direction-links="false"
                                 max-size="12"
                                 rotate="true"
                                 previous-text="上一页"
                                 next-text="下一页"
                                 first-text="首页"
-                                last-text="末页">
+                                last-text="尾页">
                 </uib-pagination>
             </div>
 
