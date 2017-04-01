@@ -165,7 +165,7 @@ ul,li{list-style:none;padding: 0}
 .create_one_block{padding-bottom:40px;margin-bottom:35px;}
  .ser_name{float:left;font-size:12px;color:#666;width:96px;height:30px;line-height:30px;}
  .ser_name i{color:#ef6464;}
-.create_one_block .input_text{width:466px;height:30px;border:1px solid #d4d4d4;padding-left:10px;font-size:12px;}
+.create_one_block .input_text{width:466px;height:30px;border:1px solid #d4d4d4;padding-left:4px;font-size:12px;padding-right:4px;}
 .create_one_block .create_one_top{overflow:hidden;height:30px;}
  .ser_next_one{width:100px;line-height:30px;text-align:center;font-size:14px;cursor:pointer;color:#666;display:block;
 height:30px;float:left;overflow:hidden;}
@@ -288,7 +288,7 @@ margin-top:8px;margin-left:12px;-webkit-animation:create_rotate 1s linear infini
 
 .four_list li{margin-bottom:10px;}
 .four_list_l{margin-right:20px;}
-.four_list_l,.four_list_r{width:160px;height:28px;border:1px solid #e5e5e5;padding-left:8px;font-size:12px;}
+.four_list_l,.four_list_r{width:160px;height:28px;border:1px solid #e5e5e5;padding-left:4px;padding-right:4px;font-size:12px;}
 .one_list_jl{margin-left:92px;}
 
 .ser_set{width:27px;height:27px;line-height:22px;font-size:20px;display:inline-block;text-align:center;vertical-align: bottom;margin-left:6px;}
@@ -952,6 +952,8 @@ p{margin:0;}
     line-height: 23px;
     float: left;
 }
+.ownerSL div:nth-child(2){width:160px;}
+.ownerSL div input{border:1px solid #e5e5e5;padding-left:4px;padding-right:4px;height:28px;}
 .ownerSL a{
     float: left;
 }

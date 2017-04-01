@@ -12,7 +12,7 @@
             </a>
             <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
                 <li class="zx_active" ng-click="gotomy()"><a href="javascript:void(0);"><span>默认组织</span></a></li>
-                <li ng-if="project.metadata.name!==user.metadata.name" ng-repeat="project in projects" ng-click="setNamespace(project.metadata.name)"><a href="javascript:void(0);"><span>{{project.metadata.annotations['openshift.io/display-name'] || project.metadata.name}}</span></a></li>
+                <li ng-if="project.metadata.name!==user.metadata.name" ng-repeat="project in projects" ng-click="setNamespace(project.metadata.name)"><a href="javascript:void(0);"><span title="{{project.metadata.annotations['openshift.io/display-name'] || project.metadata.name}}">{{project.metadata.annotations['openshift.io/display-name'] || project.metadata.name}}</span></a></li>
                 <!--<li><a href="javascript:void(0);"><span>上海组织</span></a></li>-->
                 <li class="zx_mange" ng-click="gotoorg()"><a href="javascript:void(0);"><span>管理组织</span></a></li>
             </ul>
