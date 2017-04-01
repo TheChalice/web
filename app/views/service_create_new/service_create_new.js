@@ -1378,13 +1378,14 @@ angular.module('console.service.createnew', [
 
             }
             //配额
-            $http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region=' + $rootScope.region).success(function (data) {
+            resourcequotas.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (data) {
                 if (data.items && data.items[0] && data.items[0].spec) {
 
                     $scope.requests.residuecpu = $scope.requests.cpu = data.items[0].spec.hard['requests.cpu'];
                     $scope.requests.residuememory = $scope.requests.memory = data.items[0].spec.hard['requests.memory'].replace('Gi', '');
                 }
             })
+
             $scope.$watch('dc.spec.replicas', function (n,o) {
                 if (n === o) {
                     return
