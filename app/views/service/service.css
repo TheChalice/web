@@ -121,7 +121,7 @@
 
 ul,li{list-style:none;}
 
-.service .table-default{border:0;}
+.service .table-default{border:0;overflow:visible;}
 .nav_service{height:46px;background:#f0f0f0;line-height:46px;padding:0;margin:0;}
 .nav_service li{float:left;width:14%;text-align:center;color:#999;font-size:12px;}
 .nav_service li:nth-child(1){width:20%;}
