@@ -52,13 +52,14 @@ angular.module('console.service', [
                 //});
             }
             $scope.del= function (idx) {
-                $log.info('$scope.items[idx]$scope.items[idx]', $scope.items[idx])
+                //$log.info('$scope.items[idx]$scope.items[idx]', $scope.items[idx])
                 DeploymentConfig.remove({
                     namespace: $rootScope.namespace,
                     name: $scope.items[idx].metadata.name,
                     region:$rootScope.region
                 }, function (res) {
                     console.log('res', res);
+                    $scope.items.splice(idx,1)
                 })
                 Service.delete({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
                     // console.log("deleService-yes",res);
@@ -70,6 +71,17 @@ angular.module('console.service', [
                 }, function (res) {
                     // console.log("deleRoute-no",res);
                 })
+                deletepod.delete({
+                    namespace: $rootScope.namespace,
+                    region:$rootScope.region,
+                    name: $scope.items[idx].metadata.name
+
+                }, function (data) {
+
+                },function(err){
+
+                })
+
                 ReplicationController.remove({
                     namespace: $rootScope.namespace,
                     labelSelector: 'openshift.io/deployment-config.name=' + $scope.items[idx].metadata.name,
@@ -77,16 +89,8 @@ angular.module('console.service', [
                 }, function (res) {
                     // $log.info("remove rcs success", res);
                     //rmDc(dc)
-                    deletepod.delete({
-                        namespace: $rootScope.namespace,
-                        region:$rootScope.region,
-                        name: $scope.items[idx].metadata.name
+                    //$scope.items.splice(idx,1)
 
-                    }, function (data) {
-                        $scope.items.splice(idx,1)
-                    },function(err){
-
-                    })
                 }, function (res) {
                     // $log.info("remove rcs err", res);
                 });
