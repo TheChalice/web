@@ -163,7 +163,7 @@ ul,li{list-style:none;}
 
 /*分页公共样式*/
 .service_page_uib .pagination>li>a,.service_page_uib .pagination>li>span{margin-right:10px;width:30px;height:28px;text-align:center;padding:0;
-line-height:28px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;color:#999;}
+    line-height:28px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;color:#999;}
 .service_page_uib .pagination>li:first-child>a{width:48px;color:#999;}
 .service_page_uib .pagination>li:last-child>a{width:48px;color:#999;}
 .service_page_uib .pagination>li:first-child>a, .service_page_uib .pagination>li:first-child>span{

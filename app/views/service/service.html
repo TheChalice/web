@@ -31,20 +31,20 @@
                     <li>更新时间</li>
                     <li>
                         <div uib-dropdown on-toggle="toggled(open)" class="servie_list_toggle">
-                        <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
                             <span style="color:#999;width:90px;display:block;margin:0 auto;position:relative;">状态 ({{grid.changestatus}})
                             <b class="ser_bg_btn"></b></span>
 
-                        </a>
-                        <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                            <li class="zx_active" ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name>
-                                <a href="javascript:void(0);" ><span ng-class="{colored:name.name===grid.changestatus}">{{name.name}}</span></a></li>
-                            <!--<li><a href="javascript:void(0);"><span>异常</span></a></li>-->
-                            <!--<li><a href="javascript:void(0);"><span>未启动</span></a></li>-->
-                            <!--<li><a href="javascript:void(0);"><span>正常</span></a></li>-->
+                            </a>
+                            <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                                <li class="zx_active" ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name>
+                                    <a href="javascript:void(0);" ><span ng-class="{colored:name.name===grid.changestatus}">{{name.name}}</span></a></li>
+                                <!--<li><a href="javascript:void(0);"><span>异常</span></a></li>-->
+                                <!--<li><a href="javascript:void(0);"><span>未启动</span></a></li>-->
+                                <!--<li><a href="javascript:void(0);"><span>正常</span></a></li>-->
 
-                        </ul>
-                    </div></li>
+                            </ul>
+                        </div></li>
                     <li>访问地址</li>
                     <li>实例副本</li>
                     <li>操作</li>
@@ -66,6 +66,7 @@
                     <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
                         <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="{{dc.route.spec.host}}" target="_blank"><span class="address_tit" uib-tooltip="{{dc.route.spec.host}}" tooltip-placement="top">{{dc.route.spec.host}}</span></a>
                         <a class="href-blue" style="color: gray;cursor: no-drop;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" uib-tooltip="{{dc.route.spec.host}}" tooltip-placement="top">{{dc.route.spec.host}}</span></a>
+
                     </li>
                     <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
                     <li>
