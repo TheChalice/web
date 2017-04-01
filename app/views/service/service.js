@@ -368,6 +368,12 @@ angular.module('console.service', [
                     $scope.routeMap = {};
                     for (var i = 0; i < data.items.length; i++) {
                         $scope.routeMap[data.items[i].spec.to.name] = data.items[i];
+                        if (data.items[i].spec.tls) {
+                            data.items[i].spec.host='https://'+data.items[i].spec.host
+                        }else {
+                            data.items[i].spec.host='http://'+data.items[i].spec.host
+                        }
+                        console.log('data.items[i].spec.host', data.items[i].spec.host);
                     }
 
                     for (var i = 0; i < servicedata.length; i++) {

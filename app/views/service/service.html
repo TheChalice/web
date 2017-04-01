@@ -64,7 +64,7 @@
                     <li>{{dc.rc.metadata.creationTimestamp | dateRelative}}</li>
                     <li>{{dc.ismn}}</li>
                     <li style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;display:block;word-break:break-all;word-wrap:break-word;text-align:center;">
-                        <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
+                        <a class="href-blue" style="display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn=='正常'" href="{{dc.route.spec.host}}" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
                         <a class="href-blue" style="color: gray;cursor: no-drop;display:block;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;margin:0 auto" ng-if="dc.ismn!=='正常'" target="_blank"><span class="address_tit" title="{{dc.route.spec.host}}">{{dc.route.spec.host}}</span></a>
                     </li>
                     <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
