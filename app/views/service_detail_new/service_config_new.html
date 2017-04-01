@@ -189,14 +189,14 @@
                         <div class="block_one_left">
                             <p class="name_tit">环境变量</p>
                         </div>
-                        <div class="block_one_right" >
+                        <div class="block_one_right">
                             <div class="block_one_list">
                                 <ul class="three_list">
                                     <li>键：</li>
                                     <li>值：</li>
                                 </ul>
                                 <div class="clear"></div>
-                                <ul class="three_list three_list_detail clear" ng-repeat="env in envs">
+                                <ul class="three_list three_list_detail clear" ng-repeat="env in container.env">
                                     <li>{{env.name}}</li>
                                     <li>{{env.value}}</li>
                                 </ul>

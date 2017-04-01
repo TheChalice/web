@@ -373,7 +373,7 @@ angular.module('console.service', [
                         }else {
                             data.items[i].spec.host='http://'+data.items[i].spec.host
                         }
-                        console.log('data.items[i].spec.host', data.items[i].spec.host);
+                        //console.log('data.items[i].spec.host', data.items[i].spec.host);
                     }
 
                     for (var i = 0; i < servicedata.length; i++) {
