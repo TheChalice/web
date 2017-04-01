@@ -275,7 +275,7 @@
                 <div class="content">
                     <div class="create_secret">
                         <div class="create_secret_input">
-                            <p class="ser_name">服务名称<i>*</i></p>
+                            <p class="ser_name">服务名称 <i>*</i></p>
                             <div class="input_set">
                                 <div class="input_set_l">
                                     <input autocomplete="off"
@@ -324,7 +324,7 @@
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off"
                                            class="input_text one_input_text ng-pristine ng-untouched ng-valid ng-valid-maxlength"
-                                           placeholder="2-2-24位小写字母、数字或中划线组成"
+                                           placeholder="2-24位小写字母、数字或中划线组成"
                                            type="text"
                                            ng-class="{inputred:error.chijiunameerr.rexed||error.chijiunameerr.repeated}"
                                            class="form-control"
@@ -417,7 +417,7 @@
                                 <ul>
                                     <li ng-repeat="item in volume.configarr">
                                         <div class="row two_con" style="margin:0;">
-                                            <div class="col-sm-6" style="padding:0;"><input type="text" ng-model="item.key" style="border:1px solid #e5e5e5;"></div>
+                                            <div class="col-sm-6" style="padding:0;"><input type="text" ng-model="item.key" style="border:1px solid #e5e5e5;background: #f0f2f3;" disabled="disabled"></div>
                                             <div class="col-sm-2 browse" ng-click="add($index)">浏览文件<input type="file" class="file-input" value="选择"/></div>
                                             <div class="col-sm-2 browse-con" style="margin-left:15px;" ng-click="openValue(item.value)">查看内容</div>
                                             <div class="col-sm-1" >
@@ -492,11 +492,11 @@
     <form class="form-dccreat" name="frm">
         <div class="create_one_block ng-hide" ng-show="isShow.step2">
             <div class="create_one_top">
-                <p class="ser_name">服务名称<i>*</i></p>
+                <p class="ser_name">服务名称 <i>*</i></p>
                 <div class="input_set">
                     <div class="input_set_l">
                         <input type="text" autocomplete="off" name="dcname" ng-class="{inputred:error.dcnameerr.rexed||error.dcnameerr.repeated}" ng-blur="error.dcname=true" ng-disabled="updata" ng-focus="error.dcname=false" ng-model="dc.metadata.name" class="input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
-                        <span class="input_close" ng-show="dc.metadata.name!==''"  ng-click="dc.metadata.name=''"></span>
+                        <span class="input_close" ng-show="dc.metadata.name!==''&&!updata"  ng-click="dc.metadata.name=''"></span>
                     </div>
                     <!--<span class="btn_set_new error_btn" style="display:none;"></span>-->
                     <span class="btn_set_new error_btn ng-hide" ng-show="error.dcnameerr.repeated"></span>
@@ -528,12 +528,12 @@
                     </div>
                     <div class="one_list clboth">
                         <div class="one_list_block">
-                            <p class="one_name">容器名称<i>*</i></p>
+                            <p class="one_name">容器名称 <i>*</i></p>
                             <div class="input_set input_set_two">
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
                                            ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
-                                    <span class="input_close" ng-show="container.name!==''"  ng-click="container.name=''"></span>
+                                    <span class="input_close" ng-show="container.name!==''&&!updata"  ng-click="container.name=''"></span>
                                 </div>
                                 <span class="btn_set_new error_btn ng-hide" ng-show="container.namerr.repeated"></span>
                                 <!--<span class="btn_set_new ok_btn" ng-show="!error.dcnameerr.repeated&&!error.dcnameerr.null&&!error.dcnameerr.rexed"></span>-->
@@ -544,7 +544,7 @@
                         </div>
                         <div class="clboth_ten"></div>
                         <div class="one_list_block clboth add_mb15">
-                            <p class="one_name">添加镜像<i>*</i></p>
+                            <p class="one_name">添加镜像 <i>*</i></p>
                             <span class="two_detail">镜像是容器运行的前提，配置容器前请确保已经选择镜像。</span>
                         </div>
                         <div class="one_list_block clboth one_list_jl">
@@ -583,25 +583,24 @@
 
 
                         </div>
-
-                <div class="clboth_ten"></div>
-                <div class="one_list_block clboth">
-                    <div class="three_top add_mb15">
-                        <p class="one_name">镜像端口</p>
-                        <span class="two_detail">取镜像中定义的端口。</span>
-                    </div>
-                    <div class="input_set" style="float: none;padding-left:92px;">
-                        <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 113px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
-                        <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>自定义端口</span>
-                    </div>
-                    <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
-                        <div>TCP容器端口</div>
-                        <div>TCP服务端口</div>
-                    </div>
-                    <div style="overflow: hidden;" ng-show="container.isOwnerI">
-                        <ul class="three_list three_list_room">
-                            <!--<li>容器端口：</li>-->
-                            <li><span class="room_tit">{{container.containerPort}}</span></li>
+                        <div class="clboth_ten"></div>
+                        <div class="one_list_block clboth">
+                            <div class="three_top add_mb15">
+                                <p class="one_name">镜像端口</p>
+                                <span class="two_detail">取镜像中定义的端口。</span>
+                            </div>
+                            <div class="input_set" style="float: none;padding-left:92px;">
+                                <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 113px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
+                                <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>自定义端口</span>
+                            </div>
+                            <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
+                                <div>TCP容器端口</div>
+                                <div>TCP服务端口</div>
+                            </div>
+                            <div style="overflow: hidden;" ng-show="container.isOwnerI">
+                                <ul class="three_list three_list_room">
+                                    <!--<li>容器端口：</li>-->
+                                    <li><span class="room_tit">{{container.containerPort}}</span></li>
 
                                 </ul>
 
@@ -858,10 +857,10 @@
                                     <span>{{container.name}}</span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="number" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数">
+                                    <input type="text" min="1" max="16" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" maxlength="2" placeholder="1-16内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="number" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory"  placeholder="1-32内的整数">
+                                    <input type="text" min="1" max="32" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory" maxlength="2"  placeholder="1-32内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
                                 </div>
                                 <div class="col-xs-2">
 
@@ -876,22 +875,22 @@
                         </div>
                         <!--<div class="row">-->
                         <!--<div class="col-xs-2" style="padding-right:0;">-->
-                            <!--<i class="img_oo"></i><span>datafoundry</span>-->
+                        <!--<i class="img_oo"></i><span>datafoundry</span>-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                            <!--<input type="text" placeholder="1-16内的整数">-->
+                        <!--<input type="text" placeholder="1-16内的整数">-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                            <!--<input type="text" placeholder="1-32内的整数">-->
+                        <!--<input type="text" placeholder="1-32内的整数">-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
 
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                            <!--1核-->
+                        <!--1核-->
                         <!--</div>-->
                         <!--<div class="col-xs-2">-->
-                            <!--2GB-->
+                        <!--2GB-->
                         <!--</div>-->
                         <!--</div>-->
                         <div class="row bottom_heji">

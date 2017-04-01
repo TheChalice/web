@@ -1435,10 +1435,16 @@ angular.module('console.service.createnew', [
                 $scope.requests.usememory = 0;
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
                     if (item.resources.limits.cpu) {
+                        if (item.resources.limits.cpu > 16) {
+                            item.resources.limits.cpu=16
+                        }
                         item.usecpu=item.resources.limits.cpu*$scope.dc.spec.replicas
                         $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
                     if (item.resources.limits.memory) {
+                        if (item.resources.limits.memory > 32) {
+                            item.resources.limits.memory=32
+                        }
                         item.usememory=item.resources.limits.memory *$scope.dc.spec.replicas
                         $scope.requests.usememory =$scope.requests.usememory+ item.usememory
                     }
