@@ -166,7 +166,7 @@ angular.module('console.service.detail', [
                 },
                 series: [{
                     name: 'cpu',
-                    color: '#adb9f5',
+                    color: '#5b73eb',
                     fillOpacity: 0.6,
                     marker: {
                         enabled: false,
@@ -193,14 +193,14 @@ angular.module('console.service.detail', [
                 xAxis: {
                     //categories: ['9:00','9:30', '10:00', '10:30', '11:00', '11:30', '12:00'],
                     type: 'datetime',
-                    gridLineWidth: 1
+                    gridLineWidth: 0.1
                 },
                 yAxis: [{
                     // gridLineDashStyle: 'ShortDash',
                     title: {
                         text: 'CPU (%)',
                         style: {
-                            color: '#333'
+                            color: '#999'
                         }
                     },
                 },{
@@ -208,7 +208,7 @@ angular.module('console.service.detail', [
                     title: {
                         text: '内存 (M)',
                         style: {
-                            color: '#333'
+                            color: '#999'
                         }
                     },
                     opposite: true
