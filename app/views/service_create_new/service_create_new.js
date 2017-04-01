@@ -2042,13 +2042,21 @@ angular.module('console.service.createnew', [
                 $scope.service.spec.selector.deploymentconfig = $scope.dc.metadata.name;
 
                 var ps = [];
-                console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
-
+                //console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
+                if (updata === 'updata') {
+                    for (var k in $scope.service.metadata.annotations) {
+                        if (k.indexOf('dadafoundry.io/ports-') > -1) {
+                            delete $scope.service.metadata.annotations[k]
+                        }
+                    }
+                }
                 angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
                     //angular.forEach($scope.dc.spec.template.spec.containers, function (con, i) {
                     //        console.log('con[i].hostPort',con[i]);
                     //console.log(con);
                     //$scope.isOwnerI
+
+                    console.log('con.isOwnerI',con.isOwnerI);
                     if (con.isOwnerI) {
 
                         if (con.hostPort) {
@@ -2087,6 +2095,16 @@ angular.module('console.service.createnew', [
                 }
                 //$log.info('$scope.service0-0-0-0-', $scope.service.spec.ports);
                 if (updata === 'updata'&&$scope.service.metadata.resourceVersion) {
+                    Service.put({
+                        namespace: $rootScope.namespace,
+                        name: $scope.service.metadata.name,
+                        region:$rootScope.region
+                    }, $scope.service, function (res) {
+                        // $log.info("update service success", res);
+                        //$scope.service = res;
+                    }, function (res) {
+                        // $log.info("update service fail", res);
+                    });
 
                 }else {
                     Service.create({
