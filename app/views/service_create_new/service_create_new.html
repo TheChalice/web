@@ -83,8 +83,8 @@
                                                 <div class="two_tab_l">
                                                     <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
                                                     <div class="two_tab_tit">
-                                                        <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
-                                                        <span class="two_tab_ellipsis">{{item.metadata.name}} 是开源的消息是开源的消息</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.showname}}</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.showname}} 是开源的消息是开源的消息</span>
                                                     </div>
                                                 </div>
 
@@ -124,8 +124,8 @@
                                                 <div class="two_tab_l">
                                                     <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
                                                     <div class="two_tab_tit">
-                                                        <span class="two_tab_ellipsis">{{item.metadata.name}}</span>
-                                                        <span class="two_tab_ellipsis">{{item.metadata.name}} 是开源的消息是开源的消息</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.showname}}</span>
+                                                        <span class="two_tab_ellipsis">{{item.metadata.showname}} 是开源的消息是开源的消息</span>
                                                     </div>
                                                 </div>
 
@@ -997,7 +997,11 @@
                                             <b class="xl_bg"></b>
                                         </a>
                                         <ul class="dropdown-menu zx_area_drop zx_area_drop_jia" uib-dropdown-menu aria-labelledby="user-menu">
-                                            <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
+                                            <li class="zx_active" ng-repeat="route in dc.spec.template.spec.containers" ng-show="route.isOwnerI&&route.hostPort" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
+                                                <a href="javascript:void(0);">
+                                                    <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
+                                                </a></li>
+                                            <li class="zx_active" ng-repeat="route in conport" ng-show="!route.isOwnerI" ng-click="routeconf.checkcon=route.name;routeconf.checkport=route.hostPort">
                                                 <a href="javascript:void(0);">
                                                     <span class="drop_name_tit two_tab_ellipsis" title="{{route.name}}&nbsp;&nbsp;{{route.hostPort}}">{{route.name}}&nbsp;&nbsp;{{route.hostPort}}</span>
                                                 </a></li>

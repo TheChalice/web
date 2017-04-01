@@ -106,7 +106,8 @@ angular.module('console.service.createnew', [
                                 checkbox:"",
                                 type:'our',
                                 metadata: {
-                                    name:item
+                                    name:item,
+                                    showname:item.split('/')[1]
                                 },
                                 status:{
                                     tags:[]
@@ -140,7 +141,8 @@ angular.module('console.service.createnew', [
                                 checkbox:"",
                                 type:'our',
                                 metadata:{
-                                    name:item
+                                    name:item,
+                                    showname:item.split('/')[1]
                                 },
                                 status:{
                                     tags:[]
@@ -207,6 +209,7 @@ angular.module('console.service.createnew', [
                     $scope.stepup.twoerr=true;
                     $scope.stepup.hasimage=true;
                     $scope.stepup.two=false;
+                    $scope.conport=[];
                     angular.forEach(n, function (con,i) {
 
                         if (con.name && con.name.length > 0) {
@@ -239,7 +242,14 @@ angular.module('console.service.createnew', [
                         if (con.namerr.rexed || con.namerr.null || con.namerr.repeated) {
                             $scope.stepup.twoerr=false;
                         }
+                        if (!con.isOwnerI) {
+
+                            angular.forEach(con.port, function (port) {
+                                $scope.conport.push({name:con.name,hostPort:port.hostPort})
+                            })
+                        }
                     })
+
                     if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
                         $scope.stepup.two=true;
                     }
@@ -789,12 +799,12 @@ angular.module('console.service.createnew', [
                                 "port": {
                                     "targetPort": ""
                                 },
-                                "tls": {}
+
                             }
                         };
                     })
                     Service.get({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
-                        console.log('service',res);
+                        //console.log('service',res);
                         $scope.service=res
                         //$scope.dc.spec.template.spec.containers[i].port=[];
                         for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
@@ -802,12 +812,12 @@ angular.module('console.service.createnew', [
                             for(var k in res.metadata.annotations){
                                 if (k.indexOf('dadafoundry.io/ports-')>-1) {
                                     if (k.split('-')[1]===$scope.dc.spec.template.spec.containers[i].name) {
+                                        //console.log('k.split', k.split('-')[1],i);
                                         $scope.dc.spec.template.spec.containers[i].isOwnerI=false;
-                                    }else {
-                                        $scope.dc.spec.template.spec.containers[i].isOwnerI=true;
                                     }
                                 }
                             }
+
                             for (var j = 0; j < res.spec.ports.length; j++) {
                                 if ($scope.dc.spec.template.spec.containers[i].name === res.spec.ports[j].name.split('-')[1]) {
                                     var pObj = {
@@ -815,67 +825,18 @@ angular.module('console.service.createnew', [
                                         containerPort:res.spec.ports[j].targetPort
                                     }
                                     $scope.dc.spec.template.spec.containers[i].port.push(pObj);
-                                    console.log('$scope.dc.spec.template.spec.containers[i].ports', $scope.dc.spec.template.spec.containers[i].ports);
+                                    //console.log('$scope.dc.spec.template.spec.containers[i].ports', $scope.dc.spec.template.spec.containers[i].ports);
                                 }
 
                             }
                         }
-
-
-                    }, function (err) {
-                        $scope.service = {
-                            "kind": "Service",
-                            "apiVersion": "v1",
-                            "metadata": {
-                                "name": "",
-                                "labels": {
-                                    "app": ""
-                                },
-                                annotations: {
-                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                                }
-                            },
-                            "spec": {
-                                "ports": [],
-                                "selector": {
-                                    "app": "",
-                                    "deploymentconfig": ""
-                                },
-                                //"portalIP": "172.30.189.230",
-                                //"clusterIP": "172.30.189.230",
-                                "type": "ClusterIP",
-                                "sessionAffinity": "None"
+                        angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
+                            if (con.isOwnerI!==false) {
+                                con.isOwnerI=true
                             }
-                        };
-                    })
-                    Service.get({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
-                        console.log('service',res);
-                        $scope.service=res
-                        //$scope.dc.spec.template.spec.containers[i].port=[];
-                        for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
-                            $scope.dc.spec.template.spec.containers[i].port=[];
-                            for(var k in res.metadata.annotations){
-                                if (k.indexOf('dadafoundry.io/ports-')>-1) {
-                                    if (k.split('-')[1]===$scope.dc.spec.template.spec.containers[i].name) {
-                                        $scope.dc.spec.template.spec.containers[i].isOwnerI=false;
-                                    }else {
-                                        $scope.dc.spec.template.spec.containers[i].isOwnerI=true;
-                                    }
-                                }
-                            }
-                            for (var j = 0; j < res.spec.ports.length; j++) {
-                                if ($scope.dc.spec.template.spec.containers[i].name === res.spec.ports[j].name.split('-')[1]) {
-                                    var pObj = {
-                                        hostPort:res.spec.ports[j].port,
-                                        containerPort:res.spec.ports[j].targetPort
-                                    }
-                                    $scope.dc.spec.template.spec.containers[i].port.push(pObj);
-                                   console.log('$scope.dc.spec.template.spec.containers[i].ports', $scope.dc.spec.template.spec.containers[i].ports);
-                                }
 
-                            }
-                        }
-
+                        })
+                        console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
 
                     }, function (err) {
                         $scope.service = {
@@ -935,19 +896,19 @@ angular.module('console.service.createnew', [
                         angular.forEach(con.volumeMounts, function (volue,k) {
 
                             if (volue.name.indexOf('secrat') > -1) {
-                            angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
-                                if (volue.name === vol.name) {
-                                    var modelvol ={
-                                        secret: {
-                                            secretName: vol.secret.secretName
-                                        },
-                                        mountPath: volue.mountPath
+                                angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
+                                    if (volue.name === vol.name) {
+                                        var modelvol ={
+                                            secret: {
+                                                secretName: vol.secret.secretName
+                                            },
+                                            mountPath: volue.mountPath
+                                        }
+                                        con.secretsobj.secretarr.push(modelvol)
+
+
                                     }
-                                    con.secretsobj.secretarr.push(modelvol)
-
-
-                                }
-                            })
+                                })
                             }else if (volue.name.indexOf('config') > -1) {
                                 angular.forEach($scope.dc.spec.template.spec.volumes, function (vol,j) {
                                     if (volue.name === vol.name) {
@@ -1010,10 +971,10 @@ angular.module('console.service.createnew', [
                             con.resources.limits.memory=parseInt(con.resources.limits.memory)
                         }else {
                             con.resources.limits={}
-                            con.resources.limits.cpu=0
-                            con.resources.limits.memory=0
+                            con.resources.limits.cpu=''
+                            con.resources.limits.memory=''
                         }
-                            //console.log('con.imagename', con.imagename);
+                        //console.log('con.imagename', con.imagename);
                         for(var k in $scope.dc.metadata.annotations){
                             //console.log(k.indexOf('dadafoundry.io/image-'));
                             if (k.indexOf('dadafoundry.io/image-')>-1) {
@@ -1212,7 +1173,7 @@ angular.module('console.service.createnew', [
                         "port": {
                             "targetPort": ""
                         },
-                        "tls": {}
+
                     }
                 };
                 BackingServiceInstance.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
@@ -1430,26 +1391,27 @@ angular.module('console.service.createnew', [
                 }
                 $scope.count()
             })
+
             $scope.count = function () {
                 $scope.requests.usecpu = 0;
                 $scope.requests.usememory = 0;
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
                     if (item.resources.limits.cpu) {
-                        if (item.resources.limits.cpu > 16) {
-                            item.resources.limits.cpu=16
+                        if (item.resources.limits.cpu > $scope.requests.cpu) {
+                            item.resources.limits.cpu=$scope.requests.cpu
                         }
                         item.usecpu=item.resources.limits.cpu*$scope.dc.spec.replicas
                         $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
                     if (item.resources.limits.memory) {
-                        if (item.resources.limits.memory > 32) {
-                            item.resources.limits.memory=32
+                        if (item.resources.limits.memory > $scope.requests.memory) {
+                            item.resources.limits.memory=$scope.requests.memory
                         }
                         item.usememory=item.resources.limits.memory *$scope.dc.spec.replicas
                         $scope.requests.usememory =$scope.requests.usememory+ item.usememory
                     }
                 })
-                console.log('$scope.requests',$scope.requests);
+                //console.log('$scope.requests',$scope.requests);
                 $scope.requests.residuecpu = $scope.requests.cpu - $scope.requests.usecpu;
                 $scope.requests.residuememory = $scope.requests.memory - $scope.requests.usememory;
 
@@ -1460,10 +1422,12 @@ angular.module('console.service.createnew', [
                         $scope.requests.residuecpu=0
                         $scope.error.reqerr.cpuerr=true
                     }
+
                     if ($scope.requests.residuememory < 0) {
                         $scope.requests.residuememory=0
                         $scope.error.reqerr.memoryerr=true
                     }
+
                 }else {
                     $scope.error.reqerr={
                         cpuerr:false,
