@@ -61,16 +61,19 @@ angular.module('console.service', [
                     console.log('res', res);
                     $scope.items.splice(idx,1)
                 })
-                Service.delete({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+
+                Service.delete({namespace: $rootScope.namespace, name: $scope.items[idx].metadata.name,region:$rootScope.region}, function (res) {
                     // console.log("deleService-yes",res);
                 }, function (res) {
                     // console.log("deleService-no",res);
                 })
-                Route.delete({namespace: $rootScope.namespace, name: $scope.dc.metadata.name,region:$rootScope.region}, function (res) {
+
+                Route.delete({namespace: $rootScope.namespace, name:$scope.items[idx].metadata.name,region:$rootScope.region}, function (res) {
                     // console.log("deleRoute-yes",res);
                 }, function (res) {
                     // console.log("deleRoute-no",res);
                 })
+
                 deletepod.delete({
                     namespace: $rootScope.namespace,
                     region:$rootScope.region,
