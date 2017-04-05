@@ -258,7 +258,7 @@ angular.module('console.service.createnew', [
                                 console.log('ecret.mountPath', secret.mountPath);
 
                                 if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
-                                    secret.mountPath='/'
+                                    secret.mountPath='/'+secret.mountPath
 
                                 }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
                                     if (secret.mountPath.indexOf('//') === 0) {
@@ -270,7 +270,7 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.configmap) {
                             angular.forEach(con.secretsobj.configmap, function (secret, k) {
                                 if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
-                                    secret.mountPath='/'
+                                    secret.mountPath='/'+secret.mountPath
 
                                 }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
                                     if (secret.mountPath.indexOf('//') === 0) {
@@ -282,7 +282,7 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.persistentarr) {
                             angular.forEach(con.secretsobj.persistentarr, function (secret, k) {
                                 if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
-                                    secret.mountPath='/'
+                                    secret.mountPath='/'+secret.mountPath
 
                                 }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
                                     if (secret.mountPath.indexOf('//') === 0) {
