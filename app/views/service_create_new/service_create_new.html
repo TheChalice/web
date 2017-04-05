@@ -899,13 +899,13 @@
                                 合计资源
                             </div>
                             <div class="col-xs-2">
-                                已用 <span>{{requests.usecpu}}</span>核/剩余{{requests.residuecpu}}核
+                                已用 <span>{{requests.usecpu}}</span> 核/可用 <span>{{requests.residuecpu}}</span> 核
                                 <div class="error_block_tip" ng-show="error.reqerr.cpuerr">
                                     <p>超出最大可用资源</p>
                                 </div>
                             </div>
                             <div class="col-xs-2" style="white-space: nowrap">
-                                已用 <span>{{requests.usememory}}</span>GB/剩余<span>{{requests.residuememory}}</span>GB
+                                已用 <span>{{requests.usememory}}</span> GB/可用 <span>{{requests.residuememory}}</span> GB
                                 <div class="error_block_tip" ng-show="error.reqerr.memoryerr" >
                                     <p>超出最大可用资源</p>
                                 </div>
