@@ -276,14 +276,14 @@ ul,li{list-style:none;padding: 0}
 .tab_select_tit:before{content:"";position:absolute;font-size:26px;color:#5b73eb;top:2px;left:-21px;
     background: url(img/jia_bg_btn.png) no-repeat;width:14px;height:14px;background-size:14px 14px;}
 .three_list{float:left;}
-.three_list li{width:196px;font-size:12px;color:#999;height:auto;line-height:23px;}
+.three_list li{width:183px;font-size:12px;color:#999;height:auto;line-height:23px;}
 .three_list li span{color:#5b73eb;}
 .three_list_room{margin-left:92px;}
 .room_tit{color:#4970bb;}
 
 .four_question{color:#5b73eb;font-size:12px;font-style: normal;padding-left:12px;cursor:pointer;}
 .four_question:hover{text-decoration:underline;}
-.four_name,.four_list{padding-left:92px;clear:both;overflow:hidden;margin-bottom:10px;}
+.four_name,.four_list{padding-left:92px;clear:both;overflow:hidden;margin-bottom:14px;}
 .four_name li{width:160px;text-align:left;margin-right:20px;float:left;text-indent:4px;font-size:12px;color:#666;}
 
 .four_list li{margin-bottom:10px;}
@@ -964,4 +964,4 @@ p{margin:0;}
     height: 24px;
     line-height:24px;font-size:12px;color:#666;
 }
-
+.disable_tit{height:30px;line-height:30px;color:#f00;font-size:12px;}
