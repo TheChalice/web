@@ -253,6 +253,45 @@ angular.module('console.service.createnew', [
                         if (con.resources.limits.memory) {
                             $scope.count();
                         }
+                        if (con.secretsobj.secretarr) {
+                            angular.forEach(con.secretsobj.secretarr, function (secret, k) {
+                                console.log('ecret.mountPath', secret.mountPath);
+
+                                if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
+                                    secret.mountPath='/'
+
+                                }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
+                                    if (secret.mountPath.indexOf('//') === 0) {
+                                        secret.mountPath='/'
+                                    }
+                                }
+                            })
+                        }
+                        if (con.secretsobj.configmap) {
+                            angular.forEach(con.secretsobj.configmap, function (secret, k) {
+                                if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
+                                    secret.mountPath='/'
+
+                                }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
+                                    if (secret.mountPath.indexOf('//') === 0) {
+                                        secret.mountPath='/'
+                                    }
+                                }
+                            })
+                        }
+                        if (con.secretsobj.persistentarr) {
+                            angular.forEach(con.secretsobj.persistentarr, function (secret, k) {
+                                if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
+                                    secret.mountPath='/'
+
+                                }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
+                                    if (secret.mountPath.indexOf('//') === 0) {
+                                        secret.mountPath='/'
+                                    }
+                                }
+                            })
+                        }
+
 
                     })
 
@@ -1633,7 +1672,7 @@ angular.module('console.service.createnew', [
             }, function (res) {
                 $scope.createvolume.persmnamearr = res.items;
             })
-            var rex = /^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            //var rex = /^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
 
             $scope.createvolume.empty = function () {
                 if ($scope.createvolume.volume.name === '') {
@@ -2384,7 +2423,7 @@ angular.module('console.service.createnew', [
                     //    delete clonedc.spec.template.spec.containers[i].env
                     //}
 
-                    console.log(clonedc, '!clonedc.othersetting');
+                    //console.log(clonedc, '!clonedc.othersetting');
                     if (!con.othersetting) {
                         delete clonedc.spec.template.spec.containers[i].secretsobj
                         delete clonedc.spec.template.spec.containers[i].env
@@ -2403,8 +2442,6 @@ angular.module('console.service.createnew', [
                                 } else {
                                     delete clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k]
                                 }
-
-
                             });
 
                         }
