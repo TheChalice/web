@@ -131,7 +131,6 @@ angular.module('console.service.createnew', [
                     })
                 }else if(n === 4&&!$scope.docimage){
                     //docimage
-
                     platform.query({id:1}, function (docdata) {
                         var arr=[];
                         //$scope.docimage=[]
@@ -140,11 +139,11 @@ angular.module('console.service.createnew', [
                             arr.push({
                                 checkbox:"",
                                 type:'our',
-                                metadata:{
+                                metadata: {
                                     name:item,
                                     showname:item.split('/')[1]
                                 },
-                                status:{
+                                status: {
                                     tags:[]
                                 }
                             })
@@ -254,6 +253,7 @@ angular.module('console.service.createnew', [
                         if (con.resources.limits.memory) {
                             $scope.count();
                         }
+
                     })
 
                     if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
@@ -681,7 +681,7 @@ angular.module('console.service.createnew', [
                 checkcon:'选择端口',
                 checkport:'',
                 host: '',
-                suffix: '.like.dataapp.c.citic'
+                suffix: '.'+$rootScope.namespace+'.dataapp.c.citic'
             }
             $scope.changebuild= {
                 ConfigChange:true,
@@ -768,9 +768,6 @@ angular.module('console.service.createnew', [
 
 
                         })
-
-
-
                     }, function (res) {
                         //todo 错误处理
                         // $log.info("loadBsi err", res);
@@ -780,8 +777,9 @@ angular.module('console.service.createnew', [
                         $scope.route = res;
                         $scope.routeconf.checkcon=res.spec.port.targetPort.split('-')[1];
                         $scope.routeconf.checkport=res.spec.port.targetPort.split('-')[0];
-                        $scope.routeconf.host=res.spec.host.split('.like.datapp.c.citic')[0];
-                        console.log('route',res);
+                        //var host='.'+$rootScope.namespace+'.dataapp.c.citic'
+                        $scope.routeconf.host=res.spec.host.split('.')[0];
+                        console.log('route',$scope.routeconf.host);
 
                     }, function (err) {
                         $scope.route = {
@@ -843,7 +841,6 @@ angular.module('console.service.createnew', [
 
                         })
                         console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
-
                     }, function (err) {
                         $scope.service = {
                             "kind": "Service",
@@ -874,7 +871,15 @@ angular.module('console.service.createnew', [
                         if (!con.volumeMounts) {
                             con.volumeMounts=[];
                         }
-                        con.imagename=con.image.split('/')[2].split('@')[0]
+                        console.log('con.image', con.image);
+                        if (con.image.indexOf('172.30.188.59:5000')>-1) {
+                            con.imagename=con.image.split('/')[2].split('@')[0];
+                        }
+                        if (con.image.indexOf('registry.dataos.io')>-1) {
+                            con.imagename=con.image.split('/')[1]+'/'+con.image.split('/')[2];
+                        }
+                        console.log('con.imagename', con.imagename);
+
                         con.namerr= {
                             rexed:true,
                             repeated:true,
@@ -981,61 +986,91 @@ angular.module('console.service.createnew', [
                             con.resources.limits.memory=''
                         }
                         //console.log('con.imagename', con.imagename);
-                        for(var k in $scope.dc.metadata.annotations){
-                            //console.log(k.indexOf('dadafoundry.io/image-'));
-                            if (k.indexOf('dadafoundry.io/image-')>-1) {
+                        if (con.image.indexOf('172.30.188.59:5000')>-1) {
+                            for(var k in $scope.dc.metadata.annotations){
                                 //console.log(k.indexOf('dadafoundry.io/image-'));
-                                if ($scope.dc.metadata.annotations[k].split(':')[0] == con.name) {
-                                    con.imagetag=$scope.dc.metadata.annotations[k].split(':')[1];
-                                    ImageStream.get({
-                                        namespace: $rootScope.namespace,
-                                        region: $rootScope.region
-                                    }, function (res) {
-                                        $scope.updataimages = [];
-                                        angular.forEach(res.items, function (item,k) {
-                                            if (item.status.tags) {
-                                                $scope.updataimages.push(item)
-                                            }
-                                        })
-                                        angular.forEach($scope.updataimages, function (item,k) {
-                                            //console.log('item',item);
-                                            if (item.metadata.name === con.imagename) {
-                                                //$scope.updataimages[i].checkbox=con.imagetag
-                                                //console.log(i,$scope.dc.spec.template.spec.containers);
+                                if (k.indexOf('dadafoundry.io/image-')>-1) {
+                                    //console.log(k.indexOf('dadafoundry.io/image-'));
+                                    if ($scope.dc.metadata.annotations[k].split(':')[0] == con.name) {
+                                        con.imagetag=$scope.dc.metadata.annotations[k].split(':')[1];
+                                        ImageStream.get({
+                                            namespace: $rootScope.namespace,
+                                            region: $rootScope.region
+                                        }, function (res) {
+                                            $scope.updataimages = [];
+                                            angular.forEach(res.items, function (item,k) {
+                                                if (item.status.tags) {
+                                                    $scope.updataimages.push(item)
+                                                }
+                                            })
+                                            angular.forEach($scope.updataimages, function (item,k) {
+                                                //console.log('item',item);
+                                                if (item.metadata.name === con.imagename) {
+                                                    //$scope.updataimages[i].checkbox=con.imagetag
+                                                    //console.log(i,$scope.dc.spec.template.spec.containers);
 
-                                                $scope.dc.spec.template.spec.containers[i].imaged = angular.copy(item);
-                                                ImageStreamTag.get({
-                                                    namespace: $rootScope.namespace,
-                                                    name: con.imagename + ':' + con.imagetag,
-                                                    region: $rootScope.region
-                                                }, function (res) {
-                                                    //console.log('item.ist', res);
+                                                    $scope.dc.spec.template.spec.containers[i].imaged = angular.copy(item);
+                                                    ImageStreamTag.get({
+                                                        namespace: $rootScope.namespace,
+                                                        name: con.imagename + ':' + con.imagetag,
+                                                        region: $rootScope.region
+                                                    }, function (res) {
+                                                        //console.log('item.ist', res);
 
-                                                    $scope.dc.spec.template.spec.containers[i].imaged.checkbox = con.imagetag;
-                                                    //= res;
-                                                    $scope.dc.spec.template.spec.containers[i].imaged.ist = res;
-                                                    $scope.dc.spec.template.spec.containers[i].image = res.image.dockerImageReference;
-                                                    for (var k in res.image.dockerImageMetadata.Config.ExposedPorts) {
-                                                        var arr = k.split('/');
-                                                        if (arr.length == 2) {
-                                                            $scope.dc.spec.template.spec.containers[i].containerPort = parseInt(arr[0])
-                                                            $scope.dc.spec.template.spec.containers[i].hostPort = parseInt(arr[0])
+                                                        $scope.dc.spec.template.spec.containers[i].imaged.checkbox = con.imagetag;
+                                                        //= res;
+                                                        $scope.dc.spec.template.spec.containers[i].imaged.ist = res;
+                                                        $scope.dc.spec.template.spec.containers[i].image = res.image.dockerImageReference;
+                                                        for (var k in res.image.dockerImageMetadata.Config.ExposedPorts) {
+                                                            var arr = k.split('/');
+                                                            if (arr.length == 2) {
+                                                                $scope.dc.spec.template.spec.containers[i].containerPort = parseInt(arr[0])
+                                                                $scope.dc.spec.template.spec.containers[i].hostPort = parseInt(arr[0])
+                                                            }
                                                         }
-                                                    }
-                                                    //console.log('$scope.dc.spec.template.spec.containers[i].imaged',$scope.dc.spec.template.spec.containers[i].imaged);
-                                                }, function (res) {
-                                                    //console.log("get image stream tag err", res);
-                                                });
-                                            }
+                                                        //console.log('$scope.dc.spec.template.spec.containers[i].imaged',$scope.dc.spec.template.spec.containers[i].imaged);
+                                                    }, function (res) {
+                                                        //console.log("get image stream tag err", res);
+                                                    });
+                                                }
 
 
+                                            })
+
+                                            console.log('$scope.images', $scope.updataimages);
                                         })
 
-                                        console.log('$scope.images', $scope.updataimages);
-                                    })
-
+                                    }
                                 }
                             }
+                        }
+                        if (con.image.indexOf('registry.dataos.io')>-1) {
+                            //if (con.image.split('/')[1] === 'datafoundry') {
+
+                            //angular.forEach(dfdata, function (item,i) {
+                            $scope.dc.spec.template.spec.containers[i].imaged={
+                                checkbox:"",
+                                type:'our',
+                                metadata: {
+                                    name:con.image.split('/')[1]+'/'+con.image.split('/')[2].split(':')[0],
+                                    showname:con.image.split('/')[2]
+                                },
+                                status:{
+                                    tags:[]
+                                }
+                            }
+                            platformlist.query({id:con.image.split('/')[1]+'/'+con.image.split('/')[2].split(':')[0]},function (tags) {
+                                angular.forEach(tags, function (tag,j) {
+                                    $scope.dc.spec.template.spec.containers[i].imaged.status.tags.push({tag:tag})
+                                    $scope.dc.spec.template.spec.containers[i].imaged.checkbox=tags[0]
+                                })
+
+
+                            })
+
+                            //})
+
+
                         }
 
                         //console.log(con.imagename,con.imagetag);
@@ -1396,6 +1431,7 @@ angular.module('console.service.createnew', [
                 if (n === o) {
                     return
                 }
+                //console.log(n, o);
                 $scope.count()
             })
 
