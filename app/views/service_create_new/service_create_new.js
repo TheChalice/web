@@ -248,6 +248,12 @@ angular.module('console.service.createnew', [
                                 $scope.conport.push({name:con.name,hostPort:port.hostPort})
                             })
                         }
+                        if (con.resources.limits.cpu) {
+                            $scope.count();
+                        }
+                        if (con.resources.limits.memory) {
+                            $scope.count();
+                        }
                     })
 
                     if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
@@ -1399,14 +1405,14 @@ angular.module('console.service.createnew', [
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
                     if (item.resources.limits.cpu) {
                         if (item.resources.limits.cpu > $scope.requests.cpu) {
-                            item.resources.limits.cpu=$scope.requests.cpu
+                            item.resources.limits.cpu=parseInt($scope.requests.cpu)
                         }
                         item.usecpu=item.resources.limits.cpu*$scope.dc.spec.replicas
                         $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
                     if (item.resources.limits.memory) {
                         if (item.resources.limits.memory > $scope.requests.memory) {
-                            item.resources.limits.memory=$scope.requests.memory
+                            item.resources.limits.memory=parseInt($scope.requests.memory)
                         }
                         item.usememory=item.resources.limits.memory *$scope.dc.spec.replicas
                         $scope.requests.usememory =$scope.requests.usememory+ item.usememory

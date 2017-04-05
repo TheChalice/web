@@ -857,10 +857,10 @@
                                     <span>{{container.name}}</span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="number" min="1" max="16" ng-keyup="count(container,'cpu')" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
+                                    <input type="number" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="number" min="1" max="32" ng-keyup="count(container,'memory')" ng-model="container.resources.limits.memory" maxlength="2"  placeholder="1-32内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
+                                    <input type="number" ng-model="container.resources.limits.memory" placeholder="1-32内的整数" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9]+/,'');}).call(this)" onblur="this.v();">
                                 </div>
                                 <div class="col-xs-2">
 
