@@ -449,7 +449,6 @@ ul,li{list-style:none;padding: 0}
     padding-left:10px;line-height:normal;
 }
 .right .area_select{
-    cursor: pointer;
     float: left;
     display: block;
     width: 60px;
