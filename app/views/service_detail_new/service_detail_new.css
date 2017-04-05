@@ -632,8 +632,10 @@ li {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   overflow: hidden;
-  padding-left: 10px;
+  padding-left: 10px;color:#666;font-size:12px;
 }
+.ct-tl-sl .open .ser_bg_btn{-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);transform:rotate(-45deg);top:12px;}
+.ct-tl-sl:hover .ser_bg_btn{border:solid #5a73eb;border-width:1px 1px 0 0;}
 .cpu_red{
     color:#5b73eb;
     cursor:pointer;
