@@ -253,44 +253,7 @@ angular.module('console.service.createnew', [
                         if (con.resources.limits.memory) {
                             $scope.count();
                         }
-                        if (con.secretsobj.secretarr) {
-                            angular.forEach(con.secretsobj.secretarr, function (secret, k) {
-                                console.log('ecret.mountPath', secret.mountPath);
 
-                                if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
-                                    secret.mountPath='/'+secret.mountPath
-
-                                }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
-                                    if (secret.mountPath.indexOf('//') === 0) {
-                                        secret.mountPath='/'
-                                    }
-                                }
-                            })
-                        }
-                        if (con.secretsobj.configmap) {
-                            angular.forEach(con.secretsobj.configmap, function (secret, k) {
-                                if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
-                                    secret.mountPath='/'+secret.mountPath
-
-                                }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
-                                    if (secret.mountPath.indexOf('//') === 0) {
-                                        secret.mountPath='/'
-                                    }
-                                }
-                            })
-                        }
-                        if (con.secretsobj.persistentarr) {
-                            angular.forEach(con.secretsobj.persistentarr, function (secret, k) {
-                                if (secret.mountPath!==''&&secret.mountPath.indexOf('/') !== 0) {
-                                    secret.mountPath='/'+secret.mountPath
-
-                                }else if(secret.mountPath!==''&&secret.mountPath.indexOf('/') === 0) {
-                                    if (secret.mountPath.indexOf('//') === 0) {
-                                        secret.mountPath='/'
-                                    }
-                                }
-                            })
-                        }
 
 
                     })
@@ -2392,6 +2355,14 @@ angular.module('console.service.createnew', [
             }
             $scope.isComplete = false;
             $scope.isCreate = true;
+
+            function changestr(str){
+                if (str.startsWith("/")){
+                    return changestr(str.replace("/",""))
+                }
+                return "/"+str
+            }
+
             $scope.creat = function () {
                 //挂卷
                 $scope.isCreate = false;
@@ -2433,7 +2404,14 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.secretarr.length > 0) {
                             console.log(con.secretsobj.secretarr);
                             angular.forEach(con.secretsobj.secretarr, function (secret, k) {
+                                //secret.mountPath
                                 if (clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].secret.secretName !== '名称'&&clonedc.spec.template.spec.containers[i].secretsobj.secretarr[k].mountPath!=="") {
+
+                                    if (secret.mountPath.indexOf('/') !== 0) {
+                                        secret.mountPath='/'+secret.mountPath
+                                    }else {
+                                        secret.mountPath=changestr(secret.mountPath)
+                                    }
                                     secret.name = "con" + i + "secrat" + k;
                                     var secretcopy = angular.copy(secret);
                                     clonedc.spec.template.spec.volumes.push(secretcopy)
@@ -2448,6 +2426,11 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.configmap.length > 0) {
                             angular.forEach(con.secretsobj.configmap, function (config, k) {
                                 if (clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].configMap.name !== '名称'&&clonedc.spec.template.spec.containers[i].secretsobj.configmap[k].mountPath!=="") {
+                                    if (config.mountPath.indexOf('/') !== 0) {
+                                        config.mountPath='/'+config.mountPath
+                                    }else {
+                                        config.mountPath=changestr(config.mountPath)
+                                    }
                                     config.name = "con" + i + "config" + k;
                                     var configcopy = angular.copy(config);
                                     clonedc.spec.template.spec.volumes.push(configcopy)
@@ -2463,6 +2446,11 @@ angular.module('console.service.createnew', [
                         if (con.secretsobj.persistentarr.length > 0) {
                             angular.forEach(con.secretsobj.persistentarr, function (persistent, k) {
                                 if (clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].persistentVolumeClaim.claimName !== '名称'&&clonedc.spec.template.spec.containers[i].secretsobj.persistentarr[k].mountPath!=="") {
+                                    if (persistent.mountPath.indexOf('/') !== 0) {
+                                        persistent.mountPath='/'+persistent.mountPath
+                                    }else {
+                                        persistent.mountPath=changestr(persistent.mountPath)
+                                    }
                                     persistent.name = "con" + i + "persistent" + k;
                                     var persistentcopy = angular.copy(persistent);
                                     clonedc.spec.template.spec.volumes.push(persistentcopy)
