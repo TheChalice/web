@@ -62,6 +62,8 @@ angular.module('console.service.detail', [
         })
         /*关闭弹出层*/
         $scope.close = function () {
+            document.body.onscroll = function () {
+            }
             var $detailModal = $('.detail_new_modal');
             var $window_width = $(window).width();
             $detailModal.animate({
@@ -75,6 +77,11 @@ angular.module('console.service.detail', [
         /*打开弹出层*/
         $scope.whatmodal = '';
         $scope.openModal = function (name, modal) {
+            var top = document.documentElement.scrollTop || document.body.scrollTop;
+            document.body.onscroll = function () {
+                //console.log('ss',top);
+                window.scrollTo(0,top);
+            }
             initModalH();
             $scope.name = name;
             $scope.isShowmodal[modal] = true;
@@ -1470,70 +1477,10 @@ angular.module('console.service.detail', [
         };
         //执行log
         var updateRcs = function (data) {
-
-            loadService($scope.dc);
-            changevol($scope.dc);
-            //loadRoutes()
-
-            var labelSelector = 'openshift.io/deployment-config.name=' + $scope.dc.metadata.name;
-            ReplicationController.get({
-                namespace: $rootScope.namespace,
-                labelSelector: labelSelector,
-                region:$rootScope.region
-            }, function (res) {
-                res.items = Sort.sort(res.items, -1);
-                for (var i = 0; i < res.items.length; i++) {
-                    res.items[i].dc = JSON.parse(res.items[i].metadata.annotations['openshift.io/encoded-deployment-config']);
-                    if (res.items[i].metadata.name == $scope.dc.metadata.name + '-' + $scope.dc.status.latestVersion) {
-                        //$scope.dc.status.replicas = res.items[i].status.replicas;
-                        $scope.dc.status.phase = res.items[i].metadata.annotations['openshift.io/deployment.phase'];
-                    }
-                }
-                //})
-                if ($scope.getroutes&&$scope.getroutes.spec.to.name === $scope.dc.metadata.name) {
-                    $scope.dc.route = $scope.getroutes;
-                    $scope.grid.route = true;
-                    if ($scope.dc.route && $scope.dc.route.spec.port) {
-                        $scope.grid.port = parseInt($scope.dc.route.spec.port.targetPort.replace(/-.*/, ''));
-
-                    }
-                    if ($scope.dc.route) {
-                        $scope.grid.host = $scope.dc.route.spec.host.replace($scope.grid.suffix, '');
-                    }
-
-
-                }
-                //for (var i = 0; i < $scope.getroutes.items.length; i++) {
-                //    //if ($scope.getroutes.items[i].spec.to.kind != 'Service') {
-                //    //    continue;
-                //    //}
-                //    if ($scope.getroutes.items[i].spec.to.name == $scope.dc.metadata.name) {
-                //        $scope.dc.route = $scope.getroutes.items[i];
-                //        $scope.grid.route = true;
-                //        if ($scope.dc.route && $scope.dc.route.spec.port) {
-                //            $scope.grid.port = parseInt($scope.dc.route.spec.port.targetPort.replace(/-.*/, ''));
-                //
-                //        }
-                //        if ($scope.dc.route) {
-                //            $scope.grid.host = $scope.dc.route.spec.host.replace($scope.grid.suffix, '');
-                //        }
-                //
-                //
-                //    }
-                //}
-                // console.log('执行了');
-
-                loadPods($scope.dc.metadata.name);
                 if (data.type == 'ERROR') {
                     $log.info("err", data.object.message);
                     Ws.clear();
-                    //TODO直接刷新rc会导致页面重新渲染
-                    // if (!$scope.test) {
-                    //console.log('data.object.metadata.name',data)
-                    //loadRcs($scope.dc.metadata.name, $scope.baocuname);
 
-                    // }
-                    //暂定处理
                     return;
                 }
                 $scope.resourceVersion = data.object.metadata.resourceVersion;
@@ -1548,35 +1495,7 @@ angular.module('console.service.detail', [
                 if (data.object.metadata.annotations['openshift.io/deployment.cancelled'] == 'true') {
                     data.object.metadata.annotations['openshift.io/deployment.phase'] = 'Cancelled';
                 }
-            })
-            //DeploymentConfig.log.get({
-            //    namespace: $rootScope.namespace,
-            //    name: $scope.dc.metadata.name
-            //}, function (res) {
-            //    $rootScope.lding = false;
-            //    var result = "";
-            //    for (var k in res) {
-            //        if (/^\d+$/.test(k)) {
-            //            result += res[k];
-            //        }
-            //    }
-            //    if (result == '') {
-            //        result = $scope.test
-            //    } else {
-            //        $scope.test = result
-            //    }
-            //    loglast()
-            //    if (data.object.log) {
-            //        data.object.log = result;
-            //
-            //    }
-            //}, function (res) {
-            //    //todo 错误处理
-            //    if (res.data) {
-            //        data.object.log = res.data.message;
-            //    }
-            //
-            //});
+
 
             if (data.type == 'ADDED') {
                 //$rootScope.lding = false;

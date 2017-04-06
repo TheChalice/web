@@ -24,7 +24,7 @@
                         运行状态：<span ng-if="dc.state == 'normal'">运行中</span>
                     </div>
                     <div>
-                        域名：<a href="http://{{dc.route.spec.host}}">{{dc.route.spec.host||'--'}}</a>
+                        域名：<a href="http://{{dc.route.spec.host}}" target="_blank">{{dc.route.spec.host||'--'}}</a>
                     </div>
                     <div>
                         <a  href="javascript:void(0)"  ui-sref="console.service_create({dc:dc.metadata.name})">修改配置</a>

@@ -12,7 +12,7 @@
                         <span class="data_year">{{item.metadata.creationTimestamp | timesmd}}</span>
                     </div>
                     <p class="list_name" ng-class="{'list_lost':item.metadata.annotations['openshift.io/deployment.phase']=='Failed',
-                    'list_ok':item.metadata.annotations['openshift.io/deployment.phase']!=='Failed'}" ng-switch="item.metadata.annotations['openshift.io/deployment.phase']">
+                    'list_ok':item.metadata.annotations['openshift.io/deployment.phase']!=='Failed'}" ng-switch="item.metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter">
                         <!--<i class="note_btn" ng-class="-->
                         <!--{'note_failed':item.metadata.annotations['openshift.io/deployment.phase']=='Failed',-->
                         <!--'note_ok':item.metadata.annotations['openshift.io/deployment.phase']=='Complete',-->
@@ -28,18 +28,12 @@
                         <!--'note_error':item.metadata.annotations['openshift.io/deployment.phase']=='Error',-->
                         <!--'note_cancelled':item.metadata.annotations['openshift.io/deployment.phase']=='Cancelled'-->
                         <!--}"></i>-->
-                        <i class="note_btn note_failed"  ng-switch-when='Failed'></i>
-                        <i class="note_btn note_ok"  ng-switch-when='Complete'></i>
-                        <i class="note_btn note_running"  ng-switch-when="'New'||'Pending'||'Running'"></i>
-                        <i class="note_btn note_error"  ng-switch-when='Error'></i>
-                        <i class="note_btn note_cancelled"  ng-switch-when='Cancelled'></i>
 
-
-                        <!--<i ng-switch-when="部署成功" class="note_btn note_ok"> </i>-->
-                        <!--<i ng-switch-when="部署失败" class="note_btn note_failed"> </i>-->
-                        <!--<i ng-switch-when="正在部署" class="note_btn note_running"> </i>-->
-                        <!--<i ng-switch-when="部署错误" class="note_btn note_error"> </i>-->
-                        <!--<i ng-switch-when="终止" class="note_btn note_cancelled"> </i>-->
+                        <i ng-switch-when="部署成功" class="note_btn note_ok"> </i>
+                        <i ng-switch-when="部署失败" class="note_btn note_failed"> </i>
+                        <i ng-switch-when="正在部署" class="note_btn note_running"> </i>
+                        <i ng-switch-when="部署错误" class="note_btn note_error"> </i>
+                        <i ng-switch-when="终止" class="note_btn note_cancelled"> </i>
                         <!--{{item.metadata.annotations['openshift.io/deployment.phase']}}-->
                         {{item.metadata.annotations['openshift.io/deployment.phase'] | rcStatusFilter}}
                     </p>

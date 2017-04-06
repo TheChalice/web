@@ -189,7 +189,7 @@
                         <div class="block_one_left">
                             <p class="name_tit">环境变量</p>
                         </div>
-                        <div class="block_one_right" >
+                        <div class="block_one_right">
                             <div class="block_one_list">
                                 <ul class="three_list">
                                     <li>键：</li>
@@ -208,6 +208,7 @@
                         <div class="block_one_left">
                             <p class="name_tit">挂载持久化卷</p>
                         </div>
+
                         <div class="block_one_right">
                             <ul class="three_list">
                                 <li>持久化卷：</li>
@@ -218,6 +219,7 @@
                                 <li><span class="room_tit">{{persistentitem.persistentVolumeClaim.claimName}}</span></li>
                                 <li><span class="room_tit">{{persistentitem.mountPath}}</span></li>
                             </ul>
+
                         </div>
                     </div>
 
@@ -236,7 +238,9 @@
                                 <li><span class="room_tit">{{config.configMap.name}}</span></li>
                                 <li><span class="room_tit">{{config.mountPath}}</span></li>
                             </ul>
+
                         </div>
+
                     </div>
                     <div class="clear"></div>
                     <div class="block_one_set mt30">
@@ -253,7 +257,9 @@
                                 <li><span class="room_tit">{{secret.secret.secretName}}</span></li>
                                 <li><span class="room_tit">{{secret.mountPath}}</span></li>
                             </ul>
+
                         </div>
+
                     </div>
                     <div class="clear"></div>
                     <div class="block_one_set mt30">

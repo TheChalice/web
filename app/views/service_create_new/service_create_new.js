@@ -171,7 +171,18 @@ angular.module('console.service.createnew', [
                 }
             })
             var dcnamer = /^[a-z]([a-z0-9-]{0,22})?[a-z0-9]$/;
-
+            $scope.secretblur= function (secret) {
+                if (secret.mountPath) {
+                    if (secret.mountPath.indexOf('/') !== 0) {
+                        secret.mountPath='/'+secret.mountPath
+                    }else {
+                        secret.mountPath=rexstr(secret.mountPath)
+                    }
+                }
+            }
+            function rexstr(str) {
+                return str.replace(/^\/{2,}/g,"/")
+            }
             //namerex
             if (!$scope.updata) {
                 //dcname
@@ -514,6 +525,9 @@ angular.module('console.service.createnew', [
                 })
             }
 
+            $(window).on('enter','.create_new_modal',function(){
+                console.log('sss')
+            })
             $scope.isActive = {
                 steptwo: false,
                 stepthree: false
@@ -645,6 +659,10 @@ angular.module('console.service.createnew', [
             }
             /*关闭弹出层*/
             $scope.close = function (model) {
+                document.body.onscroll = function () {
+                    //console.log('ss',top);
+                    //window.scrollTo(0,top);
+                }
                 if (model === 'cancelbsi') {
                     $scope.bsi.check=angular.copy($scope.bsi.checkcopy);
                     $scope.bsi.work=angular.copy($scope.bsi.workcopy);
@@ -661,7 +679,17 @@ angular.module('console.service.createnew', [
             /*打开弹出层*/
             $scope.whatmodal = '';
             $scope.openModal = function (name, modal,index) {
-
+                //window.scrollTo(0);
+                var top = document.documentElement.scrollTop || document.body.scrollTop;
+                // document.body.addEventListener('scroll',prevent);
+                // function prevent () {
+                //     console.log('sss',top);
+                //     window.scrollTo(0,top);
+                // }
+                document.body.onscroll = function () {
+                    console.log('ss',top);
+                    window.scrollTo(0,top);
+                }
                 //console.log(index);
                 if(index||index===0){
                     console.log(index);
@@ -2018,7 +2046,7 @@ angular.module('console.service.createnew', [
 
 
             //  验证配置卷名称
-            var secretrex =/^[a-z]([a-z0-9_]{0,22}[a-z0-9]$)?/;
+
 
 
             $scope.secretNamerr = {
@@ -2367,6 +2395,7 @@ angular.module('console.service.createnew', [
                 //挂卷
                 $scope.isCreate = false;
                 var clonedc = angular.copy($scope.dc);
+                clonedc.metadata.name=clonedc.metadata.name.replace(/^\s+|\s+$/g,"")
                 clonedc.spec.template.spec.volumes=[];
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
                     con.volumeMounts=[];
