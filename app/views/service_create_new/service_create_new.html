@@ -529,7 +529,7 @@
                     </div>
                     <div class="one_list clboth">
                         <div class="one_list_block">
-                            <p class="one_name">容器名称 <i>*</i></p>
+                            <p class="one_name" style="line-height:30px;">容器名称 <i>*</i></p>
                             <div class="input_set input_set_two">
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
@@ -543,8 +543,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="clboth_ten"></div>
-                        <div class="one_list_block clboth add_mb15">
+                        <div class="clear"></div>
+                        <div class="one_list_block clboth add_mb15" style="margin-top:30px;margin-bottom:15px;">
                             <p class="one_name">添加镜像 <i>*</i></p>
                             <span class="two_detail">镜像是容器运行的前提，配置容器前请确保已经选择镜像。</span>
                         </div>
@@ -584,8 +584,8 @@
 
 
                         </div>
-                        <div class="clboth_ten"></div>
-                        <div class="one_list_block clboth">
+                        <div class="clear"></div>
+                        <div class="one_list_block clboth" style="margin-top:30px;">
                             <div class="three_top add_mb15">
                                 <p class="one_name">镜像端口</p>
                                 <span class="two_detail">取镜像中定义的端口。</span>
@@ -629,7 +629,7 @@
                         <!--ng-show="container.othersetting"-->
                         <div class="adv_set_detail" ng-show="container.othersetting">
                             <!--环境变量模块-->
-                            <div class="one_list_block clboth mt_ten">
+                            <div class="one_list_block clboth mt_ten" style="margin-top:12px;">
                                 <div class="three_top add_mb15">
                                     <p class="one_name">环境变量</p>
                                     <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question">如何进行端口配置？</i></span>
@@ -656,7 +656,7 @@
                             </div>
 
                             <!-- 挂载数据卷模块-->
-                            <div class="one_list_block clboth mt_ten">
+                            <div class="one_list_block clboth mt_ten" style="margin-top:20px;">
                                 <div class="three_top add_mb15">
                                     <p class="one_name">挂载持久化卷</p>
                                     <span class="two_detail">为确保容器重启后数据不会丢失，可以为数据所在的容器路径挂载一个持久化卷。</span>
@@ -690,9 +690,8 @@
                                 </ul>
                             </div>
                             <p class="set_add_service clboth" ng-click="openModal('创建持久化卷','chijiuhuajuan')">创建持久化卷</p>
-                            <div class="clboth_two"></div>
                             <!--挂载配置卷模块-->
-                            <div class="one_list_block clboth mt_ten">
+                            <div class="one_list_block clboth mt_ten" style="margin-top:26px;">
                                 <div class="three_top add_mb15">
                                     <p class="one_name">挂载配置卷</p>
                                     <span class="two_detail">为了减少由于程序中的配置文件发生改变而引起的重新打包构建，可以将容器中的配置文件挂载出来，当配置文件发生改变时，不需要重新构建代码，直接部署服务即可。</span>
@@ -728,9 +727,9 @@
                                 </ul>
                             </div>
                             <p class="set_add_service clboth" ng-click="openModal('创建配置卷','peizhijuan')">创建配置卷</p>
-                            <div class="clboth_two"></div>
+
                             <!--挂载密钥模块-->
-                            <div class="one_list_block clboth mt_ten">
+                            <div class="one_list_block clboth mt_ten" style="margin-top:26px;">
                                 <div class="three_top add_mb15">
                                     <p class="one_name">挂载密钥</p>
                                     <span class="two_detail">这里用来将敏感信息配置传递给容器，例如代码库的用户名和密码。<i class="four_question">如何进行端口配置？</i></span>
@@ -765,9 +764,8 @@
                                 </ul>
                             </div>
                             <p class="set_add_service clboth" ng-click="openModal('创建密钥','miyao')">创建密钥</p>
-                            <div class="clboth_two"></div>
                             <!--启动命令模块-->
-                            <div class="one_list_block clboth mt_ten">
+                            <div class="one_list_block clboth mt_ten" style="margin-top:26px;">
                                 <div class="three_top add_mb15">
                                     <p class="one_name">启动命令</p>
                                     <span class="two_detail">这里定义的启动命令将会覆盖镜像中定义的启动命令，如果不需要，请不要填写。<i class="four_question">如何进行端口配置？</i></span>

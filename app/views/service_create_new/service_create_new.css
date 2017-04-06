@@ -283,8 +283,9 @@ ul,li{list-style:none;padding: 0}
 
 .four_question{color:#5b73eb;font-size:12px;font-style: normal;padding-left:12px;cursor:pointer;}
 .four_question:hover{text-decoration:underline;}
-.four_name,.four_list{padding-left:92px;clear:both;overflow:hidden;margin-bottom:14px;}
-.four_name li{width:160px;text-align:left;margin-right:20px;float:left;text-indent:4px;font-size:12px;color:#666;}
+.four_name,.four_list{padding-left:92px;clear:both;overflow:hidden;}
+.four_name li{width:160px;text-align:left;margin-right:20px;float:left;font-size:12px;color:#666;}
+.four_name li:nth-child(2){text-indent:4px;}
 
 .four_list li{margin-bottom:10px;}
 .four_list_l{margin-right:20px;}
@@ -328,7 +329,7 @@ ul,li{list-style:none;padding: 0}
 .ser_next_btn{color:#fff;border:1px solid #5b73eb;background:#5b73eb;margin-left:20px;}
 .ser_next_btn:hover{background:#6c81ed;}
 .adv_set{margin-top:10px;}
-.adv_set p{margin-left:92px;margin-top:40px;width:60px;height:30px;line-height:30px;cursor:pointer;color:#5b73eb;}
+.adv_set p{margin-left:92px;margin-top:26px;width:60px;height:30px;line-height:30px;cursor:pointer;color:#5b73eb;}
 /*height: 0;*/
 .adv_set_detail{  -webkit-transition: height 1s;}
 
@@ -713,7 +714,8 @@ p{margin:0;}
     margin:0 auto;
     margin-top: 84px;
 }
-.create_secret .error_block_tit{position:absolute;right:-148px;}
+.create_secret .error_block_tit{position:absolute;right:-148px;top:-8px;width:196px;text-align:justify;}
+.create_secret .error_block_tit p:before{margin-top:11px;}
 .create_secret_input{
     height:30px;
     overflow: hidden;
@@ -763,11 +765,12 @@ p{margin:0;}
     line-height:28px;
 }
 /*创建持久化卷弹出框*/
-.cjhj_main{width:540px;margin:84px auto;height:auto;position:relative;}
+.cjhj_main{width:540px;margin:84px auto;height:460px;position:relative;}
 .cjhj_main .one_input_text{width:412px;height:30px;border:1px solid #d4d4d4;padding-left:10px;font-size:12px;}
 .cjhj_main .one_name{float:left;font-size:12px;color:#333;width:92px;height:30px;line-height:30px;}
 .cjhj_main .one_name i{color:#ef6464;}
-.cjhj_main .error_block_tit{position:absolute;right:-176px;top:0;}
+.cjhj_main .error_block_tit{position:absolute;right:-176px;top:-8px;width:196px;text-align:justify;}
+.cjhj_main .error_block_tit p:before{margin-top:11px;}
 
 .create:hover{
     background-color: #e5993a;
