@@ -1048,7 +1048,7 @@ angular.module('console.service.createnew', [
                         }
                         if (con.image.indexOf('registry.dataos.io')>-1) {
                             //if (con.image.split('/')[1] === 'datafoundry') {
-
+                            $scope.error.image='our'
                             //angular.forEach(dfdata, function (item,i) {
                             $scope.dc.spec.template.spec.containers[i].imaged={
                                 checkbox:"",
