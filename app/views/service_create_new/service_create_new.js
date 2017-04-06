@@ -902,7 +902,7 @@ angular.module('console.service.createnew', [
                             con.volumeMounts=[];
                         }
                         console.log('con.image', con.image);
-                        if (con.image.indexOf('172.30.188.59:5000')>-1) {
+                        if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
                             con.imagename=con.image.split('/')[2].split('@')[0];
                         }
                         if (con.image.indexOf('registry.dataos.io')>-1) {
@@ -1016,7 +1016,7 @@ angular.module('console.service.createnew', [
                             con.resources.limits.memory=''
                         }
                         //console.log('con.imagename', con.imagename);
-                        if (con.image.indexOf('172.30.188.59:5000')>-1) {
+                        if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
                             for(var k in $scope.dc.metadata.annotations){
                                 //console.log(k.indexOf('dadafoundry.io/image-'));
                                 if (k.indexOf('dadafoundry.io/image-')>-1) {
