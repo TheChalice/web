@@ -2358,7 +2358,7 @@ angular.module('console.service.createnew', [
 
             function changestr(str){
                 if (str.startsWith("/")){
-                    changestr(str.replace("/",""))
+                    return changestr(str.replace("/",""))
                 }
                 return "/"+str
             }
