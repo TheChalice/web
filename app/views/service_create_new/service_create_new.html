@@ -283,12 +283,12 @@
                                            type="text"
                                            class="input_text"
                                            ng-class="{inputred:error.miyaonameerr.rexed||error.miyaonameerr.repeated}"
-                                           placeholder="2-2-24位小写字母、数字或中划线组成">
+                                           placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
                                     <span class="input_close" ng-show="createsercet.secrets.metadata.name!==''"  ng-click="createsercet.secrets.metadata.name=''"></span>
                                 </div>
                                 <span class="btn_set_new error_btn" ng-show="error.miyaonameerr.repeated"></span>
                                 <div class="error_block_tit"  ng-show="error.miyaonameerr.rexed">
-                                    <p>小写字母、数字或下划线组成</p>
+                                    <p>2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +324,7 @@
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off"
                                            class="input_text one_input_text ng-pristine ng-untouched ng-valid ng-valid-maxlength"
-                                           placeholder="2-24位小写字母、数字或中划线组成"
+                                           placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾"
                                            type="text"
                                            ng-class="{inputred:error.chijiunameerr.rexed||error.chijiunameerr.repeated}"
                                            class="form-control"
@@ -333,7 +333,7 @@
                                 </div>
                                 <span class="btn_set_new error_btn" ng-show="error.chijiunameerr.repeated"></span>
                                 <div class="error_block_tit"  ng-show="error.chijiunameerr.rexed">
-                                    <p>小写字母、数字或下划线组成</p>
+                                    <p>2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
                                 </div>
                             </div>
                         </div>
@@ -372,11 +372,11 @@
                                            type="text" name="username"
                                            class="input_text"
                                            ng-class="{inputred:error.peizhinameerr.rexed||error.peizhinameerr.repeated}"
-                                           placeholder="2-24位小写字母、数字或中划线组成">
+                                           placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
                                     <span class="input_close" ng-show="createvolume.volume.name!==''"  ng-click="createvolume.volume.name=''"></span>
                                 </div>
                                 <div class="error_block_tit"  ng-show="error.peizhinameerr.rexed">
-                                    <p>小写字母、数字或下划线组成</p>
+                                    <p>2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
                                 </div>
                                 <span class="btn_set_new error_btn" ng-show="error.peizhinameerr.repeated"></span>
                                 <!--<span class="btn_set_new ok_btn" ng-if="!secretNamerr.rexed &&  !secretNamerr.nil"></span>-->
@@ -495,7 +495,7 @@
                 <p class="ser_name">服务名称 <i>*</i></p>
                 <div class="input_set">
                     <div class="input_set_l">
-                        <input type="text" autocomplete="off" name="dcname" ng-class="{inputred:error.dcnameerr.rexed||error.dcnameerr.repeated}" ng-blur="error.dcname=true" ng-disabled="updata" ng-focus="error.dcname=false" ng-model="dc.metadata.name" class="input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
+                        <input type="text" autocomplete="off" name="dcname" ng-class="{inputred:error.dcnameerr.rexed||error.dcnameerr.repeated}" ng-blur="error.dcname=true" ng-disabled="updata" ng-focus="error.dcname=false" ng-model="dc.metadata.name" class="input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
                         <span class="input_close" ng-show="dc.metadata.name!==''&&!updata"  ng-click="dc.metadata.name=''"></span>
                     </div>
                     <span class="disable_tit" ng-show="updata">服务名称不能修改</span>
@@ -503,7 +503,7 @@
                     <span class="btn_set_new error_btn ng-hide" ng-show="error.dcnameerr.repeated"></span>
                     <!--<span class="btn_set_new ok_btn" ng-show="frm.dcname.$dirty&amp;&amp;!error.dcnameerr.repeated&amp;&amp;!error.dcnameerr.null&amp;&amp;!error.dcnameerr.rexed"></span>-->
                     <div class="error_block_tit ng-hide" ng-show="error.dcnameerr.rexed">
-                        <p>小写字母、数字或下划线组成</p>
+                        <p>2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
                     </div>
 
 
@@ -533,13 +533,13 @@
                             <div class="input_set input_set_two">
                                 <div class="input_set_l">
                                     <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
-                                           ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
+                                           ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
                                     <span class="input_close" ng-show="container.name!==''&&!updata"  ng-click="container.name=''"></span>
                                 </div>
                                 <span class="btn_set_new error_btn ng-hide" ng-show="container.namerr.repeated"></span>
                                 <!--<span class="btn_set_new ok_btn" ng-show="!error.dcnameerr.repeated&&!error.dcnameerr.null&&!error.dcnameerr.rexed"></span>-->
                                 <div class="error_block_tit ng-hide" ng-show="container.namerr.rexed">
-                                    <p>小写字母、数字或下划线组成</p>
+                                    <p>2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
                                 </div>
                             </div>
                         </div>

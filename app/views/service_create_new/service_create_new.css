@@ -916,12 +916,14 @@ p{margin:0;}
 .no_sql p{font-size:14px;color:#333;margin-top:4px;width:100px;text-align: center;}
 
 @media (min-width: 1600px) {
-    .tab_image .two_tab_detail{width:21%;}
+    .tab_image .two_tab_detail{width:24%;}
     .tab_image .two_tab_tit{width:146px;}
     .tab_image .two_tab_l{width:52%;}
     .tab_image .two_tab_r{width:48%;}
-    .tab_image .two_tab_detail:nth-child(3n+1){margin-left:5%;}
+    .tab_image .two_tab_detail ~ .two_tab_detail{margin-left:1%;}
+    .tab_image .two_tab_detail:nth-child(3n+1){margin-left:1%;}
     .tab_image .two_tab_detail:nth-child(4n+1){margin-left:0%;}
+    .select_block_one{padding:18px 10px 80px 20px;}
 }
 .ser_create_new .input_set_l .inputred {
     border-color: red!important;
@@ -943,15 +945,16 @@ p{margin:0;}
     overflow: hidden;
     margin-top:10px;
 }
+
 .ownerSL div{
-    width: 183px;
     font-size: 12px;
     color: #999;
     height: auto;
     line-height: 23px;
-    float: left;
+    float: left;margin-right:25px;
 }
-.ownerSL div:nth-child(2){width:160px;}
+.ownerSL div input{ width: 159px;}
+.ownerSL div:nth-child(2){margin-right:5px;}
 .ownerSL div input{border:1px solid #e5e5e5;padding-left:4px;padding-right:4px;height:28px;}
 .ownerSL a{
     float: left;
