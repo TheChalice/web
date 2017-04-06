@@ -638,7 +638,7 @@ define(['angular'], function (angular) {
             this.open = function (con) {
                 return $uibModal.open({
                     templateUrl: 'pub/tpl/volumeConfig.html',
-                    size: 'default',
+                    size: 'default modal-vc',
                     controller: ['$scope', '$uibModalInstance', '$log', function ($scope, $uibModalInstance, $log) {
                         $scope.con = con
                         $scope.success = function () {

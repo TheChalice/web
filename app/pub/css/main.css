@@ -1553,3 +1553,10 @@ input:focus{border-color: #5b73eb!important;}
     width:60px;
     /*transform: translate(-50%,-50%);*/
 }
+.modal-default.modal-vc {
+     width: 800px;
+     top: 50%;
+     left: 50%;
+     margin-top: -300px;
+     margin-left: -400px;
+ }

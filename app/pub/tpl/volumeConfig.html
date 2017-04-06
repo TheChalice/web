@@ -1,4 +1,4 @@
-<div>
+<div style="width: 800px;">
     <div class="modal-header" style="background-color: #fff">
         <h5 class="modal-title">
             文件内容
@@ -7,18 +7,19 @@
             </a>
         </h5>
     </div>
-    <div class="modal-body">
-      {{con}}
+    <div class="modal-body" style="text-align: left">
+        {{con}}
     </div>
     <style>
-       .modal-header{
-           background: #fff;
-       }
+        .modal-header{
+            background: #fff;
+        }
         .modal-body{
-          height: 300px;
-            overflow-y: scroll;
+            height: 460px;
+            overflow-y: auto;
             background: #000;
             color: #fff;
+            text-align: left;
         }
     </style>
 
