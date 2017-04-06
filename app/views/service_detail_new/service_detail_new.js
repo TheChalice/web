@@ -32,9 +32,9 @@ angular.module('console.service.detail', [
 
         if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
             //console.log($(".create_new_nav"));
-            $(".create_new_nav").addClass("create_new_nav_new")
+            $(".create_new_nav2").addClass("create_new_nav_new")
         } else {
-            $(".create_new_nav").removeClass("create_new_nav_new")
+            $(".create_new_nav2").removeClass("create_new_nav_new")
         }
         function initModal() {
             var $detailModal = $('.detail_new_modal');
