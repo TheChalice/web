@@ -898,11 +898,24 @@ angular.module('console.service.createnew', [
                         };
                     })
                     angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
+                        if (con.resources.limits&&con.resources.limits.cpu && con.resources.limits.memory) {
+
+                            con.resources.limits.cpu=parseInt(con.resources.limits.cpu)
+                            con.resources.limits.memory=parseInt(con.resources.limits.memory)
+                            //$scope.$apply()
+                            //
+                        }else {
+                            con.resources.limits={}
+                            con.resources.limits.cpu=''
+                            con.resources.limits.memory=''
+                        }
+                        console.log('con.resources.limits', con.resources.limits);
                         if (!con.volumeMounts) {
                             con.volumeMounts=[];
                         }
-                        console.log('con.image', con.image);
+                        console.log('con.image', con.image.split('/')[2].split('@')[1].split(':')[0]);
                         if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
+
                             con.imagename=con.image.split('/')[2].split('@')[0];
                         }
                         if (con.image.indexOf('registry.dataos.io')>-1) {
@@ -1007,14 +1020,7 @@ angular.module('console.service.createnew', [
 
                         console.log(con);
                         //$scope.$apply()
-                        if (con.resources.limits&&con.resources.limits.cpu && con.resources.limits.memory) {
-                            con.resources.limits.cpu=parseInt(con.resources.limits.cpu)
-                            con.resources.limits.memory=parseInt(con.resources.limits.memory)
-                        }else {
-                            con.resources.limits={}
-                            con.resources.limits.cpu=''
-                            con.resources.limits.memory=''
-                        }
+
                         //console.log('con.imagename', con.imagename);
                         if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
                             for(var k in $scope.dc.metadata.annotations){
@@ -1469,22 +1475,23 @@ angular.module('console.service.createnew', [
                 $scope.requests.usecpu = 0;
                 $scope.requests.usememory = 0;
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                    if (item.resources.limits.cpu) {
+                    if (item.resources.limits.cpu&&$scope.requests.cpu) {
                         if (item.resources.limits.cpu > $scope.requests.cpu) {
                             item.resources.limits.cpu=parseInt($scope.requests.cpu)
                         }
                         item.usecpu=item.resources.limits.cpu*$scope.dc.spec.replicas
                         $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
-                    if (item.resources.limits.memory) {
+                    if (item.resources.limits.memory&&$scope.requests.memory) {
                         if (item.resources.limits.memory > $scope.requests.memory) {
                             item.resources.limits.memory=parseInt($scope.requests.memory)
                         }
                         item.usememory=item.resources.limits.memory *$scope.dc.spec.replicas
                         $scope.requests.usememory =$scope.requests.usememory+ item.usememory
                     }
+                    console.log('item.resources.limits2', item.resources.limits);
                 })
-                //console.log('$scope.requests',$scope.requests);
+                //console.log('$scope.requests',$scope.requests.limits);
                 $scope.requests.residuecpu = $scope.requests.cpu - $scope.requests.usecpu;
                 $scope.requests.residuememory = $scope.requests.memory - $scope.requests.usememory;
 
