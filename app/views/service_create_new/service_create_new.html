@@ -638,7 +638,7 @@
                         <li>键</li>
                         <li>值</li>
                     </ul>
-                    <ul class="four_list">
+                    <ul class="four_list" style="margin-top:10px;">
                         <li ng-repeat="envitem in container.env">
                             <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="1-24位小写字母、数字、或下划线组成">
                             <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="0-2048个 ASCII字符组成">
@@ -665,7 +665,7 @@
                                 <li>数据卷</li>
                                 <li>挂载路径</li>
                             </ul>
-                            <ul class="four_list four_list_two">
+                            <ul class="four_list four_list_two" style="margin-top:10px;">
                                 <li ng-repeat="persistentitem in container.secretsobj.persistentarr">
                                     <div class="service_area_select service_area_select_gj two_radius">
                                         <div uib-dropdown>
@@ -701,7 +701,7 @@
                                 <li>配置卷</li>
                                 <li>挂载路径</li>
                             </ul>
-                            <ul class="four_list four_list_two">
+                            <ul class="four_list four_list_two" style="margin-top:10px;">
                                 <li ng-repeat="config in container.secretsobj.configmap">
                                     <div class="service_area_select service_area_select_gj two_radius">
                                         <div uib-dropdown on-toggle="toggled(open)">
@@ -739,7 +739,7 @@
                                 <li>密钥</li>
                                 <li>挂载路径</li>
                             </ul>
-                            <ul class="four_list four_list_two">
+                            <ul class="four_list four_list_two" style="margin-top:10px;">
                                 <li ng-repeat="secret in container.secretsobj.secretarr">
                                     <div class="service_area_select service_area_select_gj two_radius">
                                         <div uib-dropdown on-toggle="toggled(open)">

@@ -287,7 +287,7 @@ ul,li{list-style:none;padding: 0}
 .four_name li{width:160px;text-align:left;margin-right:20px;float:left;font-size:12px;color:#666;}
 .four_name li:nth-child(2){text-indent:4px;}
 
-.four_list li{margin-bottom:4px;margin-top:10px;}
+.four_list li{margin-bottom:4px;}
 .four_list_l{margin-right:20px;}
 .four_list_l,.four_list_r{width:160px;height:28px;border:1px solid #e5e5e5;padding-left:4px;padding-right:4px;font-size:12px;}
 .one_list_jl{margin-left:92px;}
