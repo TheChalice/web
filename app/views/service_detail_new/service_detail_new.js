@@ -107,7 +107,10 @@ angular.module('console.service.detail', [
         );
 
 
-
+        $scope.$on("$destroy", function() {
+            document.body.onscroll = function () {
+            }
+        });
         //////服务监控
         $scope.cpuData = [];
         $scope.memData = [];

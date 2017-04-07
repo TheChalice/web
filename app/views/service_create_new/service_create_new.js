@@ -525,9 +525,10 @@ angular.module('console.service.createnew', [
                 })
             }
 
-            $(window).on('enter','.create_new_modal',function(){
-                console.log('sss')
-            })
+            $scope.$on("$destroy", function() {
+                document.body.onscroll = function () {
+                }
+            });
             $scope.isActive = {
                 steptwo: false,
                 stepthree: false
