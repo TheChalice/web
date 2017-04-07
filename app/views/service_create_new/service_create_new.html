@@ -498,7 +498,7 @@
                     <input type="text" autocomplete="off" name="dcname" ng-class="{inputred:error.dcnameerr.rexed||error.dcnameerr.repeated}" ng-blur="error.dcname=true" ng-disabled="updata" ng-focus="error.dcname=false" ng-model="dc.metadata.name" class="input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
                     <span class="input_close" ng-show="dc.metadata.name!==''&&!updata"  ng-click="dc.metadata.name=''"></span>
                 </div>
-                <span class="disable_tit" ng-show="updata">服务名称不能修改</span>
+                <span class="disable_tit" ng-show="updata">服务名称暂不支持修改</span>
                 <!--<span class="btn_set_new error_btn" style="display:none;"></span>-->
                 <span class="btn_set_new error_btn ng-hide" ng-show="error.dcnameerr.repeated"></span>
                 <!--<span class="btn_set_new ok_btn" ng-show="frm.dcname.$dirty&amp;&amp;!error.dcnameerr.repeated&amp;&amp;!error.dcnameerr.null&amp;&amp;!error.dcnameerr.rexed"></span>-->
