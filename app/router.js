@@ -10,7 +10,7 @@ define([
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
             //$urlRouterProvider.otherwise("/home/index");
-            $urlRouterProvider.otherwise("/console/dashboard");
+            $urlRouterProvider.otherwise("/home/index");
             $stateProvider
                 //home
                 .state('home', {
