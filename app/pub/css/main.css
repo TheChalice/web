@@ -473,11 +473,16 @@ a {
 }
 
 .modal-default .modal-close {
-    color: #5a6378;
+
+    float: right;
+    display: inline-block;
+    width: 15px;
+ height:15px;
+    background: url(../img/closenew2.png) no-repeat center;
 }
 
 .modal-default .modal-close:hover {
-    color: #3c4251;
+    background: url(../img/closenew1.png) no-repeat center;
 }
 
 .modal-default .modal-title {

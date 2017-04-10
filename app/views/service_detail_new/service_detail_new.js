@@ -237,127 +237,7 @@ angular.module('console.service.detail', [
             console.log($scope.chartConfig.series)
         }
 
-        ////获取处理数据
-        //Metrics.cpu.all.query({
-        //    tags: 'descriptor_name:cpu/usage,pod_namespace:' + $rootScope.namespace,
-        //    buckets: 30
-        //}, function (res) {
-        //    $log.info('metrics cpu all', res);
-        //    $scope.cpuData = prepareData('CPU', res);
-        //
-        //    angular.forEach($scope.cpuData, function (item, i) {
-        //
-        //
-        //        if (item == null) {
-        //            $scope.cpuData[i] = 0
-        //        } else {
-        //            $scope.cpuData[i] = Math.round(item * 10000) / 10000
-        //        }
-        //    })
-        //    // console.log('$scope.cpuData',$scope.cpuData)
-        //    Metrics.mem.all.query({
-        //        tags: 'descriptor_name:memory/usage,pod_namespace:' + $rootScope.namespace,
-        //        buckets: 30
-        //    }, function (res) {
-        //        $log.info('metrics mem all', res);
-        //        $scope.memData = prepareData('内存', res);
-        //        angular.forEach($scope.memData, function (item, i) {
-        //            if (item == null) {
-        //                $scope.memData[i] = 0
-        //            } else {
-        //                $scope.memData[i] = Math.round(item * 10000) / 10000
-        //            }
-        //        })
-        //        $scope.memData
-        //        // console.log('$scope.memData',$scope.memData)
-        //        $http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region=' + $rootScope.region).success(function (data, status, headers, config) {
-        //            if (data.items[0]) {
-        //                parseInt(data.items[0].spec.hard['limits.memory'])
-        //                var cpu = [];
-        //                var cpusun = 0;
-        //                var mem = [];
-        //                var memsun = 0;
-        //                for (var i = 0; i < $scope.cpuData.length; i++) {
-        //                    if ($scope.cpuData[i] != 0) {
-        //                        cpu.push($scope.cpuData[i])
-        //                    }
-        //                    if ($scope.memData[i] != 0) {
-        //                        mem.push($scope.memData[i])
-        //                    }
-        //                }
-        //                for (var q = 0; q < cpu.length; q++) {
-        //                    cpusun += cpu[q]
-        //                }
-        //                for (var w = 0; w < mem.length; w++) {
-        //                    memsun += mem[w]
-        //                }
-        //                var userd = {
-        //                    usedM: parseInt(data.items[0].status.used['limits.memory']),
-        //                    usedC: parseInt(data.items[0].status.used['limits.cpu']),
-        //                    headM: parseInt(data.items[0].status.hard['limits.memory']) * 1000,
-        //                    headC: parseInt(data.items[0].status.hard['limits.cpu']) * 1000,
-        //                }
-        //
-        //                userd.usedM = userd.usedM > userd.headM ? userd.headM : userd.usedM;
-        //                userd.usedC = userd.usedC > userd.headC ? userd.headC : userd.usedC;
-        //
-        //                var memnums = (userd.usedM / userd.headM) * 100;
-        //                var cpunums = (userd.usedC / userd.headC) * 100;
-        //                //console.log(memnums,cpunums);
-        //                memnums = Math.round(memnums * 100) / 100
-        //                cpunums = Math.round(cpunums * 100) / 100
-        //                $scope.chartConfig = setChart();
-        //                $scope.isdata.charts = true;
-        //
-        //            } else {
-        //                //console.log('配额',data);
-        //                var cpu = [];
-        //                var cpusun = 0;
-        //                var mem = [];
-        //                var memsun = 0;
-        //                for (var i = 0; i < $scope.cpuData.length; i++) {
-        //                    if ($scope.cpuData[i] != null) {
-        //                        cpu.push($scope.cpuData[i])
-        //                    }
-        //                    // console.log($scope.cpuData[i],$scope.memData[i])
-        //                    if ($scope.memData[i] != null) {
-        //                        mem.push($scope.memData[i])
-        //                    }
-        //                }
-        //                // console.log(cpu,mem)
-        //                for (var q = 0; q < cpu.length; q++) {
-        //                    cpusun += cpu[q]
-        //                }
-        //                for (var w = 0; w < mem.length; w++) {
-        //                    memsun += mem[w]
-        //                }
-        //                // console.log(cpusun, memsun)
-        //                if (cpusun || memsun) {
-        //                    var cpunum = cpusun / cpu.length || 0;
-        //                    var memnum = memsun / mem.length / 1000000 || 0
-        //
-        //                    cpunum = toDecimal(cpunum);
-        //                    memnum = toDecimal(memnum);
-        //                    memnum = Math.round(memnum * 100) / 100;
-        //                    cpunum = Math.round(cpunum * 100) / 100;
-        //                    $scope.chartConfig = setChart();
-        //                    $scope.isdata.charts = true;
-        //                } else {
-        //                    $scope.chartConfig = setChart();
-        //                    $scope.isdata.charts = true;
-        //                }
-        //
-        //            }
-        //
-        //        }).error(function (data, status, headers, config) {
-        //
-        //        });
-        //    });
-        //
-        //}, function (res) {
-        //    $log.info('metrics cpu all err', res);
-        //    $scope.isdata.charts = false;
-        //});
+
 
 
         var prepareData = function (tp, data) {
@@ -936,7 +816,9 @@ angular.module('console.service.detail', [
                             })
                         }
                     })
+                    console.log('con.secretsobj', con.secretsobj);
                 })
+
                 for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
                     if ($scope.dc.spec.triggers) {
                         for (var j = 0; j < $scope.dc.spec.triggers.length; j++) {
@@ -972,6 +854,7 @@ angular.module('console.service.detail', [
                         }
                     }
                 }
+
                 if (copyannotations["dadafoundry.io/imageorpublic"]) {
                     var imageorpublic = $scope.arrimgstr = copyannotations["dadafoundry.io/imageorpublic"].split(",");
                     var imageorisshow = $scope.arrisshow = copyannotations["dadafoundry.io/imageorisshow"].split(",");
