@@ -9,8 +9,18 @@ define([
     return angular.module('myApp.router', ['ui.router', 'oc.lazyLoad'])
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
-            //$urlRouterProvider.otherwise("/home/index");
             $urlRouterProvider.otherwise("/home/index");
+
+            //var arr = document.cookie.match('df_access_token');
+            //console.log('arr[2]', arr[2]);
+            //if (arr[2]) {
+            //    $urlRouterProvider.otherwise("/console/dashboard");
+            //}else {
+            //    $urlRouterProvider.otherwise("/login//");
+            //}
+
+
+
             $stateProvider
                 //home
                 .state('home', {
