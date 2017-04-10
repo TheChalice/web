@@ -42,48 +42,48 @@ angular.module('console', [
             }
 
             //console.log('creatproject.user', $rootScope.user.metadata.name);
-            creatproject.create({'metadata': {
-                name:$rootScope.user.metadata.name
-            }}, function (res) {
-                //console.log('creatproject', $rootScope.user.metadata.name);
-                loadProject();
-            }, function (err) {
-                loadProject();
-            })
+            //creatproject.create({'metadata': {
+            //    name:$rootScope.user.metadata.name
+            //}}, function (res) {
+            //    //console.log('creatproject', $rootScope.user.metadata.name);
+            //    loadProject();
+            //}, function (err) {
+            //    loadProject();
+            //})
 
-            var loadProject = function () {
-                //$log.info("load project");
-                Project.get({region: $rootScope.region}, function (data) {
-                    //$rootScope.projects = data.items;
-                    //console.log('consoleProject', data);
-                    //var newprojects = [];
-                    angular.forEach(data.items, function (item, i) {
-                        //console.log($rootScope.user.metadata.name);
-
-                            data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
-
-
-                    })
-                    data.items.sort(function (x, y) {
-                        return x.sortname > y.sortname ? 1 : -1;
-                    });
-
-                    angular.forEach(data.items, function (project, i) {
-                        if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
-                            //console.log(project.metadata.annotations['openshift.io/display-name']);
-                            //data.items.push(project);
-                            data.items.unshift(project);
-
-                            data.items.splice(i + 1, 1);
-                        }
-                    });
-                    $rootScope.projects = data.items;
-                    //console.log(data.items);
-                    //$log.info("load project success", data);
-                }, function (res) {
-                    $log.info("find project err", res);
-                });
-            };
+            //var loadProject = function () {
+            //    //$log.info("load project");
+            //    Project.get({region: $rootScope.region}, function (data) {
+            //        //$rootScope.projects = data.items;
+            //        //console.log('consoleProject', data);
+            //        //var newprojects = [];
+            //        angular.forEach(data.items, function (item, i) {
+            //            //console.log($rootScope.user.metadata.name);
+            //
+            //                data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
+            //
+            //
+            //        })
+            //        data.items.sort(function (x, y) {
+            //            return x.sortname > y.sortname ? 1 : -1;
+            //        });
+            //
+            //        angular.forEach(data.items, function (project, i) {
+            //            if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
+            //                //console.log(project.metadata.annotations['openshift.io/display-name']);
+            //                //data.items.push(project);
+            //                data.items.unshift(project);
+            //
+            //                data.items.splice(i + 1, 1);
+            //            }
+            //        });
+            //        $rootScope.projects = data.items;
+            //        //console.log(data.items);
+            //        //$log.info("load project success", data);
+            //    }, function (res) {
+            //        $log.info("find project err", res);
+            //    });
+            //};
 
 
 

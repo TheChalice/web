@@ -167,42 +167,42 @@ angular.module('console.create_constantly_volume', [
 
             $scope.loaded = true;
             console.log($scope.plan_id);
-            checkout.create({
-                drytry:0,
-                plan_id: $scope.plan_id,
-                namespace: $rootScope.namespace,
-                region:$rootScope.region,
-                parameters:{
-                    resource_name:$scope.volume.name
-                }
-            }, function (data) {
+            //checkout.create({
+            //    drytry:0,
+            //    plan_id: $scope.plan_id,
+            //    namespace: $rootScope.namespace,
+            //    region:$rootScope.region,
+            //    parameters:{
+            //        resource_name:$scope.volume.name
+            //    }
+            //}, function (data) {
                 //console.log(data);
-                //volume.create({namespace: $rootScope.namespace}, $scope.volume, function (res) {
-                //    //alert(11111)
-                //    $scope.loaded = false;
+                volume.create({namespace: $rootScope.namespace}, $scope.volume, function (res) {
+                    //alert(11111)
+                    $scope.loaded = false;
                 $state.go('console.resource_management', {index: 1});
-                //}, function (err) {
-                //    $scope.loaded = false;
-                //    Toast.open('构建失败,请重试');
-                //})
+                }, function (err) {
+                    $scope.loaded = false;
+                    Toast.open('构建失败,请重试');
+                })
 
-            }, function (err) {
-                $scope.loaded = false;
-                if (err.data.code === 3316) {
-                    Tip.open('提示', '账户可用余额不足。', '充值', true).then(function () {
-                        $state.go('console.pay');
-                    })
-                } else if(err.data.code === 3316) {
-                    Tip.open('提示', '名称重复', '知道了', true).then(function () {
-
-                    })
-                }else {
-                    Tip.open('提示', '支付失败,请重试', '知道了', true).then(function () {
-
-                    })
-                }
-
-            })
+            //}, function (err) {
+            //    $scope.loaded = false;
+            //    if (err.data.code === 3316) {
+            //        Tip.open('提示', '账户可用余额不足。', '充值', true).then(function () {
+            //            $state.go('console.pay');
+            //        })
+            //    } else if(err.data.code === 3316) {
+            //        Tip.open('提示', '名称重复', '知道了', true).then(function () {
+            //
+            //        })
+            //    }else {
+            //        Tip.open('提示', '支付失败,请重试', '知道了', true).then(function () {
+            //
+            //        })
+            //    }
+            //
+            //})
 
 
         }

@@ -1474,6 +1474,7 @@ define(['angular'], function (angular) {
                 this.login = function (credentials, stateParams) {
                     //console.log("login", credentials);
                     //console.log("login", stateParams);
+                    credentials.region='cn-north-1'
                     localStorage.setItem('Auth', $base64.encode(credentials.username + ':' + credentials.password))
                     $rootScope.loding = true;
                     var deferred = $q.defer();
@@ -1544,9 +1545,10 @@ define(['angular'], function (angular) {
 
                             var arrstr = arr.join(',');
                             //console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&",arrstr);
-                           // Cookie.set('df_access_token', arrstr, 10 * 365 * 24 * 3600 * 1000);
+                            Cookie.set('df_access_token', arrstr, 23 * 3600 * 1000);
                             //console.log(Cookie.get('df_access_token'));
-                            Cookie.set('region', credentials.region, 10 * 365 * 24 * 3600 * 1000);
+
+                            Cookie.set('region', credentials.region, 24 * 3600 * 1000);
                             $rootScope.region = Cookie.get('region');
 
                             User.get({name: '~',region:$rootScope.region}, function (res) {
@@ -1569,19 +1571,12 @@ define(['angular'], function (angular) {
                                     }
                                 } else {
                                     //获取套餐
-                                    account.get({namespace:$rootScope.namespace,region:$rootScope.region,status:"consuming"}, function (data) {
-                                        //console.log('套餐', data);
-                                        //$rootScope.payment=data;
-                                        $rootScope.loding = false;
-                                        if (data.purchased) {
 
-                                            $state.go('console.dashboard');
+                                        $rootScope.loding = false;
+                                    $state.go('console.dashboard');
                                             //跳转dashboard
-                                        }else {
-                                            $state.go('console.noplan');
-                                            //跳转购买套餐
-                                        }
-                                    })
+
+
                                     //$state.go('console.dashboard');
                                 }
 
@@ -1671,44 +1666,41 @@ define(['angular'], function (angular) {
                         return config;
                     }
                     //$rootScope.region=
-                    //var tokens = Cookie.get('df_access_token');
-                    //var regions = Cookie.get('region');
-                    //var token='';
-                    ////console.log(tokens);
-                    //
-                    //if (tokens&&regions) {
-                    //    var tokenarr = tokens.split(',');
-                    //    var region = regions.split('-')[2];
-                    //    //if (/^\/lapi\/v1\/orgs/.test(config.url)) {
-                    //    //    console.log(config.url);
-                    //    //}
-                    //    if (/^\/lapi\/v1\/orgs/.test(config.url) || /^\/oapi/.test(config.url) || /^\/api/.test(config.url)||/^\/payment/.test(config.url)) {
-                    //        token = tokenarr[region-1];
-                    //    }else {
-                    //        token = tokenarr[0];
-                    //    }
-                    //
-                    //    //console.log('tokenarr', tokenarr[region-1]);
-                    //}else {
-                    //    //console.log('token错误');
-                    //}
+                    var tokens = Cookie.get('df_access_token');
+                    var regions = Cookie.get('region');
+                    var token = '';
+                    //console.log(tokens);
+
+                    if (tokens && regions) {
+                        var tokenarr = tokens.split(',');
+                        var region = regions.split('-')[2];
+                        //if (/^\/lapi\/v1\/orgs/.test(config.url)) {
+                        //    console.log(config.url);
+                        //}
+
+                        if (/^\/lapi\/v1\/orgs/.test(config.url) || /^\/oapi/.test(config.url) || /^\/api/.test(config.url) || /^\/payment/.test(config.url) || /^\/v1\/repos/.test(config.url)) {
+
+                            token = tokenarr[region - 1];
+                        } else {
+                            token = tokenarr[0];
+                        }
+
+                        //console.log('tokenarr', tokenarr[region-1]);
+                    } else {
+                        //console.log('token错误');
+                    }
                     //console.log(tokens,token, regions);
-                    //if (config.headers && token) {
-                    //    config.headers["Authorization"] = "Bearer " + token;
-                    //}
-                    //console.log('config.url out', config.url);
+                    if (config.headers && token) {
+                        config.headers["Authorization"] = "Bearer " + token;
+                    }
 
-
-                    if (/^\.\/hawkular/.test(config.url)) {
-
-                        //console.log('config.url in', config.url);
-                        //console.log('$rootScope.namespace', $rootScope.namespace);
+                    if (/^\/hawkular/.test(config.url)) {
                         config.headers["Hawkular-Tenant"] = $rootScope.namespace;
                     }
-                    //if (/^\/registry/.test(config.url)) {
-                    //    var Auth = localStorage.getItem("Auth")
-                    //    config.headers["Authorization"] = "Basic " + Auth;
-                    //}
+                    if (/^\/registry/.test(config.url)) {
+                        var Auth = localStorage.getItem("Auth")
+                        config.headers["Authorization"] = "Basic " + Auth;
+                    }
                     if (config.method == 'PATCH') {
                         config.headers["Content-Type"] = "application/merge-patch+json";
                     }

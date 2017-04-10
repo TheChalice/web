@@ -22,7 +22,7 @@ define([
                     wsscheme = "ws://";
                 }
 
-                var host = wsscheme + location.host+location.pathname;
+                var host = wsscheme + location.host;
                 console.log('host', host);
                 console.log('location', location);
 
@@ -43,8 +43,11 @@ define([
                     //var token = tokenarr[0];
                     host = host + GLOBAL.host_wss;
                 }
-                //var tokens = Cookie.get('df_access_token');
-                //var regions = Cookie.get('region');
+                var tokens = Cookie.get('df_access_token');
+                var regions = Cookie.get('region');
+                var tokenarr = tokens.split(',');
+                var region = regions.split('-')[2];
+                var token = tokenarr[region-1];
 
                 params.name = params.name ? '/' + params.name : '';
                 if (params.pod) {
@@ -54,20 +57,20 @@ define([
                         '&limitBytes=10485760' +
                         '&container=' + params.pod +
                         '&region=' + $rootScope.region +
-                        '&access_token=' + Cookie.get('df_access_token');
+                        '&access_token=' + token;
                 } else if (params.app) {
                     var url = host + '/namespaces/' + params.namespace + '/' + params.type + params.name +
                         '?watch=true' +
                         '&resourceVersion=' + params.resourceVersion +
                         '&labelSelector=' + params.app +
                         '&region=' + $rootScope.region +
-                        '&access_token=' + Cookie.get('df_access_token');
+                        '&access_token=' + token;
                 } else {
                     var url = host + '/namespaces/' + params.namespace + '/' + params.type + params.name +
                         '?watch=true' +
                         '&resourceVersion=' + params.resourceVersion +
                         '&region=' + $rootScope.region +
-                        '&access_token=' + Cookie.get('df_access_token');
+                        '&access_token=' + token;
                 }
                 if (params.protocols) {
                     $ws({
