@@ -1,30 +1,40 @@
+.backing-service-detail{padding:40px;background:#fff;}
 .backing-service-detail .info {
-    height: 160px;
+    height: 173px;
     overflow: hidden;
     margin-bottom: 30px;
 }
 .backing-service-detail .info .info-image {
     height: 100%;
-    width: 160px;
+    width: 194px;
     float: left;
-    border: 1px solid #c9c9c9;
-    border-radius: 2px;
+    border: 1px solid #e6e6e6;
+    border-radius: 0px;
     /*background: url(../../pub/img/bsi.png) no-repeat;*/
     /*background-size: 160px 160px;*/
-    margin-right: 20px;
+    margin-right: 30px;
 }
 .backing-service-detail .info .info-desc {
     overflow: hidden;
-    border-bottom: 1px solid #c9c9c9;
+    border-bottom:none;
     height: 100%;
 }
 .backing-service-detail .info .info-desc h2 {
-    font-size: 16px;
-    color: #393f4f;
+    font-size: 22px;
+    color: #333;
     margin: 10px 0;
 }
 .backing-service-detail .info .info-desc p {
-    font-size: 12px;
-    color: #5a6378;
-    margin-bottom: 6px;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
 }
+/*中信项目 20161214 jia add*/
+.tab-jia-default{border:none;box-shadow: none;}
+.tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
+    border:0;
+    border-bottom:2px solid #5c72e9;
+    color:#333;
+}
+.tab-jia-default .tab-content{border: 0;padding:30px 0;}
+.tab-jia-default li .nav-link:hover{color:#333;}

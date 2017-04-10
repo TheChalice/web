@@ -1,17 +1,19 @@
 #sidebar {
-    background: #e6e9f2;
+    background: #264359;
 }
 #sidebar ul > li {
     margin: 0;
 }
 #sidebar ul > li > a {
-    color: #5a6378;
+    color: #fff;
     border-radius: 0;
     padding: 23px 30px;
+    font-size:14px;
 }
-#sidebar ul > li.active > a {
-    background: #dde0e9;
+#sidebar ul.nav-pills > li.active > a,#sidebar ul.nav-pills > li.active > a:focus,#sidebar ul.nav-pills > li > a:hover,#sidebar ul.nav-pills > li > a:active {
+    background: #2c4d66!important;
 }
+.nav-jia-pills>li>a:focus, .nav-jia-pills>li>a:hover{background:#2c4d66!important;}
 
 #sidebar ul > li > a > i {
     display: none;
@@ -57,6 +59,19 @@
 #sidebar ul > li > a:hover .icon25-service {
     background-image: url(img/service-active.png);
 }
+.icon25-Integration {
+    background-image: url(img/Integration.png);
+}
+#sidebar ul > li > a:hover .icon25-Integration {
+    background-image: url(img/Integration_active.png);
+}
+
+.icon25-Integration {
+    background-image: url(img/Integration.png);
+}
+#sidebar ul > li > a:hover .icon25-Integration {
+    background-image: url(img/Integration_active.png);
+}
 
 .icon25-make {
     background-image: url(img/make.png);
@@ -74,3 +89,19 @@
 .icon25 {
     color: #5a6378;
 }
+/*20161216 jia add 当前项目*/
+.nav-jia-pills>li.side_pass>a:focus,.nav-jia-pills>li.side_change>a:focus{background:none!important;}
+.sidebar_jia_per{display:inline-block;}
+.side_change{color:#fff;font-size:14px;}
+.side_change:hover{background:#2c4d66!important}
+.sidebar_jia_per span{color:#fff;font-size:14px;display:inline-block;}
+.header_jia_per_tit{white-space:nowrap;text-overflow:ellipsis;overflow: hidden;width:52px;vertical-align:bottom;}
+.nav .open>a.sidebar_jia_block, .nav .open>a.sidebar_jia_block:focus, .nav .open>a.sidebar_jia_block:hover{background:none;border:0;}
+.sidebar_jia_per .dropdown-menu > li > a{background:#2c4d66;line-height:normal;height:auto;}
+.sidebar_jia_per .dropdown-menu > li > a:hover{background:#28475e;}
+.sidebar_jia_per .projectname>.personal>a>span{line-height:normal;height:auto;color:#fff;}
+.sidebar_jia_per .dropdown-menu > li > a{line-height:normal!important;height:auto!important;padding:11px 25px!important;}
+.sidebar_jia_per .projectname  > li{height:40px;line-height:40px;}
+.sidebar_jia_per .projectname  > li:hover{height:40px;line-height:40px;}
+.sidebar_jia_block{padding:23px 10px 23px 30px;display:block;}
+.sidebar_h_caret{border-left:6px dashed;border-top:6px solid transparent;border-bottom:6px solid transparent;}

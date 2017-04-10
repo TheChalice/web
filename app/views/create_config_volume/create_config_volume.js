@@ -84,7 +84,7 @@ angular.module('console.create_config_volume', [
 
             if (arr && arr.length > 0) {
                 var kong = false;
-                var r = /^[a-zA-Z][a-zA-Z0-9_]{1,20}$/;
+                var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
                 angular.forEach(arr, function (item, i) {
 
                     if (!item.key || !item.value) {
@@ -141,8 +141,85 @@ angular.module('console.create_config_volume', [
 
     }
 
+    $scope.namerr = {
+        nil: false,
+        rexed: false,
+        repeated: false
+    }
+    $scope.nameblur = function () {
+        //console.log($scope.buildConfig.metadata.name);
+        if (!$scope.volume.metadata.name) {
+            $scope.namerr.nil = true
+        } else {
+            $scope.namerr.nil = false
+        }
+    }
+    $scope.namefocus = function () {
+        $scope.namerr.nil = false
+    }
+    configmaps.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (res) {
+        //console.log(res);
+        //if (res.items && res.items.length > 0) {
+        //    angular.forEach(res.items, function (item, i) {
+        //        res.items[i].sorttime = (new Date(item.metadata.creationTimestamp)).getTime()
+        //    })
+        //    //console.log($scope.items);
+        //    res.items.sort(function (x, y) {
+        //        return x.sorttime > y.sorttime ? -1 : 1;
+        //    });
+        //    if (!res.items) {
+        //        $scope.configdata = [];
+        //    } else {
+        //        $scope.configdata = res.items;
+        //    }
+        //    $scope.copyconfigdata = angular.copy($scope.configdata)
+        //    $scope.grid.total = $scope.configdata.length;
+        //    $scope.grid.page = 1;
+        //    $scope.grid.txt = '';
+        //    refresh(1);
+        //}
+        $scope.cfmnamearr=res.items;
+
+
+    })
+
+    var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+
+    $scope.$watch('volume.metadata.name', function (n, o) {
+        if (n === o) {
+            return;
+        }
+        if (n && n.length > 0) {
+            if (rex.test(n)) {
+                $scope.namerr.rexed = false;
+                $scope.namerr.repeated=false;
+                if ($scope.cfmnamearr) {
+                    //console.log($scope.buildConfiglist);
+                    angular.forEach($scope.cfmnamearr, function (bsiname, i) {
+                        console.log(bsiname);
+                        if (bsiname.metadata.name === n) {
+                            console.log(bsiname,n);
+                            $scope.namerr.repeated = true;
+
+                        }
+                        //console.log($scope.namerr.repeated);
+                    })
+                }
+
+            } else {
+                $scope.namerr.rexed = true;
+            }
+        } else {
+            $scope.namerr.rexed = false;
+        }
+    })
 
     $scope.cearteconfig = function () {
+        if (!$scope.namerr.nil && !$scope.namerr.rexed && !$scope.namerr.repeated&&!$scope.timeouted) {
+
+        }else {
+            return
+        }
         $scope.loaded=true;
         var arr = $scope.volume.configitems.concat($scope.volume.configarr);
         angular.forEach(arr, function (item, i) {
@@ -152,8 +229,8 @@ angular.module('console.create_config_volume', [
 
         delete $scope.volume.configitems;
         delete $scope.volume.configarr;
-        configmaps.create({namespace: $rootScope.namespace}, $scope.volume, function (res) {
-            console.log('createconfig----', res);
+        configmaps.create({namespace: $rootScope.namespace,region:$rootScope.region}, $scope.volume, function (res) {
+            //console.log('createconfig----', res);
             $scope.loaded=false;
             $state.go('console.resource_management', {index: 2});
             //$state.go('console.build_detail', {name: name, from: 'create'})

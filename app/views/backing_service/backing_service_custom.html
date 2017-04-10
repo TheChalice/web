@@ -29,7 +29,7 @@
                     <a href="javascript:;" ng-click="item.show=!item.show" class="fa2 fa2-link"
                        uib-tooltip="服务绑定"></a>
                     <!--<a ui-sref="console.backing_service_detail({name:item.spec.provisioning.backingservice_name, plan: item.spec.provisioning.backingservice_plan_name, update: true})" class="fa2 fa2-update" uib-tooltip="升级套餐"></a>-->
-                    <a href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fa2 fa2-dashboard"
+                    <a ng-if="item.spec.provisioning.dashboard_url" href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fa2 fa2-dashboard"
                        uib-tooltip="Dashboard"></a>
                     <a href="javascript:;" class="faa faa-times" uib-tooltip="删除"
                        ng-click="delBsi($index)"></a>
@@ -39,8 +39,8 @@
         <div class="binding-services" uib-collapse="!item.show">
             <div style="padding: 30px;">
                 <h2>
-                    绑定服务
-                    <a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>
+                    <!--绑定服务-->
+                    <!--<a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>-->
                     <a href="javascript:;" class="btn btn-green" ng-click="bindModal($index)">新增绑定</a>
                 </h2>
                 <div class="panel-group" role="tablist" aria-multiselectable="true" style="margin-bottom: 0;">
@@ -62,6 +62,7 @@
                                 <span class="label label-default" uib-tooltip="{{bsisv.bound_time | timescon}}">
                                     <i class="fa2 fa2-time"></i>&nbsp;{{bsisv.bound_time | dateRelative}}
                                 </span>
+                                <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">解除绑定</a>
                             </h4>
                         </div>
                         <div id="{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"
@@ -85,6 +86,7 @@
         </div>
     </div>
 </div>
+<div style="border:1px solid #e5e5e5;padding-top:10px;padding-bottom:10px;background:#f7f8fc;text-align: center;position:relative" ng-if="diyservice.length===0"><p class="blank_block">  <span class="blank_tit">您还没有自定义后端服务实例</span></p></div>
 <!--</div>-->
 <style>
     .pan {

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('home.regist', [])
-    .controller('registCtrl', ['$rootScope', '$state', 'AuthService', 'registration', '$scope', '$log', 'Alert',
-        function ($rootScope, $state, AuthService, registration, $scope, $log, Alert) {
+    .controller('registCtrl', ['Toast','$rootScope', '$state', 'AuthService', 'registration', '$scope', '$log', 'Alert',
+        function (Toast,$rootScope, $state, AuthService, registration, $scope, $log, Alert) {
             $log.info('regist');
             $scope.credentials = {};
             $scope.xieyi = false;
@@ -13,9 +13,15 @@ angular.module('home.regist', [])
                 }
                 //注册相关代码...
                 registration.regist({}, $scope.sendobj, function (data) {
-                    Alert.open('注册账号', '激活邮件发送成功!', '', true).then(function () {
-                        $state.go('home.index');
+                    Alert.open('注册账号', '注册成功,请登录', '', true).then(function () {
+                        $state.go('login');
                     })
+                }, function (err) {
+                    console.log(err);
+                    if (err.data.code === 14091) {
+                        Toast.open('用户名重复,请重新输入');
+                    }
+
                 })
             };
             function codenum() {

@@ -28,7 +28,7 @@
 }
 
 #tabbtn .tab-default li.active .head {
-    border: 1px solid #e5993a;
+    border: 1px solid #5b73eb;
     background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .plan button:hover {
-    background: #e5993a;
+    background: #5b73eb;
 }
 
 .plan {
@@ -140,6 +140,7 @@
 
 #user .tab-content {
     padding: 30px;
+    padding-bottom:40px;
 }
 
 .buy {
@@ -150,9 +151,6 @@
     margin-bottom: 30px;
 }
 
-#user {
-    margin-top: 40px;
-}
 
 .nav-tabs > li {
     width: 180px;
@@ -267,7 +265,7 @@ article .peie {
     float: left;
     border:1px solid #c9c9c9;
     border-radius: 3px;
-    margin-left:2%;
+    margin-right:2%;
     margin-top:25px;
 }
 .caption {
@@ -275,9 +273,9 @@ article .peie {
     padding: 15px 0;
     text-align: center;
 }
-.row{
-    margin:0px;
-}
+/*.row{*/
+    /*margin:0px;*/
+/*}*/
 .token {
     white-space: nowrap;
 }
@@ -287,58 +285,36 @@ article .peie {
     display: inline-block;
     vertical-align: middle;
 }
-.planbg{
-    background: url(../../pub/img/planbg.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.planbg{
-    background: url(../../pub/img/planbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .planbg{
-    background: url(../../pub/img/planbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.accountbg{
-    background: url(../../pub/img/account.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.accountbg{
-    background: url(../../pub/img/account_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .accountbg{
-    background: url(../../pub/img/account_hover.png) no-repeat;
-    background-size:contain;
-}
-.usersbg{
-    background: url(../../pub/img/usersbg.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.usersbg{
-    background: url(../../pub/img/usersbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .usersbg{
-    background: url(../../pub/img/usersbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.orgbg{
-    background: url(../../pub/img/orgbg.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.orgbg{
-    background: url(../../pub/img/orgbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .orgbg{
-    background: url(../../pub/img/orgbg_hover.png) no-repeat;
-    background-size:contain;
-}
+
 .h2-border .xian {
     border-bottom: 1px solid #c9c9c9;
     display: inline-block;
     top: 50%;
     width: 100%;
     float: left;
+}
+
+/*20161010 jia �¼ӽ��׼�¼ģ��*/
+.user_tp{}
+.trans_all{-webkit-transition:  all 300ms;-ms-transition:  all 300ms;-o-transition:  all 300ms;-moz-transition:  all 300ms;transition:  all 300ms;}
+.user_search{padding:4px 16px;background:#0E5186;display:inline-block;margin-left:10px;color:#fff;font-size:12px;cursor:pointer;}
+.user_search:hover{ background:#0B9EFB;}
+.user_list{padding-left:0px;padding-right:0;margin-top:10px;}
+
+
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;padding:6px 12px;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
 }

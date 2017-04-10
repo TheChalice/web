@@ -34,6 +34,7 @@ angular.module('console.notification', [
         console.log('inbox',data);
       $scope.sitenotify=data;
     }).error(function(data,header,config,status){
+
     });
 
     $scope.sitenotifycheckeds=function () {
@@ -100,21 +101,21 @@ angular.module('console.notification', [
       //
       // }).error(function(data,header,config,status){
       // });
-      $http.put('/lapi/inbox/'+messid, {action:'accept_org_invitation'})
-          .success(function(data){
-
-          })
-          .error(function(){
-            // console.error("Failed to save.");
-          });
-      $http({
-        url:'/lapi/orgs/'+orgid+'/accept',
-        method:'PUT',
-      }).success(function(data){
-        $scope.sitenotify.data.results[ind].data.accepted=true;
-        $rootScope.delOrgs = true;
-      }).error(function(data,header,config,status){
-      });
+      //$http.put('/lapi/inbox/'+messid, {action:'accept_org_invitation'})
+      //    .success(function(data){
+      //
+      //    })
+      //    .error(function(){
+      //      // console.error("Failed to save.");
+      //    });
+      //$http({
+      //  url:'/lapi/orgs/'+orgid+'/accept',
+      //  method:'PUT',
+      //}).success(function(data){
+      //  $scope.sitenotify.data.results[ind].data.accepted=true;
+      //  $rootScope.delOrgs = true;
+      //}).error(function(data,header,config,status){
+      //});
 
     }
   }])

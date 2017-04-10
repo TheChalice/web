@@ -28,7 +28,7 @@
 }
 
 #tabbtn .tab-default li.active .head {
-    border: 1px solid #e5993a;
+    border: 1px solid #5b73eb;
     background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
 }
 
@@ -106,7 +106,7 @@ ul,li,ol{
 }
 
 .plan button:hover {
-    background: #e5993a;
+    background: #5b73eb;
 }
 
 .plan {
@@ -148,7 +148,7 @@ ul,li,ol{
 
 }
 
-.buy {
+.org-buy {
     font-size: 16px;
     font-weight: bold;
     color: #5a6378;
@@ -157,14 +157,14 @@ ul,li,ol{
 }
 
 #user {
-    margin-top: 40px;
+    /*margin-top: 40px;*/
 }
 
-.nav-tabs > li {
-    width: 180px;
-    height: 50px;
-    text-align: center;
-}
+/*.nav-tabs > li {*/
+    /*width: 180px;*/
+    /*height: 50px;*/
+    /*text-align: center;*/
+/*}*/
 
 .tab-default li .nav-link {
     height: 50px;
@@ -229,7 +229,7 @@ article .peie {
     padding: 30px 0;
     margin: 0 30px;
     border: none;
-    border-bottom: 1px solid #eaebef;
+    /*border-bottom: 1px solid #eaebef;*/
 }
 .creattime {
     padding-left: 30px;
@@ -242,11 +242,11 @@ article .peie {
     font-weight: bold;
     margin: 0;
 }
-.list {
+.orglist {
     padding: 30px 0px 0px 0px;
     margin: 0 30px;
 }
-.list h3 {
+.orglist h3 {
     font-size: 14px;
     font-weight: bold;
 }
@@ -255,7 +255,7 @@ article .peie {
     text-align: center;
 
 }
-.table>tbody>tr>td{
+.org .table>tbody>tr>td{
     line-height: 34px;
 }
 .table .btns {
@@ -265,7 +265,7 @@ article .peie {
     padding: 0;
     text-align: center;
     line-height: 24px;
-    margin-left: 30px;
+    /*margin-left: 30px;*/
 }
 .table-default {
     overflow: auto;
@@ -283,42 +283,43 @@ article .peie {
     display: inline-block;
     vertical-align: middle;
 }
-.planbg{
-    background: url(../../pub/img/planbg.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.planbg{
-    background: url(../../pub/img/planbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .planbg{
-    background: url(../../pub/img/planbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.accountbg{
-    background: url(../../pub/img/account.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.accountbg{
-    background: url(../../pub/img/account_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .accountbg{
-    background: url(../../pub/img/account_hover.png) no-repeat;
-    background-size:contain;
-}
-.orgbg{
-    background: url(../../pub/img/orgbg.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.orgbg{
-    background: url(../../pub/img/orgbg_hover.png) no-repeat;
-    background-size:contain;
-}
-.active .orgbg{
-    background: url(../../pub/img/orgbg_hover.png) no-repeat;
-    background-size:contain;
-}
+
+/*.planbg{*/
+    /*background: url(../../pub/img/planbg.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.nav-link:hover i.planbg{*/
+    /*background: url(../../pub/img/planbg_hover.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.active .planbg{*/
+    /*background: url(../../pub/img/planbg_hover.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.accountbg{*/
+    /*background: url(../../pub/img/account.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.nav-link:hover i.accountbg{*/
+    /*background: url(../../pub/img/account_hover.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.active .accountbg{*/
+    /*background: url(../../pub/img/account_hover.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.orgbg{*/
+    /*background: url(../../pub/img/orgbg.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.nav-link:hover i.orgbg{*/
+    /*background: url(../../pub/img/orgbg_hover.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.active .orgbg{*/
+    /*background: url(../../pub/img/orgbg_hover.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
 #leave {
     color: white;
 }
@@ -334,3 +335,13 @@ article .peie {
 .invitation:hover {
     color: #469450;
 }
+.tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
+    /*border:0;*/
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom:2px solid #5c72e9;
+    color:#333;
+}
+.tab-jia-default .tab-content{border: 0;padding:30px 0;}
+.tab-jia-default li .nav-link:hover{color:#333;}

@@ -27,11 +27,8 @@
         kubernetesUI: 'pub/terminal',
         term: '../bower_components/term.js/src/term',
         highcharts: '../bower_components/highcharts/highcharts',
-        highchartsNg: '../bower_components/highcharts-ng/dist/highcharts-ng.min',
-        fileUpload: '../bower_components/ng-file-upload/ng-file-upload.min',
-        fileUploadShim: '../bower_components/ng-file-upload/ng-file-upload-shim.min',
-        angulartics: '../bower_components/angulartics/dist/angulartics.min',
-        angularticsgoogleanalytics: '../bower_components/angulartics-google-analytics/lib/angulartics-ga'
+        angularSlider: '../bower_components/angularjs-slider/dist/rzslider.min',
+        highchartsNg: '../bower_components/highcharts-ng/dist/highcharts-ng.min'
 
     },
     shim : {
@@ -64,6 +61,9 @@
         'bootstrap': {
             deps: ['jquery']
         },
+        'angularSlider': {
+            deps: ['angular','jquery']
+        },
         'angularBase64': {
             deps: ['angular']
         },
@@ -75,12 +75,6 @@
         },
         'highchartsNg': {
             deps: ['angular', 'highcharts']
-        },
-      'fileUpload' : {
-        deps: ['angular']
-      },
-      'fileUploadShim' : {
-        deps: ['angular', 'fileUpload']
-      }
+        }
     }
 }

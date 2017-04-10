@@ -20,51 +20,24 @@
 .searchbar .btn:hover {
     background-image: url(img/search-focus.png);
 }
-.nav-link i{
-    height: 20px;
-    width: 20px;
-    display: inline-block;
-    vertical-align: middle;
-}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+.blank_block{margin-bottom:0;}
 
-.myimage{
-    background: url(../../pub/img/myimage.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.myimage{
-    background: url(../../pub/img/myimageh.png) no-repeat;
-    background-size:contain;
-}
-.active .myimage{
-    background: url(../../pub/img/myimageh.png) no-repeat;
-    background-size:contain;
-}
+/*.myimage{*/
+    /*background: url(../../pub/img/myimage.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.nav-link:hover i.myimage{*/
+    /*background: url(../../pub/img/myimageh.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
+/*.active .myimage{*/
+    /*background: url(../../pub/img/myimageh.png) no-repeat;*/
+    /*background-size:contain;*/
+/*}*/
 
-.registimage{
-    background: url(../../pub/img/registimage.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.registimage{
-    background: url(../../pub/img/registimageh.png) no-repeat;
-    background-size:contain;
-}
-.active .registimage{
-    background: url(../../pub/img/registimageh.png) no-repeat;
-    background-size:contain;
-}
 
-.imagecenter{
-    background: url(../../pub/img/imagecenter.png) no-repeat;
-    background-size:contain;
-}
-.nav-link:hover i.imagecenter{
-    background: url(../../pub/img/imagecenterh.png) no-repeat;
-    background-size:contain;
-}
-.active .imagecenter{
-    background: url(../../pub/img/imagecenterh.png) no-repeat;
-    background-size:contain;
-}
+
 
 .collection{
     background: url(../../pub/img/collection.png) no-repeat;
@@ -123,4 +96,30 @@
 }
 .href-orange:hover {
     color: #5a6378;
+}
+/*.image_jia_btn{margin-left:0px!important;margin-right:0px!important;}*/
+.thumbnail .caption .href-orange{color:#333;}
+.tab-image-jia-defautl li.active .nav-link, .tab-image-jia-defautl li.active .nav-link:focus, .tab-image-jia-defautl li.active .nav-link:hover{
+    background:none;border:0;border-bottom:2px solid #5c72e9;color:#333;
+}
+.tab-image-jia-defautl .tab-content{border:none;}
+.tab-image-jia-defautl .thumbnail .thumb-content{background:#f7f7f7;}
+.tab-image-jia-defautl .thumbnail{border:1px solid #e6e6e6;}
+.tab-image-jia-defautl .thumbnail .caption{border-top:1px solid #e6e6e6;}
+
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;padding:6px 12px;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
 }

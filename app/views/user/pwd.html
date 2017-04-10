@@ -11,6 +11,7 @@
         <p class="modal-msg text-left" style="margin: 0 0 5px 0;font-size:14px;color:#5a6378;">
             <span class="require">原密码</span>&nbsp;&nbsp;
             <small ng-if="credentials.oldpwdchange&&frm.oldpwd.$dirty && frm.oldpwd.$error.required" class="err-tip pull-right"><i class="fa fa-info-circle"></i>&nbsp;密码不能为空</small>
+            <small ng-if="pwderr" class="err-tip pull-right"><i class="fa fa-info-circle"></i>&nbsp;原密码不正确</small>
         </p>
         <!--<button ng-click="look()">test</button>-->
         <input type="password" name="oldpwd" class="form-control" ng-model="credentials.oldpwd" ng-blur="credentials.oldpwdchange=true"
@@ -28,14 +29,16 @@
         <!--repeat newpwd-->
         <p class="modal-msg text-left" style="margin: 20px 0 5px 0;font-size:14px;color:#5a6378;">
             <span class="require">确认新密码</span>&nbsp;&nbsp;
-            <small ng-if="credentials.repwdchange && frm.repwd.$dirty && frm.repwd.$error.required" class="err-tip pull-right"><i class="fa fa-info-circle"></i>&nbsp;确认新密码不能为空</small>
-            <small ng-if="credentials.repwdchange && frm.repwd.$dirty && frm.repwd.$error.pattern && credentials.pwd != credentials.repwd" class="err-tip pull-right"><i class="fa fa-info-circle"></i>&nbsp;两次输入密码不相同</small>
+            <small ng-if="frm.repwd.$dirty && frm.repwd.$error.required" class="err-tip pull-right"><i class="fa fa-info-circle">
+
+                </i>&nbsp;确认新密码不能为空</small>
+            <small ng-if="frm.repwd.$dirty && credentials.pwd !== credentials.repwd" class="err-tip pull-right">
+                <i class="fa fa-info-circle">
+
+                </i>&nbsp;两次输入密码不相同</small>
         </p>
-        <input name="repwd" type="password" class="form-control" ng-model="credentials.repwd" ng-blur="repwdchange=true"
-               ng-focus="repwdchange=false" required>
-        <button class="btn btn-grey btns"
-                ng-click="cancel()"
-                >
+        <input name="repwd" type="password" class="form-control" ng-model="credentials.repwd" required>
+        <button class="btn btn-grey btns" ng-click="cancel()">
             取消
         </button>
         <button class="btn btn-disabled btns"

@@ -1,14 +1,13 @@
 <div class="backing-service-instance" ng-repeat="items in myservice">
-    <div ng-show="items.isshow">
+    <div>
         <!--<h2 id=t{{items.id}} class="h2-border" ng-show="items.showTab">-->
             <!--{{items.name}}-->
         <!--</h2>-->
-        <div id=t{{items.id}} class="h2-border" ng-show="items.showTab"
-             style="margin-bottom: 15px;">
+        <div class="h2-border"  ng-show="items.item.length" style="margin-bottom: 15px;">
             <span class='biaoti'>{{items.name}}</span>
             <i class='xian'></i>
         </div>
-        <div class="instance" ng-repeat="item in items.item | myfilter:isComplete">
+        <div class="instance" ng-repeat="item in items.item">
             <div class="instance-bar">
                 <div class="row">
                     <div class="ban4 pan">
@@ -41,18 +40,19 @@
             <div class="binding-services" uib-collapse="!item.show">
                 <div style="padding: 30px;">
                     <h2>
-                        绑定服务
-                        <a href="javascript:;" class="btn btn-orange" ng-click="delBing($index,items.id)">解除绑定</a>
-                        <a href="javascript:;" class="btn btn-green" ng-click="bindModal($index,items.id)">新增绑定</a>
+                        <!--绑定服务-->
+                        <!--<a href="javascript:;" class="btn btn-orange" ng-click="delBing($index,items.id)">解除绑定</a>-->
+                        <a href="javascript:;" class="btn btn-gray" style="background-color:#fff;color: white" ng-if="item.status.phase==='Provisioning'">新增绑定</a>
+                        <a href="javascript:;" class="btn btn-green" ng-if="item.status.phase!=='Provisioning'" ng-click="bindModal($index,items.id)">新增绑定</a>
                     </h2>
                     <div class="panel-group" role="tablist" aria-multiselectable="true" style="margin-bottom: 0;">
                         <div class="panel panel-default" ng-repeat="bsisv in item.spec.binding">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
-                                    <a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked"
-                                       style="cursor: pointer">
-                                        <i class="faa faa-check"></i>&nbsp;
-                                    </a>
+                                    <!--<a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked"-->
+                                       <!--style="cursor: pointer">-->
+                                        <!--<i class="faa faa-check"></i>&nbsp;-->
+                                    <!--</a>-->
                                     <a href="#{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"
                                        data-toggle="collapse"
                                        class="accordion-toggle">
@@ -64,6 +64,12 @@
                                 <span class="label label-default" uib-tooltip="{{bsisv.bound_time | timescon}}">
                                     <i class="fa2 fa2-time"></i>&nbsp;{{bsisv.bound_time | dateRelative}}
                                 </span>
+
+                                    <span style="margin-left: 10px;" ng-if="bsisv.delete" class="icon12 icon12-Bound fa-unspin">
+                                    </span>
+                                    <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">
+                                        解除绑定
+                                    </a>
                                 </h4>
                             </div>
                             <div id="{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}"
@@ -82,6 +88,7 @@
         </div>
     </div>
 </div>
+<div style="border:1px solid #e5e5e5;padding-top:10px;padding-bottom:10px;background:#f7f8fc;text-align: center;position:relative" ng-if="numservice.length===0"><p class="blank_block">  <span class="blank_tit">您还没有后端服务实例</span></p></div>
 <style>
     .pan {
         padding-left: 10px;

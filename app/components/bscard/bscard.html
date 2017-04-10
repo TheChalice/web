@@ -20,9 +20,9 @@
     </div>
     <div class="caption">
         <p class="bsname">{{item.metadata.name}}</p>
-        <a class="btn btn-disabled" ng-if='item.bianhui && !bkservice' style='cursor:default;'>申请实例</a>
-        <a class="btn btn-orange" ng-if='item.biancheng && !bkservice' ui-sref="console.apply_instance({name: item.metadata.name})">申请实例</a>
-        <a class="btn btn-disabled" ng-if='item.bianhui && bkservice' style='cursor:default;'>申请实例</a>
-        <a class="btn btn-orange" ng-if='item.biancheng && bkservice' ng-click="apply_instance(item.metadata.name)">申请实例</a>
+        <a class="btn btn-disabled" ng-if='item.status.phase !== "Active" && !bkservice' style='cursor:default;'>申请实例</a>
+        <a class="btn btn-orange" ng-if='item.status.phase === "Active" && !bkservice' ui-sref="console.apply_instance({name: item.metadata.name})">申请实例</a>
+        <a class="btn btn-disabled" ng-if='item.status.phase !== "Active" && bkservice' style='cursor:default;'>申请实例</a>
+        <a class="btn btn-orange" ng-if='item.status.phase === "Active" && bkservice' ng-click="apply_instance(item.metadata.name)">申请实例</a>
     </div>
 </div>

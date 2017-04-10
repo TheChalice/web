@@ -22,12 +22,12 @@
             <div class="col-md-6"><span style="word-break:break-all;word-wrap: break-word;">{{event.message}}<br><small style="color:#5a6378;font-size: 10px;">出现{{event.count}}次</small></span></div>
 
         </div>
-        <div class="col-md-12 load7" ng-if="!eventsws.items.length" style="padding: 0;overflow: hidden;">
-            <div class="loader">加载中...</div>
-        </div>
-    <!--<div class="col-md-12" ng-if="eventsws.items.length!==0&&!eventsws.items.length" style="padding: 0;overflow: hidden;">-->
-              <!--<div style="text-align: center;">无</div>-->
+        <!--<div class="col-md-12 load7" ng-if="!eventsws.items.length&&hasevent" style="padding: 0;overflow: hidden;">-->
+            <!--<div class="loader">加载中...</div>-->
         <!--</div>-->
+    <div class="col-md-12" ng-if="!eventsws.items.length&&!hasevent" style="padding: 0;overflow: hidden;">
+              <div style="text-align: center;">部署事件暂时为空</div>
+        </div>
     </div>
 
 <style>

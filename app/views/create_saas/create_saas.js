@@ -8,13 +8,13 @@ angular.module('console.create_saas', [
             ]
         }
     ])
-    .controller('create_saasCtrl',['saas','$scope','$rootScope', 'creatapp', '$state','$stateParams',
-        function (saas,$scope, $rootScope, creatapp, $state,$stateParams) {
-            console.log('$stateParams', $stateParams.name);
+    .controller('create_saasCtrl',['BackingServiceInstance','saas','$scope','$rootScope', 'creatapp', '$state','$stateParams',
+        function (BackingServiceInstance,saas,$scope, $rootScope, creatapp, $state,$stateParams) {
+            //console.log('$stateParams', $stateParams.name);
             if ($stateParams.name) {
                 //$scope.saasname=$stateParams.name;
                 saas.get({id:$stateParams.name}, function (res) {
-                    console.log(res);
+                    //console.log(res);
                     $scope.saasname=res.data.name;
                     $scope.url=res.data.url;
                 })
@@ -29,6 +29,70 @@ angular.module('console.create_saas', [
             keybuhefa: false,
             keynull: false
         }
+            $scope.namerr = {
+                nil: false,
+                rexed: false,
+                repeated: false
+            }
+            $scope.nameblur = function () {
+                //console.log($scope.buildConfig.metadata.name);
+                if (!$scope.secrets.metadata.name) {
+                    $scope.namerr.nil = true
+                } else {
+                    $scope.namerr.nil = false
+                }
+            }
+            $scope.namefocus = function () {
+                $scope.namerr.nil = false
+            }
+            BackingServiceInstance.get({
+                namespace: $rootScope.namespace,
+                region: $rootScope.region
+            }, function (res) {
+                console.log('bsi',res.items);
+                $scope.bsinamearr=res.items;
+                //angular.forEach(res.items, function (item,i) {
+                //    $scope.bsinamearr.push(item.metadata.name)
+                //});
+
+            })
+            //secretskey.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (res) {
+            //    //console.log('-------loadsecrets', res);
+            //    $scope.secremnamearr=res.items;
+            //
+            //})
+
+
+            var rex =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+
+            $scope.$watch('secrets.metadata.name', function (n, o) {
+                if (n === o) {
+                    return;
+                }
+                if (n && n.length > 0) {
+                    if (rex.test(n)) {
+                        $scope.namerr.rexed = false;
+                        $scope.namerr.repeated=false;
+                        if ($scope.bsinamearr) {
+                            //console.log($scope.buildConfiglist);
+                            angular.forEach($scope.bsinamearr, function (bsiname, i) {
+                                //console.log(bsiname);
+                                if (bsiname.metadata.name === n) {
+                                    //console.log(bsiname,n);
+                                    $scope.namerr.repeated = true;
+
+                                }
+                                //console.log($scope.namerr.repeated);
+                            })
+                        }
+
+                    } else {
+                        $scope.namerr.rexed = true;
+                    }
+                } else {
+                    $scope.namerr.rexed = false;
+                }
+            })
 
         //$scope.secrets = {
         //    "kind": "Secret",
@@ -142,7 +206,7 @@ angular.module('console.create_saas', [
         }, true);
 
         $scope.checknames = function () {
-            var r = /^[a-z][-a-z0-9]*[a-z0-9]$/;
+            var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
             if (!r.test($scope.secrets.metadata.name)) {
                 $scope.grid.secretnames = false;
             } else {
@@ -164,13 +228,18 @@ angular.module('console.create_saas', [
         }
 
         $scope.postsecret = function () {
+            if (!$scope.namerr.nil && !$scope.namerr.rexed && !$scope.namerr.repeated) {
+
+            }else {
+                return
+            }
             $scope.loaded = true;
             angular.forEach($scope.secrets.secretsarr, function (item, i) {
-                console.log(item.key, item.value);
+                //console.log(item.key, item.value);
                 $scope.secrets.spec.userprovidedservice.credentials[item.key] = item.value
             })
             delete $scope.secrets.secretsarr;
-            creatapp.create({namespace: $rootScope.namespace}, $scope.secrets, function (res) {
+            creatapp.create({namespace: $rootScope.namespace,region:$rootScope.region}, $scope.secrets, function (res) {
                 $scope.grid.nameerr = false;
                 //console.log('createconfig----',res);
                 $scope.loaded = false;

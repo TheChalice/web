@@ -28,7 +28,7 @@ angular.module('home.introduce', [
           ]
         $scope.hdfw = [
             {fun:'计费灵活',funcon:'即买即用，按需提供',img:'views/home/introduce/img/icon-30.png',bigimg:'views/home/introduce/img/DF-33.png'},
-            {fun:'多样化后端服务',funcon:'应用开发者既可以在界面上申请，也可以通过编排生成',img:'views/home/introduce/img/icon-31.png',bigimg:'views/home/introduce/img/DF-34.png'},
+            {fun:'多样化后端服务',funcon:'预置计算、存储、分布式协调等24种后端服务',img:'views/home/introduce/img/icon-31.png',bigimg:'views/home/introduce/img/DF-34.png'},
             {fun:'使用方便',funcon:'应用开发者既可以在界面上申请，也可以通过编排来生成',img:'views/home/introduce/img/icon-32.png',bigimg:'views/home/introduce/img/DF-38.png'}
         ]
         $scope.yytg = [

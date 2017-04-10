@@ -140,11 +140,78 @@ define(['angular', 'moment'], function (angular, moment) {
                 }
             };
         }])
+        .filter('numfilter', function () {
+            // 分类过滤器
+            return function (items, condition) {
+                //console.log(items, condition);
+                var filtered = [];
+
+                if (condition === undefined || condition === '') {
+                    if (items.length) {
+                        angular.forEach(items, function (item,i) {
+                            item.show = true
+                        })
+                    }
+                    return items;
+                }
+
+                    angular.forEach(items, function (item) {
+                        if (condition.label === item.label) {
+                            item.show = true
+                            filtered.push(item);
+                        }else {
+                            item.show=false
+                        }
+                    });
+                    return filtered;
+
+
+
+            };
+        })
+        .filter('payFilter',[function(){
+            return function(phase){
+                if(phase === 'coupon'){
+                    return "充值卡"
+                }else if(phase === 'hongpay'){
+                    return "鸿支付"
+                }else if(phase == 'Pending'){
+                    return "创建中"
+                }else if(phase == 'Bound'){
+                    return "未挂载"
+                }else{
+                    return phase || "账户余额"
+                }
+            };
+        }])
+        .filter('paytypeFilter',[function(){
+            return function(phase){
+                if(phase === 'O'){
+                    return "充值成功"
+                }else if(phase === 'F'){
+                    return "扣费失败"
+                }else if(phase === 'I'){
+                    return "充值中"
+                }else if(phase === 'E'){
+                    return "充值失败"
+                }else{
+                    return phase || "-"
+                }
+            };
+        }])
         .filter("timescon",[function(){
             return function(times){
                 if(times){
                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
                     return moment(times).format('YYYY-MM-DD HH:mm:ss');
+                }
+            }
+        }])
+        .filter("timesconbuy",[function(){
+            return function(times){
+                if(times){
+                   //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    return moment(parseInt(moment(times).format('X'))-28800).format('YYYY-MM-DD HH:mm:ss');
                 }
             }
         }])
@@ -161,6 +228,14 @@ define(['angular', 'moment'], function (angular, moment) {
                 if(times){
                    //var timesfilter = times.replace(/[a-zA-Z]/g,'');
                     return moment(times).format('HH:mm:ss');
+                }
+            }
+        }])
+        .filter("timescon3",[function(){
+            return function(times){
+                if(times){
+                   //var timesfilter = times.replace(/[a-zA-Z]/g,'');
+                    return moment(times).format('YYYY-MM-DD');
                 }
             }
         }])

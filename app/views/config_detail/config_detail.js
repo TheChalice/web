@@ -12,8 +12,8 @@ angular.module('console.config_detail', [
                 status: false,
             }
 
-            listConfig.get({namespace: $rootScope.namespace, name:$stateParams.name}, function(res){
-                console.log(res);
+            listConfig.get({namespace: $rootScope.namespace, name:$stateParams.name,region:$rootScope.region}, function(res){
+                //console.log(res);
                 $scope.volume = res;
                 $scope.volume.configitems=[];
                 $scope.volume.configarr=[];
@@ -121,8 +121,8 @@ angular.module('console.config_detail', [
 
                 delete $scope.volume.configarr;
                 delete $scope.volume.configitems;
-                configmaps.updata({namespace: $rootScope.namespace,name:$stateParams.name}, $scope.volume, function (res) {
-                    console.log('createconfig----', res);
+                configmaps.updata({namespace: $rootScope.namespace,name:$stateParams.name,region:$rootScope.region}, $scope.volume, function (res) {
+                    //console.log('createconfig----', res);
                     $state.go('console.resource_management', {index: 2});
                     //$state.go('console.build_detail', {name: name, from: 'create'})
                 })
@@ -131,8 +131,8 @@ angular.module('console.config_detail', [
             $scope.delete= function () {
 
                 Confirm.open("删除配置卷", "您确定要删除配置卷吗？", "配置卷已经挂载在容器中，删除此配置卷，容器启动将异常", "stop").then(function(){
-                    configmaps.delete({namespace: $rootScope.namespace,name:$stateParams.name}, $scope.volume, function (res) {
-                        console.log('createconfig----', res);
+                    configmaps.delete({namespace: $rootScope.namespace,name:$stateParams.name,region:$rootScope.region}, $scope.volume, function (res) {
+                        //console.log('createconfig----', res);
                         $state.go('console.resource_management', {index: 2});
                         //$state.go('console.build_detail', {name: name, from: 'create'})
                     }, function (err) {

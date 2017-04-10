@@ -31,7 +31,7 @@
 }
 
 #tabbtn .tab-default li.active .head {
-    border: 1px solid #e5993a;
+    border: 1px solid #5b73eb;
     background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
 }
 
@@ -109,7 +109,7 @@ ul,li,ol{
 }
 
 .plan button:hover {
-    background: #e5993a;
+    background: #5b73eb;
 }
 
 .plan {
@@ -323,4 +323,22 @@ article .peie {
 .accepts .dianj:hover {
     background-color: #fff;
     color: black;
+}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+.blank_block{margin-bottom:0;}
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;padding:6px 12px;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
 }

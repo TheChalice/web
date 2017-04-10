@@ -17,11 +17,13 @@
         </li>
         <li class="col-md-12 hhh" ng-repeat="pod in pods.items" style="border-bottom: 1px solid #e6e9f2;padding-top: 10px;padding-left: 0px;padding-right: 0px;padding-bottom:10px;">
                 <div class="col-md-2">
-                    <span  ng-if="!pod.show" ng-click="pod.show=!pod.show" role="button" data-toggle="collapse" data-parent="#accordion" href={{"#"+pod.metadata.name}} aria-expanded="true" aria-controls="collapseOne" uib-tooltip="{{pod.metadata.name}}" style="display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{pod.metadata.name}}
+                    <span ng-if="!pod.show" ng-click="pod.show=!pod.show" role="button" data-toggle="collapse" data-parent="#accordion" href={{"#"+pod.metadata.name}} aria-expanded="true" aria-controls="collapseOne" uib-tooltip="{{pod.metadata.name}}" style="display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                        <span class="href-orange" href="">{{pod.metadata.name}}</span>
                     <span class="caret"></span>
                     <!--<span class="caret" style="border-top: none;border-bottom:4px dashed"></span>-->
                     </span>
-                    <span  ng-if="pod.show" ng-click="pod.show=!pod.show" role="button" data-toggle="collapse" data-parent="#accordion" href={{"#"+pod.metadata.name}} aria-expanded="true" aria-controls="collapseOne" uib-tooltip="{{pod.metadata.name}}" style="display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{pod.metadata.name}}
+                    <span ng-if="pod.show" ng-click="pod.show=!pod.show" role="button" data-toggle="collapse" data-parent="#accordion" href={{"#"+pod.metadata.name}} aria-expanded="true" aria-controls="collapseOne" uib-tooltip="{{pod.metadata.name}}" style="display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                        <span class="href-orange" href="">{{pod.metadata.name}}</span>
                     <!--<span class="caret"></span>-->
                     <span class="caret" style="border-top: none;border-bottom:4px dashed"></span>
                     </span>
@@ -34,7 +36,7 @@
                 <div id={{pod.metadata.name}} class="panel-collapse collapse col-md-12" style="padding: 0;padding-top: 0;padding-bottom: 10px;position: relative;" role="tabpanel" aria-labelledby="headingOne">
                    <div class="row" style="margin: 0;padding-left: 20px;padding-right: 20px;">
                        <div class="col-md-12 sss" style="" ng-repeat="container in pod.spec.containers">
-                           <div class="col-md-4" style="text-align: left;padding-left: 6px;"><span class="glyphicon glyphicon-tasks" style="color:#f8b551;font-size:12px;" aria-hidden="true"></span>
+                           <div class="col-md-4" style="text-align: left;padding-left: 6px;"><span class="glyphicon glyphicon-tasks" style="color:#5c72e9;font-size:12px;" aria-hidden="true"></span>
                                <span style="font-size: 10px;margin-left: 10px;">{{container.name}}</span></div>
                            <div class="col-md-6"></div>
                            <div class="col-md-2" style="padding-right: 0;">

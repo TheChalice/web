@@ -52,13 +52,15 @@ define(['angular'], function (angular) {
                     '14090': '组织已存在',
                     '14091': '该用户已存在',
                     '14092': '该用户在LDAP已存在',
+                    '1409': '重复条目',
                     '2049': '原密码错误'
                 }
                 return errcode[code] || '内部错误，请通过DaoVoice联系管理员'
             }
         }])
         .service('by', ['$uibModal', function ($uibModal) {
-            this.open = function (name) {
+            this.open = function (name,daoxu) {
+                //daoxu参数倒序排列
                 return function (o, p) {
                     var a, b;
                     if (typeof o === "object" && typeof p === "object" && o && p) {
@@ -68,15 +70,26 @@ define(['angular'], function (angular) {
                             return 0;
                         }
                         if (typeof a === typeof b) {
-                            return a < b ? -1 : 1;
+                            if (daoxu) {
+                                return a < b ? 1 : -1;
+                            }else {
+                                return a < b ? -1 : 1;
+                            }
+
                         }
-                        return typeof a < typeof b ? -1 : 1;
+                        if (daoxu) {
+                            return typeof a < typeof b ? 1 : -1;
+                        }else {
+                            return typeof a < typeof b ? -1 : 1;
+                        }
+
                     } else {
                         throw ("error");
                     }
                 }
             }
-        }]).service('ansi_ups', ['$uibModal', function ($uibModal) {
+        }])
+        .service('ansi_ups', ['$uibModal', function ($uibModal) {
             //this.open = function (Date) {
             var ansi_up,
                 VERSION = "1.3.0",
@@ -412,59 +425,77 @@ define(['angular'], function (angular) {
                 return $uibModal.open({
                     templateUrl: 'pub/tpl/addmodal.html',
                     size: 'default',
-                    controller: ['$state', '$rootScope', '$scope', '$uibModalInstance', 'loadOrg', '$http',
-                        function ($state, $rootScope, $scope, $uibModalInstance, loadOrg, $http) {
+                    controller: ['addperpleOrg','createOrg','$state', '$rootScope', '$scope', '$uibModalInstance', 'loadOrg', '$http',
+                        function (addperpleOrg,createOrg,$state, $rootScope, $scope, $uibModalInstance, loadOrg, $http) {
+                            $scope.isaddpeople=isaddpeople;
+                            $scope.level=false;
                             $scope.title = title;
                             $scope.txt = txt;
                             $scope.tip = tip;
                             $scope.orgName = null;
+                            var canok = true;
                             $scope.ok = function () {
-                                if (isaddpeople == 'people') {
-                                    if (!$scope.orgName) {
-                                        $scope.tip = '邮箱不能为空';
-                                        return;
-                                    } else {
-                                        $http.put('/lapi/orgs/' + orgId + '/invite', {
-                                            member_name: $scope.orgName,
-                                            privileged: false
-                                        }).success(function (item) {
-                                            $uibModalInstance.close(item);
-                                        }).error(function (res) {
-                                            $scope.tip = errcode.open(res.code)
-                                            //if(res.code >= 500){
-                                            //  $scope.tip = '内部错误，请通过DaoVoice联系管理员';
-                                            //}else{
-                                            //  $scope.tip = res.message;
-                                            //}
+                                if (canok) {
+                                    canok=false;
+                                    if (isaddpeople == 'people') {
+                                        if (!$scope.orgName) {
+                                            $scope.tip = '邮箱不能为空';
+                                            return;
+                                        } else {
+                                            addperpleOrg.put({namespace: $rootScope.namespace,region:$rootScope.region}, {
+                                                member_name: $scope.orgName,
+                                                admin: $scope.level
+                                            }, function (item) {
+                                                $uibModalInstance.close(item);
+                                            }, function (err) {
+                                                //console.log('err.code', err);
+                                                $scope.tip = errcode.open(err.data.code)
+                                            })
 
-                                        })
-                                    }
-                                } else if (isaddpeople == 'org') {
-                                    if (!$scope.orgName) {
-                                        $scope.tip = '名称不能为空';
-                                        return;
-                                    } else {
-                                        $http.post('/lapi/orgs', {
-                                            name: $scope.orgName
-                                        }).success(function (item) {
-                                            //$state.go()
-                                            $state.go('console.org', {useorg: item.id})
-                                            $uibModalInstance.close(item);
+                                        }
+                                    } else if (isaddpeople == 'org') {
+                                        if (!$scope.orgName) {
+                                            $scope.tip = '名称不能为空';
+                                            return;
+                                        } else {
 
-                                            $rootScope.delOrgs = true;
-                                        }).error(function (res) {
-                                            console.log(res);
-                                            $scope.tip = errcode.open(res.code)
-                                            //if(res.code >= 500){
-                                            //  $scope.tip = '内部错误，请通过DaoVoice联系管理员';
-                                            //}else{
-                                            //  $scope.tip = res.message;
-                                            //}
-                                        })
+                                            createOrg.create({region: $rootScope.region,name: $scope.orgName}, function (item) {
+                                                //$state.go('console.org', {useorg: item.id})
+                                                $uibModalInstance.close(item);
+                                                //$rootScope.delOrgs = true;
+                                            }, function (err) {
+                                                //console.log(err);
+
+                                                if (err.data.code === 400) {
+                                                    $scope.tip = '同一账号只可创建一个组织'
+                                                }else {
+                                                    $scope.tip = errcode.open(err.code)
+                                                }
+
+                                            })
+                                            //$http.post('/lapi/orgs', {
+                                            //    name: $scope.orgName
+                                            //}).success(function (item) {
+                                            //    //$state.go()
+                                            //    $state.go('console.org', {useorg: item.id})
+                                            //    $uibModalInstance.close(item);
+                                            //
+                                            //    $rootScope.delOrgs = true;
+                                            //}).error(function (res) {
+                                            //    //console.log(res);
+                                            //    $scope.tip = errcode.open(res.code)
+                                            //    //if(res.code >= 500){
+                                            //    //  $scope.tip = '内部错误，请通过DaoVoice联系管理员';
+                                            //    //}else{
+                                            //    //  $scope.tip = res.message;
+                                            //    //}
+                                            //})
+                                        }
+                                    } else {
+                                        $uibModalInstance.close($scope.orgName);
                                     }
-                                } else {
-                                    $uibModalInstance.close($scope.orgName);
                                 }
+
 
                             };
                             $scope.cancel = function () {
@@ -474,6 +505,7 @@ define(['angular'], function (angular) {
                 }).result;
             };
         }])
+
         .service('Alert', ['$uibModal', function ($uibModal) {
             this.open = function (title, txt, err, regist, active) {
                 return $uibModal.open({
@@ -485,6 +517,55 @@ define(['angular'], function (angular) {
                         $scope.err = err;
                         $scope.classify = regist;
                         $scope.activation = active;
+                        $scope.ok = function () {
+                            $uibModalInstance.close();
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss();
+                        };
+                    }]
+                }).result;
+            };
+        }])
+        .service('Tip', ['$uibModal', function ($uibModal) {
+            this.open = function (title, txt, tip, iscf,colse,isorg,ispay) {
+                return $uibModal.open({
+                    templateUrl: 'pub/tpl/tip.html',
+                    size: 'default',
+                    controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+                        $scope.title = title;
+                        $scope.txt = txt;
+                        $scope.tip = tip;
+                        $scope.close=colse;
+                        //$scope.tp = tp;
+                        $scope.iscf = iscf;
+                        $scope.isorg =isorg;
+                        $scope.ispay =ispay;
+                        //$scope.nonstop = nonstop;
+                        $scope.ok = function () {
+                            $uibModalInstance.close(true);
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss();
+                        };
+                    }]
+                }).result;
+            };
+        }])
+        .service('delTip', ['$uibModal', function ($uibModal) {
+            this.open = function (title, txt, tip,colse) {
+                return $uibModal.open({
+                    backdrop: 'static',
+                    templateUrl: 'pub/tpl/deltip.html',
+                    size: 'default',
+                    controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+                        $scope.title = title;
+                        $scope.txt = txt;
+                        $scope.tip = tip;
+                        $scope.close=colse;
+                        //$scope.tp = tp;
+
+                        //$scope.nonstop = nonstop;
                         $scope.ok = function () {
                             $uibModalInstance.close();
                         };
@@ -520,10 +601,29 @@ define(['angular'], function (angular) {
                     size: 'default modal-lg',
                     controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
                         $scope.diploma = obj;
-                        console.log($scope.diploma, obj);
+                        //console.log($scope.diploma, obj);
                         //$scope.err = err;
                         //$scope.classify = regist;
                         //$scope.activation = active;
+                        $scope.ok = function () {
+                            $uibModalInstance.close();
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss();
+                        };
+                    }]
+                }).result;
+            };
+        }])
+        .service('Modalbs', ['$uibModal', function ($uibModal) {
+            this.open = function (name,plan) {
+                return $uibModal.open({
+                    templateUrl: 'pub/tpl/modalbs.html',
+                    size: 'default',
+                    controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+                        $scope.name = name;
+                        $scope.plan = plan;
+
                         $scope.ok = function () {
                             $uibModalInstance.close();
                         };
@@ -552,7 +652,6 @@ define(['angular'], function (angular) {
         .service('ChooseSecret', ['$uibModal', function ($uibModal) {
             this.open = function (olength, secretsobj) {
                 return $uibModal.open({
-                    backdrop: 'static',
                     templateUrl: 'pub/tpl/choosSecret.html',
                     size: 'default',
                     controller: ['by', '$scope', '$uibModalInstance', '$log', 'secretskey', '$rootScope', 'configmaps', 'persistent', '$state',
@@ -666,8 +765,8 @@ define(['angular'], function (angular) {
                             }
                             ////获取密钥列表
                             var loadsecretsList = function () {
-                                secretskey.get({namespace: $rootScope.namespace}, function (res) {
-                                    console.log('-------loadsecrets', res);
+                                secretskey.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
+                                    //console.log('-------loadsecrets', res);
                                     if (res.items) {
                                         $scope.loadsecretsitems = res.items;
                                     }
@@ -678,7 +777,7 @@ define(['angular'], function (angular) {
                             //////配置卷
                             ///获取配置卷列表////
                             var loadconfigmaps = function () {
-                                configmaps.get({namespace: $rootScope.namespace}, function (res) {
+                                configmaps.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
                                     if (res.items) {
                                         $scope.configmapitem = res.items;
                                     }
@@ -712,7 +811,7 @@ define(['angular'], function (angular) {
 
                                 persistent.get({namespace: $rootScope.namespace}, function (res) {
                                     if (res.items) {
-                                        console.log(res);
+                                        //console.log(res);
                                         $scope.persistentitem = [];
                                         angular.forEach(res.items, function (item, i) {
                                             if (item.status.phase == "Bound") {
@@ -742,8 +841,9 @@ define(['angular'], function (angular) {
                             $scope.changepersistentname = function (idx, val) {
                                 $scope.persistentarr[idx].persistentVolumeClaim.claimName = val
                             }
-                            $scope.govolume = function () {
-                                $state.go('console.resource_management')
+                            $scope.govolume = function (path) {
+
+                                $state.go(path);
                                 $uibModalInstance.dismiss();
                             };
                             ///  确定选择所选挂载卷
@@ -763,7 +863,7 @@ define(['angular'], function (angular) {
                                         "mountPath": $scope.secretarr[i].mountPath
                                     }
                                     if ($scope.secretarr[i].secret.secretName == '名称' || !$scope.secretarr[i].mountPath) {
-                                        alert('密钥不能为空')
+                                        //alert('密钥不能为空')
                                         return;
                                     }
                                     thisvolumes.push(volumeval);
@@ -800,7 +900,7 @@ define(['angular'], function (angular) {
                                         "name": "volumes" + (j + olength + $scope.secretarr.length + $scope.configmap.length),
                                         "mountPath": $scope.persistentarr[j].mountPath
                                     }
-                                    console.log('$scope.persistentarr[j].mountPath', $scope.persistentarr[j].mountPath)
+                                    //console.log('$scope.persistentarr[j].mountPath', $scope.persistentarr[j].mountPath)
                                     if ($scope.persistentarr[j].persistentVolumeClaim.claimName == '名称' || !$scope.persistentarr[j].mountPath) {
                                         //alert('3不能为空')
                                         return;
@@ -870,11 +970,11 @@ define(['angular'], function (angular) {
         .service('ImageSelect', ['$uibModal', function ($uibModal) {
             this.open = function () {
                 return $uibModal.open({
-                    backdrop: 'static',
                     templateUrl: 'pub/tpl/modal_choose_image.html',
                     size: 'default modal-lg',
-                    controller: ['$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist', function ($rootScope, $scope, $uibModalInstance, images, ImageStreamTag, ImageStream, $http, platformlist) {
-                        console.log('images', images);
+                    controller: ['platform','regpro','$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist',
+                        function (platform,regpro,$rootScope, $scope, $uibModalInstance, images, ImageStreamTag, ImageStream, $http, platformlist) {
+                        //console.log('images', images);
                         $scope.grid = {
                             cat: 0,
                             image: null,
@@ -895,7 +995,7 @@ define(['angular'], function (angular) {
                             }else {
                                 $scope.isxs = false
                             }
-                            console.log(n.image,$scope.imageTags,$scope.isxs);
+                            //console.log(n.image,$scope.imageTags,$scope.isxs);
                             if (n.image||n.image===0) {
                                 if (n.version_x || n.version_x === 0) {
                                     $scope.cansever = true
@@ -944,55 +1044,57 @@ define(['angular'], function (angular) {
                         });
 
                         $scope.images = images;
+
                         $scope.selectCat = function (idx) {
                             $scope.imageTags = {};
                             $scope.images = {};
                             $scope.grid.image = null;
-                            console.log("1223", idx);
+                            //console.log("1223", idx);
                             $scope.grid.cat = idx;
                             if (idx == 0) {
-                                ImageStream.get({namespace: $rootScope.namespace}, function (res) {
+                                ImageStream.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (res) {
                                     $scope.images = res;
                                 })
                             } else if (idx == 1) {
-                                $http.get('/registry/api/projects', {
-                                    params: {is_public: 0}
-                                }).success(function (data) {
-                                    for (var i = 0; i < data.length; i++) {
-                                        $http.get('/registry/api/repositories', {params: {project_id: data[i].project_id}})
-                                            .success(function (res) {
-                                                if (res) {
-                                                    for (var j = 0; j < res.length; j++) {
-                                                        var str = {
-                                                            'name': res[j]
-                                                        }
-                                                        $scope.test.items.push(str);
-                                                    }
-                                                    $scope.images = $scope.test;
-                                                }
-                                            })
-                                    }
+                                regpro.query({is_public: 0}, function (data) {
 
+                                    for (var i = 0; i < data.length; i++) {
+                                        platform.query({id: data[i].project_id}, function (res) {
+                                            console.log('newchange', res);
+                                            if (res) {
+                                                for (var j = 0; j < res.length; j++) {
+                                                    var str = {
+                                                        'name': res[j]
+                                                    }
+                                                    $scope.test.items.push(str);
+                                                }
+                                                $scope.images = $scope.test;
+                                            }
+                                        })
+
+                                    }
                                 })
+
                             } else if (idx == 2) {
                                 //////镜像中心
-                                $http.get('/registry/api/repositories', {params: {project_id: 1}})
-                                    .success(function (data) {
-                                        var arr2 = data;
-                                        $http.get('/registry/api/repositories', {params: {project_id: 58}})
-                                            .success(function (msg) {
-                                                arr2 = arr2.concat(msg);
-                                                for (var j = 0; j < arr2.length; j++) {
-                                                    var str2 = {
-                                                        'name': arr2[j]
-                                                    }
-                                                    $scope.imgcon.items.push(str2);
-                                                }
-                                                $scope.images = $scope.imgcon;
-                                            })
+                                platform.query({id: 1}, function (data) {
+                                    var arr2 = data;
+                                    platform.query({id: 58}, function (msg) {
+                                        arr2 = arr2.concat(msg);
+                                        for (var j = 0; j < arr2.length; j++) {
+                                            var str2 = {
+                                                'name': arr2[j]
+                                            }
+                                            $scope.imgcon.items.push(str2);
+                                        }
+                                        $scope.images = $scope.imgcon;
+
+
                                     })
+                                })
+
                                 $scope.images = $scope.imgcon
-                                console.log(' $scope.imgcon $scope.imgcon $scope.imgcon', $scope.imgcon)
+                                //console.log(' $scope.imgcon $scope.imgcon $scope.imgcon', $scope.imgcon)
                             }
                         };
                         $scope.selectImage = function (idx) {
@@ -1005,17 +1107,18 @@ define(['angular'], function (angular) {
                                     if (image.metadata.name) {
                                         ImageStreamTag.get({
                                             namespace: $rootScope.namespace,
-                                            name: image.metadata.name + ':' + item.tag
+                                            name: image.metadata.name + ':' + item.tag,
+                                            region:$rootScope.region
                                         }, function (res) {
                                             item.ist = res;
                                         }, function (res) {
-                                            console.log("get image stream tag err", res);
+                                            //console.log("get image stream tag err", res);
                                         });
                                     }
                                 });
-                                console.log("get image stream tag err", image.status.tags);
+                                //console.log("get image stream tag err", image.status.tags);
                                 $scope.imageTags = image.status.tags;
-                                console.log('test tag.items', $scope.imageTags)
+                                //console.log('test tag.items', $scope.imageTags)
                             } else if ($scope.grid.cat == 1) {
                                 $scope.grid.image = idx;
                                 platformlist.query({id: $scope.test.items[idx].name}, function (data) {
@@ -1037,23 +1140,24 @@ define(['angular'], function (angular) {
                                 })
                             } else if ($scope.grid.cat == 2) {
                                 $scope.grid.image = idx;
-                                $http.get('/registry/api/repositories/tags', {params: {repo_name: $scope.imgcon.items[idx].name}})
-                                    .success(function (tagmsg) {
-                                        $scope.imgcon.items[idx].status = {};
-                                        $scope.imgcon.items[idx].status.tags = [];
-                                        for (var i = 0; i < tagmsg.length; i++) {
-                                            var tagmsgobj = {
-                                                'tag': tagmsg[i],
-                                                'items': tagmsg,
-                                                'ist': {
-                                                    'imagesname': $scope.imgcon.items[idx].name + '/' + tagmsg[i],
-                                                    'ispublicimage': true,
-                                                }
-                                            };
-                                            $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
-                                        }
-                                        $scope.imageTags = $scope.imgcon.items[idx].status.tags;
-                                    });
+                                platformlist.query({id: $scope.imgcon.items[idx].name}, function (tagmsg) {
+                                    console.log('tagmsg');
+                                    $scope.imgcon.items[idx].status = {};
+                                    $scope.imgcon.items[idx].status.tags = [];
+                                    for (var i = 0; i < tagmsg.length; i++) {
+                                        var tagmsgobj = {
+                                            'tag': tagmsg[i],
+                                            'items': tagmsg,
+                                            'ist': {
+                                                'imagesname': $scope.imgcon.items[idx].name + '/' + tagmsg[i],
+                                                'ispublicimage': true,
+                                            }
+                                        };
+                                        $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
+                                    }
+                                    $scope.imageTags = $scope.imgcon.items[idx].status.tags;
+                                })
+
                             }
                         };
 
@@ -1066,13 +1170,13 @@ define(['angular'], function (angular) {
                             $uibModalInstance.dismiss('cancel');
                         };
                         $scope.ok = function () {
-                            console.log("===", $scope.imageTags);
+                            //console.log("===", $scope.imageTags);
                             $uibModalInstance.close($scope.imageTags[$scope.grid.version_x].ist);
                         };
                     }],
                     resolve: {
                         images: ['$rootScope', 'ImageStream', function ($rootScope, ImageStream) {
-                            return ImageStream.get({namespace: $rootScope.namespace}).$promise;
+                            return ImageStream.get({namespace: $rootScope.namespace,region:$rootScope.region}).$promise;
                         }]
                     }
                 }).result;
@@ -1132,15 +1236,33 @@ define(['angular'], function (angular) {
                 return $uibModal.open({
                     templateUrl: 'views/user/pwd.html',
                     size: 'default',
-                    controller: ['$scope', '$rootScope', '$uibModalInstance', function ($scope, $rootScope, $uibModalInstance) {
+                    controller: ['$state','Cookie','Toast','pwdModify','$scope', '$rootScope', '$uibModalInstance',
+                        function ($state,Cookie,Toast,pwdModify,$scope, $rootScope, $uibModalInstance) {
                         $scope.credentials = {}
-                        console.log($rootScope)
+                        //console.log($rootScope);
+
+                            $scope.$watch('credentials.oldpwd', function (n,o) {
+                                if (n === o) {
+                                   return
+                                }
+                                if (n) {
+                                    $scope.pwderr = false;
+                                }
+                            })
+
                         $scope.ok = function () {
                             var possword = {
                                 oldpwd: $scope.credentials.oldpwd,
                                 pwd: $scope.credentials.pwd
                             }
-                            $uibModalInstance.close(possword);
+                            pwdModify.change({new_password: $scope.credentials.pwd, old_password: $scope.credentials.oldpwd}, function (data) {
+
+                                $uibModalInstance.close(possword);
+                            }, function (data) {
+                                $scope.pwderr = true;
+                                //console.log('reseterr', data);
+                            })
+
                         };
 
                         $scope.cancel = function () {
@@ -1216,27 +1338,50 @@ define(['angular'], function (angular) {
                     templateUrl: 'views/backing_service/service_select.html',
                     size: 'default modal-foo',
                     controller: ['$log', '$rootScope', '$scope', '$uibModalInstance', 'data', function ($log, $rootScope, $scope, $uibModalInstance, data) {
+                        //var curdata = angular.copy(data);
+
                         var curdata = angular.copy(data);
+
                         for (var j = 0; j < data.items.length; j++) {
                             for (var i = 0; i < c.length; i++) {
                                 if (data.items[j].metadata.name == c[i].bind_deploymentconfig) {
-                                    curdata.items.splice(j, 1);
+                                    curdata.items.splice(j, 1,'false');
                                 }
                             }
                         }
-                        $log.info('curdatacurdata', curdata);
-                        $scope.data = curdata;
-                        $scope.items = curdata.items;
+
+                        var dclist=angular.copy(curdata);
+                        dclist.items=[];
+                        angular.forEach(curdata.items, function (item,i) {
+                            if (item === 'false') {
+
+                            }else {
+                                dclist.items.push(item)
+                            }
+                            //dclist
+                        })
+                        $scope.dc={
+                            name:null,
+                            idx:null
+                        }
+                        $scope.selectDc= function (idx,name) {
+                            $scope.dc.idx=idx
+                            $scope.dc.name=name
+                        }
+                        //$log.info('curdatacurdata', curdata);
+                        $scope.data = dclist;
+                        $scope.items = dclist.items;
                         $scope.cancel = function () {
                             $uibModalInstance.dismiss();
                         };
                         $scope.ok = function () {
                             var items = [];
                             for (var i = 0; i < $scope.data.items.length; i++) {
-                                if ($scope.data.items[i].checked) {
+                                if ($scope.dc.name===$scope.data.items[i].metadata.name) {
                                     items.push($scope.data.items[i]);
                                 }
                             }
+                            //items.push($scope.dc.name);
                             $uibModalInstance.close(items);
                         };
 
@@ -1263,7 +1408,7 @@ define(['angular'], function (angular) {
                     }],
                     resolve: {
                         data: ['$rootScope', 'DeploymentConfig', function ($rootScope, DeploymentConfig) {
-                            return DeploymentConfig.get({namespace: $rootScope.namespace}).$promise;
+                            return DeploymentConfig.get({namespace: $rootScope.namespace,region:$rootScope.region}).$promise;
                         }]
                     }
                 }).result;
@@ -1326,17 +1471,16 @@ define(['angular'], function (angular) {
         }])
         .service('AuthService', ['account','$timeout', '$q', 'orgList', '$rootScope', '$http', '$base64', 'Cookie', '$state', '$log', 'Project', 'GLOBAL', 'Alert', 'User',
             function (account,$timeout, $q, orgList, $rootScope, $http, $base64, Cookie, $state, $log, Project, GLOBAL, Alert, User) {
-
                 this.login = function (credentials, stateParams) {
-                    console.log("login", credentials);
-                    console.log("login", stateParams);
+                    //console.log("login", credentials);
+                    //console.log("login", stateParams);
                     localStorage.setItem('Auth', $base64.encode(credentials.username + ':' + credentials.password))
                     $rootScope.loding = true;
                     var deferred = $q.defer();
                     var req = {
                         method: 'GET',
                         timeout: deferred.promise,
-                        url: GLOBAL.login_uri,
+                        url: GLOBAL.signin_uri,
                         headers: {
                             'Authorization': 'Basic ' + $base64.encode(credentials.username + ':' + credentials.password)
                         }
@@ -1345,11 +1489,30 @@ define(['angular'], function (angular) {
 
                     var loadProject = function (name) {
                         // $log.info("load project");
-                        Project.get(function (data) {
-                            // console.log("load project success", data);
+                        Project.get({region:credentials.region},function (data) {
+                            //console.log("load project success", data);
                             for (var i = 0; i < data.items.length; i++) {
                                 if (data.items[i].metadata.name == name) {
                                     $rootScope.namespace = name;
+                                    angular.forEach(data.items, function (item, i) {
+
+                                            data.items[i].sortname = item.metadata.annotations['openshift.io/display-name'] || item.metadata.name;
+
+
+                                    })
+                                    data.items.sort(function (x, y) {
+                                        return x.sortname > y.sortname ? 1 : -1;
+                                    });
+                                    angular.forEach(data.items, function (project, i) {
+                                        if (/^[\u4e00-\u9fa5]/i.test(project.metadata.annotations['openshift.io/display-name'])) {
+                                            //console.log(project.metadata.annotations['openshift.io/display-name']);
+                                            //data.items.push(project);
+                                            data.items.unshift(project);
+
+                                            data.items.splice(i + 1, 1);
+                                        }
+                                    });
+                                    $rootScope.projects = data.items;
                                     return;
                                 }
                             }
@@ -1367,19 +1530,34 @@ define(['angular'], function (angular) {
                     //}
                     //localStorage.setItem('codenum','0')
                     function denglu() {
+
                         $http(req).success(function (data) {
-                            //console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + data);
+                            //var arrstr = data.join(',');
+                            var arr = []
+                            //console.log(data);
+                            angular.forEach(data, function (token,i) {
+                                //arr.push(token.access_token)
+                                var index = token.region.split('-')[2]
+                                arr[index-1]=token.access_token
 
-                            Cookie.set('df_access_token', data.access_token, 10 * 365 * 24 * 3600 * 1000);
+                            })
 
-                            loadProject(credentials.username);
-                            User.get({name: '~'}, function (res) {
-                                $rootScope.loding = false;
+                            var arrstr = arr.join(',');
+                            //console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&",arrstr);
+                           // Cookie.set('df_access_token', arrstr, 10 * 365 * 24 * 3600 * 1000);
+                            //console.log(Cookie.get('df_access_token'));
+                            Cookie.set('region', credentials.region, 10 * 365 * 24 * 3600 * 1000);
+                            $rootScope.region = Cookie.get('region');
+
+                            User.get({name: '~',region:$rootScope.region}, function (res) {
+
                                 $rootScope.user = res;
                                 //localStorage.setItem('cade',null)
+                                loadProject(credentials.username);
                                 localStorage.setItem("code", 1);
                                 $rootScope.loginyanzheng = false;
                                 if (stateParams) {
+                                    $rootScope.loding = false;
                                     if (stateParams.type == 'saas') {
                                         $state.go('console.create_saas', {name: stateParams.name});
                                     } else if (stateParams.type == 'image') {
@@ -1391,16 +1569,20 @@ define(['angular'], function (angular) {
                                     }
                                 } else {
                                     //获取套餐
-                                    account.get({}, function (data) {
-                                        console.log('套餐', data);
+                                    account.get({namespace:$rootScope.namespace,region:$rootScope.region,status:"consuming"}, function (data) {
+                                        //console.log('套餐', data);
                                         //$rootScope.payment=data;
+                                        $rootScope.loding = false;
                                         if (data.purchased) {
+
+                                            $state.go('console.dashboard');
                                             //跳转dashboard
-                                        }else{
+                                        }else {
+                                            $state.go('console.noplan');
                                             //跳转购买套餐
                                         }
                                     })
-                                    $state.go('console.dashboard');
+                                    //$state.go('console.dashboard');
                                 }
 
 
@@ -1425,16 +1607,11 @@ define(['angular'], function (angular) {
                             //}
                             $state.go('login');
                             console.log('登录报错', data);
-                            if (data.indexOf('502') != -1) {
-                                //$rootScope.loding = false;
-                                //alert('超时了');
-                                denglu();
-                                return;
-                            } else {
+                            if (data.code === 1401) {
                                 $rootScope.loding = false;
                                 Alert.open('请重新登录', '用户名或密码不正确');
                                 var codenum = localStorage.getItem("code");
-                                console.log(codenum);
+                                //console.log(codenum);
                                 if (codenum) {
                                     codenum = parseInt(codenum);
                                     codenum += 1
@@ -1446,16 +1623,29 @@ define(['angular'], function (angular) {
                                 } else {
                                     localStorage.setItem('code', 1)
                                 }
-
-
-                                var daovoicefailed = function () {
-                                    daovoice('init', {
-                                        app_id: "b31d2fb1"
-                                    });
-                                    daovoice('update');
-                                }
-                                daovoicefailed();
                             }
+                            var daovoicefailed = function () {
+                                daovoice('init', {
+                                    app_id: "b31d2fb1"
+                                });
+                                daovoice('update');
+                            }
+                            daovoicefailed();
+
+
+
+                            //if (data.indexOf('502') != -1) {
+                            //    //$rootScope.loding = false;
+                            //    //alert('超时了');
+                            //    //denglu();
+                            //
+                            //    return;
+                            //} else {
+                            //
+                            //
+                            //
+                            //
+                            //}
 
                         });
 
@@ -1477,18 +1667,48 @@ define(['angular'], function (angular) {
                     if (/^\/login/.test(config.url)) {
                         return config;
                     }
-                    var token = Cookie.get('df_access_token');
-                    if (config.headers && token) {
-                        config.headers["Authorization"] = "Bearer " + token;
+                    if (/^\/signin/.test(config.url)) {
+                        return config;
                     }
+                    //$rootScope.region=
+                    //var tokens = Cookie.get('df_access_token');
+                    //var regions = Cookie.get('region');
+                    //var token='';
+                    ////console.log(tokens);
+                    //
+                    //if (tokens&&regions) {
+                    //    var tokenarr = tokens.split(',');
+                    //    var region = regions.split('-')[2];
+                    //    //if (/^\/lapi\/v1\/orgs/.test(config.url)) {
+                    //    //    console.log(config.url);
+                    //    //}
+                    //    if (/^\/lapi\/v1\/orgs/.test(config.url) || /^\/oapi/.test(config.url) || /^\/api/.test(config.url)||/^\/payment/.test(config.url)) {
+                    //        token = tokenarr[region-1];
+                    //    }else {
+                    //        token = tokenarr[0];
+                    //    }
+                    //
+                    //    //console.log('tokenarr', tokenarr[region-1]);
+                    //}else {
+                    //    //console.log('token错误');
+                    //}
+                    //console.log(tokens,token, regions);
+                    //if (config.headers && token) {
+                    //    config.headers["Authorization"] = "Bearer " + token;
+                    //}
+                    //console.log('config.url out', config.url);
 
-                    if (/^\/hawkular/.test(config.url)) {
+
+                    if (/^\.\/hawkular/.test(config.url)) {
+
+                        //console.log('config.url in', config.url);
+                        //console.log('$rootScope.namespace', $rootScope.namespace);
                         config.headers["Hawkular-Tenant"] = $rootScope.namespace;
                     }
-                    if (/^\/registry/.test(config.url)) {
-                        var Auth = localStorage.getItem("Auth")
-                        config.headers["Authorization"] = "Basic " + Auth;
-                    }
+                    //if (/^\/registry/.test(config.url)) {
+                    //    var Auth = localStorage.getItem("Auth")
+                    //    config.headers["Authorization"] = "Basic " + Auth;
+                    //}
                     if (config.method == 'PATCH') {
                         config.headers["Content-Type"] = "application/merge-patch+json";
                     }

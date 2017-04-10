@@ -1,17 +1,30 @@
 <div id="console">
+
     <c-header></c-header>
+    <!--<div style="width: 100%;height: 55px;">-->
 
-    <div style="background: #e6e9f2;">
-
+    <!--</div>-->
+    <div style="width:100%;min-width:1290px;">
         <a class="navbar-toggle" data-toggle="collapse" data-target="#sidebar-container" aria-expanded="false" href="javascript:;">
             <span class="caret"></span>
         </a>
-        <div id="sidebar-container" class="collapse navbar-collapse">
+        <div ng-if="showsidebar" id="sidebar-container" style="position: fixed;left: 0;width:188px;top:55px;bottom:0px;background:#264359;z-index:99999;" class="collapse navbar-collapse">
             <c-sidebar></c-sidebar>
         </div>
 
-        <div id="sidebar-right-fixed" style="background: #fff;" full-height>
+
+        <div id="sidebar-right-fixed" class="service-pad" style="margin-left:188px;background:#fafafa;" full-height>
             <div ui-view></div>
         </div>
     </div>
 </div>
+<!--<script>-->
+<!--$('#console').on('click','.tab-pane .text-right a',function(){-->
+<!--console.log('ll');-->
+<!--if(!$(this).parent().hasClass('disabled')){-->
+<!--$(document.body).animate({-->
+<!--scrollTop:0-->
+<!--},200);-->
+<!--}-->
+<!--})-->
+<!--</script>-->

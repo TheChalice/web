@@ -35,11 +35,8 @@ require.config({
         kubernetesUI: 'pub/terminal',
         term: '../bower_components/term.js/src/term',
         highcharts: '../bower_components/highcharts/highcharts',
+        angularSlider: '../bower_components/angularjs-slider/dist/rzslider.min',
         highchartsNg: '../bower_components/highcharts-ng/dist/highcharts-ng.min',
-        fileUpload: '../bower_components/ng-file-upload/ng-file-upload.min',
-        fileUploadShim: '../bower_components/ng-file-upload/ng-file-upload-shim.min',
-        angulartics: '../bower_components/angulartics/dist/angulartics.min',
-        angularticsgoogleanalytics: '../bower_components/angulartics-google-analytics/lib/angulartics-ga',
     },
     shim: {
         'angular': {
@@ -71,6 +68,9 @@ require.config({
         'bootstrap': {
             deps: ['jquery']
         },
+        'angularSlider': {
+            deps: ['angular','jquery']
+        },
         'angularBase64': {
             deps: ['angular']
         },
@@ -82,18 +82,6 @@ require.config({
         },
         'highchartsNg': {
             deps: ['angular', 'highcharts']
-        },
-        'fileUpload' : {
-           deps: ['angular']
-        },
-        'fileUploadShim' : {
-           deps: ['angular', 'fileUpload']
-        },
-        'angulartics' : {
-            deps: ['angular']
-        },
-        'angularticsgoogleanalytics' : {
-            deps: ['angular','angulartics']
         }
     },
     priority: [

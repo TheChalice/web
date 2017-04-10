@@ -13,7 +13,7 @@ define(['angular'], function (angular) {
                         if (window.location.protocol != "https:") {
                             wsscheme = "ws://";
                         }
-                        url = wsscheme + window.location.host + '/ws' + url;
+                        url = wsscheme + window.location.host +window.location.pathname +'/ws' + url;
                     }
                     return new window.WebSocket(url, protocols);
                 };
@@ -93,6 +93,7 @@ define(['angular'], function (angular) {
                                 url += pod.metadata.selfLink;
                             else
                                 url += pod;
+
                             url += "/exec";
 
                             if (url.indexOf('?') === -1)
@@ -111,8 +112,13 @@ define(['angular'], function (angular) {
                             command.forEach(function(arg) {
                                 url += "&command=" + encodeURIComponent(arg);
                             });
+                            var tokens = Cookie.get('df_access_token');
+                            var regions = Cookie.get('region');
+                            var tokenarr = tokens.split(',');
+                            var region = regions.split('-')[2];
+                            var token = tokenarr[region-1];
 
-                            url += "&access_token=" + Cookie.get('df_access_token');
+                            url += "&access_token=" + token;
 
                             var first = true;
                             spinner.removeClass("hidden");
@@ -128,7 +134,7 @@ define(['angular'], function (angular) {
                                 term.write('\x1b[31m' + message + '\x1b[m\r\n');
                                 scope.$apply(disconnect);
                             }
-
+                            console.log('url', url);
                             $q.when(kubernetesContainerSocket(url, "base64.channel.k8s.io"),
                                 function resolved(socket) {
                                     ws = socket;

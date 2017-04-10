@@ -29,3 +29,26 @@
         display: inline-block;
     }
 }
+/*数据为空时状态*/
+.blank_block{margin-bottom:0;}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+.builder_jia_btn{padding-left:15px!important;}
+.buld_jia_btn{padding:6px 12px!important;}
+
+
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
+}

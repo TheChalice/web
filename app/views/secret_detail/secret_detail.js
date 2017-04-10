@@ -4,8 +4,8 @@ angular.module('console.secret_detail', [
             files: []
         }
     ])
-    .controller('secretDetailCtrl', ['Confirm','Toast','by', '$state', '$http', '$scope', '$rootScope', 'listSecret', 'modifySecret', 'deleteSecret', '$stateParams', 'delSecret',
-        function (Confirm,Toast,by, $state, $http, $scope, $rootScope, listSecret, modifySecret, deleteSecret, $stateParams, delSecret) {
+    .controller('secretDetailCtrl', ['Confirm','Toast','by', '$state', '$http', '$scope', '$rootScope', 'listSecret', 'modifySecret', 'deleteSecret', '$stateParams',
+        function (Confirm,Toast,by, $state, $http, $scope, $rootScope, listSecret, modifySecret, deleteSecret, $stateParams) {
             $scope.grid = {
                 status: false,
 
@@ -101,7 +101,7 @@ angular.module('console.secret_detail', [
                 }
             }
             //list the detail of current secret
-            listSecret.get({namespace: $rootScope.namespace, name: $stateParams.name}, function (res) {
+            listSecret.get({namespace: $rootScope.namespace, name: $stateParams.name,region:$rootScope.region}, function (res) {
                 $scope.item = res;
                 $scope.item.secretarr = [];
                 $scope.item.newarr = [];
@@ -127,7 +127,9 @@ angular.module('console.secret_detail', [
                     return
                 }
                 var kong = false;
-                var r = /^?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/;
+
+                var r = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/;
+
                 if (!$scope.change) {
                     $scope.change = true;
                     return
@@ -222,9 +224,10 @@ angular.module('console.secret_detail', [
                 delete $scope.item.newarr;
                 modifySecret.update({
                     namespace: $rootScope.namespace,
-                    name: $stateParams.name
+                    name: $stateParams.name,
+                    region:$rootScope.region
                 }, $scope.item, function (res) {
-                    console.log('test the item', res);
+                    //console.log('test the item', res);
                     Toast.open('保存成功')
                     $state.go('console.resource_management', {index: 3})
                 })
@@ -235,7 +238,7 @@ angular.module('console.secret_detail', [
                 //})
                 Confirm.open("删除密钥", "您确定要删除密钥吗？", "密钥已经挂载在容器中，删除此密钥，容器启动将异常", "stop").then(function(){
 
-                    delSecret.del({namespace: $rootScope.namespace}, function () {
+                    deleteSecret.delete({namespace: $rootScope.namespace,region:$rootScope.region,name:$scope.item.metadata.name}, function () {
                         $state.go('console.resource_management', {index: 3})
                     },function (err) {
                         Confirm.open("删除密钥", "删除密钥失败", "持久化卷已经挂载在容器中，您需要先停止服务，         卸载持久化卷后，才能删除。", null,true)

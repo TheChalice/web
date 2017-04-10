@@ -48,9 +48,11 @@ angular.module('home.index_backing_service', [
             }
         };
     })
-    .controller('index_backing_serviceCtrl', ['$scope', '$log','newBackingService','BackingServiceInstance','$rootScope','$filter','$state',
-        function ($scope,$log,newBackingService,BackingServiceInstance,$rootScope,$filter,$state) {
+    .controller('index_backing_serviceCtrl', ['$state','$scope', '$log','newBackingService','BackingServiceInstance','$rootScope','$filter','$state',
+        function ($state,$scope,$log,newBackingService,BackingServiceInstance,$rootScope,$filter,$state) {
             $("#idx-bs").css("minHeight",$(window).height());
+            console.log('$state', $state.params.region);
+            $scope.myregion = $state.params.region || 'cn-north-1';
             $scope.grid = {
                 serviceCat: 'all',
                 vendor: 'all',
@@ -178,7 +180,7 @@ angular.module('home.index_backing_service', [
 
                         }
                     }
-                    console.log("$scope.market", $scope.market)
+                    //console.log("$scope.market", $scope.market)
                     $scope.data = data.items;
                     filter('serviceCat', 'all');
                     filter('vendor', 'all');

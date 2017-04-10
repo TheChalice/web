@@ -14,7 +14,8 @@
                 <!--<a ng-click="cancel()" class="close"><span aria-hidden="true">&times;</span></a>-->
             </h5>
         </div>
-        <div class="modal-body" style="padding: 20px 35px 30px 35px;">
+
+        <div class="modal-body " style="height: 570px; padding: 20px 35px 30px 35px;">
             <form class="form-horizontal" name="frm">
                 <!--<button ng-click=look()>查看</button>-->
                 <p class="modal-msg text-left" style="margin: 0 0 5px 0;font-size:12px;color:#5a6378;">
@@ -41,9 +42,10 @@
                        ng-blur="credentials.usernamechange=true"
                        ng-focus="credentials.usernamechange=false"
                        ng-model="credentials.username"
-                       required ng-minlength="2"
-                       ng-maxlength="63"
-                       ng-pattern="/^[a-z0-9\d]+$/"/>
+                       onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"
+                       required ng-minlength="4"
+                       ng-maxlength="30"
+                       ng-pattern="/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/"/>
 
                 <p class="modal-msg text-left" style="margin: 20px 0 5px 0;font-size:12px;color:#5a6378;">
                     <span class="require">邮箱</span>&nbsp;&nbsp;
@@ -62,6 +64,7 @@
                        ng-blur="credentials.emailchange=true"
                        ng-focus="credentials.emailchange=false"
                        ng-model="credentials.email"
+                       onkeypress="if(event.keyCode===32)event.returnValue = false;"
                        required
                        ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"/>
                 <p class="modal-msg text-left" style="margin: 20px 0 5px 0;font-size:12px;color:#5a6378;">
@@ -121,17 +124,17 @@
                     <div ng-click="changecode()" class="code">{{yzcode}}</div>
                 </div>
 
-                <p class='xieyi'>
-                    <a href="javascript:;" ng-class="{'active': xieyi}" ng-click="xieyi=!xieyi"
-                       style="text-decoration: none;color: #5a6378;font-size: 12px;">
-                        <i class="faa faa-check"></i>&nbsp;&nbsp;我已阅读并接受《DataFoundry的会员服务协议》
-                    </a>
-                </p>
+                <!--<p class='xieyi'>-->
+                    <!--<a href="javascript:;" ng-class="{'active': xieyi}" ng-click="xieyi=!xieyi"-->
+                       <!--style="text-decoration: none;color: #5a6378;font-size: 12px;">-->
+                        <!--<i class="faa faa-check"></i>&nbsp;&nbsp;我已阅读并接受《DataFoundry的会员服务协议》-->
+                    <!--</a>-->
+                <!--</p>-->
 
 
                 <button class="btn btn-block btn-disabled" id="regist" ng-disabled="frm.$invalid"
-                        ng-class="{'btn-orange':!credentials.codeerror&&xieyi&&credentials.password === credentials.cfmPassword&&frm.$valid, 'btn-disabled': credentials.codeerror&&!xieyi&&credentials.password !== credentials.cfmPassword||frm.$invalid}"
-                        ng-click="!credentials.codeerror&&xieyi&&credentials.password === credentials.cfmPassword&&frm.$valid && regist()"
+                        ng-class="{'btn-orange':!credentials.codeerror&&credentials.password === credentials.cfmPassword&&frm.$valid, 'btn-disabled': credentials.codeerror&&!xieyi&&credentials.password !== credentials.cfmPassword||frm.$invalid}"
+                        ng-click="!credentials.codeerror&&credentials.password === credentials.cfmPassword&&frm.$valid && regist()"
                         style="margin: 20px 0 0 0;">
                     注册
                 </button>
@@ -179,7 +182,7 @@
 
     .modal-body {
         background-color: #fff;
-        height: 570px;
+
     }
 
     .registbox {

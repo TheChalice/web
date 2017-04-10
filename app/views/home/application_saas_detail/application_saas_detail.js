@@ -10,10 +10,10 @@ angular.module('home.application_saas_detail', [
     ])
     .controller('application_saas_detailCtrl', ['$scope', '$log','$stateParams','saas','$rootScope','$state',
         function ($scope, $log,$stateParams,saas,$rootScope,$state) {
-        console.log('lalallalal----',$stateParams);
+        //console.log('lalallalal----',$stateParams);
         saas.get({id:$stateParams.id},function(res){
             $scope.saasobj = res.data;
-            console.log('-------cat',res);
+            //console.log('-------cat',res);
         })
         /////创建saas服务
         //$('#application1').($(window).height());

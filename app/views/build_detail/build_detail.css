@@ -23,24 +23,7 @@
 .text-left {
     font-weight: normal;
 }
-.icon20-log {
-    background-image: url(img/log.png);
-}
-.icon20-log:hover {
-    background-image: url(img/log-active.png);
-}
-.icon20-paper {
-    background-image: url(img/paper.png);
-}
-.icon20-paper:hover {
-    background-image: url(img/paper-active.png);
-}
-.uib-tab.active .icon20-log, .tab-default li .nav-link:hover .icon20-log {
-    background-image: url(img/log-active.png);
-}
-.uib-tab.active .icon20-paper, .tab-default li .nav-link:hover .icon20-paper {
-    background-image: url(img/paper-active.png);
-}
+
 .till{
     display: none;
 }
@@ -52,10 +35,21 @@
     /*text-decoration: none;*/
 /*}*/
 /*.href-orange:hover {*/
-    /*color: #e5993a;*/
+    /*color: #5b73eb;*/
     /*text-decoration: none;*/
 /*}*/
 /*.href-orange:active {*/
-    /*color: #e5993a;*/
+    /*color: #5b73eb;*/
     /*text-decoration: none;*/
 /*}*/
+/*����Ϊ��ʱ״̬*/
+.blank_block{margin-bottom:0;}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+
+.tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
+    border:0;
+    border-bottom:2px solid #5c72e9;
+    color:#333;
+}
+.tab-jia-default .tab-content{border: 0;}
+.tab-jia-default li .nav-link:hover{color:#333;}

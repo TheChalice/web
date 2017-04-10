@@ -713,7 +713,7 @@
         <div class="col-md-10">
             <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input ng-model="dc.spec.replicas" name="cdm" min="1" max="10" style="width: 80px;display: inline-block;"
-                   type="number" class="form-control">
+                   type="text" class="form-control">
             <hr>
             <div ng-if="false">
                 <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -723,18 +723,18 @@
                     <label style="font-size: 12px; font-weight: normal;  margin-top: 35px;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <span style="font-size: 12px">POD最小数量  <input name="cdm" min="1" max="10"
                                                                   style="width: 80px;display: inline-block;"
-                                                                  type="number" class="form-control"></span>
+                                                                  type="text" class="form-control"></span>
                     <span style="font-size: 12px">POD最大数量  <input name="cdm" min="1" max="10"
                                                                   style="width: 80px;display: inline-block;"
-                                                                  type="number" class="form-control"></span>
+                                                                  type="text" class="form-control"></span>
                     <span style="font-size: 12px">CPU平均利用率 <input name="cdm" min="1" max="10"
                                                                   style="width: 80px;display: inline-block;"
-                                                                  type="number" class="form-control"></span>
+                                                                  type="text" class="form-control"></span>
                 </div>
                 <hr>
             </div>
-            <label style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <div class="dropdown dropdown-select" style="width: 200px;">
+            <label ng-show="false" style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <div ng-show="false" class="dropdown dropdown-select" style="width: 200px;">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
                     <span>{{dc.spec.template.spec.restartPolicy}}</span>
                     <span class="caret"></span>
@@ -750,7 +750,7 @@
             </div>
         </div>
     </div>
-    <hr style="margin-top: 20px;">
+    <!--<hr style="margin-top: 20px;">-->
 
     <div class="row">
         <div class="col-md-2" style="padding-top: 5px">
@@ -768,7 +768,7 @@
             <br>
             <div ng-if="grid.route" style="margin-top: 35px;">
                 <div>
-                    <small ng-if="!grid.port" class="fa fa-info-circle err-tip">请填写tpc端口</small>
+                    <small ng-if="!grid.port" class="fa fa-info-circle err-tip">请填写TCP端口</small>
                 </div>
                 <!--<label style="font-size: 12px; font-weight: normal;  margin-top: 35px;"></label>-->
                 <div class="dropdown dropdown-select" style="width: 80px;">
@@ -787,7 +787,7 @@
                         <span>{{grid.cname}}</span>
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" style="width: 80px;">
+                    <ul class="dropdown-menu" style="width: 120px; min-width: 120px">
                         <li>
                             <a href="javascript:;" ng-click="grid.cname = '系统域名'">{{'系统域名'}}</a>
                         </li>
@@ -811,7 +811,7 @@
                 </div>
                 <br>
                 <!--<p style="margin-top: 35px;" ng-if="!grid.tlsshow">-->
-                    <!--<a style="font-size: 14px;margin-left: 2px;cursor: pointer; font-weight: bolder;color: #e5993a"-->
+                    <!--<a style="font-size: 14px;margin-left: 2px;cursor: pointer; font-weight: bolder;color: #5b73eb"-->
                        <!--ng-click="grid.tlsshow=true">TLS设置</a></p>-->
                 <div>
 
@@ -1064,6 +1064,7 @@
     </div>
     <hr>
 
+
     <div class="row">
         <div class="col-md-2">
             <h3>环境变量设置</h3>
@@ -1108,6 +1109,7 @@
         </div>
     </div>
     <hr>
+
     <div class="row">
         <div class="col-md-2" style="padding-top: 5px">
             <h3>配额限制</h3>
@@ -1121,14 +1123,19 @@
                         <input class="form-control" ng-model="quota.cpu" style="margin-top: 10px; width: 100%;" type="text" name="num" required>
                         <small class="fa fa-info-circle err-tip" ng-if="grid.cpuerr" style="margin-top: 20px;">
                             提示：您输入数量超过可用数量</small>
+                        <small class="fa fa-info-circle err-tip" ng-if="grid.cpunumerr" style="margin-top: 20px;">
+                            提示：您输入数数值不合法</small>
                     </div>
                     <div class="col-md-2"style="padding: 0;text-align: center;line-height: 54px;">
-                        可用CPU:{{grid.cpunum}}个
+
+                       <span ng-if="grid.cpunum">可用CPU:{{grid.cpunum}}个</span>
                     </div>
                     <div class="col-md-3"style="padding: 0;">
                         <input class="form-control" ng-model="quota.memory" style="margin-top: 10px; width: 100%;" type="text" name="num" required>
                         <small class="fa fa-info-circle err-tip" ng-if="grid.memoryerr" style="margin-top: 20px;">
                             提示：您输入数量超过可用数量</small>
+                        <small class="fa fa-info-circle err-tip" ng-if="grid.memorynumerr" style="margin-top: 20px;">
+                            提示：您输入数数值不合法</small>
                     </div>
                     <div class="col-md-1"style="padding: 0;">
                         <div class="dropdown">
@@ -1136,7 +1143,7 @@
                                 {{quota.unit}}
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <ul class="dropdown-menu" style="min-width:auto;" aria-labelledby="dropdownMenu1">
                                 <li><a ng-click="quota.unit='MB'">MB</a></li>
                                 <li><a ng-click="quota.unit='GB'">GB</a></li>
                             </ul>
@@ -1144,7 +1151,7 @@
 
                     </div>
                     <div class="col-md-2"style="padding: 0;text-align: center;line-height: 54px;">
-                        可用内存:{{grid.megnum}}GB
+                        <span ng-if="grid.megnum">可用内存:{{grid.megnum}}GB</span>
                     </div>
                 </div>
             </div>

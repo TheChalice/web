@@ -7,22 +7,27 @@
 }
 .backing-service .sc label {
     margin-right: 15px;
-    width: 72px;
+    /*width: 72px;*/
 }
 
 .backing-service .sc .btn {
     font-size: 12px;
     background: #eaebef;
-    width: 80px;
+    /*width: 80px;*/
     text-align: center;
     border:1px solid #eaebef;
     border-radius: 2px;
     color: #333;
+    /*中信项目 jiasx*/
+    border-radius:30px;padding-left:20px;padding-right:20px;background:#f2f2f2;border:0;
 }
 .backing-service .sc .btn.active {
-    border-color: #f6a540;
+    border-color: #5c72e9;
     font-weight: bold;
-    background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;
+    /*background: url(../../views/backing_service/img/images_48.png) no-repeat #fff;*/
+    /*中信项目 jiasx*/
+    font-weight:normal;color:#fff;background:#5b73eb;
+
 }
 .h2-border::after {
     content: '';
@@ -63,11 +68,16 @@
 }
 
 .backing-service .sc .btn {
-    width: 85px;
+    /*width: 85px;*/
 }
 
 .fw:last-child .btn {
-    width: 85px;
+    /*width: 85px;*/
 }
 
-.pull_width{width:auto!important;}/*--Docker�ٷ����� jia 20160922*/
+.pull_width{width:auto!important;}/*--Docker�ٷ����� jia 20160922*/
+.backing_jia_btn{margin-left:0px!important;margin-right:0px!important;}
+.backing_jia_col{padding-left:0px!important;}
+/*数据为空时状态*/
+.blank_block{margin-bottom:0;}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}

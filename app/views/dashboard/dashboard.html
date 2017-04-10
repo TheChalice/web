@@ -1,91 +1,104 @@
 <div class="dashboard">
-    <div class="firstline">
-       
-        <div class="block block-right col-md-6">
-            <h2>资源统计</h2>
-            <div class="row">
-                <div class="col-md-6" >
-                    <highchart ng-show="isdata.CpuorMem" config="pieConfigCpu"></highchart>
-                </div>
-                <div class="col-md-6" >
-                    <highchart ng-show="isdata.CpuorMem" config="pieConfigMem"></highchart>
-                </div>
-            </div>
+    <div class="loader" ng-show="!balance||!plans">
+        <div class="loader-inner ball-clip-rotate-multiple">
+            <div></div>
+            <div></div>
         </div>
     </div>
-     <div class="block block-left col-md-6">
-          <!--   <h2>账户信息</h2>
-            <table class="table info">
-                <thead class="thead-default">
-                <tr style="width: 100%;">
-                    <th colspan="5">{{user.metadata.name}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="row sanlan">
-                    <td class="col-md-4">
-                        <p>账户余额</p>
-                        <p><span> {{balance.balance}}</span>元</p>
-                        <a href="javascript:;" id="recharge" ng-click="deposit()" class="btn btn-green">充值</a>
-                    </td>
-                    <td class="col-md-4">
-                        <p>套餐信息</p>
-                        <p><span>20</span>元/月</p>
-                    </td>
-                    <td class="col-md-4">
-                        <p>可用代金券</p>
-                        <p><span>0</span>张</p>
-                    </td>
-                </tr>
-                </tbody>
-            </table> -->
-        </div>
-    <div class="secondline col-md-12" ng-show="isdata.charts">
-        <h2>资源监测</h2>
-        <div style="width: 100%;">
-            <highchart config="chartConfig"></highchart>
-        </div>
-    </div>
-    <div class="thirdline col-md-12">
-        <h2>统计数值</h2>
-        <div class="selection ban2">
-            <div style="border-right: 1px solid #c9c9c9">
-                <a ui-sref="console.service">
-                    <p class="num">{{podList}}</p>
-                    <img src="pub/img/images_06.png"><br>
-                    <a href="javascript:;">POD</a>
-                </a>
-            </div>
-        </div>
-        <div class="selection ban2">
-            <div style="border-right: 1px solid #c9c9c9">
-                <a ui-sref="console.service">
-                    <p class="num">{{dcList}}</p>
-                    <img src="pub/img/images_08.png"><br>
-                    <a href="javascript:;">服务</a>
-                </a>
-            </div>
-        </div>
-        <div class="selection ban2">
-            <div style="border-right: 1px solid #c9c9c9">
-                <a ui-sref="console.backing_service">
-                    <p class="num">{{bsiList}}</p>
-                    <img src="pub/img/images_10.png"><br>
-                    <a href="javascript:;">后端服务实例</a>
-                </a>
-            </div>
-        </div>
-        <div class="selection ban2">
-            <div>
-                <a href="javascript:;">
-                    <p class="num">-</p>
-                    <img src="pub/img/images_12.png"><br>
-                    <a href="javascript:;">应用</a>
-                </a>
-            </div>
-        </div>
-    </div>
+    <div ng-show="balance && plans">
+        <div class="firstline" style="overflow: hidden;">
+            <div class="block block-left col-md-6 bg-color" style="width:514px">
+                <h2>账户信息</h2>
+                <hr style="visibility:visible; margin-right:10px;margin-bottom:10px;"/>
+                <table class="table info">
+                    <thead class="thead-default">
+                    <tr style="width: 100%;">
+                        <th colspan="5"><pre style="font-weight: normal;font-size:18px;text-align:left;background-color: #fff;border:0;width: 400px;margin: 0;padding: 0;">{{projectname}}</pre></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="row sanlan">
+                        <td class="col-md-4">
+                            <p style="white-space:nowrap"><span>{{balance.balance}}</span>元</p>
+                            <p>账户余额</p>
+                            <a ui-sref="console.pay" id="recharge" class="btn btn-green" style="width:80px; height:30px;border-radius: 14px; line-height:15px;background: #5b73e8">充值</a>
+                        </td>
+                        <td class="col-md-4">
+                            <p style="white-space:nowrap"><span>{{plans.price}}</span>元/月</p>
+                            <p>套餐信息</p>
+                            <a href="#/console/plan" class="btn btn-green" ui-sref="console.plan" style="width:80px; height:30px;border-radius: 14px; line-height:15px;background: #5b73e8">更换套餐</a>
+                        </td>
+                        <td class="col-md-4">
+                            <p><span>0</span>张</p>
+                            <p>可用代金券</p>
 
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="block block-right col-md-6 bg-color" style="width:440px;margin-left:20px;min-height:288px;" >
+                <h2>资源统计</h2>
+                <hr style="visibility:visible; margin-right:10px ;margin-bottom:10px;"/>
+                <div class="row">
+                    <div class="col-md-6" >
+                        <highchart ng-show="isdata.CpuorMem" config="pieConfigCpu"></highchart>
+                    </div>
+                    <div class="col-md-6" >
+                        <highchart ng-show="isdata.CpuorMem" config="pieConfigMem"></highchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="secondline bg-color" style="margin-top: 36px;width:974px;" ng-show="isdata.charts">
+            <h2 style="padding-top:18px;padding-left:20px;">资源监测</h2>
+            <hr style="visibility:visible; margin-right:10px;margin-left:10px;"/>
+            <div style="width: 100%;">
+                <highchart config="chartConfig"></highchart>
+            </div>
+        </div>
+        <div class="thirdline col-md-12" style="display:none;">
+            <h2>统计数值</h2>
+            <div class="selection ban2">
+                <div style="border-right: 1px solid #c9c9c9">
+                    <a ui-sref="console.service">
+                        <p class="num">{{podList}}</p>
+                        <img src="pub/img/images_06.png"><br>
+                        <a href="javascript:;">POD</a>
+                    </a>
+                </div>
+            </div>
+            <div class="selection ban2">
+                <div style="border-right: 1px solid #c9c9c9">
+                    <a ui-sref="console.service">
+                        <p class="num">{{dcList}}</p>
+                        <img src="pub/img/images_08.png"><br>
+                        <a href="javascript:;">服务</a>
+                    </a>
+                </div>
+            </div>
+            <div class="selection ban2">
+                <div style="border-right: 1px solid #c9c9c9">
+                    <a ui-sref="console.backing_service">
+                        <p class="num">{{bsiList}}</p>
+                        <img src="pub/img/images_10.png"><br>
+                        <a href="javascript:;">后端服务实例</a>
+                    </a>
+                </div>
+            </div>
+            <div class="selection ban2">
+                <div>
+                    <a href="javascript:;">
+                        <p class="num">-</p>
+                        <img src="pub/img/images_12.png"><br>
+                        <a href="javascript:;">应用</a>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
     <style>
         .sanlan::before{
             display: none;
@@ -103,7 +116,6 @@
         .ban {
             float: left;
             width: 50%;
-
         }
         .ban2 {
             padding-top: 20px;
@@ -111,9 +123,8 @@
             width:25%;
             text-align: center;
         }
-
         .dashboard h2 {
-            font-size: 14px;
+            font-size: 20px;
             font-weight: bold;
         }
         .dashboard .info {
@@ -126,30 +137,29 @@
             margin-top: 10px;
         }
         .dashboard .firstline .block-left .info > thead > tr {
-            background-color: #e6e9f2;
+            background-color: #fff;
             border: none;
         }
         .dashboard .firstline .block-left .info > thead > tr > th {
             border: none;
         }
         .dashboard .firstline .block-left .info > tbody > tr > td{
-            background: #f2f4f8;
+            background: #fff;
             border: none;
         }
         .dashboard .firstline .block-left .info > tbody > tr > td:hover {
             background: #e2e5ee;
         }
         .dashboard .firstline .block-left .info > tbody > tr > td > p > span {
-            color: #e5993a;
+            color: red;
+            font-size:40px;
         }
         .dashboard .thirdline .selection {
             padding-bottom: 10px;
-            border-bottom:7px solid #fff;
-            -webkit-transition:border-bottom 0.3s linear;
         }
         .dashboard .thirdline .selection:hover {
             background-color: #f2f4f8;
-            border-bottom: 7px solid #e5993a;
+            border-bottom: 7px solid #5b73eb;
         }
         .dashboard .thirdline p {
             font-size:14px;
@@ -162,10 +172,13 @@
             font-size: 32px;
             font-weight: 500;
             /*font-size: 18px;*/
-            color: #e5993a;
+            color: #5b73eb;
         }
         #recharge {
             color: white;
         }
+        .dashboard .bg-color{
+
+            background: #fff;
+        }
     </style>
-</div>

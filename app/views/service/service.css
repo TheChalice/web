@@ -1,10 +1,10 @@
 
 .zhuan {
     transform-origin:50% 50%;
-    animation: rotate 1s infinite linear;
+    animation: rotateq 1s infinite linear;
 }
 
-@-webkit-keyframes rotate {
+@-webkit-keyframes rotateq {
     0% {
         -webkit-transform: rotate(0deg);
     }
@@ -12,3 +12,24 @@
         -webkit-transform: rotate(360deg);
     }
 }
+.pagination > li > a,.pagination-sm > li > span{
+    margin-left:5px;
+    border:none;
+    background:#f7f7f7;
+    color:black;
+}
+.pagination > li > a:hover{
+    color:black;
+}
+
+.pagination > .disabled > a{
+    background:#f7f7f7;
+}
+.pagination > .disabled > a:hover{
+    background:#f7f7f7;
+}
+
+/*����Ϊ��ʱ״̬*/
+.blank_block{margin-bottom:0;}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+.serv_jia_btn{padding-left:15px!important;}

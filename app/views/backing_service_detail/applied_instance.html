@@ -19,7 +19,7 @@
                 <div class="col-md-3">
                     <a href="javascript:;" ng-click="item.show=!item.show" class="fa2 fa2-link" uib-tooltip="服务绑定"></a>
                     <!--<a href="javascript:;" ng-click="update($index)" class="fa2 fa2-update" uib-tooltip="升级套餐"></a>-->
-                    <a href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fa2 fa2-dashboard" uib-tooltip="Dashboard"></a>
+                    <a ng-if="item.spec.provisioning.dashboard_url" href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fa2 fa2-dashboard" uib-tooltip="Dashboard"></a>
                     <a href="javascript:;" class="faa faa-times" uib-tooltip="删除" ng-click="delBsi($index)"></a>
                 </div>
             </div>
@@ -27,8 +27,8 @@
         <div class="binding-services" uib-collapse="!item.show">
             <div style="padding: 30px;">
                 <h2>
-                    绑定服务
-                    <a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>
+                    <!--绑定服务-->
+                    <!--<a href="javascript:;" class="btn btn-orange" ng-click="delBing($index)">解除绑定</a>-->
                     <a href="javascript:;" class="btn btn-green" ng-click="bindModal($index)">新增绑定</a>
                 </h2>
 
@@ -36,9 +36,9 @@
                     <div class="panel panel-default" ng-repeat="bsisv in item.spec.binding">
                         <div class="panel-heading" role="tab">
                             <h4 class="panel-title">
-                                <a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked" style="cursor: pointer">
-                                    <i class="faa faa-check"></i>&nbsp;
-                                </a>
+                                <!--<a ng-class="{'active': bsisv.checked}" ng-click="bsisv.checked=!bsisv.checked" style="cursor: pointer">-->
+                                    <!--<i class="faa faa-check"></i>&nbsp;-->
+                                <!--</a>-->
                                 <a href="#{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}" data-toggle="collapse" class="accordion-toggle">
                                     {{bsisv.bind_deploymentconfig}}
                                     <i class="fa pull-right" ng-class="{'fa-caret-up': status.open, 'fa-caret-down': !status.open}" style="color: #5a6378;"></i>
@@ -46,6 +46,7 @@
                                 <span class="label label-default" uib-tooltip="{{bsisv.bound_time | timescon}}">
                                     <i class="fa2 fa2-time"></i>&nbsp;{{bsisv.bound_time | dateRelative}}
                                 </span>
+                                <a class="href-orange" ng-click="delebind(item,bsisv.bind_deploymentconfig)" style="color:#5b73eb;float: right;margin-right: 10px;cursor: pointer;">解除绑定</a>
                             </h4>
                         </div>
                         <div id="{{item.metadata.name}}-{{bsisv.bind_deploymentconfig}}" class="panel-collapse collapse" role="tabpanel">

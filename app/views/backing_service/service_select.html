@@ -18,7 +18,7 @@
             <div class="is-box-wrap">
                 <ul>
                     <li ng-repeat="item in items">
-                        <a href="javascript:;" ng-class="{'active': item.checked}" ng-click="item.checked = !item.checked">
+                        <a href="javascript:;" ng-class="{'active': dc.idx===$index}" ng-click="selectDc($index,item.metadata.name)">
                             <i class="faa faa-check"></i>&nbsp;&nbsp;{{item.metadata.name}}
                         </a>
                     </li>

@@ -11,8 +11,8 @@
                 <div class="col-md-10">
                     <input type="text" name="serviceName" ng-model="dc.metadata.name"
                            class="form-control input-block foucsinput"
-                           placeholder="创建一个服务名称" required>
-                    <small ng-show="frm.serviceName.$dirty && grid.rexnameerr" class="fa fa-info-circle err-tip">&nbsp;请创建一个服务名,至少2个字符以上</small>
+                           placeholder="例如:datafoundry" required>
+                    <small ng-show="frm.serviceName.$dirty && grid.rexnameerr" class="fa fa-info-circle err-tip">&nbsp;请输入小写英文字母</small>
                     <small ng-show="frm.serviceName.$dirty && grid.createdcerr" class="fa fa-info-circle err-tip">&nbsp;服务名称不合法</small>
                     <small ng-show="grid.servicenameerr" class="fa fa-info-circle err-tip">&nbsp;服务名称错误</small>
                 </div>
@@ -48,10 +48,10 @@
                                 <input ng-model="container.name"
                                        style="width: 95%;display: inline-block;"
                                        type="text" class="form-control foucsinput"
-                                       placeholder="请设置容器名称">
+                                       placeholder="例如:datafountry">
                                 <span class="require"></span>
                                 <small ng-show="!container.name && container.emptyName"
-                                       class="fa fa-info-circle err-tip">&nbsp;请设置容器名,至少2个字符以上
+                                       class="fa fa-info-circle err-tip">&nbsp;请设置容器名,至少2个字符
                                 </small>
                             </div>
                             <hr>
@@ -299,9 +299,9 @@
                                                     <div class="dropdown dropdown-select"
                                                          style="width: 100%; border: 1px solid #ccc;">
                                                         <div class="input-group" style="width:100%">
-                                                            <input style="width: 95%;display: inline-block;border: none;font-size: 12px;height: 32px;"
+                                                            <input onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 95%;display: inline-block;border: none;font-size: 12px;height: 32px;"
                                                                    ng-model="container.readinessProbe.initialDelaySeconds"
-                                                                   type="text" class="form-control">
+                                                                   type="number" class="form-control">
                                                         <span class="input-group-btn"
                                                               style="width:5%;display: inline-block;">
                                                             <span style="line-height: 21px;width:100%;display: inline-block;padding: 6px 12px;color: black;border-color:#8c8c8c;height: 32px;font-size: 12px;">{{'秒'}}</span></span>
@@ -326,9 +326,9 @@
                                                     <div class="dropdown dropdown-select"
                                                          style="width: 100%; border: 1px solid #ccc;">
                                                         <div class="input-group" style="width:100%">
-                                                            <input style="width: 95%;display: inline-block;border: none;font-size: 12px;height: 32px;"
+                                                            <input onkeyup="value=value.replace(/[^\d]/g,'')" style="width: 95%;display: inline-block;border: none;font-size: 12px;height: 32px;"
                                                                    ng-model="container.readinessProbe.timeoutSeconds"
-                                                                   type="text" class="form-control"
+                                                                   type="number" class="form-control"
                                                                    >
                                                         <span class="input-group-btn"
                                                               style="width:5%;display: inline-block;">
@@ -378,18 +378,20 @@
                                     <div class="row" style="margin-top: 15px;" ng-repeat="port in portsArr">
                                         <div class="col-sm-3">
                                             <!--<input type="text" readonly class="input-small" ng-model="port.protocol">-->
-                                            <select class="input-small" ng-model='port.protocol'>
+                                            <select class="input-small" style="height:23px;" ng-model='port.protocol'>
                                                 <option value='TCP'>TCP</option>
                                                 <option value='UDP'>UDP</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="text" class="input-small"
+                                            <input type="number" style="height:23px;" class="input-small" onkeyup="value=value.replace(/[^\d]/g,'')"
                                                    ng-class="{'input-error':port.conflict}"
                                                    ng-model="port.containerPort">
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="text" ng-model="port.hostPort" class="input-small"
+                                            <input type="number" style="height:23px;" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                                   ng-model="port.hostPort"
+                                                   class="input-small"
                                                    ng-class="{'input-error':port.serviceConflict}">
                                         </div>
                                         <div class="col-sm-3">
@@ -411,3 +413,6 @@
         </div>
     </div>
 </div>
+<script>
+    $('input[ng-model="dc.metadata.name"]').focus();
+</script>

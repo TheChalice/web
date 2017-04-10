@@ -1,64 +1,77 @@
-<div class="apply-instance">
-    <form class="form-horizontal" name="frm" style="margin-right: 90px; margin-left: 90px;">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span>创建{{bsName}}服务的实例</span>
+<div class="apply-instance" style="background:#fff;padding:20px 40px 40px;">
+    <div class="loader" ng-show="!data">
+        <div class="loader-inner ball-clip-rotate-multiple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="loading-box" ng-show=applyloaded>
+        <div class="loader">
+            <div class="loader-inner ball-clip-rotate-multiple">
+                <div></div>
+                <div></div>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-2 text-left">
-                        <p class="require listname">服务名称</p>
-                    </div>
-                    <div class="col-sm-10">
-                        <input ng-model="bsi.metadata.name" type="text" name="servicename" class="form-control input-block" placeholder="创建一个项目名称" required
-                               ng-pattern="/^\w+$/">
-                        <small ng-show="frm.servicename.$dirty && frm.servicename.$error.pattern" class="fa fa-info-circle err-tip" style="margin-top: 10px">项目名称只能包含小写字母和数字</small>
-
-                        <small ng-show="frm.servicename.$dirty && frm.servicename.$error.required" class="fa fa-info-circle err-tip" style="margin-top: 10px">请填写一个项目名称</small>
-                    </div>
+        </div>
+    </div>
+    <div ng-show="data">
+        <form class="form-horizontal" name="frm">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span>创建{{bsName}}服务的实例</span>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-2 text-left">
-                        <p class="require">服务套餐</p>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-2 text-left">
+                            <p class="require listname">服务名称</p>
+                        </div>
+                        <div class="col-sm-10">
+                            <input ng-model="bsi.metadata.name"
+                                   type="text" name="servicename"
+                                   ng-blur="nameblur()"
+                                   onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"
+                                   ng-focus="namefocus()"
+                                   class="form-control input-block"
+                                   placeholder="例如：datafoundry"
+                                   placeholder="创建一个项目名称" required>
+                            <small ng-if="namerr.nil" class="fa fa-info-circle err-tip">请输入正确构建名称
+                            </small>
+                            <small ng-if="namerr.rexed" class="fa fa-info-circle err-tip">请输入4~30位名称,名称只能包含英文、数字以及“-”
+                            </small>
+                            <small ng-if="namerr.repeated" class="fa fa-info-circle err-tip">输入的名称已重复
+                            </small>
+                        </div>
                     </div>
-                    <div class="col-sm-10">
-                        <div style="margin-bottom: 15px;" ng-repeat="plan in data.spec.plans">
-                            <div class="panel panel-default sub-panel panel-xxx" ng-class="{'active': grid.checked == $index}"  ng-click="grid.checked = $index">
-                                <div class="panel-heading">
-                                    <p class="subpanelname">{{plan.name}}</p>
-                                </div>
-                                <div class="panel-body plan">
-                                    <div class="row">
-                                        <div class="col-md-5" style="border-right: 1px solid #c9c9c9;">
-                                            <label><i class="faa faa-price"></i>&nbsp;&nbsp;价格</label>
-                                            <p ng-show="plan.free">Free</p>
-                                            <p ng-show="!plan.free" ng-repeat="cost in plan.metadata.costs">
-                                                {{cost.unit}}:&nbsp;€{{cost.amount.eur}}&nbsp;|&nbsp;${{cost.amount.usd}} <br>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-3" style="border-right: 1px solid #c9c9c9;">
-                                            <label><i class="faa faa-content"></i>&nbsp;&nbsp;内容</label>
-                                            <p ng-repeat="bullet in plan.metadata.bullets">
-                                                {{bullet}} <br>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label><i class="faa faa-description"></i>&nbsp;&nbsp;描述</label>
-                                            <p>{{plan.description}}</p>
-                                        </div>
+
+                    <div class="row" style="margin-top:40px;">
+                        <div class="col-sm-2 text-left">
+                            <p class="require">服务套餐</p>
+                        </div>
+                        <div class="col-sm-10 apply_data_main">
+                            <div style="" class="col-sm-4 apply_data_list" ng-repeat="plan in data">
+                                <div class="panel panel-default sub-panel panel-xxx panel_border"  ng-class="{'active': grid.checked == $index}"  ng-click="grid.checked = $index">
+                                    <div class="panel-heading tac" style="height: 65px;padding-left: 0;padding-right: 0;">
+                                        <p class="subpanelname" style="margin: 0;">{{plan.plan_name}}</p>
+                                        <p style="font-size: 12px;">{{plan.detail}}</p>
+                                    </div>
+                                    <div class="panel-body tac">
+                                        <p>{{plan.description}}</p>
+                                        <p class="mb30">{{plan.description2}}</p>
+                                        <p><span class='href-orange fz28'>{{plan.price}}</span>元/月</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-7"></div>
+                        <div class="col-sm-5 fz12" style="width:86%;text-align:center;float:right;">您选择 "<span style="font-weight: bold;">{{data[grid.checked].plan_name}} 套餐</span>" 每月花费 <span class="href-orange fz16">{{data[grid.checked].price}}</span>元</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <a class="btn btn-block btn-orange" ng-class="{'btn-orange':frm.servicename.$valid, 'btn-disabled': frm.servicename.$invalid}" ng-disabled="frm.servicename.$invalid" ng-click="frm.servicename.$valid && createInstance()">创建</a>
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn btn-block" ng-class="{'btn-orange':frm.servicename.$valid, 'btn-disabled': frm.servicename.$invalid}" ng-disabled="frm.servicename.$invalid" ng-click="frm.servicename.$valid && createInstance()">创建</a>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </div>

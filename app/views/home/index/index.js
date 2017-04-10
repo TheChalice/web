@@ -14,12 +14,15 @@ angular.module('home.index', [])
         };
 
         preload(
-            "pub/img/01_hover.png",
-            "pub/img/02_hover.png",
-            "pub/img/03_hover.png",
-            "pub/img/04_hover.png",
-            "pub/img/05_hover.png",
-            "pub/img/06_hover.png"
+            "pub/img/aws_logo_hover.png",
+            "pub/img/jd_logo_hover.png",
+            "pub/img/yh_logo_hover.png",
+            "pub/img/gbase_logo_hover.png",
+            "pub/img/daocloud_logo_hover.png",
+            "pub/img/pivotal_logo_hover.png",
+            "pub/img/ky_logo_hover.png",
+            "pub/img/oscar_logo_hover.png",
+            "app/components/header/img/back.png"
         );
 
     }]);
