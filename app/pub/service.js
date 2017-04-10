@@ -1545,10 +1545,10 @@ define(['angular'], function (angular) {
 
                             var arrstr = arr.join(',');
                             //console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&",arrstr);
-                            Cookie.set('df_access_token', arrstr, 10 * 365 * 24 * 3600 * 1000);
+                            Cookie.set('df_access_token', arrstr, 23 * 3600 * 1000);
                             //console.log(Cookie.get('df_access_token'));
 
-                            Cookie.set('region', credentials.region, 10 * 365 * 24 * 3600 * 1000);
+                            Cookie.set('region', credentials.region, 24 * 3600 * 1000);
                             $rootScope.region = Cookie.get('region');
 
                             User.get({name: '~',region:$rootScope.region}, function (res) {
