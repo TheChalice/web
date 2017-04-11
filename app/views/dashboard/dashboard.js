@@ -314,7 +314,7 @@ angular.module('console.dashboard', [
                     percentstr = '<b style="color:#5a6378; font-size: 14px">已用' + percent + '%</b>';
                 }
                 //配额
-                var subTitle = '<b style="font-size:14px;color:#a5a6bb;">' + tp + '</b><br>' +
+                var subTitle = '<b style="font-size:14px;color:#f6a540;">' + tp + '</b><br>' +
                         '<span style="color:#333333; font-size:14px;">' + dec + '</span><br>' + percentstr
                     ;
                 return {
