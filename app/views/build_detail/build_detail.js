@@ -566,9 +566,10 @@ angular.module('console.build.detail', [
                     //console.log(newVal);
 
                     if (newVal != oldVal) {
-                        if (newVal.items.length > 0) {
+                        if (newVal.items.length > 0&&$scope.databuild.items[0].object) {
 
                             $scope.getLog(0);
+
                             $scope.databuild.items[0].object.showLog = true;
                         }
                     }
