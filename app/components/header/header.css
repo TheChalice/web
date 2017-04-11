@@ -1,6 +1,6 @@
 #header {/*jia 20170306*/
     height:55px;
-    background:#fff;
+    background:#f8b551;
     width:100%;min-width:1200px;
     /*box-shadow:-5px 3px 5px #f1f1f1;*/
 }
@@ -8,7 +8,7 @@
     padding-left: 27px;
     padding-right: 27px;
     height: 100%;
-    background-color: #f0222f;
+    background-color: #f6a540;
     float: left;
     cursor: pointer;
 }
@@ -19,7 +19,7 @@
     height: 100%;
 }
 #header #header-brand:hover {
-    background-color: #f0222f;
+    background-color: #f8b551;
 }
 #header #header-brand img {
     padding-bottom: 13px;
@@ -32,8 +32,9 @@
     padding: 20px 15px 10px 40px;
     font-size: 18px;
 }
+
+
 #header #header-menu {
-   padding-top: 10px;   
     height: 100%;
     float: right;
 }
@@ -184,23 +185,23 @@
     background-position: center;
 }
 /*20161128 jia ͷ���޸� begin*/
-#header #header-brand{padding-left:19px;padding-right:19px;background-color: #f0222f;}
-#header #header-brand:hover{background-color: #f0222f;}
-#header #header-brand .header_logo{width:150px;height:44px;padding:0;margin-top:6px;}
+#header #header-brand{padding-left:25px;padding-right:25px;}
+
+#header #header-brand:hover{background-color: #f8b551;}
+#header #header-brand .header_logo{width:150px;height:18px;padding:0;margin-top:18px;}
 .data_bg{-webkit-transition:  background 300ms;-ms-transition:  background 300ms;-o-transition:  background 300ms;-moz-transition:  background 300ms;transition:  background 300ms;}
 
-.df_news{padding-left:14px;padding-right:14px;border-left:1px solid #f2f2f2;border-right:1px solid #f2f2f2;display:block;float:left;padding-top:18px;padding-bottom:16px;  }
-.df_news:hover{background:#f2f2f2;}
-.header_area:hover{background:#f2f2f2;}
-/*.header_per:hover{background:#f6a540;}*/
+.df_news{padding-left:14px;padding-right:14px;border-left:1px solid #f6a540;display:block;float:left;padding-top:18px;padding-bottom:16px;}
+.df_news:hover{background:#f6a540;}
+.header_area:hover{background:#f6a540;}
+.header_per:hover{background:#f6a540;}
 
 
 .df_h_com{width:20px;height:20px;display:inline-block;vertical-align:text-bottom;background-size:contain;margin-right:6px;float:left;}
 .df_h_news{background-image: url(img/news.png);}
 .df_h_area{background-image: url(img/area.png);}
 .df_area_active{background-image: url(img/area_active.png);margin-top:14px;}
-.df_h_per{background-image: url(img/person.png);margin-left:-1px;}
-.df_o_per{background-image: url(img/person.png);}
+.df_h_per{background: url(img/person.png) no-repeat;margin-left:-1px;}
 .df_person_active{background-image: url(img/person_active.png);margin-top:16px;margin-left:-2px;}
 .df_q_active{background-image: url(img/q_active.png);margin-top:16px;}
 .df_qed_active{background-image: url(img/qed_active.png);margin-top:16px;}
@@ -230,15 +231,21 @@
 
 .header_per{cursor:pointer;float:left;display:block;width:200px;position:relative;}
 .per_block{padding-top:18px;padding-bottom:16px;padding-left:20px;padding-right:23px;display:block;}
-.header_per_tit{font-size:14px;display:block;float:left;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;
-overflow: hidden;width:100px;color:#333;}
+.header_per_tit{font-size:14px;color:#fff;display:block;float:left;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;
+    overflow: hidden;width:100px;}
+
+.area_block{padding-top:18px;padding-bottom:16px;padding-left:14px;padding-right:14px;display:block;}
+
+
+.header_per{cursor:pointer;float:left;display:block;width:200px;position:relative;}
+.per_block{padding-top:18px;padding-bottom:16px;padding-left:20px;padding-right:23px;display:block;}
+.header_per_tit{font-size:14px;color:#fff;display:block;float:left;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;
+    overflow: hidden;width:100px;}
 .h_caret{display:inline-block;width:0;height:0;vertical-align:middle;
     border-top:6px dashed;border-right:6px solid transparent;border-left:6px solid transparent;
-    margin-left:4px;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s;color:#333;}
+    color:#fff;margin-left:4px;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;transition:all 0.3s}
 
 .df_set_name{display:inline-block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;width:130px;}
-
-
 
 /*�����������ʽ*/
 .projectname::-webkit-scrollbar {

@@ -48,7 +48,7 @@ input:focus,textarea:focus{outline:0}
 .cpu_tit{clear:both;overflow:hidden;padding-left:20px;padding-right:20px;}
 .buy_btn{border:1px solid #fff;margin:20px auto 0;background:none;display:block;color:#fff;height:38px;line-height:38px;
     -webkit-border-radius:3px;margin-left:40px;margin-right:40px;text-align: center;cursor:pointer;display:block;font-size:16px;}
-.buy_btn:hover{ background-color:#4960e6; color:#fff;border:1px solid #4960e6;}
+.buy_btn:hover{ background-color:#f6a540; color:#fff;border:1px solid #f6a540;}
 
 .list li:nth-child(1) .p_block{height:480px;left:0;background:rgba(255,255,255,0.3);}
 .list li:nth-child(2) .p_block{height:480px;left:310px;background:rgba(255,255,255,0.3);}
