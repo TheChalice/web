@@ -14,7 +14,7 @@ input[type=number] {
 
 /*这就是省略号喽*/
 .in_nowrap{white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
-
+a:focus, a:hover{color:#e5993a;}
 body {
     padding-top:55px;/* jia 20161128 头部高度调整 padding-top:70px;*/
     font-family: -apple-system, BlinkMacSystemFont, Neue Haas Grotesk Text Pro, Arial Nova, Segoe UI, Helvetica Neue, \.PingFang SC, PingFang SC, Microsoft YaHei, Microsoft JhengHei, Source Han Sans SC, Noto Sans CJK SC, Source Han Sans CN, Noto Sans SC, Source Han Sans TC, Noto Sans CJK TC, Hiragino Sans GB, sans-serif
@@ -1205,7 +1205,7 @@ a {
     vertical-align: middle;
     background: url(../img/secret.png) no-repeat;
     width: 25px;
-    height: 25px;
+    height: 25px;background-size:25px 25px;
 }
 
 .configicon {
@@ -1491,20 +1491,20 @@ a {
 /*镜像仓库*/
 .nav-link i{display:inline-block;width:21px;height:21px;vertical-align:bottom;background-size:contain;}
 .myimage{width:20px;height:20px;background:url(../../pub/img/myimage.png) no-repeat;}
-.active .myimage,.nav-link:hover i.myimage{background:url(../../pub/img/myimage.png) no-repeat;background-size:contain}
+.active .myimage,.nav-link:hover i.myimage{background:url(../../pub/img/myimageh.png) no-repeat;background-size:contain}
 .registimage{background:url(../../pub/img/registimage.png) no-repeat;}
 .active .registimage,.nav-link:hover i.registimage{background:url(../../pub/img/registimage.png) no-repeat;background-size:contain}
 .imagecenter{background:url(../../pub/img/imagecenter.png) no-repeat;}
-.active .imagecenter,.nav-link:hover i.imagecenter{background:url(../../pub/img/imagecenter.png) no-repeat;background-size:contain}
+.active .imagecenter,.nav-link:hover i.imagecenter{background:url(../../pub/img/imagecenterh.png) no-repeat;background-size:contain}
 /*后端服务*/
 .fa2-bs{background-image:url(../img/fa2-bs.png)}
-.active .fa2-bs,.fa2-bs.active,.fa2-bs:hover,.nav-link:hover .fa2-bs{background-image:url(../img/fa2-bs.png);background-size:contain}
+.active .fa2-bs,.fa2-bs.active,.fa2-bs:hover,.nav-link:hover .fa2-bs{background-image:url(../img/fa2-bsh.png);background-size:contain}
 .fa2-bsi{background-image:url(../img/fa2-bsi.png)}
-.active .fa2-bsi,.fa2-bsi.active,.fa2-bsi:hover,.nav-link:hover .fa2-bsi{background-image:url(../img/fa2-bsi.png);background-size:contain}
+.active .fa2-bsi,.fa2-bsi.active,.fa2-bsi:hover,.nav-link:hover .fa2-bsi{background-image:url(../img/fa2-bsih.png);background-size:contain}
 .diy_service{background-image:url(../img/diy_service.png)}
-.active .diy_service,.diy_service.active,.diy_service:hover,.nav-link:hover .diy_service{background-image:url(../img/diy_service.png);background-size:contain}
+.active .diy_service,.diy_service.active,.diy_service:hover,.nav-link:hover .diy_service{background-image:url(../img/diy_service_hover.png);background-size:contain}
 .data_service{background-image:url(../img/data_service.png);height:18px!important;}
-.active .data_service,.data_service.active,.data_service:hover,.nav-link:hover .data_service{background-image:url(../img/data_service.png);background-size:contain}
+.active .data_service,.data_service.active,.data_service:hover,.nav-link:hover .data_service{background-image:url(../img/data_service_hover.png);background-size:contain}
 /*数据集成*/
 .fa2-public{background-image:url(../img/fa2-public.png);}
 .active .fa2-public,.fa2-public.active,.fa2-public:hover,.nav-link:hover .fa2-public{background-image:url(../img/fa2-public.png);background-size:contain;}
@@ -1514,20 +1514,20 @@ a {
 .active .fa2-dataHub,.fa2-dataHub.active,.fa2-dataHub:hover,.nav-link:hover .fa2-dataHub{background-image:url(../img/fa2-dataHub.png);}
 /*资源管理*/
 .constantlyvolume{background:url(../img/constantly_volume_small.png) no-repeat}
-.active .constantlyvolume,.constantlyvolume:active,.constantlyvolume:hover,.nav-link:hover .constantlyvolume{background:url(../img/constantly_volume_small.png) no-repeat;background-size:contain}
+.active .constantlyvolume,.constantlyvolume:active,.constantlyvolume:hover,.nav-link:hover .constantlyvolume{background:url(../img/constantly_volume_act.png) no-repeat;background-size:contain}
 .configvolume{background:url(../img/config_volume.png) no-repeat}
-.active .configvolume,.configvolume:active,.configvolume:hover,.nav-link:hover .configvolume{background:url(../img/config_volume.png) no-repeat;background-size:contain}
+.active .configvolume,.configvolume:active,.configvolume:hover,.nav-link:hover .configvolume{background:url(../img/config_volume_act.png) no-repeat;background-size:contain}
 .secret{background:url(../img/secret.png) no-repeat}
-.active .secret,.nav-link:hover .secret,.secret:active,.secret:hover{background:url(../img/secret.png) no-repeat;background-size:contain}
+.active .secret,.nav-link:hover .secret,.secret:active,.secret:hover{background:url(../img/secret_act.png) no-repeat;background-size:contain}
 /*代码构建*/
 .icon20{display:inline-block;width:21px;height:21px;vertical-align:bottom;background-size:contain}
 .icon20-log{background-image:url(../img/ser-markh.png)}
-.tab-default li .nav-link:hover .icon20-log,.uib-tab.active .icon20-log{background-image:url(../img/ser-markh.png);background-size:contain}
+.tab-default li .nav-link:hover .icon20-log,.uib-tab.active .icon20-log{background-image:url(../img/ser-markh-act.png);background-size:contain}
 .icon20-paper{background-image:url(../img/ser-text.png)}
-.tab-default li .nav-link:hover .icon20-paper,.uib-tab.active .icon20-paper{background-image:url(../img/ser-text.png);background-size:contain}
+.tab-default li .nav-link:hover .icon20-paper,.uib-tab.active .icon20-paper{background-image:url(../img/ser-texth.png);background-size:contain}
 /*服务部署*/
 .faa-edit{background:url(../img/ser-edit.png) no-repeat}
-.active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edit.png);background-size:contain}
+.active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edith.png);background-size:contain}
 .ser-jia-edit{background:url(../img/ser-jia-edit.png) no-repeat}
 .active .ser-jia-edit,.ser-jia-edit.active,.ser-jia-edit:hover,.nav-link:hover .ser-jia-edit{background-image:url(../img/ser-jia-edit.png);background-size:contain}
 .faa-edited{background:url(../img/ser-edited.png) no-repeat}
