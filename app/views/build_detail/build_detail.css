@@ -48,7 +48,7 @@
 
 .tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
     border:0;
-    border-bottom:2px solid #5c72e9;
+    border-bottom:2px solid #f8b551;
     color:#333;
 }
 .tab-jia-default .tab-content{border: 0;}
