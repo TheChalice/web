@@ -13,9 +13,9 @@
     cursor: pointer;
 }
 .service-create .tab-cube:active, .service-create .tab-cube:hover, .service-create .tab-cube.active {
-    /*border: 1px solid #55c45f;*/  /*16 12-14 by zn for zhongxin*/
-    /*color: #55c45f;*/
-    color: #4960e6;
+    /*border: 1px solid #55c45f;*/
+    color: #55c45f;
+    /*color: #4960e6;*/
 }
 .bgcgray {
     background-color: #c9c9c9;

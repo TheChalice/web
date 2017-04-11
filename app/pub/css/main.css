@@ -59,21 +59,35 @@ a {
     color: #5a6378;
 }
 
+/*.btn-green {*/
+    /*!*background-color: #55c45f;*!*/
+    /*background-color: #5c72e9;!*16 12-14 by zn for zhongxin *!*/
+    /*color:#fff;*/
+    /*-webkit-transition:all 1s;*/
+    /*-moz-transition:all 1s;*/
+    /*transition:all 1s;*/
+/*}*/
+
+/*.btn-green:hover {*/
+    /*!*background-color: #469450;*!color:#fff;*/
+
+    /*background-color: #3c29d6;!*16 12-14 by zn for zhongxin *!*/
+/*}*/
 .btn-green {
-    /*background-color: #55c45f;*/
-    background-color: #5c72e9;/*16 12-14 by zn for zhongxin */
+    background-color: #55c45f;
+    /*background-color: #5c72e9;!*16 12-14 by zn for zhongxin *!*/
     color:#fff;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
     transition:all 1s;
 }
 
-.btn-green:hover {
-    /*background-color: #469450;*/color:#fff;
+.btn-greennew:hover {
+    background-color: #469450;
+    color:#fff;
 
-    background-color: #3c29d6;/*16 12-14 by zn for zhongxin */
+    /*background-color: #3c29d6;!*16 12-14 by zn for zhongxin *!*/
 }
-
 .btn-gray {
     background-color: #9fa7b7;
     -webkit-transition:all 1s;
@@ -86,25 +100,29 @@ a {
 }
 
 .btn-skyblue {
-    background-color: #5c72e9;
+    /*background-color: #5c72e9;*/
+    background-color: #55c45f;
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
     transition:all 1s;
 }
 
 .btn-skyblue:hover {
-    background-color: #6b5ce9;
+    background-color: #469450;
+    /*background-color: #6b5ce9;*/
 }
 
 .btn-orange {
-    background-color: #5b73eb;
+    background-color: #f6a540;
+    /*background-color: #5b73eb;*/
     -webkit-transition:all 1s;
     -moz-transition:all 1s;
     transition:all 1s;
 }
 
 .btn-orange:hover {
-    background-color:#4960e6;
+    background-color:#e5993a;
+    /*background-color:#4960e6;*/
 }
 
 .btn-Iknow {
@@ -115,7 +133,7 @@ a {
 }
 
 .btn-Iknow:hover {
-    background-color: #5b73eb;
+    background-color: #e5993a;
 }
 
 /*表格*/
@@ -387,17 +405,17 @@ a {
 
 /*a标签默认样式*/
 .href-orange {
-    color: #5b73eb;
+    color: #f6a540;
     text-decoration: none;
 }
 
 .href-orange:hover {
-    color: #5b73eb;
+    color: #e5993a;
     text-decoration: none;
 }
 
 .href-orange:active {
-    color: #5b73eb;
+    color: #e5993a;
     text-decoration: none;
 }
 
@@ -533,13 +551,13 @@ a {
 .fa-orange {
     color: #f6a540;
     /*中信项目 jiasx*/
-    color:#5c72e9;
+    /*color:#5c72e9;*/
 }
 /*loading效果 jiasx*/
 .fa-green {
     color: #55c45f;
     /*中信项目 jiasx*/
-    color:#5c72e9;
+    /*color:#5c72e9;*/
 
 }
 
@@ -553,8 +571,8 @@ a {
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
-    background-color: #5b74e8;
-    border-color: #5b74e8;
+    background-color: #f6a540;
+    border-color: #f6a540;
 }
 .pagination-sm > li > a,.pagination-sm > li > span{
     margin-left:5px;
@@ -588,8 +606,8 @@ a {
 }
 
 .tabandimage.selected {
-    border: 1px solid #4960e6;
-    background-color:#4960e6;
+    border: 1px solid #f6a540;
+    background-color:#f6a540;
     color:#fff;
 }
 
@@ -609,7 +627,7 @@ a {
     border-radius: 4px;
     background: #f6a540;
     /*中信项目 jiasx*/
-    background:#5c72e9;
+    /*background:#5c72e9;*/
 }
 
 .timeline ul {
@@ -899,7 +917,7 @@ a {
     color:#333;
 }
 
-.service-config .fa-lg{color:#5c72e9;}
+.service-config .fa-lg{color:#55c45f;}
 
 .service-config .href-add:hover {
     color: #469450;
@@ -1199,7 +1217,7 @@ a {
 
 /*green adding button*/
 .href-add {
-    color: #4960e6;
+    color: #55c45f;
     text-decoration: none;
 }
 
@@ -1224,20 +1242,20 @@ a {
 }
 
 .secret_detail .add a {
-    color: #5c72e9;
+    color: #55c45f;
 }
 
 .secret_detail .add a:hover {
-    color: #6b5ce9;
+    color: #469450;
 }
 
 .secret_detail.href-add {
-    color: #5c72e9;
+    color: #55c45f;
     text-decoration: none;
 }
 
 .secret_detail.href-add:hover {
-    color: #6b5ce9;
+    color: #469450;
 }
 
 @media (min-width: 768px) {
@@ -1416,7 +1434,7 @@ a {
     position: absolute;
     left: 50%;
     top: 50%;
-    border: 4px solid #5c72e9;
+    border: 4px solid #f8b551;
     border-bottom-color: transparent;
     border-top-color: transparent;
     border-radius: 100%;
@@ -1434,7 +1452,7 @@ a {
     height: 30px;
     -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
-    border-color: #5c72e9 transparent #5c72e9 transparent;
+    border-color: #f8b551 transparent #f8b551 transparent;
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
 }
@@ -1462,7 +1480,7 @@ a {
 .pic_red p{position:absolute;bottom:26px;margin-bottom:0px;left:0;right:0;text-indent:116px;font-size:12px;color:#fff;}
 .complete_tit{text-align:center;font-size:14px;color:#fff;}
 .red_charge{background:#f6a540;-webkit-transition:all 1s;margin:0 auto;display:block;}
-.red_charge:hover{background-color:#5b73eb;}
+.red_charge:hover{background-color:#e5993a;}
 .red_close{width:26px;height:26px;border:1px solid #ececec;display:block;color:#ececec;font-size:20px;text-align:center;line-height:100%;
     border-radius:50%;-webkit-border-radius:50%;-moz-border-radius:50%;position:absolute;right:84px;top:27px;cursor:pointer;}
 .red_diag_pay{height:400px;margin-top:-200px;}
@@ -1534,9 +1552,9 @@ a {
 .active .accountbg,.nav-link:hover i.accountbg{background:url(../../pub/img/user_mange.png) no-repeat;background-size:contain}
 /*************************图标替换 20161123 jia end***************/
 /*输入框获取焦点*/
-input:focus{border-color: #5b73eb!important;}
+input:focus{border-color: #c9c9c9!important;}
 /*20161214 jiasx add*/
 .fa-info-circle:before{margin-right:3px;}
 /*按钮颜色设置*/
-.build-jia{background:#5c72e9;}
-.build-jia:hover{background:#6b5ce9;}
+.build-jia{background:#55c45f;}
+.build-jia:hover{background-color: #469450;color:#fff!important;}
