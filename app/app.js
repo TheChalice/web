@@ -82,6 +82,34 @@ define([
             $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 //更新header标题
                 console.log('toState', toState);
+                if(navigator.userAgent.indexOf("Firefox")>0){
+                    // console.log('dasd');
+                    $(document).unbind('DOMMouseScroll');
+                    $(document).bind('DOMMouseScroll',function(e){
+                        //  console.log('detail', e.detail);
+                        //  console.log(toState.name)
+                        console.log(e);
+                        if (toState.name !== "home.index") {
+                            if(e.detail>0){
+                                window.scrollBy(0,40);
+                            }else{
+                                window.scrollBy(0,-40);
+                            }
+                        }
+                    })
+                }
+                if (toState.name !== "home.index") {
+                    $('html').css('overflow', 'auto');
+                    $('.foot_main').css('display', 'block');
+
+                    window.onmousewheel = document.onmousewheel = true;
+
+                } else {
+                    $('html').css('overflow', 'hidden');
+                    $('.foot_main').css('display', 'none');
+                    scrollTo(0,0);
+
+                }
                 if (toState&&$rootScope.namespace && $rootScope.region) {
 
                     //console.log('套餐', data);
