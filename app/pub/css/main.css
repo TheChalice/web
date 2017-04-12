@@ -966,16 +966,17 @@ a {
 
 .searchbar .btn {
     height: 100%;
-    background: url(../img/search.png) no-repeat 0 10px!important;
-    box-shadow: none;
+    background: url(../img/search.png) no-repeat 0 0px!important;
+    box-shadow: none;display:block;width:15px;height:15px!important;
 }
+.input-group-btn{padding:8px 0px;}
 
 .searchbar .btn:hover {
-    background: url(../img/search-focus.png) no-repeat 0 10px!important; ;
+    background: url(../img/search-focus.png) no-repeat 0 0px!important; ;
 }
 
-.search_btn .btn{background:url(../img/search.png) no-repeat 0 -1px!important;}
-.search_btn .btn:hover{background:url(../img/search.png) no-repeat 0 -1px!important;}
+.search_btn .btn{background:url(../img/search.png) no-repeat 0 0px!important;display:block;width:15px;height:15px!important;}
+.search_btn .btn:hover{background:url(../img/search.png) no-repeat 0 0px!important;}
 
 .searchbar .tip-board {
     border: 1px solid #c9c9c9;
