@@ -1364,26 +1364,29 @@ angular.module('console.service.createnew', [
                 })
             }
             //数据卷
-            persistent.get({
-                namespace: $rootScope.namespace,
-                region: $rootScope.region
-            }, function (res) {
-                //console.log(res.items);
-                if (res.items) {
-                    //console.log(res);
-                    $scope.persistentite = [];
-                    angular.forEach(res.items, function (item, i) {
-                        if (item.status.phase == "Bound") {
-                            $scope.persistentite.push(item)
-                        }
-                    })
-                    //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                    //    $scope.dc.spec.template.spec.containers[i].secretsobj.persistentarr[0].persistentVolumeClaim.claimName = $scope.persistentite[0].metadata.name
-                    //})
-                    //$scope.dc.spec.template.spec.containers[]= $scope.persistentite[0].metadata.name
-                    //$scope.persistentitem = res.items;
-                }
-            })
+            var loadpersistent= function () {
+                persistent.get({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, function (res) {
+                    //console.log(res.items);
+                    if (res.items) {
+                        //console.log(res);
+                        $scope.persistentite = [];
+                        angular.forEach(res.items, function (item, i) {
+                            if (item.status.phase == "Bound") {
+                                $scope.persistentite.push(item)
+                            }
+                        })
+                        //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                        //    $scope.dc.spec.template.spec.containers[i].secretsobj.persistentarr[0].persistentVolumeClaim.claimName = $scope.persistentite[0].metadata.name
+                        //})
+                        //$scope.dc.spec.template.spec.containers[]= $scope.persistentite[0].metadata.name
+                        //$scope.persistentitem = res.items;
+                    }
+                })
+            }
+            loadpersistent()
             $scope.persistened = function (persistentitem, name) {
                 persistentitem.persistentVolumeClaim.claimName = name;
             }
@@ -1400,18 +1403,21 @@ angular.module('console.service.createnew', [
 
             }
             //配置卷
-            configmaps.get({
-                namespace: $rootScope.namespace,
-                region: $rootScope.region
-            }, function (res) {
-                if (res.items) {
-                    $scope.configmap = res.items;
-                    //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                    //    $scope.dc.spec.template.spec.containers[i].secretsobj.configmap[0].configMap.name = $scope.configmap[0].metadata.name
-                    //})
-                }
+            var loadconfigmaps= function () {
+                configmaps.get({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, function (res) {
+                    if (res.items) {
+                        $scope.configmap = res.items;
+                        //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                        //    $scope.dc.spec.template.spec.containers[i].secretsobj.configmap[0].configMap.name = $scope.configmap[0].metadata.name
+                        //})
+                    }
 
-            })
+                })
+            }
+            loadconfigmaps()
             $scope.configmaped = function (config, name) {
                 config.configMap.name = name;
             }
@@ -1428,18 +1434,21 @@ angular.module('console.service.createnew', [
 
             }
             //密钥
-            secretskey.get({
-                namespace: $rootScope.namespace,
-                region: $rootScope.region
-            }, function (res) {
-                //console.log('-------loadsecrets', res);
-                if (res.items) {
-                    $scope.secretsitems = res.items;
-                    //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
-                    //    $scope.dc.spec.template.spec.containers[i].secretsobj.secretarr[0].secret.secretName = $scope.secretsitems[0].metadata.name
-                    //})
-                }
-            })
+            var loadsecretskey= function () {
+                secretskey.get({
+                    namespace: $rootScope.namespace,
+                    region: $rootScope.region
+                }, function (res) {
+                    //console.log('-------loadsecrets', res);
+                    if (res.items) {
+                        $scope.secretsitems = res.items;
+                        //angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                        //    $scope.dc.spec.template.spec.containers[i].secretsobj.secretarr[0].secret.secretName = $scope.secretsitems[0].metadata.name
+                        //})
+                    }
+                })
+            }
+            loadsecretskey()
             $scope.secretsed = function (secret, name) {
                 secret.secret.secretName = name;
             }
@@ -1736,7 +1745,9 @@ angular.module('console.service.createnew', [
                     }
                 }, function (data) {
                     //console.log(data);
+                    loadpersistent()
                     $scope.close()
+
                     //volume.create({namespace: $rootScope.namespace}, $scope.volume, function (res) {
                     //    //alert(11111)
                     //    $scope.loaded = false;
@@ -2008,7 +2019,7 @@ angular.module('console.service.createnew', [
                     $scope.createsercet.grid.nameerr = false;
                     //console.log('createconfig----',res);
                     $scope.loaded = false;
-
+                    loadsecretskey()
                     $scope.close()
                 }, function (res) {
                     if (res.status == 409) {
@@ -2109,6 +2120,7 @@ angular.module('console.service.createnew', [
                         "configarr": [{key:'',value:'',showLog:false}]
 
                     }
+                    loadconfigmaps()
                     $scope.close();
                 }, function (res) {
                     //$state.go('console.create_config_volume');
