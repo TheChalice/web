@@ -85,10 +85,12 @@ define([
                 if(navigator.userAgent.indexOf("Firefox")>0){
                     // console.log('dasd');
                     $(document).unbind('DOMMouseScroll');
+
+
                     $(document).bind('DOMMouseScroll',function(e){
                         //  console.log('detail', e.detail);
                         //  console.log(toState.name)
-                        console.log(e);
+                        //console.log(e);
                         if (toState.name !== "home.index") {
                             if(e.detail>0){
                                 window.scrollBy(0,40);
@@ -98,6 +100,8 @@ define([
                         }
                     })
                 }
+
+
                 if (toState.name !== "home.index") {
                     $('html').css('overflow', 'auto');
                     $('.foot_main').css('display', 'block');

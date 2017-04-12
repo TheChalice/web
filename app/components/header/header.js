@@ -14,6 +14,16 @@ angular.module("console.header", [
             controller: ['$timeout','$log', 'Project', 'account', 'regions', 'Toast', 'Addmodal', '$http', '$location', 'orgList', '$rootScope', '$scope', '$window', '$state', 'Cookie', '$stateParams',
                 function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams) {
                     ///////分区
+                    if(navigator.userAgent.indexOf("Firefox")>0) {
+                        $('#testjt').unbind('DOMMouseScroll');
+                        $('#testjt').bind('DOMMouseScroll', function (e) {
+                            if (e.detail > 0) {
+                                document.getElementById('testjt').scrollBy(0, 40);
+                            } else {
+                                document.getElementById('testjt').scrollBy(0, -40);
+                            }
+                        })
+                    }
                     //$scope.curregion = $rootScope.region;
                     //console.log('$rootScope.user',$rootScope.user);
                     //console.log('$rootScope.namespace',$rootScope.namespace);
