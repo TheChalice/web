@@ -588,15 +588,15 @@
                 <div class="one_list_block clboth">
                     <div class="three_top add_mb15">
                         <p class="one_name">镜像端口</p>
-                        <span class="two_detail">取镜像中定义的端口。</span>
+                        <span class="two_detail">取镜像中定义的端口，也可以自定义端口。</span>
                     </div>
                     <div class="input_set" style="float: none;padding-left:92px;">
                         <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 106px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
                         <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>自定义端口</span>
                     </div>
                     <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
-                        <div>TCP容器端口</div>
-                        <div>TCP服务端口</div>
+                        <div>容器端口</div>
+                        <div>服务端口</div>
                     </div>
                     <div style="overflow: hidden;" ng-show="container.isOwnerI">
                         <ul class="three_list three_list_room">
@@ -632,7 +632,7 @@
                 <div class="one_list_block clboth mt_ten">
                     <div class="three_top add_mb15">
                         <p class="one_name">环境变量</p>
-                        <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question">如何进行端口配置？</i></span>
+                        <span class="two_detail">通过变量为应用动态地传递配置信息。<i class="four_question" style="display:none;">如何进行端口配置？</i></span>
                     </div>
                     <ul class="four_name">
                         <li>键</li>
@@ -640,8 +640,8 @@
                     </ul>
                     <ul class="four_list" style="margin-top:10px;">
                         <li ng-repeat="envitem in container.env">
-                            <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="1-24位小写字母、数字、或下划线组成">
-                            <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="0-2048个 ASCII字符组成">
+                            <input ng-model="envitem.name" type="text" class="four_list_l">
+                            <input ng-model="envitem.value" type="text" class="four_list_r">
                             <a ng-click="delenv(container.env,$index)" ng-show="$index!==container.env.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                             <a ng-click="addenv(container.env)" ng-show="$index===container.env.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                         </li>
@@ -733,7 +733,7 @@
                         <div class="one_list_block clboth mt_ten">
                             <div class="three_top add_mb15">
                                 <p class="one_name">挂载密钥</p>
-                                <span class="two_detail">这里用来将敏感信息配置传递给容器，例如代码库的用户名和密码。<i class="four_question">如何进行端口配置？</i></span>
+                                <span class="two_detail">这里用来将敏感信息配置传递给容器，例如代码库的用户名和密码。<i class="four_question" style="display:none;">如何进行端口配置？</i></span>
                             </div>
                             <ul class="four_name">
                                 <li>密钥</li>
@@ -770,7 +770,7 @@
                         <div class="one_list_block clboth mt_ten">
                             <div class="three_top add_mb15">
                                 <p class="one_name">启动命令</p>
-                                <span class="two_detail">这里定义的启动命令将会覆盖镜像中定义的启动命令，如果不需要，请不要填写。<i class="four_question">如何进行端口配置？</i></span>
+                                <span class="two_detail">这里定义的启动命令将会覆盖镜像中定义的启动命令，如果不需要，请不要填写。<i class="four_question" style="display:none;">如何进行端口配置？</i></span>
                             </div>
                             <input type="text" ng-model="container.args" class="four_list_r four_list_three" placeholder="如：/usr/sbin/sshd -D">
                         </div>
@@ -812,10 +812,10 @@
                     <p class="ser_name_left">资源限制</p>
                 </div>
                 <div class="right">
-                    <p class="ser_name_right">在套餐范围内为服务包含的容器定义CPU和内存使用限制</p>
+                    <p class="ser_name_right">在套餐范围内为容器定义CPU和内存使用限制</p>
                     <div class="row">
                         <div class="col-xs-2" style="padding-left: 15px;">
-                            <span>容器/名称</span>
+                            <span>容器名称</span>
                         </div>
                         <div class="col-xs-2">
                             <span>CPU总量（{{requests.cpu}}核）</span>
@@ -943,7 +943,7 @@
         <!-- 挂载后端服务模块-->
         <div class="one_list_block clboth" style="margin-bottom:7.5px;">
             <p class="one_name" style="color:#666;">挂载后端服务</p>
-            <span class="two_detail">此处可以绑定应用与在平台中申请的诸如Mysql、HDFS、MongoDB等服务。<i class="four_question">什么是后端服务？</i></span>
+            <span class="two_detail">此处可以绑定应用与在平台中申请的诸如Mysql、HDFS、MongoDB等服务。<i class="four_question" style="display:none;">什么是后端服务？</i></span>
         </div>
 
         <div class="one_list_block clboth one_list_jl">
@@ -978,7 +978,7 @@
             <div class="right">
                 <p class="ser_name_right font_normal">
                     定义服务的访问地址，当前一个域名只支持一个端口，若需要访问多个端口，可以定义多个域名来映射端口。
-                    <i class="four_question">如何进行端口配置？</i>
+                    <i class="four_question" style="display:none;">如何进行端口配置？</i>
                 </p>
                 <div class="row" style="margin-bottom: 4px">
                     <div class="col-xs-3" style="line-height:23px;">

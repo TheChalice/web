@@ -117,7 +117,7 @@ angular.module('console', [
                 $('#sidebar-right-fixed').css("marginLeft", 0)
             } else {
                 $rootScope.showsidebar = true;
-                $('#sidebar-right-fixed').css("marginLeft", 168)
+                $('#sidebar-right-fixed').css("marginLeft", 54)
             }
             //console.log($scope.showsidebar);
 
