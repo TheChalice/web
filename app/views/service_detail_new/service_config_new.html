@@ -197,7 +197,7 @@
                                     <li>值：</li>
                                 </ul>
                                 <div class="clear"></div>
-                                <ul class="three_list three_list_detail" ng-repeat="env in envs">
+                                <ul class="three_list three_list_detail" ng-repeat="env in envs" style="clear:both;">
                                     <li>{{env.name}}</li>
                                     <li>{{env.value}}</li>
                                 </ul>
@@ -216,7 +216,7 @@
                                 <li>挂载路径：</li>
                             </ul>
                             <div class="clear"></div>
-                            <ul class="three_list three_list_detail" ng-repeat="persistentitem in container.secretsobj.persistentarr">
+                            <ul class="three_list three_list_detail" ng-repeat="persistentitem in container.secretsobj.persistentarr" style="clear:both;">
                                 <li><span class="room_tit">{{persistentitem.persistentVolumeClaim.claimName}}</span></li>
                                 <li><span class="room_tit">{{persistentitem.mountPath}}</span></li>
                             </ul>
@@ -235,7 +235,7 @@
                                 <li>挂载路径：</li>
                             </ul>
                             <div class="clear"></div>
-                            <ul class="three_list three_list_detail" ng-repeat="config in container.secretsobj.configmap">
+                            <ul class="three_list three_list_detail" ng-repeat="config in container.secretsobj.configmap" style="clear:both;">
                                 <li><span class="room_tit">{{config.configMap.name}}</span></li>
                                 <li><span class="room_tit">{{config.mountPath}}</span></li>
                             </ul>
@@ -254,7 +254,7 @@
                                 <li>挂载路径：</li>
                             </ul>
                             <div class="clear"></div>
-                            <ul class="three_list three_list_detail" ng-repeat="secret in container.secretsobj.secretarr">
+                            <ul class="three_list three_list_detail" ng-repeat="secret in container.secretsobj.secretarr" style="clear:both;">
                                 <li><span class="room_tit">{{secret.secret.secretName}}</span></li>
                                 <li><span class="room_tit">{{secret.mountPath}}</span></li>
                             </ul>

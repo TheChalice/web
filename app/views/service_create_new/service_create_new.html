@@ -683,7 +683,7 @@
 
                                         </div>
                                     </div>
-                                    <input type="text"  ng-blur="secretblur(persistentitem)"  class="four_list_r four_list_r_two" ng-model="persistentitem.mountPath" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
+                                    <input type="text"  ng-blur="secretblur(persistentitem)"  class="four_list_r four_list_r_two" ng-model="persistentitem.mountPath" placeholder="/">
                                     <a ng-click="delpersistent(container.secretsobj.persistentarr,$index)"  ng-show="$index!==container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                                     <a ng-click="addpersistent(container.secretsobj.persistentarr)" ng-show="$index===container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                 </li>
@@ -720,7 +720,7 @@
 
                                         </div>
                                     </div>
-                                    <input type="text" ng-blur="secretblur(config)" class="four_list_r four_list_r_two" ng-model="config.mountPath" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
+                                    <input type="text" ng-blur="secretblur(config)" class="four_list_r four_list_r_two" ng-model="config.mountPath" placeholder="/">
                                     <a ng-click="delconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index!==container.secretsobj.configmap.length-1" class="ser_set ser_close two_radius"></a>
                                     <a ng-click="addconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index===container.secretsobj.configmap.length-1" class="ser_set ser_add two_radius"></a>
                                 </li>
@@ -758,7 +758,7 @@
 
                                         </div>
                                     </div>
-                                    <input type="text" ng-blur="secretblur(secret)" ng-model="secret.mountPath" class="four_list_r four_list_r_two" placeholder="小写字母、数字或中划线组成，字母开头，字母或数字结尾，“/”开头">
+                                    <input type="text" ng-blur="secretblur(secret)" ng-model="secret.mountPath" class="four_list_r four_list_r_two" placeholder="/">
                                     <a  ng-click="delsecret(container.secretsobj.secretarr)" ng-show="$index!==container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                                     <a  ng-click="addsecret(container.secretsobj.secretarr)" ng-show="$index===container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                 </li>
