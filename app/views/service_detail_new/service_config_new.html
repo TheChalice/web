@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <div class="block_one_set mt30">
+                    <div class="block_one_set mt30" ng-show="envs.length>0">
                         <div class="block_one_left">
                             <p class="name_tit">环境变量</p>
                         </div>
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <div class="block_one_set mt30">
+                    <div class="block_one_set mt30" ng-show="container.secretsobj.persistentarr.length>0">
                         <div class="block_one_left">
                             <p class="name_tit">挂载持久化卷</p>
                         </div>
@@ -225,7 +225,7 @@
                     </div>
 
                     <div class="clear"></div>
-                    <div class="block_one_set mt30">
+                    <div class="block_one_set mt30" ng-show="container.secretsobj.configmap.length>0">
                         <div class="block_one_left">
                             <p class="name_tit">挂载配置卷</p>
                         </div>
@@ -244,7 +244,7 @@
 
                     </div>
                     <div class="clear"></div>
-                    <div class="block_one_set mt30">
+                    <div class="block_one_set mt30" ng-show="container.secretsobj.secretarr.length>0">
                         <div class="block_one_left">
                             <p class="name_tit">挂载密钥</p>
                         </div>
@@ -263,7 +263,7 @@
 
                     </div>
                     <div class="clear"></div>
-                    <div class="block_one_set mt30">
+                    <div class="block_one_set mt30" ng-show="container.args">
                         <div class="block_one_left">
                             <p class="name_tit">启动命令</p>
                         </div>
@@ -273,65 +273,7 @@
                     </div>
 
                 </div>
-                <!--&lt;!&ndash; 容器信息模块２&ndash;&gt;-->
-                <!--<div class="block_mid">-->
 
-                <!--<div class="block_one_set">-->
-                <!--<div class="block_one_left">-->
-                <!--<p class="name_tit">容器名称</p>-->
-                <!--</div>-->
-                <!--<div class="block_one_right">-->
-                <!--<p class="name_detail">datafoundry</p>-->
-                <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="block_one_set mt30">-->
-                <!--<div class="block_one_left">-->
-                <!--<p class="name_tit">镜像</p>-->
-                <!--</div>-->
-                <!--<div class="block_one_right">-->
-                <!--<div class="two_tab_detail">-->
-                <!--<div class="two_tab_l">-->
-                <!--<span class="two_tab_pic"></span>-->
-                <!--<div class="two_tab_tit">-->
-                <!--<span class="two_tab_ellipsis ng-binding">ergesssssa</span>-->
-                <!--<span class="two_tab_ellipsis ng-binding">ergesssssa是开源的消息是开源的消息</span>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="two_tab_r">-->
-                <!--<span class="version_tit">版本</span>-->
-                <!--<span class="version_tit_num">4.51</span>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="clear"></div>-->
-                <!--<div class="block_one_set mt30">-->
-                <!--<div class="block_one_left">-->
-                <!--<p class="name_tit">镜像端口</p>-->
-                <!--</div>-->
-                <!--<div class="block_one_right">-->
-                <!--<ul class="three_list three_list_room">-->
-                <!--<li>容器端口：</li>-->
-                <!--<li><span class="room_tit">80</span></li>-->
-                <!--</ul>-->
-                <!--<ul class="three_list three_list_serivce">-->
-                <!--<li>服务端口：</li>-->
-                <!--<li><span class="room_tit ">80</span></li>-->
-                <!--</ul>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="clear"></div>-->
-                <!--<div class="block_one_set mt30">-->
-                <!--<div class="block_one_left">-->
-                <!--<p class="name_tit">环境变量</p>-->
-                <!--</div>-->
-                <!--<div class="block_one_right">-->
-                <!--<p class="name_key">键：abcddsdf</p>-->
-                <!--<p class="name_value">值：abcddsdf</p>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
 
 
             </div>

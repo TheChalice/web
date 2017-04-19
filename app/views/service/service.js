@@ -120,29 +120,34 @@ angular.module('console.service', [
                 //$scope.grid.total = $scope.data.items.length;
 
             };
+            $scope.paixulist = false
             $scope.$watch('grid.changestatus', function (n, o) {
                 if (n == o) {
                     return;
                 }
                 if (n !== '全部') {
                     //console.log('item', $scope.items);
-                    var itemcopy = angular.copy($scope.items);
+                    if (!$scope.paixulist) {
+                        $scope.paixulist= angular.copy($scope.data);
+                    }
+                    //var itemcopy = angular.copy($scope.items);
                     var newitems=[]
-                    angular.forEach(itemcopy, function (item,i) {
-                        console.log(item.ismn, n);
+                    angular.forEach($scope.paixulist, function (item,i) {
+                        //console.log(item.ismn, n);
                         if (item.ismn ==n) {
-                            newitems.unshift(item)
-                        }else {
                             newitems.push(item)
                         }
                     })
 
-                    console.log(newitems, n);
+                    //console.log(newitems, n);
                     $scope.data=angular.copy(newitems);
                     refresh(1)
                     //$scope.$apply()
 
 
+                }else {
+                    $scope.data=angular.copy($scope.paixulist);
+                    refresh(1)
                 }
 
             });
