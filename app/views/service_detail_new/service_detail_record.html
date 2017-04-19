@@ -39,7 +39,7 @@
                     </p>
 
                         <p><span class="lose_time">耗时：</span>{{item.metadata.creationTimestamp | dateRelative2}}</p>
-                    <p><span class="lose_kind">触发类型：</span><span ng-if="!item.dc.status.details.causes.length">未知</span>
+                    <p><span class="lose_kind">自动部署触发条件：</span><span ng-if="!item.dc.status.details.causes.length">未知</span>
                         <span ng-if="item.dc.status.details.causes.length">
                             <span ng-repeat="cause in item.dc.status.details.causes">
                               <span ng-switch="cause.type">
