@@ -479,9 +479,9 @@ angular.module('console.service.createnew', [
 
             if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
                 //console.log($(".create_new_nav"));
-                $(".create_new_nav").addClass("create_new_nav_new")
-            } else {
                 $(".create_new_nav").removeClass("create_new_nav_new")
+            } else {
+                $(".create_new_nav").addClass("create_new_nav_new")
             }
             window.scrollTo(0, 0);
             $scope.ymqzfocus = function () {
