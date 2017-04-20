@@ -3,9 +3,9 @@
 .selectimage_main_set{background:#fff;}
 /*头部导航*/
 .create_new_nav{height:42px;border-bottom:1px solid #e5e5e5;padding-left:20px;background:#fff;position:fixed;width:100%;
-    top:52px;left:54px;z-index:999;}
+    top:52px;left:168px;z-index:999;-webkit-transition:all 0.3s linear;-moz-transition:all 0.3s linear ;transition:all 0.3s linear}
 .create_new_nav_top{line-height:42px;}
-.create_new_nav_new{left:168px;-webkit-transition:all 0.3s linear;-moz-transition:all 0.3s linear ;transition:all 0.3s linear}
+.create_new_nav_new{left:54px;-webkit-transition:all 0.3s linear;-moz-transition:all 0.3s linear ;transition:all 0.3s linear}
 .cnew_back{color:#5a73eb;font-size:14px;cursor:pointer;width:56px;float:left;}
 .cnew_back:hover{color:#495cbc;}
 .cnew_tit{border-left:1px solid #e5e5e5;padding-left:12px;color:#333;font-size:14px;}
