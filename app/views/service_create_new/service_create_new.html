@@ -300,8 +300,8 @@
                             </ul>
                             <ul class="peizhi_list">
                                 <li ng-repeat="item in createsercet.secrets.secretsarr">
-                                    <input  type="text" autocomplete="off" class="four_list_l" placeholder="请输入'KEY'" ng-model="item.key">
-                                    <input  type="text" autocomplete="off" class="four_list_r" ng-disabled="" placeholder="请输入'VALUE'" ng-model="item.value">
+                                    <input  type="text" autocomplete="off" class="four_list_l" placeholder="" ng-model="item.key">
+                                    <input  type="text" autocomplete="off" class="four_list_r" ng-disabled="" placeholder="" ng-model="item.value">
                                     <a ng-hide="$index===createsercet.secrets.secretsarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius" ng-click="rmsecret($index)"></a>
                                     <a ng-show="$index===createsercet.secrets.secretsarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius" ng-click="addSecret()"></a>
                                 </li>
@@ -404,9 +404,9 @@
                                 <ul class="peizhi_list">
                                     <li ng-repeat="item in volume.configitems" class="scretList">
                                         <div class="four_list_l">
-                                            <input  type="text" autocomplete="off"  placeholder="请输入'KEY'" ng-model="item.key">
+                                            <input  type="text" autocomplete="off"  placeholder="" ng-model="item.key">
                                         </div>
-                                        <div class="four_list_r"> <input  type="text" autocomplete="off"  placeholder="请输入'VALUE'" ng-model="item.value"></div>
+                                        <div class="four_list_r"> <input  type="text" autocomplete="off"  placeholder="" ng-model="item.value"></div>
                                         <a ng-if="$index !== volume.configitems.length-1" ng-click="rmovekv($index)" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                                         <a ng-if="$index === volume.configitems.length-1" ng-click="addConfig()" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                     </li>
@@ -588,7 +588,7 @@
                 <div class="one_list_block clboth">
                     <div class="three_top add_mb15">
                         <p class="one_name">镜像端口</p>
-                        <span class="two_detail">取镜像中定义的端口，也可以自定义端口。</span>
+                        <span class="two_detail">可以增加镜像中未定义的端口。</span>
                     </div>
                     <div class="input_set" style="float: none;padding-left:92px;">
                         <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 106px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
@@ -614,9 +614,9 @@
                         <ul style="overflow: hidden;padding-left: 92px;">
                             <li class="ownerSL"  ng-repeat="port in container.port">
                                 <div>
-                                    <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.hostPort">
+                                    <input type="text" autocomplete="off" placeholder="" ng-model="port.hostPort">
                                 </div>
-                                <div > <input type="text" autocomplete="off" placeholder="1-65535的整数" ng-model="port.containerPort" ></div>
+                                <div > <input type="text" autocomplete="off" placeholder="" ng-model="port.containerPort" ></div>
                                 <a ng-click="delport(container.port,$index)" ng-show="$index!==container.port.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                                 <a ng-click="addport(container.port)" ng-show="$index===container.port.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                             </li>
@@ -683,7 +683,7 @@
 
                                         </div>
                                     </div>
-                                    <input type="text"  ng-blur="secretblur(persistentitem)"  class="four_list_r four_list_r_two" ng-model="persistentitem.mountPath" placeholder="/">
+                                    <input type="text"  ng-blur="secretblur(persistentitem)"  class="four_list_r four_list_r_two" ng-model="persistentitem.mountPath" placeholder="">
                                     <a ng-click="delpersistent(container.secretsobj.persistentarr,$index)"  ng-show="$index!==container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                                     <a ng-click="addpersistent(container.secretsobj.persistentarr)" ng-show="$index===container.secretsobj.persistentarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                 </li>
@@ -720,7 +720,7 @@
 
                                         </div>
                                     </div>
-                                    <input type="text" ng-blur="secretblur(config)" class="four_list_r four_list_r_two" ng-model="config.mountPath" placeholder="/">
+                                    <input type="text" ng-blur="secretblur(config)" class="four_list_r four_list_r_two" ng-model="config.mountPath" placeholder="">
                                     <a ng-click="delconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index!==container.secretsobj.configmap.length-1" class="ser_set ser_close two_radius"></a>
                                     <a ng-click="addconfigmap(container.secretsobj.configmap)" href="javascript:void(0)" ng-show="$index===container.secretsobj.configmap.length-1" class="ser_set ser_add two_radius"></a>
                                 </li>
@@ -733,7 +733,7 @@
                         <div class="one_list_block clboth mt_ten">
                             <div class="three_top add_mb15">
                                 <p class="one_name">挂载密钥</p>
-                                <span class="two_detail">这里用来将敏感信息配置传递给容器，例如代码库的用户名和密码。<i class="four_question" style="display:none;">如何进行端口配置？</i></span>
+                                <span class="two_detail">这里用来将敏感配置传递给容器，例如代码库的用户名和密码。<i class="four_question" style="display:none;">如何进行端口配置？</i></span>
                             </div>
                             <ul class="four_name">
                                 <li>密钥</li>
@@ -758,7 +758,7 @@
 
                                         </div>
                                     </div>
-                                    <input type="text" ng-blur="secretblur(secret)" ng-model="secret.mountPath" class="four_list_r four_list_r_two" placeholder="/">
+                                    <input type="text" ng-blur="secretblur(secret)" ng-model="secret.mountPath" class="four_list_r four_list_r_two" placeholder="">
                                     <a  ng-click="delsecret(container.secretsobj.secretarr)" ng-show="$index!==container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                                     <a  ng-click="addsecret(container.secretsobj.secretarr)" ng-show="$index===container.secretsobj.secretarr.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                                 </li>
@@ -839,13 +839,13 @@
                                 <span class="chenghao"></span>
                                 <div uib-dropdown on-toggle="toggled(open)" class="three_step">
                                     <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                        <span class="mleft service_per_tit service_copy_tit two_tab_ellipsis">{{dc.spec.replicas}}倍</span>
+                                        <span class="mleft service_per_tit service_copy_tit two_tab_ellipsis">{{dc.spec.replicas}}个</span>
                                         <b class="xl_bg"></b>
                                     </a>
                                     <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
                                         <li ng-repeat="time in copy" ng-click="dc.spec.replicas=time.times">
                                             <a href="javascript:void(0);">
-                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis" ng-class="{colored:time.times===dc.spec.replicas}" title="{{time.times}}">{{time.times}}倍</span>
+                                                <span class="service_per_tit service_copy_tit two_tab_ellipsis" ng-class="{colored:time.times===dc.spec.replicas}" title="{{time.times}}">{{time.times}}个</span>
                                             </a></li>
                                     </ul>
 
@@ -858,10 +858,10 @@
                                 <span style="display:inline-block;height:20px;width:57px;text-overflow:ellipsis;white-space:nowrap;">{{container.name}}</span>
                             </div>
                             <div class="col-xs-2">
-                                <input type="number" ng-model="container.resources.limits.cpu" placeholder="1-16内的整数">
+                                <input type="number" ng-model="container.resources.limits.cpu" placeholder="">
                             </div>
                             <div class="col-xs-2">
-                                <input type="number" ng-model="container.resources.limits.memory" placeholder="1-32内的整数">
+                                <input type="number" ng-model="container.resources.limits.memory" placeholder="">
                             </div>
                             <div class="col-xs-2">
 
@@ -921,22 +921,21 @@
                 <p class="ser_name_left">重启策略</p>
             </div>
             <div class="right">
-                <div class="cqcl">
-                    <div class="area_select">
-                        <div uib-dropdown on-toggle="toggled(open)">
-                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
-                                <span class="mleft">Always</span>
-                                <b class="xl_bg"></b>
-                            </a>
-                            <ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">
-                                <!--<li class="zx_active"><a href="javascript:void(0);"><span>1</span></a></li>-->
-                                <!--<li><a href="javascript:void(0);"><span>2</span></a></li>-->
-                                <!--<li><a href="javascript:void(0);"><span>3</span></a></li>-->
-                            </ul>
+                <p class="ser_name_right">Always</p>
+                    <!--<div class="area_select">-->
+                        <!--<div uib-dropdown on-toggle="toggled(open)">-->
+                            <!--<a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>-->
+                                <!--<span class="mleft">Always</span>-->
+                                <!--<b class="xl_bg"></b>-->
+                            <!--</a>-->
+                            <!--<ul class="dropdown-menu zx_area_drop" uib-dropdown-menu aria-labelledby="user-menu">-->
+                                <!--&lt;!&ndash;<li class="zx_active"><a href="javascript:void(0);"><span>1</span></a></li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li><a href="javascript:void(0);"><span>2</span></a></li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li><a href="javascript:void(0);"><span>3</span></a></li>&ndash;&gt;-->
+                            <!--</ul>-->
 
-                        </div>
-                    </div>
-                </div>
+                        <!--</div>-->
+                    <!--</div>-->
             </div>
         </div>
 
@@ -1032,7 +1031,7 @@
             </div>
             <div class="right">
                 <p class="ser_name_right font_normal">
-                    这里有以下两种触发自动部署的事件，由于新的服务启动成功后，才会停止旧的服务，所以用户对服务的访问不会间断。
+                    这里有以下两种触发自动部署的条件。
                 </p>
                 <div class="row" style="margin-bottom:0px;">
                     <div class="col-xs-3" style="line-height:23px;width:180px;padding-left:0px;margin-left: 15px;">
