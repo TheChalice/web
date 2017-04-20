@@ -1,11 +1,15 @@
 <div class="application">
        <!--<div class="cptitle">应用中心</div>-->
        <!-----------镜像中心暂时不实现所以先隐藏切换------------->
-       <div class="loader" ng-show="!saas" style="height: 700px;">
-              <div class="loader-inner ball-clip-rotate-multiple">
-                     <div></div>
-                     <div></div>
-              </div>
+       <!--<div class="loader" ng-show="!saas" style="height: 700px;">-->
+              <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+                     <!--<div></div>-->
+                     <!--<div></div>-->
+              <!--</div>-->
+       <!--</div>-->
+       <div class="new-loading" ng-show="!saas" style="height: 700px;">
+              <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+              <span style="color:#666">加载中...</span>
        </div>
        <div ng-show="saas">
               <div class="cptable">
