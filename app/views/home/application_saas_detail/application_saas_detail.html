@@ -1,9 +1,13 @@
 <div class="application" id="application1" >
-    <div class="loader" ng-show="!saasobj">
-        <div class="loader-inner ball-clip-rotate-multiple">
-            <div></div>
-            <div></div>
-        </div>
+    <!--<div class="loader" ng-show="!saasobj">-->
+        <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="new-loading" ng-show="!saasobj">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
     </div>
     <div ng-show="saasobj">
         <div class="appdetailtop"><span class="backapp" ui-sref="home.application">应用中心</span><span>SAAS详情</span></div>

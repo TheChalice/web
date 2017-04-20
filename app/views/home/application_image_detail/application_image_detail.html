@@ -1,9 +1,13 @@
 <div class="application" id="application2">
-    <div class="loader" ng-if="!items">
-        <div class="loader-inner ball-clip-rotate-multiple">
-            <div></div>
-            <div></div>
-        </div>
+    <!--<div class="loader" ng-if="!items">-->
+        <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="new-loading" ng-show="!items">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
     </div>
     <div ng-if="items">
         <div class="appdetailtop"><span class="backapp" ui-sref="home.application">应用中心</span><span>镜像详情</span></div>

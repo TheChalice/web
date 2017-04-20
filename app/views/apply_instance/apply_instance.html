@@ -1,17 +1,26 @@
 <div class="apply-instance" style="background:#fff;padding:20px 40px 40px;">
-    <div class="loader" ng-show="!data">
-        <div class="loader-inner ball-clip-rotate-multiple">
-            <div></div>
-            <div></div>
-        </div>
+    <!--<div class="loader" ng-show="!data">-->
+        <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+            <!--<div></div>-->
+            <!--<div></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div class="new-loading" ng-show="!data">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
     </div>
-    <div class="loading-box" ng-show=applyloaded>
-        <div class="loader">
-            <div class="loader-inner ball-clip-rotate-multiple">
-                <div></div>
-                <div></div>
-            </div>
-        </div>
+    <!--<div class="loading-box" ng-show=applyloaded>-->
+        <!--<div class="loader">-->
+            <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+                <!--<div></div>-->
+                <!--<div></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="new-loading" ng-show="applyloaded">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
     </div>
     <div ng-show="data">
         <form class="form-horizontal" name="frm">
