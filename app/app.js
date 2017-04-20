@@ -116,7 +116,7 @@ define([
                         $('#sidebar-right-fixed').css("marginLeft",0)
                     }else {
                         $rootScope.showsidebar = true;
-                        $('#sidebar-right-fixed').css("marginLeft",54)
+                        $('#sidebar-right-fixed').css("marginLeft",168)
                     }
 
                     //跳转购买套餐
