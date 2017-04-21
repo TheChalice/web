@@ -50,6 +50,8 @@ define([
             host_integration: './integration/v1',
             host_hawkular: './hawkular/metrics',
             host_wss: './ws/oapi/v1',
+            host_repo: './repos',
+            host_authorize: './authorize',
             host_wss_k8s: './ws/api/v1',
             login_uri: '/login',
             signin_uri: '/signin',
