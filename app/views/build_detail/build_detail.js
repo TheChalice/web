@@ -127,7 +127,7 @@ angular.module('console.build.detail', [
 
                     //emit(imageEnable(data.items));
                     $scope.resourceVersion = data.metadata.resourceVersion;
-                    //watchBuilds(data.metadata.resourceVersion);
+                    watchBuilds(data.metadata.resourceVersion);
                 }, function (res) {
                     //todo 错误处理
                 });
@@ -155,6 +155,53 @@ angular.module('console.build.detail', [
                 });
             };
 
+            var updateBuilds = function (data) {
+                //console.log('ws状态', data);
+                if (data.type == 'ERROR') {
+                    $log.info("err", data.object.message);
+                    Ws.clear();
+                    //TODO直接刷新bc会导致页面重新渲染
+                    loadBuildHistory($state.params.name);
+                    return;
+                }
+
+                $scope.resourceVersion = data.object.metadata.resourceVersion;
+
+                if (data.type == 'ADDED') {
+                    data.object.showLog = true;
+                    $scope.databuild.items.unshift(data.object);
+
+                } else if (data.type == "MODIFIED") {
+                    // 这种方式非常不好,尽快修改
+                    angular.forEach($scope.databuild.items, function (item, i) {
+                        if (item.metadata.name == data.object.metadata.name) {
+                            data.object.showLog = $scope.databuild.items[i].showLog;
+                            if (data.object.status.phase == 'Complete') {
+                                //emit(true);
+                            }
+                            Build.log.get({
+                                namespace: $rootScope.namespace,
+                                name: data.object.metadata.name,
+                                region: $rootScope.region
+                            }, function (res) {
+                                var result = "";
+                                for (var k in res) {
+                                    if (/^\d+$/.test(k)) {
+                                        result += res[k];
+                                    }
+                                }
+                                data.object.buildLog = result;
+                                $scope.logs=result
+                                $scope.databuild.items[i] = data.object;
+                                loglast()
+                            }, function () {
+
+                                $scope.databuild.items[i] = data.object;
+                            });
+                        }
+                    });
+                }
+            };
             $scope.delete = function (idx) {
                 var title = "删除构建";
                 var msg = "您确定要删除构建吗？";
@@ -279,38 +326,43 @@ angular.module('console.build.detail', [
                 document.body.onscroll = function () {
                 }
             });
-
+            //function getlogs(){
+            //    var o = $scope.databuild.items[idx];
+            //    //o.showLog = !o.showLog;
+            //
+            //    if (o.status.phase == "Pending") {
+            //        return;
+            //    }
+            //    //存储已经调取过的log
+            //    if (o.buildLog) {
+            //        loglast()
+            //        return;
+            //    }
+            //    Build.log.get({namespace: $rootScope.namespace, name: o.metadata.name,region:$rootScope.region}, function (res) {
+            //        var result = "";
+            //        for (var k in res) {
+            //            if (/^\d+$/.test(k)) {
+            //                result += res[k];
+            //            }
+            //        }
+            //        o.buildLog = result;
+            //        loglast()
+            //        $scope.logs=
+            //            buildLog.open(result)
+            //    }, function (res) {
+            //        //console.log("res", res);
+            //        o.buildLog = res.data.message;
+            //        buildLog.open(res.data.message)
+            //    });
+            //}
             /////// 获取日志
+
             $scope.getLog = function (idx) {
 
-                var o = $scope.databuild.items[idx];
-                //o.showLog = !o.showLog;
-
-                if (o.status.phase == "Pending") {
-                    return;
-                }
-                //存储已经调取过的log
-                if (o.buildLog) {
-                    loglast()
-                    return;
-                }
-                Build.log.get({namespace: $rootScope.namespace, name: o.metadata.name,region:$rootScope.region}, function (res) {
-                    var result = "";
-                    for (var k in res) {
-                        if (/^\d+$/.test(k)) {
-                            result += res[k];
-                        }
-                    }
-                    o.buildLog = result;
-                    loglast()
-                    buildLog.open(result)
-                }, function (res) {
-                    //console.log("res", res);
-                    o.buildLog = res.data.message;
-                    buildLog.open(res.data.message)
-                });
+                buildLog.open($scope.resourceVersion,$scope.databuild,idx)
 
             };
+
             var loglast = function () {
                 setTimeout(function () {
                     $('#sa').scrollTop(1000000)
@@ -364,7 +416,7 @@ angular.module('console.build.detail', [
             /////删除构建
             $scope.deletes = function () {
                 var name = $scope.data.metadata.name;
-                Confirm.open("删除构建", "您确定要删除构建吗？", "删除构建将删除构建的所有历史数据以及相关的镜像，且该操作不能恢复", 'recycle').then(function () {
+                Confirm.open("删除构建", "确定要删除吗？", "删除后将不保留数据及镜像，该操作不可恢复。", 'recycle').then(function () {
                     BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
                         $log.info("remove buildConfig success");
 
@@ -430,10 +482,10 @@ angular.module('console.build.detail', [
                 if($scope.grid.checked){
                     if($scope.grid.webhookType == 'github'){
                         repositorywebhook.get({source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
-                                repositorywebhook.delete({id:data.id,source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
-                                    $scope.grid.checked = false;
-                                    console.log('lalala删github',res);
-                                })
+                            repositorywebhook.delete({id:data.id,source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
+                                $scope.grid.checked = false;
+                                console.log('lalala删github',res);
+                            })
 
                         })
 
@@ -465,8 +517,8 @@ angular.module('console.build.detail', [
                         console.log('lalala创建gitlab',$scope.data);
                         repositorywebhook.create({source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name},{
                             "params":{
-                               id:$scope.data.metadata.annotations.id,
-                               url:config
+                                id:$scope.data.metadata.annotations.id,
+                                url:config
                             }}, function (res) {
                             $scope.grid.checked = true;
                         })
@@ -476,20 +528,105 @@ angular.module('console.build.detail', [
             }
 
         }])
-.service('buildLog', ['$uibModal', function ($uibModal) {
-    this.open = function (log) {
-        return $uibModal.open({
-            backdrop: 'static',
-            templateUrl: 'views/build_detail/buildLog.html',
-            size: 'default modal-lg',
-            controller: ['$scope','$uibModalInstance',
-                function ($scope,$uibModalInstance) {
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss();
-                    };
-                        $scope.buildLog = log
-                }]
-        }).result;
-    };
+    .service('buildLog', ['$uibModal', function ($uibModal) {
+        this.open = function (rev,bc,idx) {
+            return $uibModal.open({
+                backdrop: 'static',
+                templateUrl: 'views/build_detail/buildLog.html',
+                size: 'default modal-lg',
+                controller: ['$scope','$uibModalInstance','Ws','$rootScope','Build','$log',
+                    function ($scope,$uibModalInstance,Ws,$rootScope,Build,$log) {
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss();
+                        };
 
-}])
+                        getlogs(idx)
+                        $scope.buildLog='正在获取中。。。'
+                        function getlogs(idx){
+
+                            var o = bc.items[idx];
+                            //o.showLog = !o.showLog;
+                            Build.log.get({namespace: $rootScope.namespace, name: o.metadata.name,region:$rootScope.region}, function (res) {
+                                var result = "";
+                                for (var k in res) {
+                                    if (/^\d+$/.test(k)) {
+                                        result += res[k];
+                                    }
+                                }
+                                //o.buildLog = result;
+                                $scope.buildLog =result
+
+                            }, function (res) {
+                                //console.log("res", res);
+                                $scope.buildLog =res
+                            });
+                        }
+
+                        var watchBuilds = function (resourceVersion) {
+                            Ws.watch({
+                                resourceVersion: resourceVersion,
+                                namespace: $rootScope.namespace,
+                                type: 'builds',
+                                name: ''
+                            }, function (res) {
+                                var data = JSON.parse(res.data);
+                                updateBuilds(data);
+                            }, function () {
+                                $log.info("webSocket start");
+                            }, function () {
+                                $log.info("webSocket stop");
+                                var key = Ws.key($rootScope.namespace, 'builds', '');
+                                //console.log(key, $rootScope);
+                                if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
+                                    return;
+                                }
+                                watchBuilds($scope.resourceVersion);
+                            });
+                        };
+                        watchBuilds(rev)
+                        var updateBuilds = function (data) {
+                            //console.log('ws状态', data);
+                            if (data.type == 'ERROR') {
+                                $log.info("err", data.object.message);
+                                Ws.clear();
+                                return;
+                            }
+                            $scope.resourceVersion = data.object.metadata.resourceVersion;
+
+                            if (data.type == 'ADDED') {
+                                data.object.showLog = true;
+                                $scope.databuild.items.unshift(data.object);
+
+                            } else if (data.type == "MODIFIED") {
+                                // 这种方式非常不好,尽快修改
+                                angular.forEach(bc.items, function (item, i) {
+                                    if (item.metadata.name == data.object.metadata.name) {
+                                        //data.object.showLog = $scope.databuild.items[i].showLog;
+                                        if (data.object.status.phase == 'Complete') {
+                                            //emit(true);
+                                        }
+                                        Build.log.get({
+                                            namespace: $rootScope.namespace,
+                                            name: data.object.metadata.name,
+                                            region: $rootScope.region
+                                        }, function (res) {
+                                            var result = "";
+                                            for (var k in res) {
+                                                if (/^\d+$/.test(k)) {
+                                                    result += res[k];
+                                                }
+                                            }
+                                            $scope.buildLog =result
+                                        }, function () {
+
+                                        });
+                                    }
+                                });
+                            }
+                        };
+
+                    }]
+            }).result;
+        };
+
+    }])
