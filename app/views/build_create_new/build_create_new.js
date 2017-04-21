@@ -18,7 +18,11 @@ angular.module('console.build_create_new', [
                 var widthnav = $('.create_new_nav').width();
                 $('.code_new_modal').css('left', widthnav);
                 var height = $(document).height();
+                var height_child = $(window).height();
+                var midheight = height_child-100;
                 $('.code_new_modal').css('height', height);
+                $(".code_new_modal .content").height(midheight);//申请后端服务弹出内容超出-滚动条设置
+
             }
 
             initModal();
