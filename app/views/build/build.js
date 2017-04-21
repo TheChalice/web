@@ -1,22 +1,91 @@
 'use strict';
 
 angular.module('console.build', [
-    {
-        files: [
-            'components/searchbar/searchbar.js',
-            'views/build/build.css'
-        ]
-    }
-])
-    .controller('BuildCtrl', ['$rootScope', '$scope', '$log', '$state', '$stateParams', 'BuildConfig', 'Build', 'GLOBAL', 'Confirm', 'Sort', 'Ws', function ($rootScope, $scope, $log, $state, $stateParams, BuildConfig, Build, GLOBAL, Confirm, Sort, Ws) {
-
+        {
+            files: [
+                'components/searchbar/searchbar.js',
+                'views/build/build.css'
+            ]
+        }
+    ])
+    .controller('BuildCtrl', ['ImageStream','deleteSecret','$rootScope', '$scope', '$log', '$state', '$stateParams', 'BuildConfig', 'Build', 'GLOBAL', 'Confirm', 'Sort', 'Ws', function (ImageStream,deleteSecret,$rootScope, $scope, $log, $state, $stateParams, BuildConfig, Build, GLOBAL, Confirm, Sort, Ws) {
+        //复制到系统板
+        $scope.copyContent = function(event){
+            var e = event.target.previousElementSibling;
+            var textInput = document.createElement('input');
+            textInput.setAttribute('value', e.textContent)
+            textInput.style.cssText = "position: absolute; top:0; left: -9999px";
+            document.body.appendChild(textInput);
+            textInput.select();
+            var success = document.execCommand('copy');
+            if (success) {
+                //alert('已经复制到粘贴板');
+                event.target.textContent="已复制";
+                event.target.style.color="#fff"
+            }
+        }
         //分页
         $scope.grid = {
             page: 1,
             size: GLOBAL.size,
-            txt: ''
+            txt: '',
+            changestatus:'全部',
+            status:[{name:'全部'},{name:'构建成功'},{name:'构建失败'},{name:'正在构建'}]
         };
+        $scope.paixulist = false
+        $scope.urlcopy= function (str) {
+            $window.copy(str)
+            //alert(11)
+        }
 
+        $scope.$watch('grid.changestatus', function (n, o) {
+            if (n == o) {
+                return;
+            }
+            if (n !== '全部') {
+                //console.log('item', $scope.items);
+                if (!$scope.paixulist) {
+                    $scope.paixulist= angular.copy($scope.data);
+
+                    angular.forEach($scope.paixulist, function (item,i) {
+                        //console.log(item);
+                        if (item.build) {
+                            if (item.build.status.phase === 'Complete') {
+                                item.style="构建成功"
+                            }else if(item.build.status.phase === 'Running'){
+                                item.style='正在构建'
+                            }else if(item.build.status.phase === 'Failed'){
+                                item.style='构建失败'
+                            }else if(item.build.status.phase === 'Pending'){
+                                item.style='正在拉取代码'
+                            }else if(item.build.status.phase === 'Error'){
+                                item.style='构建失败'
+                            }
+                        }
+
+                    })
+                }
+                //var itemcopy = angular.copy($scope.items);
+                var newitems=[]
+                angular.forEach($scope.paixulist, function (item,i) {
+                    //console.log(item, n);
+                    if (item.style ==n) {
+                        newitems.push(item)
+                    }
+                })
+
+                //console.log(newitems, n);
+                $scope.data=angular.copy(newitems);
+                refresh(1)
+                //$scope.$apply()
+
+
+            }else {
+                $scope.data=angular.copy($scope.paixulist);
+                refresh(1)
+            }
+
+        });
         $scope.$watch('grid.page', function(newVal, oldVal){
             if (newVal != oldVal) {
                 refresh(newVal);
@@ -24,6 +93,9 @@ angular.module('console.build', [
         });
 
         var refresh = function(page) {
+            $(document.body).animate({
+                scrollTop: 0
+            }, 200);
             var skip = (page - 1) * $scope.grid.size;
             $scope.items = $scope.data.slice(skip, skip + $scope.grid.size);
         };
@@ -32,38 +104,40 @@ angular.module('console.build', [
             //if (event.keyCode === 13 || event === 'search') {
             console.log($scope.grid.txt);
             if (!$scope.grid.txt) {
-                    $scope.data = angular.copy($scope.copydata)
-                    refresh(1);
-                    $scope.grid.total = $scope.copydata.length;
-                    return;
-                }else {
-                    var iarr = [];
-                    var str = $scope.grid.txt;
-                    str = str.toLocaleLowerCase();
-                    console.log('$scope.copydata', $scope.copydata);
-                    angular.forEach($scope.copydata, function (item, i) {
-                        console.log(item.build);
-                        var nstr = item.metadata.name;
-                        nstr = nstr.toLocaleLowerCase();
-                            if (nstr.indexOf(str) !== -1) {
-                                iarr.push(item)
-                            }
-                        //console.log(repo.instance_data, $scope.grid.txt);
-                    })
-                    $scope.isQuery=false;
-                    if(iarr.length===0){
-                        $scope.isQuery=true;
-                        $scope.text='没有查询到相关数据';
-                        console.log($scope.items.length);
+                $scope.data = angular.copy($scope.copydata)
+                refresh(1);
+                $scope.grid.total = $scope.copydata.length;
+                $scope.text='您还没有构建代码';
+                return;
+            }else {
+                var iarr = [];
+                var str = $scope.grid.txt;
+                str = str.toLocaleLowerCase();
+                console.log('$scope.copydata', $scope.copydata);
+                angular.forEach($scope.copydata, function (item, i) {
+                    console.log(item.build);
+                    var nstr = item.metadata.name;
+                    nstr = nstr.toLocaleLowerCase();
+                    if (nstr.indexOf(str) !== -1) {
+                        iarr.push(item)
                     }
-                    else{
-                        $scope.text='您还没有任何代码构建数据，现在就创建一个吧';
-                    }
-                    $scope.data=angular.copy(iarr);
-                    refresh(1);
-                   // console.log('$scope.data', $scope.data);
-                    $scope.grid.total = $scope.data.length;
+                    //console.log(repo.instance_data, $scope.grid.txt);
+                })
+                $scope.isQuery=false;
+                if(iarr.length===0){
+                    $scope.isQuery=true;
+                    $scope.text='没有查询到相关数据';
+                    console.log($scope.items.length);
+                    console.log(iarr)
                 }
+                else{
+                    $scope.text='您还没有任何代码构建数据，现在就创建一个吧';
+                }
+                $scope.data=angular.copy(iarr);
+                refresh(1);
+                // console.log('$scope.data', $scope.data);
+                $scope.grid.total = $scope.data.length;
+            }
             //}
         }
 
@@ -146,7 +220,7 @@ angular.module('console.build', [
                         $scope.items[i].build = data.object;
                     }
                 });
-              // console.log('$scope.items.build.status.phase',$scope.items);
+                // console.log('$scope.items.build.status.phase',$scope.items);
             }
         };
 
@@ -220,9 +294,90 @@ angular.module('console.build', [
                 });
             });
         };
+        var removeBuilds = function (bcName) {
+            if (!bcName) {
+                return;
+            }
+            Build.remove({namespace: $rootScope.namespace, labelSelector: 'buildconfig=' + bcName}, function () {
+                $log.info("remove builds of " + bcName + " success");
+            }, function (res) {
+                $log.info("remove builds of " + bcName + " error");
+            });
+        };
+
+        var removeIs = function (name) {
+            ImageStream.delete({
+                namespace: $rootScope.namespace,
+                name: name,
+                region: $rootScope.region
+            }, {}, function (res) {
+                //console.log("yes removeIs");
+            }, function (res) {
+                //console.log("err removeIs");
+            })
+        }
+        var getSourceHost = function (href) {
+            var l = document.createElement("a");
+            l.href = href;
+            return l.hostname;
+        };
+        //$scope.$watch('items', function (n, o) {
+        //        if (n == o) {
+        //            return
+        //        }
+        //
+        //
+        //
+        //}, true);
+        /////删除构建
+        $scope.deletes = function (bc,idx) {
+            var name =bc.metadata.name;
+            console.log("111111",$scope.data);
+            console.log("111111",$scope.items);
+            Confirm.open("删除构建", "您确定要删除构建吗？", "删除构建将删除构建的所有历史数据以及相关的镜像，且该操作不能恢复", 'recycle').then(function () {
+                BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
+                    $log.info("remove buildConfig success");
+                    $scope.items.splice(idx,1);
+
+                    deleteSecret.delete({
+                        namespace: $rootScope.namespace,
+                        name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
+                        region:$rootScope.region
+                    }), {}, function (res) {
+
+                    }
+                    removeIs(name);
+                    removeBuilds(name);
+                    //var host = bc.build.spec.source.git.uri;
+                    //if (!$scope.grid.checked) {
+                    //    if (getSourceHost(host) === 'github.com') {
+                    //        WebhookHubDel.del({
+                    //            namespace: $rootScope.namespace,
+                    //            build: $stateParams.name,
+                    //            user: bc.metadata.annotations.user,
+                    //            repo:bc.metadata.annotations.repo
+                    //        }, function (item1) {
+                    //
+                    //        })
+                    //    } else {
+                    //        WebhookLabDel.del({
+                    //            host: 'https://code.dataos.io',
+                    //            namespace: $rootScope.namespace,
+                    //            build: $stateParams.name,
+                    //            repo: $scope.data.metadata.annotations.repo
+                    //        }, function (data2) {
+                    //
+                    //        });
+                    //    }
+                    //}
+                    //$state.go("console.build");
+                }, function (res) {
+                    //todo 错误处理
+                });
+            });
+        };
 
         $scope.$on('$destroy', function(){
             Ws.clear();
         });
     }]);
-

@@ -1,24 +1,34 @@
-<div id="build" style="background:#fff;padding:20px 40px 40px;">
-
-    <div class="loader" ng-show="!items">
-        <div class="loader-inner ball-clip-rotate-multiple">
-            <div></div>
-            <div></div>
-        </div>
+<div id="build">
+    <div class="service_top">这里汇聚了平台上创建的所有服务。<i class="four_question" style="display:none;"> 如何创建一个服务？</i></div>
+    <!--<div class="loader" ng-show="!items">-->
+    <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="new-loading" ng-show="!items">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
     </div>
     <div  ng-show="items">
-        <div style="margin-right: 0;margin-left:-15px;">
+        <div class="row" style="margin-right:0px;" >
             <div class="col-sm-4 col-xs-4 builder_jia_btn">
-                <a class="btn btn-green" ui-sref="console.build_create_new" style="margin-right:20px;">
-                    <i class="fa fa-plus fa-lg"></i>
-                    <span class="hidden-xs">新建构建</span>
+
+                <a class="btn btn-blue" ui-sref="console.build_create" style="margin-right:15px;border-radius:2px;" >
+                    <span class="hidden-xs jia">新建构建</span>
+                </a>
+                <a class="btn btn-refresh" ng-click="reload()" style="border-color:#5b73eb;display:inline-block;border-radius:2px;">
+                    <span class="hidden-xs refresh">刷新</span>
                 </a>
 
 
 
-                <a class="btn build-jia" ng-click="refresh()">
-                    <i class="fa fa-refresh fa-lg"></i><!-- 20160921 jia 代码构建 loading处理按钮向下问题-->
-                </a>
+
+                <!--<a class="btn" ng-click="refresh()" style="background-color: #57d1ea;">-->
+
+                <!--<i class="fa fa-refresh fa-lg"></i>&lt;!&ndash; 20160921 jia 代码构建 loading处理按钮向下问题&ndash;&gt;-->
+
+                <!--</a>-->
             </div>
             <!--<div class="col-sm-8 col-xs-8" style="padding-left: 0; ">-->
             <!--<div class="pull-right" style="width:100%;">-->
@@ -36,78 +46,79 @@
             <!--</div>-->
             <!--</div>-->
         </div>
-        <div class="table-responsive" style="margin-top: 20px;">
-            <table class="table table-hover table-default" style=table-layout:fixed;>
-                <tr>
-                    <div class="row row_set"><!-- 20160921 jia 服务分类模块问题 -->
-                        <th class='col-lg-2 col-md-2 col-sm-1'>构建名称</th>
-                        <th class='col-lg-2 col-md-2 col-sm-2'>最近构建状态</th>
-                        <th class='col-lg-2 col-md-2 col-sm-2'>最近构建时间</th>
-                        <th class='col-lg-2 col-md-2 col-sm-3'>最近构建时长</th>
-                        <!--<th class='col-lg-1 col-md-1 col-sm-2' style='word-break:keep-all;white-space:nowrap;'>构建类型</th>-->
-                        <th class="col-lg-3 col-md-3 col-sm-3" style='text-align:left;text-indent:8px;'>操作</th>
-                    </div>
+        <div class="table-responsive service" style="margin-top: 13px;min-height:220px;">
+            <div class="table table-hover table-default">
+                <ul class="nav_service">
+                    <li>构建名称</li>
+                    <li>创建时间</li>
+                    <li>更新时间</li>
+                    <li>
+                        <div uib-dropdown on-toggle="toggled(open)" class="build_list_toggle">
+                            <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
+                            <span style="color:#999;width:90px;display:block;margin:0 auto;position:relative;">状态 ({{grid.changestatus}})
+                            <b class="ser_bg_btn"></b></span>
 
-                </tr>
-                <tr ng-repeat="bc in items">
-                    <td class='buildname'
-                        style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;">
-                        <a class="href-orange"
-                           ui-sref="console.build_detail({name: bc.metadata.name})"
-                           uib-tooltip="{{bc.metadata.name}}"
-                           tooltip-placement="top">{{bc.metadata.name}}</a>
-                    </td>
-                    <td>
-                    <span class="icon12 icon12-{{bc.build.status.phase}}"
-                          ng-class="{'fa-spin': bc.build.status.phase == 'Running' || bc.build.status.phase == 'Pending'}"></span>
-
-                        {{bc.build.status.phase | phaseFilter}}
-                    </td>
-                    <td><span uib-tooltip="{{bc.build.metadata.creationTimestamp | timescon}}">{{bc.build.metadata.creationTimestamp | dateRelative}}</span>
-                    </td>
-                    <td>{{bc.build.status.duration | duration}}</td>
-                    <!--<td>-->
-                    <!--<i ng-if="true" class="fa fa-hand-pointer-o">&nbsp;手动</i>-->
-                    <!--<i ng-if="false" class="fa fa-television">&nbsp;自动</i>-->
-                    <!--</td>-->
-                    <td class="text-center threec" style="text-align: center; padding-left: 0;padding-right: 0;">
-                        <div class="row"
-                             style='white-space: nowrap; text-align: center;margin-left:10px;margin-right:10px;'>
-                            <a class="icon25 icon25-source col-lg-4 col-md-4 col-sm-4" href="{{bc.spec.source.git.uri}}"
-                               uib-tooltip="查看代码源" target="_blank"></a>
-                            <a class="icon25 icon25-image col-lg-4 col-md-4 col-sm-4"
-                               ng-if="bc.spec.output && bc.spec.output.to && bc.spec.output.to.name"
-                               ng-show="bc.build.status.phase !== 'Failed'"
-                               ui-sref="console.image_detail({bc: bc.metadata.name, name: bc.spec.output.to.name})"
-                               uib-tooltip="查看镜像"></a>
-                            <a class="icon25 icon25-start col-lg-4 col-md-4 col-sm-4" href="javascript:;"
-                               ng-click="startBuild($index)" ng-show="bc.build.status.phase != 'Running'"
-                               uib-tooltip="构建"></a>
-                            <a class="icon25 icon25-stop  col-lg-4 col-md-4 col-sm-4" href="javascript:;"
-                               ng-click="stop($index)"
-                               ng-show="bc.build.status.phase == 'Pendding' || bc.build.status.phase == 'Running' || bc.build.status.phase == 'New'"
-                               uib-tooltip="停止"></a>
+                            </a>
+                            <ul class="service_drop" uib-dropdown-menu aria-labelledby="user-menu">
+                                <li  ng-repeat="name in grid.status" ng-click=grid.changestatus=name.name>
+                                    <a href="javascript:void(0);"><span ng-class="{colored:name.name===grid.changestatus}">{{name.name}}</span></a></li>
+                            </ul>
+                        </div></li>
+                    <li>分支</li>
+                    <li>代码源</li>
+                    <li>操作</li>
+                </ul>
+                <!--<tr ng-repeat="bc in items">-->
+                <ul class="nav_service_main" ng-repeat="bc in items" ng-show="items">
+                    <li>
+                        <a class="href-blue" style="margin:0 auto" ui-sref="console.build_detail({name: bc.metadata.name})" uib-tooltip="{{bc.metadata.name}}" tooltip-placement="top">
+                            {{bc.metadata.name}}
+                        </a>
+                    </li>
+                    <li>{{bc.build.metadata.creationTimestamp | dateRelative}}</li>
+                    <li>{{bc.build.status.duration | duration}}</li>
+                    <li> {{bc.build.status.phase | phaseFilter}}</li>
+                    <li>{{bc.build.spec.source.git.ref}}</li>
+                    <li>
+                        <div class="code_source"><i class="b_github"></i><span class="b_github_tit">查看</span></div>
+                        <div class="build_num_detail">
+                            <p class="buid_num_url in_nowrap">{{bc.spec.source.git.uri}}</p>
+                            <span class="build_num_copy" ng-click="copyContent($event)">复制</span>
                         </div>
-                    </td>
-                </tr>
-                <tr>
+                    </li>
+                    <li>
+                        <a class="href-blue" ng-if="bc.spec.output && bc.spec.output.to && bc.spec.output.to.name"
+                           ng-show="bc.build.status.phase !== 'Failed'"
+                           ui-sref="console.image_detail({bc: bc.metadata.name, name: bc.spec.output.to.name})"
+                        >查看镜像</a>
+                        <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="startBuild($index)" ng-show="bc.build.status.phase != 'Running'" href="javascript:;">构建</a>
+                        <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="stop($index)" ng-show="bc.build.status.phase == 'Running'" href="javascript:;">停止</a>
+                        <a class = "href-blue" style="margin-right:0px;" ng-click="deletes(bc)"  href="javascript:;">删除</a>
 
-                    <td colspan="5" style="text-align: center;background: #fff;position:relative" ng-if="items.length===0"><p class="blank_block">  <span class="blank_tit">{{text}}</span></p></td>
+                    </li>
+                </ul>
 
-                </tr>
-            </table>
-            <div class="text-center" ng-if="grid.total > 10">
+                <ul ng-if="items.length===0" class="service_block_blank">
+                    <li style="text-align: center;background: #fff;position:relative;"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.build_create">去创建！</a></span></p></li>
+                </ul>
+            </div>
+            <div style="margin-top:20px;float:left;" style="display:none;" ng-show="items">
+                <span class="servie_page_num">第 {{grid.page}} 页，共 {{grid.total}} 项</span>
+            </div>
+            <div class="text-right service_page_uib" ng-if="grid.total > 0">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"
                                 total-items="grid.total"
                                 items-per-page="grid.size"
                                 class="pagination-sm"
-                                boundary-links="false"
+                                boundary-links="true"
+                                direction-links="false"
                                 max-size="12"
                                 rotate="true"
-                                previous-text="<"
-                                next-text=">"
-                                >
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="尾页">
                 </uib-pagination>
             </div>
 
@@ -119,7 +130,6 @@
     #build .icon25 {
         margin: 0 18px;
     }
-
 
     .table-responsive .buildname {
         overflow: hidden;

@@ -3,41 +3,19 @@
 angular.module('console.build.detail', [
         {
             files: [
-                'components/checkbox/checkbox.js',
                 'views/build_detail/build_detail.css'
             ]
         }
     ])
-    .controller('BuildDetailCtrl', ['ImageStreamTag', 'deleteSecret', 'Ws', 'Sort', 'GLOBAL', '$rootScope', '$scope', '$log', '$state', '$stateParams', '$location', 'BuildConfig', 'Build', 'Confirm', 'UUID', 'WebhookLab', 'WebhookHub', 'WebhookLabDel', 'WebhookHubDel', 'ImageStream', 'WebhookLabget', 'WebhookGitget'
-        , function (ImageStreamTag, deleteSecret, Ws, Sort, GLOBAL, $rootScope, $scope, $log, $state, $stateParams, $location, BuildConfig, Build, Confirm, UUID, WebhookLab, WebhookHub, WebhookLabDel, WebhookHubDel, ImageStream, WebhookLabget, WebhookGitget) {
+    .controller('BuildDetailCtrl', ['repositorywebhook','buildLog','ImageStreamTag','deleteSecret', 'Ws', 'Sort', 'GLOBAL', '$rootScope', '$scope', '$log', '$state', '$stateParams', '$location', 'BuildConfig', 'Build', 'Confirm', 'UUID', 'WebhookLab', 'WebhookHub', 'WebhookLabDel', 'WebhookHubDel', 'ImageStream', 'WebhookLabget', 'WebhookGitget'
+        , function (repositorywebhook,buildLog,ImageStreamTag,deleteSecret, Ws, Sort, GLOBAL, $rootScope, $scope, $log, $state, $stateParams, $location, BuildConfig, Build, Confirm, UUID, WebhookLab, WebhookHub, WebhookLabDel, WebhookHubDel, ImageStream, WebhookLabget, WebhookGitget) {
             $scope.grid = {};
-
-            //console.log('路由',$state);
-            $scope.grid.checked = false;
-            $scope.grid.pedding=false
-
-            $scope.bcName = $stateParams.name;
-
-            $scope.$on('image-enable', function (e, enable) {
-                $scope.imageEnable = enable;
-            });
-            $scope.showwebhook = false
             var loadBuildConfig = function () {
-                BuildConfig.get({
-                    namespace: $rootScope.namespace,
-                    name: $stateParams.name,
-                    region: $rootScope.region
-                }, function (data) {
+                BuildConfig.get({namespace: $rootScope.namespace, name: $stateParams.name,region:$rootScope.region}, function (data) {
                     $log.info('data', data);
                     //$log.info('labsecrect is',data.spec.source.sourceSecret.name);
                     $scope.data = data;
                     var host = $scope.data.spec.source.git.uri;
-                    if (data.metadata.annotations.user) {
-                        $scope.showwebhook = true;
-                        checkWebStatus()
-                    } else {
-                        $scope.showwebhook = false;
-                    }
                     if (data.spec.source.git.uri.split(':')[0] == 'ssh') {
                         var host = data.spec.source.git.uri.replace('git@', '').replace('.git', '');
 
@@ -76,14 +54,268 @@ angular.module('console.build.detail', [
                         //$scope.grid.checked = 'start';
                         //$scope.grid.checkedLocal = true;
                     }
-                    //checkWebStatus();
+                    checkWebStatus();
 
                 }, function (res) {
                     //错误处理
                 });
             };
+            $scope.grid.webhookType = '';
+            var checkWebStatus = function () {
+                var host = $scope.data.spec.source.git.uri;
 
+                if (getSourceHost(host) === 'github.com') {
+                    $scope.grid.webhookType = 'github';
+                    repositorywebhook.get({source: 'github',ns:$scope.namespace,bc:$stateParams.name}, function (res) {
+                        console.log('webhook', res);
+                        if (!res.id) {
+                            $scope.grid.checked = false;
+                        }else {
+                            $scope.grid.checked = true;
+                        }
+                    })
+                    //WebhookGitget.get({namespace: $rootScope.namespace, build: $stateParams.name,region: $rootScope.region}, function (res) {
+                    //    //console.log('666',res);
+                    //    if (res.code == 1200) {
+                    //        $scope.grid.checked = true;
+                    //    }
+                    //
+                    //}, function (res) {
+                    //    //console.log('666',res);
+                    //    if (res.data.code == 1404) {
+                    //        $scope.grid.checked = false;
+                    //    }
+                    //})
+                } else {
+                    //console.log($scope.data);
+                    //id:$scope.data.metadata.annotations.id,
+                    $scope.grid.webhookType = 'gitlab';
+                    repositorywebhook.get({source: 'gitlab',ns:$scope.namespace,bc:$stateParams.name}, function (res) {
+                        console.log('webhook', res);
+                        if (!res.id) {
+                            $scope.grid.checked = false;
+                        }else {
+                            $scope.webhookid=res.id;
+                            $scope.grid.checked = true;
+                        }
+                        console.log('$scope.grid.checked',$scope.grid.checked);
+                    })
+
+                }
+                $scope.selection = true
+            }
+            var getSourceHost = function (href) {
+                var l = document.createElement("a");
+                l.href = href;
+                return l.hostname;
+            };
             loadBuildConfig();
+            //获取build记录
+            var loadBuildHistory = function (name) {
+                //console.log('name',name)
+                Build.get({namespace: $rootScope.namespace, labelSelector: 'buildconfig=' + name,region:$rootScope.region}, function (data) {
+                    //console.log("history", data);
+                    data.items = Sort.sort(data.items, -1); //排序
+                    $scope.databuild = data;
+                    console.log('$scope.databuild',$scope.databuild);
+                    if ($stateParams.from == "create/new") {
+
+                        $scope.databuild.items[0].showLog = true;
+                    }
+                    //console.log($scope.databuild);
+                    //fillHistory(data.items);
+
+                    //emit(imageEnable(data.items));
+                    $scope.resourceVersion = data.metadata.resourceVersion;
+                    //watchBuilds(data.metadata.resourceVersion);
+                }, function (res) {
+                    //todo 错误处理
+                });
+            };
+            loadBuildHistory($state.params.name);
+            var watchBuilds = function (resourceVersion) {
+                Ws.watch({
+                    resourceVersion: resourceVersion,
+                    namespace: $rootScope.namespace,
+                    type: 'builds',
+                    name: ''
+                }, function (res) {
+                    var data = JSON.parse(res.data);
+                    updateBuilds(data);
+                }, function () {
+                    $log.info("webSocket start");
+                }, function () {
+                    $log.info("webSocket stop");
+                    var key = Ws.key($rootScope.namespace, 'builds', '');
+                    //console.log(key, $rootScope);
+                    if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
+                        return;
+                    }
+                    watchBuilds($scope.resourceVersion);
+                });
+            };
+
+            $scope.delete = function (idx) {
+                var title = "删除构建";
+                var msg = "您确定要删除构建吗？";
+                var tip = "删除构建将清除构建的所有历史数据以及相关的镜像，该操作不能被恢复";
+
+                var name = $scope.databuild.items[idx].metadata.name;
+                if (!name) {
+                    return;
+                }
+                Confirm.open(title, msg, tip, 'recycle').then(function () {
+                    Build.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, function () {
+                        $log.info("deleted");
+                        for (var i = 0; i < $scope.databuild.items.length; i++) {
+                            if (name == $scope.databuild.items[i].metadata.name) {
+                                $scope.databuild.items.splice(i, 1)
+                            }
+                        }
+
+                        $scope.$watch('databuild', function (n, o) {
+                            //console.log(n.items.length);
+                            if (n.items.length == '0') {
+                                $rootScope.testq = 'finsh'
+                            }
+                        })
+                        // if (idx == '0') {
+                        //   $rootScope.testq.type = 'delete';
+                        //   $rootScope.testq.git = $scope.data.items[0].spec.revision.git.commit;
+                        // }
+                    }, function (res) {
+                        //todo 错误处理
+                        $log.info("err", res);
+                    });
+                });
+            }
+
+            $scope.isShowmodal = {
+                //'fuwubushu': false,
+                //'fuwujiankong': false,
+                //'bushujilu': false,
+                'peizhixinxi':false,
+                //'xiugaipeizhi':false,
+            }
+
+            if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+                //console.log($(".create_new_nav"));
+                $(".create_new_nav2").addClass("create_new_nav_new")
+            } else {
+                $(".create_new_nav2").removeClass("create_new_nav_new")
+            }
+            function initModal() {
+                var $detailModal = $('.detail_new_modal');
+                var widthnav = $(window).width();
+                $detailModal.css({
+                    'left':widthnav
+                });
+            }
+            initModal();
+            function initModalH() {
+                var $height = $(window).height()-52;
+                var $main_height=$(window).height()-100;
+                var $detailModal = $('.detail_new_modal');
+                var $block_h_set = $('.detail_new_modal .block_h_set');//配置信息
+                $detailModal.css({
+                    'height':$height,
+                });
+                $block_h_set.css({
+                    'height':$main_height,
+                });
+            }
+
+            $(window).resize(function(){
+                initModalH();
+            })
+            /*关闭弹出层*/
+            $scope.close = function () {
+                document.body.onscroll = function () {
+                }
+                var $detailModal = $('.detail_new_modal');
+                var $window_width = $(window).width();
+                $detailModal.animate({
+                    left: $window_width
+                }, 'normal', 'linear', function () {
+                    $scope.isShowmodal[$scope.whatmodal] = false;
+                    $scope.whatmodal = '';
+                })
+
+            }
+            /*打开弹出层*/
+            $scope.whatmodal = '';
+            $scope.openModal = function (name, modal) {
+                var top = document.documentElement.scrollTop || document.body.scrollTop;
+                document.body.onscroll = function (e) {
+                    //console.log('ss',top);
+                    e.preventDefault();
+                    //window.scrollTo(0,top);
+                }
+                initModalH();
+                $scope.name = name;
+                $scope.isShowmodal[modal] = true;
+                $('.detail_new_modal').animate({
+                    left: 0,
+                    right:0
+                }, 'normal', 'linear');
+                $scope.whatmodal = modal;
+            }
+            //图片欲加载
+            var images = new Array()
+            function preload() {
+                for (var i = 0; i < arguments.length; i++) {
+                    images[i] = new Image()
+                    images[i].src = arguments[i]
+                }
+            };
+            preload(
+                "views/service_detail_new/img/img_err.png",
+                "views/service_detail_new/img/img_succ.png",
+                "views/service_detail_new/img/img_warn.png",
+                "views/service_detail_new/img/img_run.png"
+            );
+
+            $scope.$on("$destroy", function() {
+                document.body.onscroll = function () {
+                }
+            });
+
+            /////// 获取日志
+            $scope.getLog = function (idx) {
+
+                var o = $scope.databuild.items[idx];
+                //o.showLog = !o.showLog;
+
+                if (o.status.phase == "Pending") {
+                    return;
+                }
+                //存储已经调取过的log
+                if (o.buildLog) {
+                    loglast()
+                    return;
+                }
+                Build.log.get({namespace: $rootScope.namespace, name: o.metadata.name,region:$rootScope.region}, function (res) {
+                    var result = "";
+                    for (var k in res) {
+                        if (/^\d+$/.test(k)) {
+                            result += res[k];
+                        }
+                    }
+                    o.buildLog = result;
+                    loglast()
+                    buildLog.open(result)
+                }, function (res) {
+                    //console.log("res", res);
+                    o.buildLog = res.data.message;
+                    buildLog.open(res.data.message)
+                });
+
+            };
+            var loglast = function () {
+                setTimeout(function () {
+                    $('#sa').scrollTop(1000000)
+                }, 200)
+            }
             //开始构建
             $scope.startBuild = function () {
                 var name = $scope.data.metadata.name;
@@ -100,27 +332,46 @@ angular.module('console.build.detail', [
                     $log.info("build instantiate success", res);
                     $scope.active = 1;  //打开记录标签
                     $scope.$broadcast('timeline', 'add', res);
-                    createWebhook();
+                    loadBuildHistory($state.params.name);
+                    //createWebhook();
                     //deleteWebhook();
                 }, function (res) {
                     //todo 错误处理
                 });
             };
+            var removeBuilds = function (bcName) {
+                if (!bcName) {
+                    return;
+                }
+                Build.remove({namespace: $rootScope.namespace, labelSelector: 'buildconfig=' + bcName}, function () {
+                    $log.info("remove builds of " + bcName + " success");
+                }, function (res) {
+                    $log.info("remove builds of " + bcName + " error");
+                });
+            };
 
+            var removeIs = function (name) {
+                ImageStream.delete({
+                    namespace: $rootScope.namespace,
+                    name: name,
+                    region: $rootScope.region
+                }, {}, function (res) {
+                    //console.log("yes removeIs");
+                }, function (res) {
+                    //console.log("err removeIs");
+                })
+            }
+            /////删除构建
             $scope.deletes = function () {
                 var name = $scope.data.metadata.name;
                 Confirm.open("删除构建", "您确定要删除构建吗？", "删除构建将删除构建的所有历史数据以及相关的镜像，且该操作不能恢复", 'recycle').then(function () {
-                    BuildConfig.remove({
-                        namespace: $rootScope.namespace,
-                        name: name,
-                        region: $rootScope.region
-                    }, {}, function () {
+                    BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
                         $log.info("remove buildConfig success");
 
                         deleteSecret.delete({
                             namespace: $rootScope.namespace,
                             name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
-                            region: $rootScope.region
+                            region:$rootScope.region
                         }), {}, function (res) {
 
                         }
@@ -154,114 +405,7 @@ angular.module('console.build.detail', [
                     });
                 });
             };
-
-            var removeBuilds = function (bcName) {
-                if (!bcName) {
-                    return;
-                }
-                Build.remove({namespace: $rootScope.namespace, labelSelector: 'buildconfig=' + bcName}, function () {
-                    $log.info("remove builds of " + bcName + " success");
-                }, function (res) {
-                    $log.info("remove builds of " + bcName + " error");
-                });
-            };
-
-            var removeIs = function (name) {
-                ImageStream.delete({
-                    namespace: $rootScope.namespace,
-                    name: name,
-                    region: $rootScope.region
-                }, {}, function (res) {
-                    //console.log("yes removeIs");
-                }, function (res) {
-                    //console.log("err removeIs");
-                })
-            }
-
-            //$scope.$watch('grid.checked', function (newVal, oldVal) {
-            //    if (newVal == "start") {
-            //        return;
-            //    }
-            //    //if ($scope.selection) {
-            //    //    $scope.selection = false;
-            //    //    return;
-            //    //}
-            //    console.log('newVal', newVal);
-            //    if (newVal != oldVal) {
-            //        $scope.saveTrigger();
-            //    }
-            //});
-
-            $scope.saveTrigger = function (checked) {
-                var name = $scope.data.metadata.name;
-                //if ($scope.grid.checked) {
-                //    $scope.data.spec.triggers = [
-                //        {
-                //            type: 'GitHub',
-                //            github: {
-                //                secret: UUID.guid().replace(/-/g, "")
-                //            }
-                //        }
-                //    ];
-                //} else {
-                //    $scope.data.spec.triggers = [];
-                //}
-                //$scope.data.region=$rootScope.region;
-                if ($scope.grid.pedding) {
-                    return
-                }
-                BuildConfig.put({
-                    namespace: $rootScope.namespace,
-                    name: name,
-                    region: $rootScope.region
-                }, $scope.data, function (res) {
-                    $log.info("put success", res);
-                    $scope.data = res;
-                    $scope.deadlineMinutesEnable = false;
-                    $scope.grid.checkedLocal = $scope.grid.checked;
-                    if (!checked) {
-                        createWebhook();
-                    }else {
-                        deleteWebhook();
-                    }
-
-                    //deleteWebhook();
-                    //createWebhook();
-
-                }, function (res) {
-                    //todo 错误处理
-                    $log.info("put failed");
-                });
-            };
-
-            $scope.save = function () {
-                if (!$scope.deadlineMinutesEnable) {
-                    $scope.deadlineMinutesEnable = true;
-                    return;
-                }
-                var name = $scope.data.metadata.name;
-                $scope.data.spec.completionDeadlineSeconds = $scope.grid.completionDeadlineMinutes * 60;
-                //$scope.data.region=$rootScope.region;
-                BuildConfig.put({
-                    namespace: $rootScope.namespace,
-                    name: name,
-                    region: $rootScope.region
-                }, $scope.data, function (res) {
-                    $log.info("put success", res);
-                    $scope.data = res;
-                    $scope.deadlineMinutesEnable = false;
-                }, function (res) {
-                    //todo 错误处理
-                    $log.info("put failed");
-                });
-            };
-
-            var getSourceHost = function (href) {
-                var l = document.createElement("a");
-                l.href = href;
-                return l.hostname;
-            };
-
+            ///////自动构建
             var getConfig = function (triggers, type) {
                 //console.log(triggers)
                 var str = ''
@@ -282,401 +426,70 @@ angular.module('console.build.detail', [
                     }
                 }
             };
+            $scope.changeHook = function(){
+                if($scope.grid.checked){
+                    if($scope.grid.webhookType == 'github'){
+                        repositorywebhook.get({source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
+                                repositorywebhook.delete({id:data.id,source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
+                                    $scope.grid.checked = false;
+                                    console.log('lalala删github',res);
+                                })
 
-            var checkWebStatus = function () {
-                var host = $scope.data.spec.source.git.uri;
-                if (getSourceHost(host) === 'github.com') {
-                    WebhookGitget.get({
-                        namespace: $rootScope.namespace,
-                        build: $stateParams.name,
-                        region: $rootScope.region
-                    }, function (res) {
-                        //console.log('666',res);
-                        if (res.code == 1200) {
+                        })
+
+                    }else{
+                        repositorywebhook.get({source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
+                            repositorywebhook.delete({id:data.id,source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
+                                console.log('lalala删gitlab',res);
+                                $scope.grid.checked = false;
+                            })
+
+                        })
+
+                    }
+                    //$scope.grid.checked = false;
+                }else{
+                    var triggers = $scope.data.spec.triggers;
+                    if($scope.grid.webhookType == 'github'){
+                        var config = getConfig(triggers, 'github');
+                        repositorywebhook.create({source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name},{"params":{
+                            "ns":$scope.data.metadata.annotations.user,
+                            "repo":$scope.data.metadata.annotations.repo,
+                            url:config
+                        }}, function (res) {
+                            console.log('lalala创建github',res);
                             $scope.grid.checked = true;
-                            $scope.grid.checkeds = true
-
-                        }
-
-                    }, function (res) {
-                        //console.log('666',res);
-                        if (res.data.code == 1404) {
-                            $scope.grid.checked = false;
-                            $scope.grid.checkeds = false;
-                        }
-                    })
-                } else {
-                    WebhookLabget.get({
-                        namespace: $rootScope.namespace,
-                        build: $stateParams.name,
-                        region: $rootScope.region
-                    }, function (res) {
-
-                        if (res.code == 1200) {
-                            $scope.grid.checked = true;
-                        }
-
-
-                    }, function (res) {
-
-                        if (res.data.code == 1404) {
-                            $scope.grid.checked = false;
-                        }
-                    });
-                }
-                //$scope.selection = true
-            }
-
-            var createWebhook = function () {
-                var host = $scope.data.spec.source.git.uri;
-                var triggers = $scope.data.spec.triggers;
-                //console.log('triggers', triggers);
-                $scope.grid.pedding=true
-                console.log('checked', $scope.grid.checked);
-                if (!$scope.grid.checked) {
-                    var config = getConfig(triggers, 'github');
-                    if (getSourceHost(host) === 'github.com') {
-
-                        $log.info("user is", $scope.data.metadata.annotations.user);
-                        WebhookHub.check({
-                            region: $rootScope.region,
-                            host: 'https://github.com',
-                            namespace: $rootScope.namespace,
-                            build: $stateParams.name,
-                            user: $scope.data.metadata.annotations.user,
-                            repo: $scope.data.metadata.annotations.repo,
-                            spec: {"active": true, events: ['push', 'pull_request', 'status'], config: {url: config}}
-                        }, function (item) {
-                            $scope.grid.pedding=false
-                            $scope.grid.checked = true
-                        }, function (err) {
-                            $scope.grid.pedding=false
-                        });
-                    } else {
+                        })
+                    }else{
                         var config = getConfig(triggers, 'gitlab');
-                        WebhookLab.check({
-                            region: $rootScope.region,
-                            host: 'https://code.dataos.io',
-                            namespace: $rootScope.namespace,
-                            build: $stateParams.name,
-                            repo: $scope.data.metadata.annotations.repo,
-                            spec: {url: config}
-                        }, function (data) {
-                            $scope.grid.pedding=false
-                            $scope.grid.checked = true
-                            //console.log("test repo", $scope.data.metadata.annotations.repo)
-                        });
-                    }
-                }
-            };
-
-            var deleteWebhook = function () {
-                var host = $scope.data.spec.source.git.uri;
-                $scope.grid.pedding=true;
-                if ($scope.grid.checked) {
-                    if (getSourceHost(host) === 'github.com') {
-                        WebhookHubDel.del({
-                            region: $rootScope.region,
-                            namespace: $rootScope.namespace,
-                            build: $stateParams.name,
-                            user: $scope.data.metadata.annotations.user,
-                            repo: $scope.data.metadata.annotations.repo
-                        }, function (item1) {
-                            $scope.grid.pedding=false
-                            $scope.grid.checked=false
-                        }, function (err) {
-                            $scope.grid.pedding=false
+                        console.log('lalala创建gitlab',$scope.data);
+                        repositorywebhook.create({source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name},{
+                            "params":{
+                               id:$scope.data.metadata.annotations.id,
+                               url:config
+                            }}, function (res) {
+                            $scope.grid.checked = true;
                         })
-                    } else {
-                        WebhookLabDel.del({
-                            region: $rootScope.region,
-                            host: 'https://code.dataos.io',
-                            namespace: $rootScope.namespace,
-                            build: $stateParams.name,
-                            repo: $scope.data.metadata.annotations.repo
-                        }, function (data2) {
-                            $scope.grid.pedding=false
-                        }, function (err) {
-                            $scope.grid.pedding=false
-                        });
                     }
+
                 }
             }
-
-            $scope.isshow = true;
-            $scope.gitStore = {};
-
-//获取build记录
-            var loadBuildHistory = function (name) {
-                //console.log('name',name)
-                Build.get({
-                    namespace: $rootScope.namespace,
-                    labelSelector: 'buildconfig=' + name,
-                    region: $rootScope.region
-                }, function (data) {
-                    //console.log("history", data);
-                    data.items = Sort.sort(data.items, -1); //排序
-                    $scope.databuild = data;
-                    //console.log($scope.databuild);
-                    if ($stateParams.from == "create/new") {
-                        $scope.databuild.items[0].showLog = true;
-                    }
-                    //console.log($scope.databuild);
-                    //fillHistory(data.items);
-
-                    //emit(imageEnable(data.items));
-                    $scope.resourceVersion = data.metadata.resourceVersion;
-                    watchBuilds(data.metadata.resourceVersion);
-                }, function (res) {
-                    //todo 错误处理
-                });
-            };
-
-            var loglast = function () {
-                setTimeout(function () {
-                    $('#sa').scrollTop(1000000)
-                }, 200)
-            }
-
-            var fillHistory = function (items) {
-                var tags = [];
-                for (var i = 0; i < items.length; i++) {
-                    if (!items[i].spec.output || !items[i].spec.output.to || !items[i].spec.output.to.name) {
-                        continue;
-                    }
-                    if (tags.indexOf(items[i].spec.output.to.name) != -1) {
-                        continue;
-                    }
-                    tags.push(items[i].spec.output.to.name);
-                }
-                angular.forEach(items, function (item) {
-                    loadImageStreamTag(item);
-                });
-            };
-
-            var loadImageStreamTag = function (item) {
-                ImageStreamTag.get({
-                    namespace: $rootScope.namespace,
-                    name: item.spec.output.to.name,
-                    region: $rootScope.region
-                }, function (data) {
-                    item.bsi = data;
-                    if (data.image.dockerImageMetadata.Config.Labels) {
-                        $scope.gitStore[item.spec.output.to.name] = {
-                            id: data.image.dockerImageMetadata.Config.Labels['io.openshift.build.commit.id'],
-                            ref: data.image.dockerImageMetadata.Config.Labels['io.openshift.build.commit.ref']
-                        }
-                    }
-
-
-                }, function (res) {
-                    //todo 错误处理
-                });
-            };
-
-            var emit = function (enable) {
-                $scope.$emit('image-enable', enable);
-            };
-
-            var imageEnable = function (items) {
-                if (!items || items.length == 0) {
-                    return false;
-                }
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].status.phase == 'Complete') {
-                        return true;
-                    }
-                }
-                return false;
-            };
-
-            var watchBuilds = function (resourceVersion) {
-                Ws.watch({
-                    resourceVersion: resourceVersion,
-                    namespace: $rootScope.namespace,
-                    type: 'builds',
-                    name: ''
-                }, function (res) {
-                    var data = JSON.parse(res.data);
-                    updateBuilds(data);
-                }, function () {
-                    $log.info("webSocket start");
-                }, function () {
-                    $log.info("webSocket stop");
-                    var key = Ws.key($rootScope.namespace, 'builds', '');
-                    //console.log(key, $rootScope);
-                    if (!$rootScope.watches[key] || $rootScope.watches[key].shouldClose) {
-                        return;
-                    }
-                    watchBuilds($scope.resourceVersion);
-                });
-            };
-
-            var updateBuilds = function (data) {
-                //console.log('ws状态', data);
-                if (data.type == 'ERROR') {
-                    $log.info("err", data.object.message);
-                    Ws.clear();
-                    //TODO直接刷新bc会导致页面重新渲染
-                    loadBuildHistory($state.params.name);
-                    return;
-                }
-
-                $scope.resourceVersion = data.object.metadata.resourceVersion;
-
-                if (data.type == 'ADDED') {
-                    data.object.showLog = true;
-                    $scope.databuild.items.unshift(data.object);
-
-                } else if (data.type == "MODIFIED") {
-                    // 这种方式非常不好,尽快修改
-                    angular.forEach($scope.databuild.items, function (item, i) {
-                        if (item.metadata.name == data.object.metadata.name) {
-                            data.object.showLog = $scope.databuild.items[i].showLog;
-                            if (data.object.status.phase == 'Complete') {
-                                emit(true);
-                            }
-                            Build.log.get({
-                                namespace: $rootScope.namespace,
-                                name: data.object.metadata.name,
-                                region: $rootScope.region
-                            }, function (res) {
-                                var result = "";
-                                for (var k in res) {
-                                    if (/^\d+$/.test(k)) {
-                                        result += res[k];
-                                    }
-                                }
-                                data.object.buildLog = result;
-                                $scope.databuild.items[i] = data.object;
-                                loglast()
-                            }, function () {
-                                $scope.databuild.items[i] = data.object;
-                            });
-                        }
-                    });
-                }
-            };
-
-            loadBuildHistory($state.params.name);
-
-//如果是新创建的打开第一个日志,并监控
-            if ($stateParams.from == "create") {
-                $scope.$watch("databuild", function (newVal, oldVal) {
-                    //console.log(newVal);
-
-                    if (newVal != oldVal) {
-                        if (newVal.items.length > 0&&$scope.databuild.items[0].object) {
-
-                            $scope.getLog(0);
-
-                            $scope.databuild.items[0].object.showLog = true;
-                        }
-                    }
-                });
-            }
-
-            $scope.getLog = function (idx) {
-                var o = $scope.databuild.items[idx];
-                o.showLog = !o.showLog;
-
-                if (o.status.phase == "Pending") {
-                    return;
-                }
-                //存储已经调取过的log
-                if (o.buildLog) {
-                    loglast()
-                    return;
-                }
-                Build.log.get({
-                    namespace: $rootScope.namespace,
-                    name: o.metadata.name,
-                    region: $rootScope.region
-                }, function (res) {
-                    var result = "";
-                    for (var k in res) {
-                        if (/^\d+$/.test(k)) {
-                            result += res[k];
-                        }
-                    }
-                    o.buildLog = result;
-                    loglast()
-                }, function (res) {
-                    //console.log("res", res);
-                    o.buildLog = res.data.message;
-                });
-            };
-
-//$scope.pull = function(idx){
-//    // console.log(idx)
-//    // console.log(idx,$scope.data.status.tags[idx].tag)
-//    var name = $scope.name + ':' + $scope.date.status.tags[idx].tag;
-//    // var name = $scope.data.items[idx].spec.output.to.name;
-//    console.log('name',name);
-//    ModalPullImage.open(name, true).then(function (res) {
-//        console.log("cmd", res);
-//    });
-//};
-
-            $scope.delete = function (idx) {
-                var title = "删除构建";
-                var msg = "您确定要删除构建吗？";
-                var tip = "删除构建将清除构建的所有历史数据以及相关的镜像，该操作不能被恢复";
-
-                var name = $scope.databuild.items[idx].metadata.name;
-                if (!name) {
-                    return;
-                }
-                Confirm.open(title, msg, tip, 'recycle').then(function () {
-                    Build.remove({namespace: $rootScope.namespace, name: name}, function () {
-                        $log.info("deleted");
-                        for (var i = 0; i < $scope.databuild.items.length; i++) {
-                            if (name == $scope.databuild.items[i].metadata.name) {
-                                $scope.databuild.items.splice(i, 1)
-                            }
-                        }
-
-                        $scope.$watch('databuild', function (n, o) {
-                            //console.log(n.items.length);
-                            if (n.items.length == '0') {
-                                $rootScope.testq = 'finsh'
-                            }
-                        })
-                        // if (idx == '0') {
-                        //   $rootScope.testq.type = 'delete';
-                        //   $rootScope.testq.git = $scope.data.items[0].spec.revision.git.commit;
-                        // }
-                    }, function (res) {
-                        //todo 错误处理
-                        $log.info("err", res);
-                    });
-                });
-            }
-
-            $scope.stop = function (idx) {
-                var o = $scope.databuild.items[idx];
-                o.status.cancelled = true;
-                //o.region=$rootScope.region
-                Confirm.open("终止构建", "您确定要终止本次构建吗？", "", "stop").then(function () {
-                    Build.put({
-                        namespace: $rootScope.namespace,
-                        name: o.metadata.name,
-                        region: $rootScope.region
-                    }, o, function (res) {
-                        $log.info("stop build success");
-                        $scope.databuild.items[idx] = res;
-                    }, function (res) {
-                        if (res.data.code == 409) {
-                            Confirm.open("提示信息", "初始化中不能终止，请稍后再试", null, 144, true);
-                        }
-                    });
-                });
-            };
-
-            $scope.$on('$destroy', function () {
-                Ws.clear();
-            });
 
         }])
-;
+.service('buildLog', ['$uibModal', function ($uibModal) {
+    this.open = function (log) {
+        return $uibModal.open({
+            backdrop: 'static',
+            templateUrl: 'views/build_detail/buildLog.html',
+            size: 'default modal-lg',
+            controller: ['$scope','$uibModalInstance',
+                function ($scope,$uibModalInstance) {
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss();
+                    };
+                        $scope.buildLog = log
+                }]
+        }).result;
+    };
 
+}])

@@ -1,0 +1,55 @@
+.build-detail .form-group {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #c9c9c9;
+}
+.build-detail .form-group:last-child {
+    border-bottom: none;
+}
+.icon-edit {
+    background-image: url(img/images_134.png);
+}
+#condition {
+    padding-top: 10px;
+}
+#pushtag {
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+.font12 {
+    font-size: 12px;
+    color: #5a6378;
+    font-weight:normal;
+}
+.text-left {
+    font-weight: normal;
+}
+
+.till{
+    display: none;
+}
+.tell:hover>.till{
+    display: block;
+}
+/*.href-orange{*/
+    /*color: #f6a540;*/
+    /*text-decoration: none;*/
+/*}*/
+/*.href-orange:hover {*/
+    /*color: #5b73eb;*/
+    /*text-decoration: none;*/
+/*}*/
+/*.href-orange:active {*/
+    /*color: #5b73eb;*/
+    /*text-decoration: none;*/
+/*}*/
+/*����Ϊ��ʱ״̬*/
+.blank_block{margin-bottom:0;}
+.blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
+
+.tab-jia-default li.active .nav-link, .tab-jia-default li.active .nav-link:focus, .tab-jia-default li.active .nav-link:hover{
+    border:0;
+    border-bottom:2px solid #f8b551;
+    color:#333;
+}
+.tab-jia-default .tab-content{border: 0;}
+.tab-jia-default li .nav-link:hover{color:#333;}

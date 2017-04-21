@@ -880,7 +880,38 @@ define([
             });
             return instance;
         }])
+        .factory('authorize', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//构建认证
+            var authorize = $resource(GLOBAL.host_authorize+'/:source', {source:'@source'}, {
 
+            });
+            return authorize;
+        }])
+        .factory('repository', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取仓库
+            var repository = $resource(GLOBAL.host_repo+'/:source', {source:'@source'}, {
+
+            });
+            return repository;
+        }])
+        .factory('repositorybranches', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取仓库分支
+            var repositorybranches = $resource(GLOBAL.host_repo+'/:source/branches', {source:'@source'}, {
+
+            });
+            return repositorybranches;
+        }])
+        .factory('repositorysecret', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//获取仓库分支
+            var repositorysecret = $resource(GLOBAL.host_repo+'/:source/secret', {source:'@source'}, {
+
+            });
+            return repositorysecret;
+        }])
+
+        .factory('repositorywebhook', ['$resource', 'GLOBAL', function ($resource,GLOBAL) {//webhook操作
+            var repositorywebhook = $resource(GLOBAL.host_repo+'/:source/webhook/:id', {source:'@source',id:'@id'}, {
+                create: {method: 'POST'},
+                delete: {method: 'delete'}
+            });
+            return repositorywebhook;
+        }])
 
 });
 
