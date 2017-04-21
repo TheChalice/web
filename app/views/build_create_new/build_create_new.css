@@ -172,7 +172,7 @@ top:52px;left:168px;z-index:999;}
 .tab-default li .nav-link{border:none;color:#666;font-size:16px;}
 .tab_build_image .nav-tabs>li>a{color:#333;margin-right:134px;background:none;border:none;}
 .tab_build_image .nav-tabs>li:last-child>a{margin-right:0;}
-.tab_build_image .nav-tabs{width:860px;border:0;margin:0 auto;}
+.tab_build_image .nav-tabs{border:0;margin:0 auto;}
 .select_main_block{margin-top:52px;}
 .select_block_one{padding:18px 10px 80px;border-top:1px solid #ddd;}
 .select_block_one .two_tab_detail{margin-bottom:16px;}
