@@ -1,10 +1,14 @@
 <div id="user" style="padding:20px 40px 40px;background:#fff;">
     <div class="resource_management">
-        <div class="loader" ng-show="!myamounts">
-            <div class="loader-inner ball-clip-rotate-multiple">
-                <div></div>
-                <div></div>
-            </div>
+        <!--<div class="loader" ng-show="!myamounts">-->
+            <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+                <!--<div></div>-->
+                <!--<div></div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="new-loading" ng-show="!myamounts">
+            <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+            <span style="color:#666">加载中...</span>
         </div>
         <div ng-show="myamounts">
             <uib-tabset class="tab-default tab-zn-default" active="check">

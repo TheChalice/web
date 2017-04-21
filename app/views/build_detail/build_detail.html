@@ -1,1 +1,138 @@
-<div class="create_new_detail">    <div class="new-loading" ng-show="!data">        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>        <span style="color:#666">加载中...</span>    </div>    <div class="detail_new_content" ng-show="data">        <!--<ul>-->        <!--<li><a href="javascript:(0)" ng-click="openModal('服务部署','fuwubushu')">服务部署</a></li>-->        <!--<li><a href="javascript:(0)" ng-click="openModal('服务监控','fuwujiankong')">服务监控</a></li>-->        <!--<li><a href="javascript:(0)" ng-click="openModal('部署记录','bushujilu')">部署记录</a></li>-->        <!--<li><a href="javascript:(0)" ng-click="openModal('配置信息','peizhixinxi')">配置信息</a></li>-->        <!--<li><a href="javascript:(0)" ng-click="openModal('操作日志','caozuorizhi')" >操作日志</a></li>-->        <!--</ul>-->        <div class="content-one">            <div style="width: 80%;">                <div>{{data.metadata.name.substring(0,2)}}</div>                <div>                    <div>{{data.metadata.name}}</div>                    <div>                        <!--{{item| dateRelative}}-->                        部署时间：{{data.metadata.creationTimestamp | dateRelative}}                        状态：<span> {{databuild.items[0].status.phase | phaseFilter}}</span>                    </div>                    <div>                        域名：<a href="{{data.spec.source.git.uri}}" target="_blank">{{data.spec.source.git.uri}}</a>                    </div>                    <!--<div>-->                        <!--<a  href="javascript:void(0)" >修改配置</a>-->                    <!--</div>-->                </div>            </div>            <div>                <!--<a class="btn pull-right"-->                <!--ng-show="dc.state != 'normal'"-->                <!--ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"-->                <!--ng-disabled=startBtn.dianlz-->                <!--ng-click="startDc()">{{startBtn.name}}</a>-->                <!--<a class="btn pull-right"-->                <!--ng-show="dc.state == 'normal'"-->                <!--ng-class="{'btn-green':stopBtn.dianl, 'btn-orange': stopBtn.dianlz}"-->                <!--ng-disabled=stopBtn.dianlz-->                <!--ng-click="stopDc()">{{stopBtn.name}}</a>-->                <span class="build_gj" ng-click="startBuild()">构建</span>                <span class="build_del" href="javascript:void(0)" ng-click="deletes()">删除</span>            </div>        </div>        <div class="content-twobc">            <!--<div ng-click="openModal('服务监控','fuwujiankong')">-->                <!--<div>-->                    <!--<p>服务监控</p>-->                    <!--<div>-->                        <!--<span>1111</span>-->                        <!--<span>1111</span>-->                    <!--</div>-->                <!--</div>-->                <!--<div>-->                    <!--<p>-->                        <!--<i></i>-->                        <!--<span>运行中</span>-->                        <!--<span>1111</span>-->                    <!--</p>-->                    <!--<p>-->                        <!--<i></i>-->                        <!--<span>异常</span>-->                        <!--<span>0</span>-->                    <!--</p>-->                    <!--<div class="zhexian">-->                        <!--<b></b><b></b>-->                    <!--</div>-->                <!--</div>-->            <!--</div>-->            <div ng-click="openModal('部署记录','bushujilu')">                <p>构建记录</p>                <div>                    <span>{{databuild.items[0].metadata.creationTimestamp | dateRelative}}</span>                    <span>{{databuild.items[0].metadata.creationTimestamp | timesmd}}</span>                    <span ng-switch="databuild.items[0].status.phase | phaseFilter">                        <i ng-switch-when="构建成功" class="succ"> </i>                        <i ng-switch-when="构建失败" class="err"> </i>                        <i ng-switch-when="正在构建" class="run"> </i>                        <i ng-switch-when="构建错误" class="warn"> </i>                        {{databuild.items[0].status.phase | phaseFilter}}                    </span>                </div>                <div class="zhexian">                    <b></b><b></b>                </div>            </div>            <div ng-click="openModal('配置信息','peizhixinxi')">                <p>配置信息</p>                <div class="zhexian">                    <b></b><b></b>                </div>            </div>            <!--<div ng-click="openModal('操作日志','caozuorizhi')">-->                <!--<p>操作日志</p>-->                <!--<span>111</span><br>-->                <!--<span> 111</span>-->                <!--<div class="zhexian">-->                    <!--<b></b><b></b>-->                <!--</div>-->            <!--</div>-->        </div>    </div>    <!--modal-->    <div class="create_new_nav2">        <div class="create_new_nav_top" style="line-height: 42px;">            <span ng-click="back()" class="cnew_back"><i class="btn_create_set back_jia_btn"></i>返回</span>            <span class="cnew_tit">构建详情</span>        </div>        <div class="detail_new_modal">            <div class="nav">                <span class="cnew_back" ng-click="close()">                    <i class="btn_create_set close_jia_btn"></i> 关闭                </span>                        <span class="cnew_tit">                    <!--{{data.metadata.name}}-->                           构建详情                </span>            </div>            <div ng-show="isShowmodal.bushujilu">                <div ng-include="'views/build_detail/build_record.html'">                </div>            </div>            <div ng-show="isShowmodal.peizhixinxi">                <div ng-include="'views/build_detail/build_config.html'">                </div>            </div>        </div>    </div></div>
+
+
+<div class="create_new_detail">
+    <div class="new-loading" ng-show="!data">
+        <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
+        <span style="color:#666">加载中...</span>
+    </div>
+    <div class="detail_new_content" ng-show="data">
+        <!--<ul>-->
+        <!--<li><a href="javascript:(0)" ng-click="openModal('服务部署','fuwubushu')">服务部署</a></li>-->
+        <!--<li><a href="javascript:(0)" ng-click="openModal('服务监控','fuwujiankong')">服务监控</a></li>-->
+        <!--<li><a href="javascript:(0)" ng-click="openModal('部署记录','bushujilu')">部署记录</a></li>-->
+        <!--<li><a href="javascript:(0)" ng-click="openModal('配置信息','peizhixinxi')">配置信息</a></li>-->
+        <!--<li><a href="javascript:(0)" ng-click="openModal('操作日志','caozuorizhi')" >操作日志</a></li>-->
+
+        <!--</ul>-->
+        <div class="content-one">
+            <div style="width: 80%;">
+                <div>{{data.metadata.name.substring(0,2)}}</div>
+                <div>
+                    <div>{{data.metadata.name}}</div>
+                    <div>
+                        <!--{{item| dateRelative}}-->
+                        部署时间：{{data.metadata.creationTimestamp | dateRelative}}
+                        状态：<span> {{databuild.items[0].status.phase | phaseFilter}}</span>
+                    </div>
+                    <div>
+                        域名：<a href="{{data.spec.source.git.uri}}" target="_blank">{{data.spec.source.git.uri}}</a>
+                    </div>
+                    <!--<div>-->
+                        <!--<a  href="javascript:void(0)" >修改配置</a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div>
+                <!--<a class="btn pull-right"-->
+                <!--ng-show="dc.state != 'normal'"-->
+                <!--ng-class="{'btn-green':startBtn.dianl, 'btn-orange': startBtn.dianlz}"-->
+                <!--ng-disabled=startBtn.dianlz-->
+                <!--ng-click="startDc()">{{startBtn.name}}</a>-->
+                <!--<a class="btn pull-right"-->
+                <!--ng-show="dc.state == 'normal'"-->
+                <!--ng-class="{'btn-green':stopBtn.dianl, 'btn-orange': stopBtn.dianlz}"-->
+                <!--ng-disabled=stopBtn.dianlz-->
+                <!--ng-click="stopDc()">{{stopBtn.name}}</a>-->
+                <span class="build_gj" ng-click="startBuild()">构建</span>
+                <span class="build_del" href="javascript:void(0)" ng-click="deletes()">删除</span>
+            </div>
+        </div>
+        <div class="content-twobc">
+            <!--<div ng-click="openModal('服务监控','fuwujiankong')">-->
+                <!--<div>-->
+                    <!--<p>服务监控</p>-->
+                    <!--<div>-->
+                        <!--<span>1111</span>-->
+                        <!--<span>1111</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<p>-->
+                        <!--<i></i>-->
+                        <!--<span>运行中</span>-->
+                        <!--<span>1111</span>-->
+                    <!--</p>-->
+                    <!--<p>-->
+                        <!--<i></i>-->
+                        <!--<span>异常</span>-->
+                        <!--<span>0</span>-->
+                    <!--</p>-->
+                    <!--<div class="zhexian">-->
+                        <!--<b></b><b></b>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div ng-click="openModal('部署记录','bushujilu')">
+                <p>构建记录</p>
+                <div>
+                    <span>{{databuild.items[0].metadata.creationTimestamp | dateRelative}}</span>
+                    <span>{{databuild.items[0].metadata.creationTimestamp | timesmd}}</span>
+                    <span ng-switch="databuild.items[0].status.phase | phaseFilter">
+                        <i ng-switch-when="构建成功" class="succ"> </i>
+                        <i ng-switch-when="构建失败" class="err"> </i>
+                        <i ng-switch-when="正在构建" class="run"> </i>
+                        <i ng-switch-when="构建错误" class="warn"> </i>
+                        {{databuild.items[0].status.phase | phaseFilter}}
+                    </span>
+                </div>
+                <div class="zhexian">
+                    <b></b><b></b>
+                </div>
+            </div>
+            <div ng-click="openModal('配置信息','peizhixinxi')">
+                <p>配置信息</p>
+                <div class="zhexian">
+                    <b></b><b></b>
+                </div>
+            </div>
+            <!--<div ng-click="openModal('操作日志','caozuorizhi')">-->
+                <!--<p>操作日志</p>-->
+                <!--<span>111</span><br>-->
+                <!--<span> 111</span>-->
+                <!--<div class="zhexian">-->
+                    <!--<b></b><b></b>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <!--modal-->
+    <div class="create_new_nav2">
+        <div class="create_new_nav_top" style="line-height: 42px;">
+            <span ng-click="back()" class="cnew_back"><i class="btn_create_set back_jia_btn"></i>返回</span>
+            <span class="cnew_tit">构建详情</span>
+        </div>
+        <div class="detail_new_modal">
+            <div class="nav">
+                <span class="cnew_back" ng-click="close()">
+                    <i class="btn_create_set close_jia_btn"></i> 关闭
+                </span>
+                        <span class="cnew_tit">
+                    <!--{{data.metadata.name}}-->
+                           构建详情
+                </span>
+            </div>
+            <div ng-show="isShowmodal.bushujilu">
+                <div ng-include="'views/build_detail/build_record.html'">
+
+                </div>
+            </div>
+            <div ng-show="isShowmodal.peizhixinxi">
+                <div ng-include="'views/build_detail/build_config.html'">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

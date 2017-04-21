@@ -505,14 +505,14 @@ li {
 .config_note_block{background:#fff;}
 .config_note{padding:30px 50px 20px;position:relative;left:40px;overflow:auto;}
 .config_note p{margin:0px;}
-.config_note .block_list{width:604px;}
-.config_note .block_list li{width:604px;height:42px;line-height:42px;margin-bottom:20px;}
+.config_note .block_list{width:640px;}
+.config_note .block_list li{width:640px;height:42px;line-height:42px;margin-bottom:20px;}
 .config_note .block_list li:hover{background:#f7f8fe;}
 .config_note .block_list li:hover .list_name:before{content:"";position:absolute;background:url('img/pic_select_active.png') no-repeat center;}
 .config_note .block_list li p{float:left;font-size:12px;color:#333;}
 .config_note .block_list li p:nth-of-type(1){width:230px;padding-left:16px;}
 .config_note .block_list li p:nth-of-type(2){width:236px}
-.config_note .block_list li p:nth-of-type(3){width:138px}
+.config_note .block_list li p:nth-of-type(3){width:164px}
 .config_note .block_list li:last-child:before{content:"";position:absolute;width:1px;height:35px;background:#adb9f5;left:-1px;margin-top:36px;}
 .config_note .block_list .lose_time,.block_list .lose_kind{color:#666;}
 .config_note .block_list .list_lost{color:#ee6462;}

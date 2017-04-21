@@ -715,8 +715,8 @@ angular.module('console.service.createnew', [
                 suffix: '.'+$rootScope.namespace+'.dataapp.c.citic'
             }
             $scope.changebuild= {
-                ConfigChange:true,
-                ImageChange:true
+                ConfigChange:false,
+                ImageChange:false
             }
             $scope.requests = {
                 cpu: null,
