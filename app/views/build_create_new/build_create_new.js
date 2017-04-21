@@ -449,7 +449,7 @@ angular.module('console.build_create_new', [
             $scope.checkboxbuild = function (repo, git) {
                 $scope.buildConfig.needsrecte = repo.private
                 $scope.buildConfig.spec.source.git.ref = repo.checkbox;
-                $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + repo.checkbox;
+                //$scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + repo.checkbox;
                 $scope.buildConfig.metadata.annotations.repo = repo.name;
                 $scope.buildConfig.metadata.annotations.user = repo.namespace;
 
@@ -469,6 +469,11 @@ angular.module('console.build_create_new', [
             $scope.creat = function (num) {
                 $scope.isCreate = false;
                 var git = null;
+                if ($scope.buildConfig.spec.source.git.ref) {
+                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.buildConfig.spec.source.git.ref;
+                }else {
+                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name +':latest';
+                }
                 //console.log('$scope.openAuto', $scope.openAuto);
                 if (num === 1) {
                     git='github';
