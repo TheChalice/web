@@ -1565,3 +1565,28 @@ input:focus{border-color: #5b73eb!important;}
      margin-top: -300px;
      margin-left: -400px;
  }
+
+/*输入框搜索公共 左边输入框 右边按钮*/
+#search_public_block {border:1px solid #c9c9c9;border-radius:2px;color:#5a6378;}
+#search_public_block .search_public_l{width:90%;height:24px;padding:18px 8px 16px;border:0;float:left;}
+.search_public_btn{height: 100%;background:#fff url(../img/search.png) no-repeat 0 9px!important;box-shadow: none;display:block;width:20px;height:34px;
+    float:right;margin-right:3px;cursor:pointer;}
+.search_public_btn:hover{height: 100%;background:#fff url(../img/search-focus.png) no-repeat 0 9px!important;}
+/*输入框搜索公共 左边输入框 右边按钮*/
+.four_question{cursor:auto!important;}
+.four_question:hover{text-decoration:none!important;}
+
+/*分页公共样式*/
+.service_page_uib .pagination>li>a,.service_page_uib .pagination>li>span{margin-right:10px;width:30px;height:28px;text-align:center;padding:0;
+    line-height:28px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;color:#999;}
+.service_page_uib .pagination>li:first-child>a{width:48px;color:#999;}
+.service_page_uib .pagination>li:last-child>a{width:48px;color:#999;}
+.service_page_uib .pagination>li:first-child>a, .service_page_uib .pagination>li:first-child>span{
+    -webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;}
+.service_page_uib .pagination>li>a:hover{color:#5b73ed;}
+
+.service_page_uib .pagination>li>a:focus,.service_page_uib .pagination>li>a:hover,.service_page_uib .pagination>li>span:focus,.service_page_uib .pagination>li>span:hover{
+    background:#fff;border-color:#5b73ed;
+}
+.service_page_uib .pagination>li.active a{color:#fff;background:#5b73ed;border-color:#5b73ed;}
+/*分页公共样式*/

@@ -1,5 +1,5 @@
 #sidebar {
-    background: #e6e9f2;
+    background: #333744;
 }
 #sidebar ul > li {
     margin: 0;height:42px;line-height:42px;
@@ -10,7 +10,7 @@
     padding: 23px 30px;
 }
 #sidebar ul > li.active > a {
-    background: #dde0e9;
+    background: #42485b;
 }
 
 #sidebar ul > li > a > i {
@@ -103,11 +103,11 @@
 #sidebar ul > li.active > a{background:#2c4d66;padding:0px 18px;}
 #sidebar ul > li.active > a > i{position:absolute;left:0;top:0;color:#ea3031;bottom:0;}
 .fa-caret-left:before{content:"";background:#ea3031;width:2px;top: 0px;bottom: 0px;border: 1px solid #f00;position: absolute;}
-.zx_set_btn{background:#2c495f url(img/zx_set.png) no-repeat center;width:14px;height:14px;background-size:14px 14px;display:block;padding:21px 84px;
+.zx_set_btn{background:#4a5064 url(img/zx_set.png) no-repeat center;width:14px;height:14px;background-size:14px 14px;display:block;padding:21px 84px;
     }
-.zx_set_btn:hover{background:#2c495f url(img/zx_set_hover.png) no-repeat center;background-size:14px 14px;}
-.zx_set_btn_rotate{background:#2c495f url(img/zx_set_active.png) no-repeat center;width:14px;height:14px;background-size:14px 14px;display:block;padding:21px 84px;}
-.zx_set_btn_rotate:hover{background:#2c495f url(img/zx_set_active_hover.png) no-repeat center;background-size:14px 14px;}
+.zx_set_btn:hover{background:#4a5064 url(img/zx_set_hover.png) no-repeat center;background-size:14px 14px;}
+.zx_set_btn_rotate{background:#4a5064 url(img/zx_set_active.png) no-repeat center;width:14px;height:14px;background-size:14px 14px;display:block;padding:21px 84px;}
+.zx_set_btn_rotate:hover{background:#4a5064 url(img/zx_set_active_hover.png) no-repeat center;background-size:14px 14px;}
 .sider_zx{width:54px!important;-webkit-transition:all 0.3s linear ;-moz-transition:all 0.3s linear;transition:all 0.3s linear;}
 .sidebar-fixed{margin-left:54px!important;-webkit-transition:all 0.3s linear ;-moz-transition:all 0.3s linear;transition:all 0.3s linear;}
 #sidebar ul > li .side_tit{padding-left:20px;}

@@ -13,14 +13,16 @@ angular.module('console.service.createnew', [
             $scope.btnText = {
                 one:'立即创建',
                 two:'创建中',
-                three:'创建完成'
+                three:'创建完成',
+                four:'创建服务'
             }
             if ($stateParams.dc) {
                 console.log('$stateParams.dc', $stateParams.dc);
                 $scope.btnText = {
                     one:'重新部署',
                     two:'部署中...',
-                    three:'部署完成'
+                    three:'部署完成',
+                    four:'修改服务'
                 }
                 $scope.updata=true
             }
