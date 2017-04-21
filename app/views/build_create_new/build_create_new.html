@@ -158,8 +158,9 @@
 
                         <uib-tab index="1" heading="GitHub">
                             <div class="tabinfo" style="height: 50px">
-                                <img style="float: left;margin-right: 20px;width:66px"
-                                     src="views/build_create/img/github0.png">
+                                <!--<img style="float: left;margin-right: 20px;width:66px"-->
+                                     <!--src="views/build_create/img/github0.png">-->
+                                <div class="build_github"></div>
                                 <span style="font-size:12px; height: 20px;color:#333">
                                     GitHub是一个面向开源及私有软件项目的托管平台，只支持Git作为唯一版本库格式。
                                 </span>
@@ -211,8 +212,9 @@
                             <!--github-->
                             <uib-tab index="2" heading="GitLab">
                                 <div class="tabinfo">
-                                    <img style="float: left;margin-right: 20px;width:66px;"
-                                         src="views/build_create/img/gitlab0.png">
+                                    <div class="build_gitlab"></div>
+                                    <!--<img style="float: left;margin-right: 20px;width:66px;"-->
+                                         <!--src="views/build_create/img/gitlab0.png">-->
                                     <span style="font-size:12px; height: 20px;color:#333">GitHub是一个面向开源及私有软件项目的托管平台，只支持Git作为唯一版本库格式。</span>
                                     <p class="link_github" ng-click="linkgit('gitlab')" ng-show="state.gitlab.link==='unlink'">立即关联GitHub账号</p>
                                     <p class="link_github" style="color:#999" ng-show="state.github.pedding">正在关联GitHub账号...
@@ -284,10 +286,12 @@
             <p class="create_left">自动构建 </p>
             <span class="create_right">当源代码配置文件生变化时自动进行代码构建。</span>
             <div style="margin-left:96px;margin-top:5px"  ng-show="!openAuto">
-                <img src="views/build_create/img/close.png" ng-click="openAutoCreate()" style="cursor:pointer;" alt="">
+                <!--<img src="views/build_create/img/close.png" ng-click="openAutoCreate()" style="cursor:pointer;" alt="">-->
+                <div class="build_close" ng-click="openAutoCreate()"></div>
             </div>
             <div style="margin-left:96px;margin-top:5px;" ng-show="openAuto">
-                <img src="views/build_create/img/open.png" ng-click="openAutoCreate()" style="cursor:pointer" alt="">
+                <!--<img src="views/build_create/img/open.png" ng-click="openAutoCreate()" style="cursor:pointer" alt="">-->
+                <div class="build_open" ng-click="openAutoCreate()"></div>
             </div>
         </div>
         <div class="create-code-block">
