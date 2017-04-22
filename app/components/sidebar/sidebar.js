@@ -19,14 +19,14 @@ angular.module("console.sidebar", [
                     var height = $(document).height()
                     $(this).toggleClass("zx_set_btn_rotate");
                     if ($(this).hasClass("zx_set_btn_rotate")) {
-                        $(".create_new_nav").addClass("create_new_nav_new");
-                        $(".create_new_nav2").addClass("create_new_nav_new");
-                        width = $(window).width()-52;
+                        $(".create_new_nav").removeClass("create_new_nav_new");
+                        $(".create_new_nav2").removeClass("create_new_nav_new");
+                        width = $(window).width()-168;
 
                     }else {
                         $(".create_new_nav").removeClass("create_new_nav_new");
                         $(".create_new_nav2").removeClass("create_new_nav_new");
-                        width = $(window).width()-168;
+                        width = $(window).width()-54;
                     }
                     $("#sidebar-container").toggleClass("sider_zx");
                     $("#sidebar-right-fixed").toggleClass("sidebar-fixed");
