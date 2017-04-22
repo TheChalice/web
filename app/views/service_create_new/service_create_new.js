@@ -262,8 +262,12 @@ angular.module('console.service.createnew', [
                         }
                         if (con.resources.limits.cpu) {
                             $scope.count();
+                        }else{
+                            $scope.count();
                         }
                         if (con.resources.limits.memory) {
+                            $scope.count();
+                        }else {
                             $scope.count();
                         }
 
@@ -768,6 +772,20 @@ angular.module('console.service.createnew', [
             if ($scope.updata) {
                 DeploymentConfig.get({namespace: $rootScope.namespace, name:$stateParams.dc ,region:$rootScope.region}, function (res) {
                     $scope.dc = res;
+                    if (res.spec.triggers[0]) {
+                        if (res.spec.triggers[0].type === 'ConfigChange') {
+                            $scope.changebuild.ConfigChange=true
+                        }
+                        if (res.spec.triggers[0].type === 'ImageChange') {
+                            //alert(111)
+                            $scope.changebuild.ImageChange=true
+                        }
+                        if (res.spec.triggers[1]) {
+                            if (res.spec.triggers[1].type === 'ImageChange') {
+                                $scope.changebuild.ImageChange=true
+                            }
+                        }
+                    }
                     $scope.error= {
                         dcnameerr: {
                             rexed:false,
@@ -776,6 +794,7 @@ angular.module('console.service.createnew', [
 
                         }
                     }
+
                     if (!$scope.dc.spec.template.spec.volumes) {
                         $scope.dc.spec.template.spec.volumes=[];
                     }
@@ -901,6 +920,7 @@ angular.module('console.service.createnew', [
                         };
                     })
                     angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
+                        con.updata=true
                         if (con.resources.limits&&con.resources.limits.cpu && con.resources.limits.memory) {
 
                             con.resources.limits.cpu=parseInt(con.resources.limits.cpu)
@@ -916,13 +936,11 @@ angular.module('console.service.createnew', [
                         if (!con.volumeMounts) {
                             con.volumeMounts=[];
                         }
-                        console.log('con.image', con.image.split('/')[2].split('@')[1].split(':')[0]);
-                        if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
-
-                            con.imagename=con.image.split('/')[2].split('@')[0];
-                        }
                         if (con.image.indexOf('registry.dataos.io')>-1) {
                             con.imagename=con.image.split('/')[1]+'/'+con.image.split('/')[2];
+                        }else if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
+
+                            con.imagename=con.image.split('/')[2].split('@')[0];
                         }
                         console.log('con.imagename', con.imagename);
 
@@ -1025,7 +1043,34 @@ angular.module('console.service.createnew', [
                         //$scope.$apply()
 
                         //console.log('con.imagename', con.imagename);
-                        if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
+                        if (con.image.indexOf('registry.dataos.io')>-1) {
+                            //if (con.image.split('/')[1] === 'datafoundry') {
+                            $scope.error.image='our'
+                            //angular.forEach(dfdata, function (item,i) {
+                            $scope.dc.spec.template.spec.containers[i].imaged={
+                                checkbox:"",
+                                type:'our',
+                                metadata: {
+                                    name:con.image.split('/')[1]+'/'+con.image.split('/')[2].split(':')[0],
+                                    showname:con.image.split('/')[2]
+                                },
+                                status:{
+                                    tags:[]
+                                }
+                            }
+                            platformlist.query({id:con.image.split('/')[1]+'/'+con.image.split('/')[2].split(':')[0]},function (tags) {
+                                angular.forEach(tags, function (tag,j) {
+                                    $scope.dc.spec.template.spec.containers[i].imaged.status.tags.push({tag:tag})
+                                    $scope.dc.spec.template.spec.containers[i].imaged.checkbox=tags[0]
+                                })
+
+
+                            })
+
+                            //})
+
+
+                        }else if (con.image.split('/')[2].split('@')[1].split(':')[0]==='sha256') {
                             for(var k in $scope.dc.metadata.annotations){
                                 //console.log(k.indexOf('dadafoundry.io/image-'));
                                 if (k.indexOf('dadafoundry.io/image-')>-1) {
@@ -1082,34 +1127,6 @@ angular.module('console.service.createnew', [
                                     }
                                 }
                             }
-                        }
-                        if (con.image.indexOf('registry.dataos.io')>-1) {
-                            //if (con.image.split('/')[1] === 'datafoundry') {
-                            $scope.error.image='our'
-                            //angular.forEach(dfdata, function (item,i) {
-                            $scope.dc.spec.template.spec.containers[i].imaged={
-                                checkbox:"",
-                                type:'our',
-                                metadata: {
-                                    name:con.image.split('/')[1]+'/'+con.image.split('/')[2].split(':')[0],
-                                    showname:con.image.split('/')[2]
-                                },
-                                status:{
-                                    tags:[]
-                                }
-                            }
-                            platformlist.query({id:con.image.split('/')[1]+'/'+con.image.split('/')[2].split(':')[0]},function (tags) {
-                                angular.forEach(tags, function (tag,j) {
-                                    $scope.dc.spec.template.spec.containers[i].imaged.status.tags.push({tag:tag})
-                                    $scope.dc.spec.template.spec.containers[i].imaged.checkbox=tags[0]
-                                })
-
-
-                            })
-
-                            //})
-
-
                         }
 
                         //console.log(con.imagename,con.imagetag);
@@ -2306,6 +2323,8 @@ angular.module('console.service.createnew', [
             $scope.checkboximage= function (image) {
                 console.log('$scope.changeimage', image);
                 $scope.error.image=null;
+                $scope.dc.spec.template.spec.containers[$scope.changeimage].containerPort=""
+                $scope.dc.spec.template.spec.containers[$scope.changeimage].hostPort=""
                 if (image.type && image.type === 'our') {
                     $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged = image;
                     console.log('$scope.dc.spec.template.spec.containers[$scope.changeimage].imaged', $scope.dc.spec.template.spec.containers[$scope.changeimage].imaged);
@@ -2389,6 +2408,7 @@ angular.module('console.service.createnew', [
                 });
             };
             var updataRoute= function () {
+                $scope.route.spec.port.targetPort = $scope.routeconf.checkport +'-'+$scope.routeconf.checkcon;
                 $scope.route.spec.host = $scope.routeconf.host + $scope.routeconf.suffix;
                 console.log('updataRoute');
                 Route.put({
@@ -2532,7 +2552,7 @@ angular.module('console.service.createnew', [
                 angular.forEach(clonedc.spec.template.spec.volumes, function (volume, i) {
                     delete clonedc.spec.template.spec.volumes[i].mountPath
                 })
-
+                clonedc.spec.triggers=[]
                 //镜像变化触发自动部署
                 if ($scope.changebuild.ConfigChange) {
                     clonedc.spec.triggers.push({type: 'ConfigChange'});

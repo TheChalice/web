@@ -535,7 +535,7 @@
                         <div class="input_set input_set_two">
                             <div class="input_set_l">
                                 <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
-                                       ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
+                                       ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="container.updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
                                 <span class="input_close" ng-show="container.name!==''&&!updata"  ng-click="container.name=''"></span>
                             </div>
                             <span class="btn_set_new error_btn ng-hide" ng-show="container.namerr.repeated"></span>
@@ -860,10 +860,10 @@
                                 <span style="display:inline-block;height:20px;width:57px;text-overflow:ellipsis;white-space:nowrap;">{{container.name}}</span>
                             </div>
                             <div class="col-xs-2">
-                                <input type="number" ng-model="container.resources.limits.cpu" placeholder="">
+                                <input type="number" ng-model="container.resources.limits.cpu" oninput='this.value=this.value.replace(/^[0]+[0-9]*$/gi,"")' placeholder="">
                             </div>
                             <div class="col-xs-2">
-                                <input type="number" ng-model="container.resources.limits.memory" placeholder="">
+                                <input type="number" ng-model="container.resources.limits.memory" oninput='this.value=this.value.replace(/^[0]+[0-9]*$/gi,"")' placeholder="">
                             </div>
                             <div class="col-xs-2">
 

@@ -70,7 +70,7 @@
                     </li>
                     <li><span>{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</li>
                     <li>
-                        <a class="href-blue" ng-click="restartDc($index)" href="javascript:;">重启</a>
+                        <a class="href-blue" ng-click="restartDc($index)"  ng-show="dc.ismn==='异常'||dc.ismn==='正常'" href="javascript:;">重启</a>
                         <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="startDc($index)" ng-if="dc.ismn=='未启动'" href="javascript:;">启动</a>
                         <a class = "href-blue" style="margin-right:8px;margin-left:8px;" ng-click="stopDc($index)" ng-if="dc.ismn!='未启动'" href="javascript:;">停止</a>
                         <a class = "href-blue" style="margin-right:0px;" ng-click="del($index)"  href="javascript:;">删除</a>
