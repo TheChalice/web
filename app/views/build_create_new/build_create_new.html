@@ -137,7 +137,7 @@
         <div class="create-code-block">
             <p class="create_left">构建名称 <i>*</i></p>
             <input type="text" class="new_code_input" ng-model="buildConfig.metadata.name" placeholder="2-24位小写字母、数字或中划线组成">
-            <span class="input_close" style="left:537px"></span>
+            <span class="input_close" ng-show="buildConfig.metadata.name!==''"  ng-click="buildConfig.metadata.name=''" style="left:537px"></span>
             <span class="disable_tit ng-hide">服务名称暂不支持修改</span>
             <span class="btn_set_new error_btn" ng-show="namerr.repeated" style="margin-left:8px;"></span>
             <div class="error_block_tit" ng-show="namerr.rexed">
@@ -215,9 +215,9 @@
                                     <div class="build_gitlab"></div>
                                     <!--<img style="float: left;margin-right: 20px;width:66px;"-->
                                          <!--src="views/build_create/img/gitlab0.png">-->
-                                    <span style="font-size:12px; height: 20px;color:#333">GitHub是一个面向开源及私有软件项目的托管平台，只支持Git作为唯一版本库格式。</span>
-                                    <p class="link_github" ng-click="linkgit('gitlab')" ng-show="state.gitlab.link==='unlink'">立即关联GitHub账号</p>
-                                    <p class="link_github" style="color:#999" ng-show="state.github.pedding">正在关联GitHub账号...
+                                    <span style="font-size:12px; height: 20px;color:#333">GitLab是一个面向开源及私有软件项目的托管平台，只支持Git作为唯一版本库格式。</span>
+                                    <p class="link_github" ng-click="linkgit('gitlab')" ng-show="state.gitlab.link==='unlink'">立即关联GitLab账号</p>
+                                    <p class="link_github" style="color:#999" ng-show="state.github.pedding">正在关联GitLab账号...
                                         <span style="margin-left:30px;color:#5b73eb;">已绑定？刷新</span></p>
                                     <div class="two_tab_detail" ng-show="state.gitlab.checked" style="margin-top:20px;">
                                         <div class="two_tab_l" >

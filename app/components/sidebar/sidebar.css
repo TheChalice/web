@@ -99,8 +99,8 @@
 #sidebar ul > li > a{color:#fff;font-size:14px;padding:0px 18px;}
 #sidebar ul > li > a:hover{background:#42485b;}
 #sidebar ul > li > a:focus{background:#42485b!important;}
-#sidebar{background:#264359;}
-#sidebar ul > li.active > a{background:#2c4d66;padding:0px 18px;}
+#sidebar{background:#333744;}
+#sidebar ul > li.active > a{background:#42485b;padding:0px 18px;}
 #sidebar ul > li.active > a > i{position:absolute;left:0;top:0;color:#ea3031;bottom:0;}
 .fa-caret-left:before{content:"";background:#ea3031;width:2px;top: 0px;bottom: 0px;border: 1px solid #f00;position: absolute;}
 .zx_set_btn{background:#4a5064 url(img/zx_set.png) no-repeat center;width:14px;height:14px;background-size:14px 14px;display:block;padding:21px 84px;

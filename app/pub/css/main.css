@@ -337,7 +337,7 @@ a {
     border: 1px solid #c9c9c9;
     border-radius: 2px;
     box-shadow: none;
-    color: #5a6378;
+    color: #5a6378;height:30px;
 }
 
 .form-control:focus {
@@ -951,7 +951,7 @@ a {
     border: none;
     box-shadow: none;
     color: #5a6378;
-    z-index:999;
+    z-index:999;height:30px;
 }
 
 .searchbar .btn {

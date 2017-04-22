@@ -132,7 +132,7 @@ ul,li{list-style:none;}
 .nav_service li:nth-child(6){width:10%;}
 .nav_service li:nth-child(7){width:16%;}
 
-.nav_service_main{padding:0px;margin:0;height:auto;overflow:hidden;}
+.nav_service_main{padding:0px;margin:0;height:auto;overflow:inherit;}
 .nav_service_main:hover{background:#eef1fd;}
 .nav_service_main li{width:14%;float:left;text-align:center;height:44px;padding-top:14px;padding-bottom:14px;border-bottom:1px solid #f0f0f0;font-size:12px;}
 .nav_service_main li:nth-child(1){width:18%;text-align:center;padding-left:20px;padding-right:20px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
