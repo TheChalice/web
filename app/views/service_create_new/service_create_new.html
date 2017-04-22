@@ -3,7 +3,7 @@
     <div class="create_new_nav">
         <div class="create_new_nav_top">
             <span ng-click="back()" class="cnew_back"><i class="btn_create_set back_jia_btn"></i>返回</span>
-            <span class="cnew_tit">创建服务</span>
+            <span class="cnew_tit">{{btnText.four}}</span>
         </div>
         <div class="create_new_modal">
             <div>
@@ -13,8 +13,10 @@
                 <div class="content">
                     <div class="selectimage_main_set">
                     <div class="selectimage_main">
-                        <div class="searchbar_image">
-                            <input type="text" class="form-control" ng-model="imagesearch"  placeholder="请输入镜像名称">
+                        <div class="searchbar_image" id="search_public_block">
+                            <input type="text" class="search_public_l" ng-model="imagesearch"  placeholder="请输入镜像名称">
+                            <span class="search_public_btn"></span>
+                            <!--<input type="text" class="form-control" ng-model="imagesearch"  placeholder="请输入镜像名称">-->
                         </div>
                         <div class="select_main_block">
 
@@ -58,7 +60,7 @@
                             </uib-tab>
                             <uib-tab index="2" >
                                 <uib-tab-heading ng-click="changeimage('df')">
-                                    私有镜像
+                                    平台私有镜像
                                 </uib-tab-heading>
                                 <div class="select_block_one create_two_block">
                                         <div class="no_sql">
@@ -72,7 +74,7 @@
 
                             <uib-tab index="3">
                                 <uib-tab-heading>
-                                    DataFoundry镜像
+                                    平台公有镜像
                                 </uib-tab-heading>
                                 <div class="new-loading" ng-show="!dfimage">
                                     <img style="height:30px;width:30px;margin-left:5px;" src="pub/img/logo.gif" alt=""><br>
@@ -163,7 +165,7 @@
                     <div class="backservice">
                         <div class="left">
                             <span>可选择</span>
-                            <div ng-show="bsi.work.length>0">
+                            <div ng-show="bsi.work.length>0" style="overflow:auto;">
                                 <div class="two_tab_detail two_tab_detail_service" ng-repeat="bsi in bsi.work">
                                     <div class="two_tab_l">
                                         <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
@@ -206,7 +208,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-show="bsi.check.length===0">
+                            <div ng-show="bsi.check.length===0" style="overflow:auto;">
                                 <div class="noData">
                                     <span class="noImage"></span>
                                     <p>未选择任何后端服务</p>

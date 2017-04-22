@@ -26,6 +26,7 @@ angular.module("console.sidebar", [
                     $(".create_new_nav").toggleClass("create_new_nav_new");
                     $(".create_new_nav2").toggleClass("create_new_nav_new");
                     if ($(this).hasClass("zx_set_btn_rotate")) {
+
                         //$(".create_new_nav").addClass("create_new_nav_new");
                         //$(".create_new_nav2").addClass("create_new_nav_new");
                         width = $(window).width()-52;
@@ -34,6 +35,7 @@ angular.module("console.sidebar", [
                     //    $(".create_new_nav").removeClass("create_new_nav_new");
                     //    $(".create_new_nav2").removeClass("create_new_nav_new");
                         width = $(window).width()-168;
+
                     }
                     $("#sidebar-container").toggleClass("sider_zx");
                     $("#sidebar-right-fixed").toggleClass("sidebar-fixed");

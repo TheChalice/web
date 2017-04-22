@@ -19,14 +19,16 @@ angular.module('console.service.createnew', [
             $scope.btnText = {
                 one:'立即创建',
                 two:'创建中',
-                three:'创建完成'
+                three:'创建完成',
+                four:'创建服务'
             }
             if ($stateParams.dc) {
                 console.log('$stateParams.dc', $stateParams.dc);
                 $scope.btnText = {
                     one:'重新部署',
                     two:'部署中...',
-                    three:'部署完成'
+                    three:'部署完成',
+                    four:'修改服务'
                 }
                 $scope.updata=true
             }
@@ -476,23 +478,32 @@ angular.module('console.service.createnew', [
             //    $(this).hide();
             //    $(".adv_set_detail").addClass("show");
             //});
-            //收起
-            $(".one_pack").on("click", function () {
-                $(".block_one").hide();
-                $(".block_two").show();
-            })
-            //展开
-            $(".select_open").on("click", function () {
-                $(".block_two").hide();
-                $(".block_one").show();
-            })
-
-            //if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
-            //    //console.log($(".create_new_nav"));
-            //    $(".create_new_nav").addClass("create_new_nav_new")
-            //} else {
-            //    $(".create_new_nav").removeClass("create_new_nav_new")
-            //}
+            ////收起
+            //$(".one_pack").on("click", function () {
+            //    $(".block_one").hide();
+            //    $(".block_two").show();
+            //})
+            ////展开
+            //$(".select_open").on("click", function () {
+            //    $(".block_two").hide();
+            //    $(".block_one").show();
+            //})
+//
+//<<<<<<< HEAD
+//            //if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+//            //    //console.log($(".create_new_nav"));
+//            //    $(".create_new_nav").addClass("create_new_nav_new")
+//            //} else {
+//            //    $(".create_new_nav").removeClass("create_new_nav_new")
+//            //}
+//=======
+//            if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+//                //console.log($(".create_new_nav"));
+//                $(".create_new_nav").removeClass("create_new_nav_new")
+//            } else {
+//                $(".create_new_nav").addClass("create_new_nav_new")
+//            }
+//>>>>>>> citic-dev
             window.scrollTo(0, 0);
             $scope.ymqzfocus = function () {
                 $('.houzui').css('borderColor', '#5b73eb');

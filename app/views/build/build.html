@@ -17,7 +17,7 @@
             <div class="col-sm-4 col-xs-4 builder_jia_btn">
 
                 <a class="btn btn-blue" ui-sref="console.build_create_new" style="margin-right:15px;border-radius:2px;" >
-                    <span class="hidden-xs jia">新建构建</span>
+                    <span class="hidden-xs jia">  新建构建</span>
                 </a>
                 <a class="btn btn-refresh" ng-click="reload()" style="border-color:#5b73eb;display:inline-block;border-radius:2px;">
                     <span class="hidden-xs refresh">刷新</span>
@@ -83,9 +83,9 @@
                     <li>{{bc.build.spec.source.git.ref}}</li>
                     <li>
                         <div class="code_source"><i class="b_github"></i><span class="b_github_tit">查看</span></div>
-                        <div class="build_num_detail">
-                            <p class="buid_num_url in_nowrap">{{bc.spec.source.git.uri}}</p>
-                            <span class="build_num_copy" ng-click="copyContent($event)">复制</span>
+                        <div class="build_num_detail" ng-mouseout="copyBlur($event)">
+                            <a href="{{bc.spec.source.git.uri}}" class="buid_num_url in_nowrap">{{bc.spec.source.git.uri}}</a>
+                            <span class="build_num_copy" ng-class="{'iscopyactive':isCopy}" ng-click="copyContent($event)" >{{copyCon}}</span>
                         </div>
                     </li>
                     <li>
