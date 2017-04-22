@@ -10,6 +10,12 @@ angular.module('console.service.createnew', [
     .controller('ServiceCreatenewCtrl', ['$scope', '$rootScope', 'persistent', 'configmaps','secretskey','$http','BackingService','$log','volumeConfig', 'market', 'checkout', 'Tip', '$state', 'Service', 'Route', 'BackingServiceInstance','DeploymentConfig','ImageStream','ImageStreamTag','listSecret','modifySecret','Metrics','$stateParams','platform','platformlist','$q','resourcequotas',
         function ($scope, $rootScope, persistent, configmaps,secretskey,$http,BackingService,$log,volumeConfig, market, checkout, Tip, $state, Service, Route, BackingServiceInstance,DeploymentConfig,ImageStream,ImageStreamTag,listSecret,modifySecret,Metrics,$stateParams,platform,platformlist,$q,resourcequotas) {
             $scope.updata=false;
+            if (!$(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+                //console.log($(".create_new_nav"));
+                $(".create_new_nav").addClass("create_new_nav_new")
+            } else {
+                $(".create_new_nav").removeClass("create_new_nav_new")
+            }
             $scope.btnText = {
                 one:'立即创建',
                 two:'创建中',
@@ -472,23 +478,32 @@ angular.module('console.service.createnew', [
             //    $(this).hide();
             //    $(".adv_set_detail").addClass("show");
             //});
-            //收起
-            $(".one_pack").on("click", function () {
-                $(".block_one").hide();
-                $(".block_two").show();
-            })
-            //展开
-            $(".select_open").on("click", function () {
-                $(".block_two").hide();
-                $(".block_one").show();
-            })
-
-            if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
-                //console.log($(".create_new_nav"));
-                $(".create_new_nav").removeClass("create_new_nav_new")
-            } else {
-                $(".create_new_nav").addClass("create_new_nav_new")
-            }
+            ////收起
+            //$(".one_pack").on("click", function () {
+            //    $(".block_one").hide();
+            //    $(".block_two").show();
+            //})
+            ////展开
+            //$(".select_open").on("click", function () {
+            //    $(".block_two").hide();
+            //    $(".block_one").show();
+            //})
+//
+//<<<<<<< HEAD
+//            //if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+//            //    //console.log($(".create_new_nav"));
+//            //    $(".create_new_nav").addClass("create_new_nav_new")
+//            //} else {
+//            //    $(".create_new_nav").removeClass("create_new_nav_new")
+//            //}
+//=======
+//            if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+//                //console.log($(".create_new_nav"));
+//                $(".create_new_nav").removeClass("create_new_nav_new")
+//            } else {
+//                $(".create_new_nav").addClass("create_new_nav_new")
+//            }
+//>>>>>>> citic-dev
             window.scrollTo(0, 0);
             $scope.ymqzfocus = function () {
                 $('.houzui').css('borderColor', '#5b73eb');

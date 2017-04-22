@@ -8,10 +8,11 @@ angular.module('console.build_create_new', [
     ])
     .controller('BuildcCtrl', ['GLOBAL','repositorywebhook','repositorysecret', 'repositorybranches', 'repository', 'authorize', 'randomWord', '$rootScope', '$scope', '$state', '$log', 'Owner', 'Org', 'Branch', 'labOwner', 'psgitlab', 'laborgs', 'labBranch', 'ImageStream', 'BuildConfig', 'Alert', '$http', 'Cookie', '$base64', 'secretskey',
         function (GLOBAL,repositorywebhook,repositorysecret, repositorybranches, repository, authorize, randomWord, $rootScope, $scope, $state, $log, Owner, Org, Branch, labOwner, psgitlab, laborgs, labBranch, ImageStream, BuildConfig, Alert, $http, Cookie, $base64, secretskey) {
-            if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
-                $(".create_new_nav").removeClass("create_new_nav_new")
-            } else {
+            if (!$(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+                //console.log($(".create_new_nav"));
                 $(".create_new_nav").addClass("create_new_nav_new")
+            } else {
+                $(".create_new_nav").removeClass("create_new_nav_new")
             }
 
             function initModal() {
@@ -322,10 +323,10 @@ angular.module('console.build_create_new', [
                 //console.log(triggers)
                 var str = ''
                 if (type == 'github' && triggers[0].github) {
-                    str = GLOBAL.host_webhooks + '/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.buildConfig.metadata.name + '/webhooks/' + triggers[0].github.secret + '/github'
+                    str = GLOBAL.host_webhooks + '/oapi/v1/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.buildConfig.metadata.name + '/webhooks/' + triggers[0].github.secret + '/github'
                     return str;
                 } else if (type == 'gitlab' && triggers[1].generic) {
-                    str = GLOBAL.host_webhooks + '/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.buildConfig.metadata.name + '/webhooks/' + triggers[1].generic.secret + '/generic'
+                    str = GLOBAL.host_webhooks + '/oapi/v1/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.buildConfig.metadata.name + '/webhooks/' + triggers[1].generic.secret + '/generic'
                     return str;
                 }
 
