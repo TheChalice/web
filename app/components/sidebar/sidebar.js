@@ -32,9 +32,14 @@ angular.module("console.sidebar", [
                         width = $(window).width()-52;
 
                     }else {
+
+                        $(".create_new_nav").addClass("create_new_nav_new");
+                        $(".create_new_nav2").addClass("create_new_nav_new");
+                        width = $(window).width()-54;
                     //    $(".create_new_nav").removeClass("create_new_nav_new");
                     //    $(".create_new_nav2").removeClass("create_new_nav_new");
-                        width = $(window).width()-168;
+                        //width = $(window).width()-168;
+
 
                     }
                     $("#sidebar-container").toggleClass("sider_zx");
