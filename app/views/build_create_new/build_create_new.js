@@ -9,9 +9,9 @@ angular.module('console.build_create_new', [
     .controller('BuildcCtrl', ['GLOBAL','repositorywebhook','repositorysecret', 'repositorybranches', 'repository', 'authorize', 'randomWord', '$rootScope', '$scope', '$state', '$log', 'Owner', 'Org', 'Branch', 'labOwner', 'psgitlab', 'laborgs', 'labBranch', 'ImageStream', 'BuildConfig', 'Alert', '$http', 'Cookie', '$base64', 'secretskey',
         function (GLOBAL,repositorywebhook,repositorysecret, repositorybranches, repository, authorize, randomWord, $rootScope, $scope, $state, $log, Owner, Org, Branch, labOwner, psgitlab, laborgs, labBranch, ImageStream, BuildConfig, Alert, $http, Cookie, $base64, secretskey) {
             if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
-                $(".create_new_nav").addClass("create_new_nav_new")
-            } else {
                 $(".create_new_nav").removeClass("create_new_nav_new")
+            } else {
+                $(".create_new_nav").addClass("create_new_nav_new")
             }
 
             function initModal() {
