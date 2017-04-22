@@ -42,12 +42,12 @@ top:52px;left:168px;z-index:999;}
 .new_code_input{
     width:466px;
     height:30px;
-    padding-left:5px;
-    float:left;
+    padding-left:4px;
+    float:left;border:1px solid #d4d4d4;
 }
 .new_code_input:focus{
     border:1px solid #5b73eb;
-    padding-left: 6px;
+    padding-left:4px;
 }
 .create-code-block .width-code{
     width:465px;
