@@ -117,7 +117,9 @@
                             <p class="name_tit">自动部署</p>
                         </div>
                         <div class="block_one_right">
-                            <p class="name_detail"><i class="con_new_btn" ng-class="{'con_new_btn_active': grid.configChange}"></i>配置变化触发自动部署</p>
+                            <p class="name_detail"><i class="con_new_btn" ng-class="{'con_new_btn_active': dc.spec.triggers[0].type==='ConfigChange'}"></i>配置变化触发自动部署</p>
+
+                            <p class="name_detail"><i class="con_new_btn" ng-class="{'con_new_btn_active': dc.spec.triggers[0].type==='ImageChange'||dc.spec.triggers[1].type==='ImageChange'}"></i>镜像变化触发自动部署</p>
                         </div>
                     </div>
 
