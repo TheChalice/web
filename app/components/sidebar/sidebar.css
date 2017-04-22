@@ -109,7 +109,7 @@
 .zx_set_btn_rotate{background:#4a5064 url(img/zx_set_active.png) no-repeat center;width:14px;height:14px;background-size:14px 14px;display:block;padding:21px 84px;}
 .zx_set_btn_rotate:hover{background:#4a5064 url(img/zx_set_active_hover.png) no-repeat center;background-size:14px 14px;}
 .sider_zx{width:54px!important;-webkit-transition:all 0.3s linear ;-moz-transition:all 0.3s linear;transition:all 0.3s linear;}
-.sidebar-fixed{margin-left:168px!important;-webkit-transition:all 0.3s linear ;-moz-transition:all 0.3s linear;transition:all 0.3s linear;}
+.sidebar-fixed{margin-left:168px!important;}
 #sidebar ul > li .side_tit{padding-left:20px;}
 /*�ջ�Ч��*/
 .sider_zx .zx_set_btn{padding:21px 27px;}
