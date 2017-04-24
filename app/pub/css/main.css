@@ -739,6 +739,8 @@ a {
 }
 .fbb {
     color: #5b73eb;
+    margin: 22px 2px 0px;
+    display: inline-block;
 }
 .fbb:hover{
     color: #999;;
