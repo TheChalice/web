@@ -84,7 +84,7 @@
                     <li>
                         <div class="code_source"><i class="b_github"></i><span class="b_github_tit">查看</span></div>
                         <div class="build_num_detail" ng-mouseout="copyBlur($event)">
-                            <a href="{{bc.spec.source.git.uri}}" class="buid_num_url in_nowrap">{{bc.spec.source.git.uri}}</a>
+                            <a href="{{bc.spec.source.git.uri}}" target="_blank" class="buid_num_url in_nowrap">{{bc.spec.source.git.uri}}</a>
                             <span class="build_num_copy" ng-class="{'iscopyactive':isCopy}" ng-click="copyContent($event)" >{{copyCon}}</span>
                         </div>
                     </li>
