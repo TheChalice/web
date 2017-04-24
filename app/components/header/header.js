@@ -312,15 +312,45 @@ angular.module("console.header", [
 
                     }
 
+                    //$scope.back = function () {
+                    //    //console.log($state);
+                    //    if ($state.current.name == "console.image_detail") {
+                    //        $state.go('console.image', {index: 1})
+                    //    } else if ($state.current.name == "console.image_Public") {
+                    //        $state.go('console.image', {index: 3})
+                    //    } else if ($state.current.name == "console.image_regstry") {
+                    //        $state.go('console.image', {index: 2})
+                    //    } else {
+                    //        $window.history.back();
+                    //    }
+                    //};
+
                     $scope.back = function () {
-                        //console.log($state);
-                        if ($state.current.name == "console.image_detail") {
-                            $state.go('console.image', {index: 1})
-                        } else if ($state.current.name == "console.image_Public") {
-                            $state.go('console.image', {index: 3})
-                        } else if ($state.current.name == "console.image_regstry") {
-                            $state.go('console.image', {index: 2})
-                        } else {
+                        console.log($state);
+                        //代码构建
+                        if($state.current.name == "console.build_create_new" || $state.current.name == "console.build_detail"){
+                            $state.go('console.build')
+                        }
+                        //镜像仓库
+                        else if($state.current.name == "console.image_detail"){
+                            $state.go('console.image')
+                            //服务部署
+                        }else if($state.current.name == "console.service_create" ||  $state.current.name == "console.service_detail"){
+                            $state.go('console.service')
+                        }
+                        //后端部署
+                        else if($state.current.name == "console.apply_instance" || $state.current.name == "console.backing_service_detail" || $state.current.name =="console.create_saas"){
+                            $state.go('console.backing_service')
+                        }
+                        //资源管理
+                        else if($state.current.name == "console.image_detail" || $state.current.name == "console.image_detail" || $state.current.name == "console.secret_detail" ||  $state.current.name =="console.config_detail" || $state.current.name =="console.create_constantly_volume" || $state.current.name =="console.create_config_volume" || $state.current.name =="console.create_secret"){
+                            $state.go('console.resource_management')
+                        }
+                        //数据集成
+                        else if($state.current.name == "console.Integration_detail" || $state.current.name =="console.dataseverdetail" || $state.current.name =="console.Integration_dlist"){
+                            $state.go('console.Integration')
+                        }
+                        else {
                             $window.history.back();
                         }
                     };
