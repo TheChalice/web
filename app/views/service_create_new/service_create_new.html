@@ -181,7 +181,7 @@
                                 </div>
 
                             </div>
-                            <div ng-show="bsi.work.length===0">
+                            <div ng-show="bsi.work.length===0" style="overflow:auto;">
                                 <div class="noData">
                                     <span class="noImage"></span>
                                     <p>未选择任何后端服务</p>
@@ -857,7 +857,7 @@
                         <div class="row" ng-repeat="container in dc.spec.template.spec.containers" >
                             <div class="col-xs-2" style="padding-left:15px;padding-right:0px">
                                 <img src="views/service_detail_new/img/nor_pic.png" class="img_oo">
-                                <span style="display:inline-block;height:20px;width:57px;text-overflow:ellipsis;white-space:nowrap;">{{container.name}}</span>
+                                <span style="display:inline-block;height:23px;width:57px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden" title="{{container.name}}">{{container.name}}</span>
                             </div>
                             <div class="col-xs-2">
                                 <input type="number" ng-model="container.resources.limits.cpu"  oninput='this.value=this.value.replace(/^[0]+[0-9]*$/gi,"")' placeholder="">
