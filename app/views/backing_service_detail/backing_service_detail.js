@@ -6,9 +6,12 @@ angular.module('console.backing_service_detail', [
             ]
         }
     ])
-    .controller('BackingServiceInstanceCtrl', ['market', 'delorders', 'orders', '$log', '$scope', '$rootScope', '$stateParams', 'BackingService', 'BackingServiceInstance', 'ServiceSelect', 'Confirm', 'BackingServiceInstanceBd', '$state', 'Toast', 'Ws'
-        , function (market, delorders, orders, $log, $scope, $rootScope, $stateParams, BackingService, BackingServiceInstance, ServiceSelect, Confirm, BackingServiceInstanceBd, $state, Toast, Ws) {
+    .controller('BackingServiceInstanceCtrl', ['newconfirm','market', 'delorders', 'orders', '$log', '$scope', '$rootScope', '$stateParams', 'BackingService', 'BackingServiceInstance', 'ServiceSelect', 'Confirm', 'BackingServiceInstanceBd', '$state', 'Toast', 'Ws'
+        , function (newconfirm,market, delorders, orders, $log, $scope, $rootScope, $stateParams, BackingService, BackingServiceInstance, ServiceSelect, Confirm, BackingServiceInstanceBd, $state, Toast, Ws) {
             $scope.grid = {}
+            $scope.checkInfo = function(){
+                newconfirm.open('信息','详情');
+            }
             var cuename = $stateParams.name;
 
             console.log('$stateParams', $stateParams)
