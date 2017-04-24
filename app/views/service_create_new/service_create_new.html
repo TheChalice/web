@@ -193,7 +193,7 @@
                         </div>
                         <div class="right">
                             <span>已选择</span>
-                            <div ng-show="bsi.check.length>0">
+                            <div ng-show="bsi.check.length>0" style="overflow:auto">
                                 <div class="two_tab_detail two_tab_detail_service"  ng-repeat="bsi in bsi.check">
                                     <div class="two_tab_l">
                                         <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
@@ -860,7 +860,7 @@
                                 <span style="display:inline-block;height:20px;width:57px;text-overflow:ellipsis;white-space:nowrap;">{{container.name}}</span>
                             </div>
                             <div class="col-xs-2">
-                                <input type="number" ng-model="container.resources.limits.cpu" oninput='this.value=this.value.replace(/^[0]+[0-9]*$/gi,"")' placeholder="">
+                                <input type="number" ng-model="container.resources.limits.cpu"  oninput='this.value=this.value.replace(/^[0]+[0-9]*$/gi,"")' placeholder="">
                             </div>
                             <div class="col-xs-2">
                                 <input type="number" ng-model="container.resources.limits.memory" oninput='this.value=this.value.replace(/^[0]+[0-9]*$/gi,"")' placeholder="">
@@ -1037,7 +1037,7 @@
                 </p>
                 <div class="row" style="margin-bottom:0px;">
                     <div class="col-xs-3" style="line-height:23px;width:180px;padding-left:0px;margin-left: 15px;">
-                        <i class="checkbox_info" ng-click="changebuild.ImageChange=!changebuild.ImageChange" ng-class="{active:changebuild.ImageChange}"></i>
+                        <i class="checkbox_info" ng-click="changebuild.ConfigChange=!changebuild.ConfigChange" ng-class="{active:changebuild.ConfigChange}"></i>
                         <span class="pz_label">配置变化触发自动部署</span>
                     </div>
                     <div class="col-xs-9" style="line-height:23px; padding-left:0px">
@@ -1046,7 +1046,7 @@
                 </div>
                 <div class="row" ng-show="error.image!=='our'">
                     <div class="col-xs-3" style="line-height:23px;width:180px;padding-left:0px;margin-left: 15px;">
-                        <i class="checkbox_info" ng-click="changebuild.ConfigChange=!changebuild.ConfigChange" ng-class="{active:changebuild.ConfigChange}"></i>
+                        <i class="checkbox_info" ng-click="changebuild.ImageChange=!changebuild.ImageChange" ng-class="{active:changebuild.ImageChange}"></i>
                         <span class="pz_label">镜像变化触发自动部署</span>
                     </div>
                     <div class="col-xs-9" style="line-height:23px;padding-left:0px">

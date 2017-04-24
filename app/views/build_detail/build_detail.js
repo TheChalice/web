@@ -462,10 +462,10 @@ angular.module('console.build.detail', [
                 //console.log(triggers)
                 var str = ''
                 if (type == 'github' && triggers[0].github) {
-                    str = GLOBAL.host_webhooks + '/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.data.metadata.name + '/webhooks/' + triggers[0].github.secret + '/github'
+                    str = GLOBAL.host_webhooks + '/oapi/v1/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.data.metadata.name + '/webhooks/' + triggers[0].github.secret + '/github'
                     return str;
                 } else if (type == 'gitlab' && triggers[1].generic) {
-                    str = GLOBAL.host_webhooks + '/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.data.metadata.name + '/webhooks/' + triggers[1].generic.secret + '/generic'
+                    str = GLOBAL.host_webhooks + '/oapi/v1/namespaces/' + $rootScope.namespace + '/buildconfigs/' + $scope.data.metadata.name + '/webhooks/' + triggers[1].generic.secret + '/generic'
                     return str;
                 }
 
