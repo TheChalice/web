@@ -801,14 +801,9 @@ angular.module('console.service.createnew', [
                             }
                         }
                     }
-                    $scope.error= {
-                        dcnameerr: {
-                            rexed:false,
-                            repeated:false,
-                            null:false
-
-                        }
-                    }
+                    $scope.error.dcnameerr.rexed=false;
+                    $scope.error.dcnameerr.repeated=false;
+                    $scope.error.dcnameerr.null=false;
 
                     if (!$scope.dc.spec.template.spec.volumes) {
                         $scope.dc.spec.template.spec.volumes=[];
