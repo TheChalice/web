@@ -25,14 +25,18 @@
                         <p>绑定服务个数: {{item.spec.bound}}</p>
                     </div>
                     <div class="ban4">
-                        <a href="javascript:;" ng-click="item.show=!item.show" class="fa2 fa2-link"
-                           uib-tooltip="服务绑定"></a>
+                        <!--<a href="javascript:;" ng-click="item.show=!item.show" class="fa2 fa2-link"-->
+                           <!--uib-tooltip="服务绑定"></a>-->
+                        <a href="javascript:;" ng-click="item.show=!item.show" class="fbb">服务绑定</a>
                         <!--<a ui-sref="console.backing_service_detail({name:item.spec.provisioning.backingservice_name, plan: item.spec.provisioning.backingservice_plan_name, update: true})" class="fa2 fa2-update" uib-tooltip="升级套餐"></a>-->
-                        <a ng-if="item.spec.provisioning.dashboard_url" href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fa2 fa2-dashboard"
-                           uib-tooltip="Dashboard"></a>
+                        <!--<a ng-if="item.spec.provisioning.dashboard_url" href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fa2 fa2-dashboard"-->
+                           <!--uib-tooltip="Dashboard"></a>-->
+                        <a ng-if="item.spec.provisioning.dashboard_url" href="{{item.spec.provisioning.dashboard_url}}" target="_blank" class="fbb"
+                           >控制台</a>
 
-                        <a href="javascript:;" class="faa faa-times" uib-tooltip="删除"
-                           ng-click="delBsi($index,items.id)"></a>
+                        <!--<a href="javascript:;" class="faa faa-times" uib-tooltip="删除" ng-click="delBsi($index,items.id)"></a>-->
+                        <a href="javascript:;" class="fbb"  ng-click="delBsi($index,items.id)">删除</a>
+                        <a href="javascript:;" class="fbb" >访问信息</a>
                     </div>
                 </div>
             </div>
