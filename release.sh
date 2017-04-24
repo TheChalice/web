@@ -19,4 +19,9 @@ cp -r bower_components/kubernetes-container-terminal $dist/vendor/
 echo "[remove unconcerned files]"
 rm $dist/index_dist.html
 
+echo "[generating version file]"
+
+echo $SOURCE_REF:$COMMIT
+echo $SOURCE_REF:$SOURCE_COMMIT > dist/version
+
 echo "[end]"
