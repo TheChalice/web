@@ -58,8 +58,12 @@ angular.module('console.service', [
                     name: $scope.items[idx].metadata.name,
                     region:$rootScope.region
                 }, function (res) {
-                    console.log('res', res);
-                    $scope.items.splice(idx,1)
+                    if (item.metadata.name === $scope.items[idx].metadata.name) {
+                        $scope.data.splice(i,1)
+                        $scope.grid.total =  $scope.data.length;
+                        $scope.grid.page = 1;
+                        refresh(1);
+                    }
                 })
 
                 Service.delete({namespace: $rootScope.namespace, name: $scope.items[idx].metadata.name,region:$rootScope.region}, function (res) {
@@ -157,6 +161,7 @@ angular.module('console.service', [
                     if (!$scope.grid.txt) {
                         $scope.data = angular.copy($scope.copydata)
                         refresh(1);
+                        $scope.grid.page = 1;
                         $scope.grid.total = $scope.copydata.length;
                         //return;
                     } else {
@@ -184,6 +189,7 @@ angular.module('console.service', [
                         }
                         $scope.data = angular.copy(iarr);
                         refresh(1);
+                        $scope.grid.page = 1;
                         console.log('$scope.data', $scope.data);
                         $scope.grid.total = $scope.data.length;
 
