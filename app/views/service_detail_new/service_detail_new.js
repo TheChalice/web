@@ -1057,14 +1057,7 @@ angular.module('console.service.detail', [
             if ($scope.dc) {
                 if (n == 0) {
                     $scope.dc.state = 'ready'; //未启动
-                }
-                if (n == 0) {
-                    $scope.dc.state = 'ready'; //未启动
-                }
-                if (n == 0) {
-                    $scope.dc.state = 'abnormal';  //异常
-                }
-                if (n == $scope.dc.spec.replicas) {
+                }else if (n == $scope.dc.spec.replicas) {
                     $scope.dc.state = 'normal';    //正常
                 }
             }
@@ -1406,12 +1399,12 @@ angular.module('console.service.detail', [
                 //
                 //  }
                 //});
-                angular.forEach($scope.rcs.items, function (item, i) {
-                    if (item.metadata.name == data.object.metadata.name) {
-                        data.object.showLog = item.showLog;
-                        $scope.rcs.items[i] = data.object;
-                    }
-                });
+                if (data.object.spec.selector.deploymentconfig == $scope.dc.metadata.name) {
+                    //console.log(data.object.status);
+                    $scope.dc.spec.replicas = data.object.spec.replicas
+                    $scope.dc.status.replicas =data.object.status.replicas
+                    $scope.$apply();
+                }
             }
 
         };
@@ -1475,34 +1468,27 @@ angular.module('console.service.detail', [
 
             }
 
-            var rcName = $scope.dc.metadata.name + '-' + $scope.dc.status.latestVersion;
-            if ($scope.rcs) {
-                var items = $scope.rcs.items;
-            }
+            DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.dc.metadata.name}, function (data) {
 
-            var item = null;
-            for (var i = 0; i < items.length; i++) {
-                if (rcName == items[i].metadata.name) {
-                    item = items[i]
+                //data.metadata.annotations['dadafoundry.io/last-replicas']=data.spec.replicas;
+                if (data.metadata.annotations['dadafoundry.io/last-replicas']) {
+                    if (data.metadata.annotations['dadafoundry.io/last-replicas'] - 0 > 0) {
+                        data.spec.replicas=data.metadata.annotations['dadafoundry.io/last-replicas']
+                    }else {
+                        data.spec.replicas=1;
+                    }
+
+                }else {
+                    data.spec.replicas=1;
                 }
-            }
-            if (item) {
-                item.spec.replicas = $scope.dc.spec.replicas;
-                ReplicationController.put({
-                    namespace: $rootScope.namespace,
-                    name: item.metadata.name,
-                    region:$rootScope.region
-                }, item, function (res) {
-                    // $log.info("$scope.dc0-0-0-0-0-0-", $scope.dc);
-                    // $log.info("start dc success", res);
-                    item = res;
-                }, function (res) {
-                    //todo 错误处理
-                    // $log.info("start rc err", res);
-                });
-            } else {
-                //todo 没有rc怎么办?
-            }
+                //console.log('DeploymentConfig', data);
+
+                DeploymentConfig.put({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.dc.metadata.name}
+                    ,data, function (data) {
+                        console.log('DeploymentConfig', data);
+
+                    })
+            })
         };
 
         $scope.stopBtn = {
@@ -1519,30 +1505,16 @@ angular.module('console.service.detail', [
                 dianlz: true,
                 dianl: false
             }
-            var rcName = $scope.dc.metadata.name + '-' + $scope.dc.status.latestVersion;
-            var items = $scope.rcs.items;
-            var item = null;
-            for (var i = 0; i < items.length; i++) {
-                if (rcName == items[i].metadata.name) {
-                    item = items[i]
-                }
-            }
-            if (item) {
-                item.spec.replicas = 0;
-                ReplicationController.put({
-                    namespace: $rootScope.namespace,
-                    name: item.metadata.name,
-                    region:$rootScope.region
-                }, item, function (res) {
-                    // $log.info("start dc success", res);
-                    item = res;
-                    // $log.info("$scope.dc0-0-0-0-0-0-", $scope.dc);
+            DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.dc.metadata.name}, function (data) {
+                data.metadata.annotations['dadafoundry.io/last-replicas']=data.spec.replicas.toString();
+                //console.log('DeploymentConfig', data);
+                data.spec.replicas=0;
+                DeploymentConfig.put({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.dc.metadata.name}
+                    ,data, function (data) {
+                        //console.log('DeploymentConfig', data);
 
-                }, function (res) {
-                    //todo 错误处理
-                    // $log.info("start rc err", res);
-                });
-            }
+                    })
+            })
         };
 
         $scope.startRc = function (idx) {
