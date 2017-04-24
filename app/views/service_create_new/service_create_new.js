@@ -191,101 +191,6 @@ angular.module('console.service.createnew', [
             function rexstr(str) {
                 return str.replace(/^\/{2,}/g,"/")
             }
-            //namerex
-            if (!$scope.updata) {
-                //dcname
-                $scope.$watch('dc.metadata.name', function (n,o) {
-                    //console.log(n, $scope.frm.dcname.$error);
-                    if (n && n.length > 0) {
-                        $scope.error.dcnameerr.null=false
-                        // console.log($scope.buildConfig.metadata.name);
-                        if (dcnamer.test(n)) {
-                            $scope.error.dcnameerr.rexed = false;
-                            $scope.error.dcnameerr.repeated = false;
-                            if ($scope.serviceNameArr) {
-                                //console.log($scope.serviceNameArr);
-                                angular.forEach($scope.serviceNameArr, function (build, i) {
-                                    if (build === n) {
-                                        $scope.error.dcnameerr.repeated = true;
-                                    }
-                                })
-                            }
-                        } else {
-                            $scope.error.dcnameerr.rexed = true;
-                        }
-                    } else {
-                        $scope.error.dcnameerr.null=true
-                        $scope.error.dcnameerr.rexed = false;
-                    }
-                    //console.log($scope.frm.dcname.$dirty,$scope.error.dcnameerr);
-                })
-
-            }
-            //conname
-            $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
-                if (n) {
-                    $scope.stepup.twoerr=true;
-                    $scope.stepup.hasimage=true;
-                    $scope.stepup.two=false;
-                    $scope.conport=[];
-                    angular.forEach(n, function (con,i) {
-
-                        if (con.name && con.name.length > 0) {
-                            con.namerr.null=false
-                            // console.log($scope.buildConfig.metadata.name);
-                            if (dcnamer.test(con.name)) {
-                                con.namerr.rexed = false;
-                                con.namerr.repeated = false;
-                                angular.forEach(n, function (incon,k) {
-                                    //angular.forEach($scope.serviceNameArr, function (build, i) {
-                                    if (i !== k) {
-                                        if (incon.name === con.name) {
-                                            con.namerr.repeated = true;
-                                        }
-                                    }
-
-                                })
-                                //})
-
-                            } else {
-                                con.namerr.rexed = true;
-                            }
-                        } else {
-                            con.namerr.null=true
-                            con.namerr.rexed = false;
-                        }
-                        if (con.image === "") {
-                            $scope.stepup.hasimage=false;
-                        }
-                        if (con.namerr.rexed || con.namerr.null || con.namerr.repeated) {
-                            $scope.stepup.twoerr=false;
-                        }
-                        if (!con.isOwnerI) {
-
-                            angular.forEach(con.port, function (port) {
-                                $scope.conport.push({name:con.name,hostPort:port.hostPort})
-                            })
-                        }
-                        if (con.resources.limits.cpu) {
-                            $scope.count();
-                        }else{
-                            $scope.count();
-                        }
-                        if (con.resources.limits.memory) {
-                            $scope.count();
-                        }else {
-                            $scope.count();
-                        }
-
-
-
-                    })
-
-                    if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
-                        $scope.stepup.two=true;
-                    }
-                }
-            },true)
             //peizhiname
             $scope.$watch('volume.metadata.name', function (n, o) {
                 if (n === o) {
@@ -431,6 +336,103 @@ angular.module('console.service.createnew', [
                     $scope.error.chijiunameerr.cancreat = false;
                 }
             })
+            //namerex
+
+            if (!$scope.updata) {
+                //dcname
+                $scope.$watch('dc.metadata.name', function (n,o) {
+                    //console.log(n, $scope.frm.dcname.$error);
+                    if (n && n.length > 0) {
+                        $scope.error.dcnameerr.null=false
+                        // console.log($scope.buildConfig.metadata.name);
+                        if (dcnamer.test(n)) {
+                            $scope.error.dcnameerr.rexed = false;
+                            $scope.error.dcnameerr.repeated = false;
+                            if ($scope.serviceNameArr) {
+                                //console.log($scope.serviceNameArr);
+                                angular.forEach($scope.serviceNameArr, function (build, i) {
+                                    if (build === n) {
+                                        $scope.error.dcnameerr.repeated = true;
+                                    }
+                                })
+                            }
+                        } else {
+                            $scope.error.dcnameerr.rexed = true;
+                        }
+                    } else {
+                        $scope.error.dcnameerr.null=true
+                        $scope.error.dcnameerr.rexed = false;
+                    }
+                    //console.log($scope.frm.dcname.$dirty,$scope.error.dcnameerr);
+                })
+
+            }
+            //conname
+            $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
+                if (n) {
+                    $scope.stepup.twoerr=true;
+                    $scope.stepup.hasimage=true;
+                    $scope.stepup.two=false;
+                    $scope.conport=[];
+                    angular.forEach(n, function (con,i) {
+
+                        if (con.name && con.name.length > 0) {
+                            con.namerr.null=false
+                            // console.log($scope.buildConfig.metadata.name);
+                            if (dcnamer.test(con.name)) {
+                                con.namerr.rexed = false;
+                                con.namerr.repeated = false;
+                                angular.forEach(n, function (incon,k) {
+                                    //angular.forEach($scope.serviceNameArr, function (build, i) {
+                                    if (i !== k) {
+                                        if (incon.name === con.name) {
+                                            con.namerr.repeated = true;
+                                        }
+                                    }
+
+                                })
+                                //})
+
+                            } else {
+                                con.namerr.rexed = true;
+                            }
+                        } else {
+                            con.namerr.null=true
+                            con.namerr.rexed = false;
+                        }
+                        if (con.image === "") {
+                            $scope.stepup.hasimage=false;
+                        }
+                        if (con.namerr.rexed || con.namerr.null || con.namerr.repeated) {
+                            $scope.stepup.twoerr=false;
+                        }
+                        if (!con.isOwnerI) {
+
+                            angular.forEach(con.port, function (port) {
+                                $scope.conport.push({name:con.name,hostPort:port.hostPort})
+                            })
+                        }
+                        if (con.resources.limits.cpu) {
+                            $scope.count();
+                        }else{
+                            $scope.count();
+                        }
+                        if (con.resources.limits.memory) {
+                            $scope.count();
+                        }else {
+                            $scope.count();
+                        }
+
+
+
+                    })
+
+                    if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
+                        $scope.stepup.two=true;
+                    }
+                }
+            },true)
+
             //数组去重
             Array.prototype.unique = function () {
                 this.sort(); //先排序
