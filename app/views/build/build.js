@@ -10,6 +10,8 @@ angular.module('console.build', [
     ])
     .controller('BuildCtrl', ['ImageStream','deleteSecret','$rootScope', '$scope', '$log', '$state', '$stateParams', 'BuildConfig', 'Build', 'GLOBAL', 'Confirm', 'Sort', 'Ws', function (ImageStream,deleteSecret,$rootScope, $scope, $log, $state, $stateParams, BuildConfig, Build, GLOBAL, Confirm, Sort, Ws) {
         //复制到系统板
+        $scope.copyCon = '复制';
+        $scope.isCopy = false;
         $scope.copyContent = function(event){
             var e = event.target.previousElementSibling;
             var textInput = document.createElement('input');
@@ -20,9 +22,13 @@ angular.module('console.build', [
             var success = document.execCommand('copy');
             if (success) {
                 //alert('已经复制到粘贴板');
-                event.target.textContent="已复制";
-                event.target.style.color="#fff"
+                $scope.copyCon = '已复制';
+                $scope.isCopy = true;
             }
+        }
+        $scope.copyBlur = function(event){
+            $scope.copyCon = '复制';
+            $scope.isCopy = false;
         }
         //分页
         $scope.grid = {

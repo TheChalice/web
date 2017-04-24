@@ -42,12 +42,12 @@ top:52px;left:168px;z-index:999;}
 .new_code_input{
     width:466px;
     height:30px;
-    padding-left:5px;
-    float:left;
+    padding-left:4px;
+    float:left;border:1px solid #d4d4d4;
 }
 .new_code_input:focus{
     border:1px solid #5b73eb;
-    padding-left: 6px;
+    padding-left:4px;
 }
 .create-code-block .width-code{
     width:465px;
@@ -378,3 +378,11 @@ margin-top:8px;margin-left:12px;-webkit-animation:create_rotate 1s linear infini
     max-height:170px;overflow:auto;width:78px;}
 .service_build_change .dropdown-menu > li > a{height:30px!important;line-height:normal!important;background:#fff;padding:8px 10px;}
 .service_build_change .dropdown-menu > li > a:hover{background:#f6f7f9;}
+
+/*图片替换 */
+.build_gitlab{float: left;margin-right: 20px;width:66px;display:block;
+    background:url("./img/gitlab0.png") no-repeat;height:66px;background-size:contain;}
+.build_github{float: left;margin-right: 20px;width:66px;display:block;
+    background:url("./img/github0.png") no-repeat;height:66px;background-size:contain;}
+.build_close{cursor:pointer;background:url("./img/close.png") no-repeat;width:80px;height:30px;}
+.build_open{cursor:pointer;background:url("./img/open.png") no-repeat;width:80px;height:30px;}
