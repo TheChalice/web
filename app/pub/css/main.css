@@ -471,7 +471,23 @@ a {
     padding-right: 30px;
     margin: 0 30px;
 }
-
+.modal-footer div:nth-child(1){
+    width: 229px;
+    border-right:1px solid #eaeaea;
+}
+.modal-footer .btn-newst{
+    width: 230px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    border-top:1px solid #eaeaea;
+    float: left;
+    color: #5b73eb;
+}
+.modal-footer .btn-newst:hover{
+    background: #eef1fd;
+    color: #999;
+}
 .modal-default .modal-close {
 
     float: right;
@@ -486,11 +502,11 @@ a {
 }
 
 .modal-default .modal-title {
-    color: #5a6378;
+    color: #666;
 }
 
 .modal-default.modal-lg {
-    width: 900px;
+    width: 800px;
     top: 50%;
     left: 50%;
     margin-top: -300px;
