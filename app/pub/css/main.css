@@ -737,6 +737,12 @@ a {
     background: url(../img/icon.png);
     margin-right: 2px;
 }
+.faa {
+    color: #5b73eb;
+}
+.faa:hover{
+    color: #999;;
+}
 
 .faa-code {
     background-position: -101px -173px;
