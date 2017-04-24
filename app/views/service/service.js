@@ -59,7 +59,13 @@ angular.module('console.service', [
                     region:$rootScope.region
                 }, function (res) {
                     console.log('res', res);
-                    $scope.items.splice(idx,1)
+                    angular.forEach($scope.data, function (item,i) {
+                        if (item.metadata.name === $scope.items[idx].metadata.name) {
+                            $scope.data.splice(i,1)
+                            refresh(1);
+                        }
+                    })
+                    //$scope.items.splice(idx,1)
                 })
 
                 Service.delete({namespace: $rootScope.namespace, name: $scope.items[idx].metadata.name,region:$rootScope.region}, function (res) {
@@ -142,11 +148,13 @@ angular.module('console.service', [
                     //console.log(newitems, n);
                     $scope.data=angular.copy(newitems);
                     refresh(1)
+                    $scope.grid.total = $scope.data.length
                     //$scope.$apply()
 
 
                 }else {
                     $scope.data=angular.copy($scope.paixulist);
+                    $scope.grid.total = $scope.data.length
                     refresh(1)
                 }
 
@@ -515,7 +523,7 @@ angular.module('console.service', [
                 if (n == o) {
                     return;
                 }
-                isNormal($scope.items);
+                isNormal($scope.data);
             }, true)
             $scope.startDc = function (idx) {
                 DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.items[idx].metadata.name}, function (data) {
