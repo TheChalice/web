@@ -22,6 +22,6 @@ rm $dist/index_dist.html
 echo "[generating version file]"
 
 echo $SOURCE_REF:$COMMIT
-echo $SOURCE_REF:$SOURCE_COMMIT > dist/version
+echo $SOURCE_REF:$SOURCE_COMMIT > dist/version.htm
 
 echo "[end]"
