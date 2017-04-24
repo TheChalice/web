@@ -1606,3 +1606,6 @@ input:focus{border-color: #5b73eb!important;}
 }
 .service_page_uib .pagination>li.active a{color:#fff;background:#5b73ed;border-color:#5b73ed;}
 /*分页公共样式*/
+/*列表数据为空*/
+.service_block_blank{margin:0;padding:0;}
+.service_block_blank .blank_block{margin-bottom:0;border-bottom: 1px solid #f0f0f0;height: 84px;padding-top: 32px;}

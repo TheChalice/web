@@ -22,6 +22,7 @@
                         <!--{{item| dateRelative}}-->
                         部署时间：{{dc.metadata.creationTimestamp | dateRelative}}
                         运行状态：<span ng-if="dc.state == 'normal'">运行中</span>
+                        <span ng-if="dc.state !== 'normal'">未启动</span>
                     </div>
                     <div>
                         域名：<a href="http://{{dc.route.spec.host}}" target="_blank">{{dc.route.spec.host||'--'}}</a>
