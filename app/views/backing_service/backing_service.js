@@ -47,8 +47,11 @@ angular.module('console.backing_service', [
             }
         };
     })
-    .controller('BackingServiceCtrl', ['delorders','orders','$state', '$log', '$rootScope', '$scope', 'BackingService', 'BackingServiceInstance', 'ServiceSelect', 'BackingServiceInstanceBd', 'Confirm', 'Toast', 'Ws', '$filter',
-        function (delorders,orders,$state, $log, $rootScope, $scope, BackingService, BackingServiceInstance, ServiceSelect, BackingServiceInstanceBd, Confirm, Toast, Ws, $filter) {
+    .controller('BackingServiceCtrl', ['newconfirm','delorders','orders','$state', '$log', '$rootScope', '$scope', 'BackingService', 'BackingServiceInstance', 'ServiceSelect', 'BackingServiceInstanceBd', 'Confirm', 'Toast', 'Ws', '$filter',
+        function (newconfirm,delorders,orders,$state, $log, $rootScope, $scope, BackingService, BackingServiceInstance, ServiceSelect, BackingServiceInstanceBd, Confirm, Toast, Ws, $filter) {
+            $scope.checkInfo = function(){
+                newconfirm.open('信息','详情');
+            }
             // 数组去重方法
             if ($state.params.index) {
                 $scope.check = $state.params.index
