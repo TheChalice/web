@@ -5,7 +5,8 @@
 }
 .create_new_content{
     margin-top:35px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    height:auto;
 }
 .create_new_nav{height:42px;border-bottom:1px solid #e5e5e5;padding-left:20px;background:#fff;position:fixed;width:100%;
 top:52px;left:168px;z-index:999;}
@@ -21,7 +22,8 @@ top:52px;left:168px;z-index:999;}
 
 .create-code-block{
     margin-bottom: 30px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    height:auto;
 }
 .create_left{
     float:left;

@@ -911,7 +911,7 @@ p{margin:0;}
 .tab_image .two_tab_detail ~ .two_tab_detail{margin-left:5%;}
 .tab_image .two_tab_detail:nth-child(3n+1){margin-left:0%;}
 .tab_image .two_tab_tit{margin-left:40px;float:none;}
-.tab_image .two_tab_tit span{width:84%;}
+.tab_image .two_tab_tit span{width:84%;margin-top:10px;}
 
 .tab_image .change_tit{margin-left:120px;float:none;}
 
