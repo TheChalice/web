@@ -58,14 +58,16 @@ angular.module('console.service', [
                     name: $scope.items[idx].metadata.name,
                     region:$rootScope.region
                 }, function (res) {
-                    console.log('res', res);
+
                     angular.forEach($scope.data, function (item,i) {
                         if (item.metadata.name === $scope.items[idx].metadata.name) {
                             $scope.data.splice(i,1)
+                            $scope.grid.total =  $scope.data.length;
+                            $scope.grid.page = 1;
                             refresh(1);
                         }
                     })
-                    //$scope.items.splice(idx,1)
+
                 })
 
                 Service.delete({namespace: $rootScope.namespace, name: $scope.items[idx].metadata.name,region:$rootScope.region}, function (res) {
