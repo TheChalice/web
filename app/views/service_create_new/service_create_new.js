@@ -1255,7 +1255,9 @@ angular.module('console.service.createnew', [
                             }
                         },
                     },
-                    status: {}
+                    status: {
+                        latestVersion:1
+                    }
                 };
                 //绑定dsi
 //Route
