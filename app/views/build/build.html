@@ -107,7 +107,7 @@
             <div style="margin-top:20px;float:left;" style="display:none;" ng-show="items">
                 <span class="servie_page_num">第 {{grid.page}} 页，共 {{grid.total}} 项</span>
             </div>
-            <div class="text-right service_page_uib" ng-if="grid.total > 0">
+            <div class="text-right service_page_uib" ng-if="grid.total > 0&&items">
                 <uib-pagination class="pagination"
                                 ng-model="grid.page"
                                 total-items="grid.total"
