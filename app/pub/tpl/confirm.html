@@ -1,22 +1,23 @@
-<div class="modal-header">
+<div class="modal-header" style="padding:10px 15px;">
     <h5 class="modal-title">
-        <span class="icon20 icon20-{{tp}}"></span>
+        <!--<span class="icon20 icon20-{{tp}}"></span>-->
         {{title}}
-        <a ng-click="cancel()" href="javascript:;" class="modal-close">
+        <a ng-click="cancel()" href="javascript:;" class="modal-close" style="margin-top:4px;">
             <!--<i class="fa fa-times-circle pull-right"></i>-->
         </a>
     </h5>
 </div>
-<div class="modal-body">
-    <p class="modal-msg">{{txt}}</p>
+<div class="modal-body" style="padding:40px 20px;">
+    <p class="modal-msg" style="margin:0;">{{txt}}</p>
     <small class="modal-tip" ng-if="tip">
-        <span class="icon12 icon12-tip"></span>{{tip}}
+        <!--<span class="icon12 icon12-tip"></span>-->
+        {{tip}}
     </small>
 </div>
-<div class="modal-footer" ng-if="!iscf" >
-    <button class="btn btn-gray" ng-click="cancel()">取消</button>
-    <button class="btn btn-orange" ng-click="ok()">确认</button>
+<div class="modal-footer" ng-if="!iscf"  style="padding: 0px;">
+    <div class="btn-newst" ng-click="cancel()" style="margin:0;">取消</div>
+    <di class="btn-newst" ng-click="ok()" style="margin:0;">确认</di>
 </div>
 <div class="modal-footer" ng-if="iscf">
-    <button class="btn btn-orange" ng-click="ok()">我知道了</button>
+    <button class="btn btn-Iknow" ng-click="ok()">我知道了</button>
 </div>

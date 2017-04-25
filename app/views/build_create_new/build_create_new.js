@@ -31,7 +31,7 @@ angular.module('console.build_create_new', [
 
                 var height_child = $(window).height();
                 var midheight = height_child - 100;
-                var width = $(document).width() - 168;
+                var width = $(document).width() - 54;
                 $('.code_new_modal > div:not(:first-child)').css({
                     'height': height_child,
                     'width': width
@@ -80,15 +80,16 @@ angular.module('console.build_create_new', [
             $scope.slider = {
                 value: 30,
                 options: {
-                    floor: 0,
+                    floor: 1,
                     ceil: 60,
                     step: 1,
                     showSelectionBar: true,
                     showTicksValues: 30,
+                    ticksArray: [1, 30,60],
                     translate: function (value, sliderId, label) {
                         switch (label) {
                             default:
-                                return value + '分钟'
+                                return value+'分钟'
                         }
                     }
                 }
@@ -239,7 +240,7 @@ angular.module('console.build_create_new', [
                     //alert(11)
                     $scope.namerr.bigcode = true;
                 }else {
-                    if (dcnamer.test(n)) {
+                    if (dcnamer.test(n) || n == '') {
                         angular.forEach($scope.buildConfiglist, function (build,k) {
                             //angular.forEach($scope.serviceNameArr, function (build, i) {
                             if (build.metadata.name === n) {

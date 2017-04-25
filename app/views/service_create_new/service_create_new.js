@@ -267,14 +267,14 @@ angular.module('console.service.createnew', [
                             })
                         }
                         if (con.resources.limits.cpu) {
-                            $scope.count();
+                            $scope.count(con);
                         }else{
-                            $scope.count();
+                            $scope.count(con);
                         }
                         if (con.resources.limits.memory) {
-                            $scope.count();
+                            $scope.count(con);
                         }else {
-                            $scope.count();
+                            $scope.count(con);
                         }
 
 
@@ -655,7 +655,7 @@ angular.module('console.service.createnew', [
 
                 var height_child = $(window).height();
                 var midheight = height_child-100;
-                var width = $(document).width() - 168;
+                var width = $(document).width() - 54;
                 $(".create_new_modal .selectimage_main_set").height(midheight);//选择镜像弹出内容超出-滚动条设置
                 $(".create_new_modal .create_service_block").height(midheight);//申请后端服务弹出内容超出-滚动条设置
                 $('.create_new_modal > div:not(:first-child)').css({
@@ -1512,10 +1512,28 @@ angular.module('console.service.createnew', [
                 $scope.count()
             })
 
-            $scope.count = function () {
+            $scope.count = function (con) {
                 $scope.requests.usecpu = 0;
                 $scope.requests.usememory = 0;
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
+                    if(con){
+                        if(con.resources.limits.cpu&&con.resources.limits.memory){
+                            console.log('sss',con.resources.limits.cpu)
+                            var regStrs = [
+                                ['[^\\d]+$', ''], //禁止录入任何非数字
+                                ['^[0]+[0-9]*','']
+                            ];
+                            for(i=0; i<regStrs.length; i++){
+                                var reg = new RegExp(regStrs[i][0]);
+                                con.resources.limits.cpu = String(con.resources.limits.cpu);
+                                con.resources.limits.memory = String(con.resources.limits.memory);
+                                con.resources.limits.cpu = con.resources.limits.cpu.replace(reg, regStrs[i][1]);
+                                con.resources.limits.memory = con.resources.limits.memory.replace(reg, regStrs[i][1]);
+                                con.resources.limits.cpu = parseInt(con.resources.limits.cpu);
+                                con.resources.limits.memory = parseInt(con.resources.limits.memory);
+                            }
+                        }
+                    }
                     if (item.resources.limits.cpu&&$scope.requests.cpu) {
                         if (item.resources.limits.cpu > $scope.requests.cpu) {
                             item.resources.limits.cpu=parseInt($scope.requests.cpu)

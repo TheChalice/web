@@ -62,32 +62,32 @@
                 <p class="num_detail">仪表盘</p>
             </a>
         </li>
-        <li ui-sref-active="active"
-            ng-class="{'active':$state.includes('console.build_create')||$state.includes('console.build_detail')}">
+        <li
+            ng-class="{'active':build}">
             <a ui-sref="console.build">
                 <i class="fa fa-caret-left"></i>
                 <span class="icon25 icon25-build"></span><span class="side_tit">代码构建</span>
                 <p class="num_detail">代码构建</p>
             </a>
         </li>
-        <li ui-sref-active="active"
-            ng-class="{'active':$state.includes('console.image_detail')}">
+        <li
+            ng-class="{'active':depot}">
             <a ui-sref="console.image">
                 <i class="fa fa-caret-left"></i>
                 <span class="icon25 icon25-repository"></span><span class="side_tit">镜像仓库</span>
                 <p class="num_detail">镜像仓库</p>
             </a>
         </li>
-        <li ui-sref-active="active"
-            ng-class="{'active':$state.includes('console.service_create')||$state.includes('console.service_detail')}">
+        <li
+            ng-class="{'active':deploy}">
             <a ui-sref="console.service">
                 <i class="fa fa-caret-left"></i>
                 <span class="icon25 icon25-deployment"></span><span class="side_tit">服务部署</span>
                 <p class="num_detail">服务部署</p>
             </a>
         </li>
-        <li ui-sref-active="active"
-            ng-class="{'active':$state.includes('console.apply_instance')}">
+        <li
+            ng-class="{'active':back_services}">
             <a ui-sref="console.backing_service">
                 <i class="fa fa-caret-left"></i>
                 <span class="icon25 icon25-service"></span><span class="side_tit">后端服务</span>
@@ -103,7 +103,7 @@
             </a>
         </li>
          -->
-        <li ui-sref-active="active">
+        <li ng-class="{'active':resour_manage}">
             <a ui-sref="console.resource_management">
                 <i class="fa fa-caret-left"></i>
                 <span class="icon25 icon25-resource"></span><span class="side_tit">资源管理</span>

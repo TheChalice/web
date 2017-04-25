@@ -68,6 +68,7 @@ angular.module('console.service', [
                         }
                     })
 
+
                 })
 
                 Service.delete({namespace: $rootScope.namespace, name: $scope.items[idx].metadata.name,region:$rootScope.region}, function (res) {
@@ -167,6 +168,7 @@ angular.module('console.service', [
                     if (!$scope.grid.txt) {
                         $scope.data = angular.copy($scope.copydata)
                         refresh(1);
+                        $scope.grid.page = 1;
                         $scope.grid.total = $scope.copydata.length;
                         //return;
                     } else {
@@ -183,7 +185,6 @@ angular.module('console.service', [
                             }
                             //console.log(repo.instance_data, $scope.grid.txt);
                         })
-
                         if(iarr.length===0){
                             $scope.isQuery=true;
                             $scope.text='没有查询到相关数据';
@@ -194,6 +195,7 @@ angular.module('console.service', [
                         }
                         $scope.data = angular.copy(iarr);
                         refresh(1);
+                        $scope.grid.page = 1;
                         console.log('$scope.data', $scope.data);
                         $scope.grid.total = $scope.data.length;
 

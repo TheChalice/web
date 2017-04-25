@@ -203,9 +203,9 @@ angular.module('console.build.detail', [
                 }
             };
             $scope.delete = function (idx) {
-                var title = "删除构建";
-                var msg = "您确定要删除构建吗？";
-                var tip = "删除构建将清除构建的所有历史数据以及相关的镜像，该操作不能被恢复";
+                var title = "删除记录";
+                var msg = "确定要删除吗？";
+                var tip = "";
 
                 var name = $scope.databuild.items[idx].metadata.name;
                 if (!name) {
@@ -276,7 +276,9 @@ angular.module('console.build.detail', [
                 initModalH();
             })
             /*关闭弹出层*/
+            $scope.pageName = '构建详情'
             $scope.close = function () {
+                $scope.pageName = '构建详情'
                 document.body.onscroll = function () {
                 }
                 var $detailModal = $('.detail_new_modal');
@@ -292,6 +294,7 @@ angular.module('console.build.detail', [
             /*打开弹出层*/
             $scope.whatmodal = '';
             $scope.openModal = function (name, modal) {
+                $scope.pageName = name
                 var top = document.documentElement.scrollTop || document.body.scrollTop;
                 document.body.onscroll = function (e) {
                     //console.log('ss',top);
@@ -416,7 +419,7 @@ angular.module('console.build.detail', [
             /////删除构建
             $scope.deletes = function () {
                 var name = $scope.data.metadata.name;
-                Confirm.open("删除构建", "确定要删除吗？", "删除后将不保留数据及镜像，该操作不可恢复。", 'recycle').then(function () {
+                Confirm.open("删除构建", "确定要删除吗？", "", 'recycle').then(function () {
                     BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
                         $log.info("remove buildConfig success");
 
