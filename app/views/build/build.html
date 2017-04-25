@@ -1,6 +1,6 @@
 
 <div id="build">
-    <div class="service_top">这里汇聚了平台上创建的所有服务。<i class="four_question" style="display:none;"> 如何创建一个服务？</i></div>
+    <div class="service_top">这里汇聚了平台上创建的所有构建。<i class="four_question" style="display:none;"> 如何创建一个服务？</i></div>
     <!--<div class="loader" ng-show="!items">-->
     <!--<div class="loader-inner ball-clip-rotate-multiple">-->
     <!--<div></div>-->
@@ -66,7 +66,7 @@
                                     <a href="javascript:void(0);"><span ng-class="{colored:name.name===grid.changestatus}">{{name.name}}</span></a></li>
                             </ul>
                         </div></li>
-                    <li>分支</li>
+                    <li>版本</li>
                     <li>代码源</li>
                     <li>操作</li>
                 </ul>
@@ -80,7 +80,7 @@
                     <li>{{bc.build.metadata.creationTimestamp | dateRelative}}</li>
                     <li>{{bc.build.status.duration | duration}}</li>
                     <li> {{bc.build.status.phase | phaseFilter}}</li>
-                    <li>{{bc.build.spec.source.git.ref}}</li>
+                    <li>{{bc.build.spec.source.git.ref || 'latest'}}</li>
                     <li>
                         <div class="code_source"><i class="b_github"></i><span class="b_github_tit">查看</span></div>
                         <div class="build_num_detail" ng-mouseout="copyBlur($event)">
@@ -101,7 +101,7 @@
                 </ul>
 
                 <ul ng-if="items.length===0" class="service_block_blank">
-                    <li style="text-align: center;background: #fff;position:relative;"><p class="blank_block"><span class="blank_tit"> 没有服务实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.build_create">去创建！</a></span></p></li>
+                    <li style="text-align: center;background: #fff;position:relative;"><p class="blank_block"><span class="blank_tit"> 没有构建实例。<a  class = "href-blue" href="javascript:void(0)" ui-sref="console.build_create_new">去创建！</a></span></p></li>
                 </ul>
             </div>
             <div style="margin-top:20px;float:left;" style="display:none;" ng-show="items">
