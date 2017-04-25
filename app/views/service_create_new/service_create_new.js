@@ -1256,7 +1256,7 @@ angular.module('console.service.createnew', [
                         },
                     },
                     status: {
-                        "latestVersion": 1
+                        latestVersion:1
                     }
                 };
                 //绑定dsi
