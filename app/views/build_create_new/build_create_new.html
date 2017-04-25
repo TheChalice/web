@@ -319,8 +319,8 @@
         </div>
 
         <div class="create-code-block" style="margin-left:76px;margin-top:50px">
-            <span class="ser_btn ser_next_btn two_radius" ng-show="namerr.repeated||namerr.null||namerr.rexed||namerr.bigcode||!buildConfig.spec.source.git.uri" style="background-color: rgb(199, 199, 199);border: 0">立即创建</span>
-            <span class="ser_btn ser_next_btn two_radius"  ng-show="creatpedding==='creat'&&!namerr.repeated&&!namerr.null&&!namerr.rexed&&!namerr.bigcode&&buildConfig.spec.source.git.uri" ng-click="creat(check)" >立即创建</span>
+            <span class="ser_btn ser_next_btn two_radius" ng-show="namerr.repeated||namerr.null||namerr.rexed||namerr.bigcode||!buildConfig.spec.source.git.uri || !buildConfig.metadata.name" style="background-color: rgb(199, 199, 199);border: 0">立即创建</span>
+            <span class="ser_btn ser_next_btn two_radius"  ng-show="creatpedding==='creat'&&!namerr.repeated&&!namerr.null&&!namerr.rexed&&!namerr.bigcode&&buildConfig.spec.source.git.uri && buildConfig.metadata.name" ng-click="creat(check)" >立即创建</span>
             <span class="next_one_load two_radius" ng-show="creatpedding==='pedding'" style="margin-left:20px;margin-top:0;" ng-show ="creatpedding"><i></i>正在创建</span>
             <span class="ser_btn ser_next_btn  two_radius create_complete" ng-show="creatpedding==='down'"><i></i>创建完成</span>
         </div>
