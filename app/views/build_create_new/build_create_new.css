@@ -227,11 +227,12 @@ top:52px;left:168px;z-index:999;}
     overflow: hidden;
     font-size:12px;
 }
-.minutes_code_example div{
+.minutes_code_example input{
     height:30px;
     width:55px;
     border:1px solid #e5e5e5;
     float:left;
+    padding-left:17px;
 }
 .minutes_code_example span{
     float:left;
