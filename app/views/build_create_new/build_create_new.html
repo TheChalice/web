@@ -33,7 +33,7 @@
                                         <div class="select_block_one create_two_block">
                                             <div class="two_tab_detail"  ng-repeat="repo in git.repos">
                                                 <div class="two_tab_l">
-                                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                                    <img src="views/service_detail_new/img/nor_pic_set.png" class="two_tab_pic">
                                                     <div class="two_tab_tit">
                                                         <span class="two_tab_ellipsis">{{repo.name}}</span>
                                                         <!--<span class="two_tab_ellipsis">{{repo.name}}是开源的消息是开源的消息</span>-->
@@ -59,6 +59,12 @@
                                                         </div>
                                                     </div>
                                                     <span class="change_tit" ng-click="checkboxbuild(repo,'github')">使用</span>
+                                                </div>
+                                            </div>
+                                            <div class="git_blank" ng-if="git.repos.length===0">
+                                                <div class="no_git">
+                                                    <div class="no_git_set"></div>
+                                                    <p>没有找到相关项目</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +97,7 @@
                                         <div class="select_block_one create_two_block">
                                             <div class="two_tab_detail"  ng-repeat="repo in git.repos">
                                                 <div class="two_tab_l">
-                                                    <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                                    <img src="views/service_detail_new/img/nor_pic_set.png" class="two_tab_pic">
                                                     <div class="two_tab_tit">
                                                         <span class="two_tab_ellipsis">{{repo.name}}</span>
                                                         <!--<span class="two_tab_ellipsis">{{repo.name}}是开源的消息是开源的消息</span>-->
@@ -118,6 +124,12 @@
                                                         </div>
                                                     </div>
                                                     <span class="change_tit" ng-click="checkboxbuild(repo,'gitlab')">使用</span>
+                                                </div>
+                                            </div>
+                                            <div class="git_blank" ng-if="git.repos.length===0">
+                                                <div class="no_git">
+                                                    <div class="no_git_set"></div>
+                                                    <p>没有找到相关项目</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +184,7 @@
                                     <span style="margin-left:30px;color:#5b73eb;">已绑定？刷新</span></p>
                                 <div class="two_tab_detail" ng-show="state.github.checked" style="margin-top:20px;">
                                     <div class="two_tab_l">
-                                        <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                        <img src="views/service_detail_new/img/nor_pic_set.png" class="two_tab_pic">
                                         <div class="two_tab_tit">
                                             <span class="two_tab_ellipsis">{{checkedrepo.name}}</span>
 
@@ -217,11 +229,11 @@
                                          <!--src="views/build_create/img/gitlab0.png">-->
                                     <span style="font-size:12px; height: 20px;color:#333">GitLab是一个面向开源及私有软件项目的托管平台，只支持Git作为唯一版本库格式。</span>
                                     <p class="link_github" ng-click="linkgit('gitlab')" ng-show="state.gitlab.link==='unlink'">立即关联GitLab账号</p>
-                                    <p class="link_github" style="color:#999" ng-show="state.github.pedding">正在关联GitLab账号...
+                                    <p class="link_github" style="color:#999" ng-show="state.gitlab.pedding">正在关联GitLab账号...
                                         <span style="margin-left:30px;color:#5b73eb;">已绑定？刷新</span></p>
                                     <div class="two_tab_detail" ng-show="state.gitlab.checked" style="margin-top:20px;">
                                         <div class="two_tab_l" >
-                                            <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
+                                            <img src="views/service_detail_new/img/nor_pic_set.png" class="two_tab_pic">
                                             <div class="two_tab_tit">
                                                 <span class="two_tab_ellipsis">{{checkedrepo.name}}</span>
 

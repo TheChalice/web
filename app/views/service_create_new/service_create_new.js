@@ -655,7 +655,7 @@ angular.module('console.service.createnew', [
 
                 var height_child = $(window).height();
                 var midheight = height_child-100;
-                var width = $(document).width() - 168;
+                var width = $(document).width() - 54;
                 $(".create_new_modal .selectimage_main_set").height(midheight);//选择镜像弹出内容超出-滚动条设置
                 $(".create_new_modal .create_service_block").height(midheight);//申请后端服务弹出内容超出-滚动条设置
                 $('.create_new_modal > div:not(:first-child)').css({
