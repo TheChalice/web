@@ -184,7 +184,7 @@
                             <div ng-show="bsi.work.length===0" style="overflow:auto;">
                                 <div class="noData">
                                     <span class="noImage"></span>
-                                    <p>未选择任何后端服务</p>
+                                    <p>无可选择的服务</p>
                                 </div>
                             </div>
                         </div>
@@ -277,7 +277,7 @@
                 <div class="content">
                     <div class="create_secret">
                         <div class="create_secret_input">
-                            <p class="ser_name">服务名称 <i>*</i></p>
+                            <p class="ser_name">密钥名称 <i>*</i></p>
                             <div class="input_set">
                                 <div class="input_set_l">
                                     <input autocomplete="off"
@@ -535,7 +535,7 @@
                         <div class="input_set input_set_two">
                             <div class="input_set_l">
                                 <input type="text" autocomplete="off" ng-model="container.name" class="input_text one_input_text ng-valid ng-valid-maxlength ng-dirty ng-valid-parse ng-touched"
-                                       ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="container.updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成">
+                                       ng-class="{inputred:container.namerr.rexed||container.namerr.repeated}"  ng-disabled="container.updata"  maxlength="24" placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
                                 <span class="input_close" ng-show="container.name!==''&&!updata"  ng-click="container.name=''"></span>
                             </div>
                             <span class="btn_set_new error_btn ng-hide" ng-show="container.namerr.repeated"></span>
@@ -664,7 +664,7 @@
                                 <span class="two_detail">为确保容器重启后数据不会丢失，可以为数据所在的容器路径挂载一个持久化卷。</span>
                             </div>
                             <ul class="four_name">
-                                <li>数据卷</li>
+                                <li>持久化卷</li>
                                 <li>挂载路径</li>
                             </ul>
                             <ul class="four_list four_list_two" style="margin-top:10px;">
