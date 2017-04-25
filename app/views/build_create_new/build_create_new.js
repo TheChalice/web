@@ -130,7 +130,7 @@ angular.module('console.build_create_new', [
                             uri: '',
                             ref: ''
                         },
-                        contextDir: '字母、数字、下划线、中划线、英文句号或“/”组成，“/”开头',
+                        contextDir: '/',
                         //sourceSecret: {
                         //    name: ''
                         //}
