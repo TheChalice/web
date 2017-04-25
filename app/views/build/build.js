@@ -261,7 +261,10 @@ angular.module('console.build', [
         };
 
         loadBuildConfigs();
+        $scope.reload = function(){
+            loadBuildConfigs();
 
+        };
         $scope.refresh = function(){
             loadBuildConfigs();
             $scope.grid.page = 1;
@@ -338,9 +341,7 @@ angular.module('console.build', [
         /////删除构建
         $scope.deletes = function (bc,idx) {
             var name =bc.metadata.name;
-            console.log("111111",$scope.data);
-            console.log("111111",$scope.items);
-            Confirm.open("删除构建", "您确定要删除构建吗？", "删除构建将删除构建的所有历史数据以及相关的镜像，且该操作不能恢复", 'recycle').then(function () {
+            Confirm.open("删除构建", "您确定要删除构建吗？", "", 'recycle').then(function () {
                 BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
                     $log.info("remove buildConfig success");
                     $scope.items.splice(idx,1);

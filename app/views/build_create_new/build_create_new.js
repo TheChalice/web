@@ -80,15 +80,16 @@ angular.module('console.build_create_new', [
             $scope.slider = {
                 value: 30,
                 options: {
-                    floor: 0,
+                    floor: 1,
                     ceil: 60,
                     step: 1,
                     showSelectionBar: true,
                     showTicksValues: 30,
+                    ticksArray: [1, 30,60],
                     translate: function (value, sliderId, label) {
                         switch (label) {
                             default:
-                                return value + '分钟'
+                                return value+'分钟'
                         }
                     }
                 }
@@ -129,7 +130,7 @@ angular.module('console.build_create_new', [
                             uri: '',
                             ref: ''
                         },
-                        contextDir: '/',
+                        contextDir: '字母、数字、下划线、中划线、英文句号或“/”组成，“/”开头',
                         //sourceSecret: {
                         //    name: ''
                         //}

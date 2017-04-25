@@ -18,7 +18,7 @@
                     <div class="selectimage_main_set">
                         <div class="selectimage_main">
                             <div class="searchbar_image" id="search_public_block">
-                                <input type="text" class="search_public_l" ng-model="githubimagesearch"  placeholder="请输入镜像名称">
+                                <input type="text" class="search_public_l" ng-model="githubimagesearch"  placeholder="请输入项目名称">
                                 <span class="search_public_btn"></span>
                             </div>
                             <!--<div class="searchbar_image">-->
@@ -136,19 +136,19 @@
     <div class="create_new_content">
         <div class="create-code-block">
             <p class="create_left">构建名称 <i>*</i></p>
-            <input type="text" class="new_code_input" ng-model="buildConfig.metadata.name" placeholder="2-24位小写字母、数字或中划线组成">
+            <input type="text" class="new_code_input" ng-model="buildConfig.metadata.name" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
             <span class="input_close" ng-show="buildConfig.metadata.name!==''"  ng-click="buildConfig.metadata.name=''" style="left:537px"></span>
             <span class="disable_tit ng-hide">服务名称暂不支持修改</span>
             <span class="btn_set_new error_btn" ng-show="namerr.repeated" style="margin-left:8px;"></span>
             <div class="error_block_tit" ng-show="namerr.rexed">
-                <p style="margin:0;" >2-24位小写字母、数字或中划线组成</p>
+                <p style="margin:0;" >2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
             </div>
             <div class="error_block_tit" ng-show="namerr.bigcode">
                 <p style="margin:0;">以小写字母开头</p>
             </div>
         </div>
         <div class="create-code-block">
-            <p class="create_left">源码库 <i>*</i></p>
+            <p class="create_left">代码库 <i>*</i></p>
             <span class="create_right">源码存放、托管的位置平台，关联代码源后，您对代码源的操作会自动触发项目的相应动作比如代码构建。</span>
             <div style="margin-top:8px;margin-left:96px;">
                 <div class="form-group">
@@ -257,7 +257,7 @@
                             <uib-tab index="3" heading="快速构建">
                                 <div class="create-code-block">
                                     <p class="create_left">Git地址 <i>*</i></p>
-                                    <input type="text"  ng-model="buildConfig.spec.source.git.uri"  class="new_code_input width-code"  placeholder="http或https开头的完整地址，不能超过256个字符">
+                                    <input type="text"  ng-model="buildConfig.spec.source.git.uri"  class="new_code_input width-code"  placeholder="http或https开头的完整地址">
                                 </div>
 
                                 <div class="create-code-block">
@@ -301,9 +301,7 @@
                 <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options" ></rzslider>
             </div>
             <div class = "minutes_code_example">
-                <div>
-                    {{slider.value}}
-                </div>
+                <input ng-model="slider.value"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
                 <span>分钟</span>
             </div>
         </div>

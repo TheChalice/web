@@ -21,11 +21,11 @@
                     <div>{{data.metadata.name}}</div>
                     <div>
                         <!--{{item| dateRelative}}-->
-                        部署时间：{{data.metadata.creationTimestamp | dateRelative}}
+                        构建时间：{{data.metadata.creationTimestamp | dateRelative}}
                         状态：<span> {{databuild.items[0].status.phase | phaseFilter}}</span>
                     </div>
                     <div>
-                        域名：<a href="{{data.spec.source.git.uri}}" target="_blank">{{data.spec.source.git.uri}}</a>
+                        源码：<a href="{{data.spec.source.git.uri}}" target="_blank">{{data.spec.source.git.uri}}</a>
                     </div>
                     <!--<div>-->
                         <!--<a  href="javascript:void(0)" >修改配置</a>-->
@@ -72,7 +72,7 @@
                     <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-            <div ng-click="openModal('部署记录','bushujilu')">
+            <div ng-click="openModal('构建记录','bushujilu')">
                 <p>构建记录</p>
                 <div>
                     <span>{{databuild.items[0].metadata.creationTimestamp | dateRelative}}</span>
@@ -118,7 +118,7 @@
                 </span>
                         <span class="cnew_tit">
                     <!--{{data.metadata.name}}-->
-                           构建详情
+                           {{pageName}}
                 </span>
             </div>
             <div ng-show="isShowmodal.bushujilu">
