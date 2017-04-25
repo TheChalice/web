@@ -31,7 +31,7 @@ angular.module('console.build_create_new', [
 
                 var height_child = $(window).height();
                 var midheight = height_child - 100;
-                var width = $(document).width() - 168;
+                var width = $(document).width() - 54;
                 $('.code_new_modal > div:not(:first-child)').css({
                     'height': height_child,
                     'width': width
