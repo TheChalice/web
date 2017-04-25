@@ -229,7 +229,7 @@ ul,li{list-style:none;padding: 0}
 .create_two_block .one_del{padding:10px;font-size:12px;color:#999;}
 .create_two_block .one_del:hover{color:#666;}
 .create_two_block .one_del.active{color:#999;cursor:no-drop}
-.create_two_block .one_pack{padding:10px;font-size:12px;}
+.create_two_block .one_pack{padding:10px;font-size:12px;color:#5b73eb;}
 .create_two_block .one_list{margin-left:16px;}
 .one_name{float:left;font-size:12px;color:#666;width:92px;}
 .one_name i{color:#ef6464;}
