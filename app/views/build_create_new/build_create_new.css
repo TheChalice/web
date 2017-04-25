@@ -8,6 +8,7 @@
     /*overflow: hidden;*/
     height:auto;
 }
+.create_new_content:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 .create_new_nav{height:42px;border-bottom:1px solid #e5e5e5;padding-left:20px;background:#fff;position:fixed;width:100%;
 top:52px;left:168px;z-index:999;}
 .create_new_nav_top{line-height:42px;}
@@ -25,6 +26,8 @@ top:52px;left:168px;z-index:999;}
     /*overflow: hidden;*/
     height:auto;
 }
+.create-code-block:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+
 .create_left{
     float:left;
     font-size:12px;
@@ -229,11 +232,12 @@ top:52px;left:168px;z-index:999;}
     overflow: hidden;
     font-size:12px;
 }
-.minutes_code_example div{
+.minutes_code_example input{
     height:30px;
     width:55px;
     border:1px solid #e5e5e5;
     float:left;
+    padding-left:17px;
 }
 .minutes_code_example span{
     float:left;

@@ -130,7 +130,7 @@ angular.module('console.build_create_new', [
                             uri: '',
                             ref: ''
                         },
-                        contextDir: '字母、数字、下划线、中划线、英文句号或“/”组成，“/”开头',
+                        contextDir: '/',
                         //sourceSecret: {
                         //    name: ''
                         //}
@@ -240,7 +240,7 @@ angular.module('console.build_create_new', [
                     //alert(11)
                     $scope.namerr.bigcode = true;
                 }else {
-                    if (dcnamer.test(n)) {
+                    if (dcnamer.test(n) || n == '') {
                         angular.forEach($scope.buildConfiglist, function (build,k) {
                             //angular.forEach($scope.serviceNameArr, function (build, i) {
                             if (build.metadata.name === n) {
