@@ -55,7 +55,7 @@ angular.module("console.sidebar", [
                     //console.time('time')
                     console.log('$state', n);
                     //代码构建
-                    if (n === 'console.build_create_new' || n === 'console.build_detail'|| n==='console.build' || n==='console.build_create_new') {
+                    if (n === 'console.build_create_new' || n === 'console.build_detail'|| n==='console.build') {
                         $scope.build = true;
                     }else {
                         $scope.build = false;
@@ -66,7 +66,7 @@ angular.module("console.sidebar", [
                     }else {
                         $scope.depot = false
                     };
-                    //服务部署
+                    //服务部署 console.service_create
                     if (n === 'console.service' ||  n === 'console.service_create' ||  n === 'console.service_detail') {
                         $scope.deploy = true
                     }else {
