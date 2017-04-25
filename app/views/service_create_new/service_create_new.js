@@ -1507,10 +1507,10 @@ angular.module('console.service.createnew', [
                     return
                 }
                 //console.log(n, o);
-                $scope.count(con)
+                $scope.count()
             })
 
-            $scope.count = function () {
+            $scope.count = function (con) {
                 $scope.requests.usecpu = 0;
                 $scope.requests.usememory = 0;
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
