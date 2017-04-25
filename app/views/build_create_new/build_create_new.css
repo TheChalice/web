@@ -47,7 +47,7 @@ top:52px;left:168px;z-index:999;}
 }
 .new_code_input:focus{
     border:1px solid #5b73eb;
-    padding-left:4px;
+    padding-left: 4px;
 }
 .create-code-block .width-code{
     width:465px;
@@ -225,6 +225,7 @@ top:52px;left:168px;z-index:999;}
     text-align: center;
     line-height: 30px;
     overflow: hidden;
+    font-size:12px;
 }
 .minutes_code_example div{
     height:30px;
@@ -235,12 +236,13 @@ top:52px;left:168px;z-index:999;}
 .minutes_code_example span{
     float:left;
     margin-left: 10px;
-
+    color:#666;
 }
 .build_create_new .enduring_tit{text-align:center;font-size:16px;margin-top:40px;margin-bottom:30px;}
 .build_create_new .price_one{font-size:20px;color:#f13b47;}
 .build_create_new .rzslider{height:8px;}
-.build_create_new .rzslider .rz-bar{height:10px;}
+.build_create_new .rzslider .rz-bar{height:6px;}
+.build_create_new .rzslider .rz-pointer {top:-15px;}
 .build_create_new .rzslider .rz-bar.rz-selection{background:#5b74eb;}
 .build_create_new .rzslider .rz-bar{background:#e6e9f2;}
 .build_create_new .rzslider .rz-pointer:after,.build_create_new .rzslider .rz-pointer:hover:after,.rzslider .rz-pointer:active:after,.build_create_new .rzslider .rz-pointer .rz-active{background:none!important;}
@@ -248,7 +250,7 @@ top:52px;left:168px;z-index:999;}
     border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;-webkit-transition: all 0.03s;-moz-transition: all 0.03s;transition: all 0.03s;}
 .build_create_new .rzslider .rz-pointer:hover{background:#fff url('./img/vol_btn_active.png') no-repeat;}
 .build_create_new .rzslider .rz-pointer:active{background:#fff url('./img/vol_btn_active.png') no-repeat;}
-.build_create_new .rzslider .rz-ticks .rz-tick{background:none;}
+.build_create_new .rzslider .rz-ticks .rz-tick{background:none;font-size: 12px;color:#666;}
 .build_create_new .rzslider .rz-ticks .rz-tick.rz-selected{background:none;}
 .build_create_new .rzslider .rz-bubble{background:#000;border-radius:4px;padding:3px 8px;max-width:200px;color:#fff;font-size:12px;bottom:18px;
     -webkit-transition: all 0.2s;-moz-transition: all 0.2s;transition: all 0.2s;}
@@ -378,7 +380,6 @@ margin-top:8px;margin-left:12px;-webkit-animation:create_rotate 1s linear infini
     max-height:170px;overflow:auto;width:78px;}
 .service_build_change .dropdown-menu > li > a{height:30px!important;line-height:normal!important;background:#fff;padding:8px 10px;}
 .service_build_change .dropdown-menu > li > a:hover{background:#f6f7f9;}
-
 /*图片替换 */
 .build_gitlab{float: left;margin-right: 20px;width:66px;display:block;
     background:url("./img/gitlab0.png") no-repeat;height:66px;background-size:contain;}
