@@ -734,6 +734,7 @@ angular.module('console.service.detail', [
                     return match[1];
                 };
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item) {
+                    $scope.dc.spec.template.spec.containers[i].resources.limits.memory=item.resources.limits.memory.split('G')[0];
                     var imagetag = 'dadafoundry.io/image-' + item.name;
                     if (copyannotations && copyannotations[imagetag]) {
                         var tagarr = copyannotations[imagetag].split(":")

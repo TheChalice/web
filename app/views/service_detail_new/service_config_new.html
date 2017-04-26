@@ -43,8 +43,8 @@
                                     <div class="block_room_list" ng-repeat="container in dc.spec.template.spec.containers">
                                         <div class="list_one">
                                             <div class="list_name list_tu"><img src="views/service_detail_new/img/nor_pic.png" class="tu_pic"><p>{{container.name}}</p></div>
-                                            <div class="list_name list_cpu"><p>{{container.resources.limits.cpu||0}}核</p></div>
-                                            <div class="list_name list_rom"><p>{{container.resources.limits.memory||0+'G'}}</p></div>
+                                            <div class="list_name list_cpu"><p>{{container.resources.limits.cpu*getdc.spec.replicas||0}}核</p></div>
+                                            <div class="list_name list_rom"><p>{{container.resources.limits.memory*dc.spec.replicas||0}}G</p></div>
                                         </div>
                                     </div>
 
@@ -90,8 +90,8 @@
                                     <img src="views/service_detail_new/img/hd_pic.png" class="two_tab_pic">
                                     <!--<span class="two_tab_pic"></span>-->
                                     <div class="two_tab_tit">
-                                        <span class="two_tab_ellipsis ng-binding">{{bs.name}}</span>
-                                        <span class="two_tab_ellipsis ng-binding">{{bs.name}}是开源的消息是开源的消息</span>
+                                        <span class="two_tab_ellipsis ng-binding" title="{{bs.name}}">{{bs.name}}</span>
+                                        <!--<span class="two_tab_ellipsis ng-binding">{{bs.name}}是开源的消息是开源的消息</span>-->
                                     </div>
                                 </div>
                                 <div class="two_tab_r">
@@ -155,7 +155,7 @@
                                     <img src="views/service_detail_new/img/nor_pic.png" class="two_tab_pic">
                                     <!--<span class="two_tab_pic"></span>-->
                                     <div class="two_tab_tit">
-                                        <span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}</span>
+                                        <span class="two_tab_ellipsis ng-binding" title="{{container.image | imageStreamName}}">{{container.image | imageStreamName}}</span>
                                         <!--<span class="two_tab_ellipsis ng-binding">{{container.image | imageStreamName}}是开源的消息是开源的消息</span>-->
                                     </div>
                                 </div>

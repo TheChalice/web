@@ -88,6 +88,7 @@ top:52px;left:168px;z-index:999;}
     font-size:16px;
     color:#5b73eb;
 }
+.link_github:hover{text-decoration: underline;}
 
 .two_tab_detail{float:left;width:358px;height:54px;border:1px solid #e5e5e5;padding:10px;margin-right:20px;}
 .two_tab_l{width:184px;float:left;}
