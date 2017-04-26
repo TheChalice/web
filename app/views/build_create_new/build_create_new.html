@@ -54,6 +54,11 @@
                                                                         </span>
                                                                     </a>
                                                                 </li>
+                                                                <li class="zx_active" ng-show="!repo.tags">
+                                                                    <a href="javascript:void(0);" style="padding:0;">
+                                                                        <span style="width:76px;line-height:30px;" class="drop_name_tit drop_name_tit_two two_tab_ellipsis"><i class="drop_loading"></i>加载中</span>
+                                                                    </a>
+                                                                </li>
                                                             </ul>
 
                                                         </div>
@@ -117,6 +122,11 @@
                                                                         <span class="drop_name_tit drop_name_tit_two two_tab_ellipsis" title="{{tag.name}}">
                                                                             {{tag.name}}
                                                                         </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="zx_active" ng-show="!repo.tags">
+                                                                    <a href="javascript:void(0);" style="padding:0;">
+                                                                        <span style="width:76px;line-height:30px;" class="drop_name_tit drop_name_tit_two two_tab_ellipsis"><i class="drop_loading"></i>加载中</span>
                                                                     </a>
                                                                 </li>
                                                             </ul>
@@ -218,6 +228,14 @@
                                     <div class="tab_select" ng-show="state.github.link==='link'&&!state.github.checked" ng-click="openModal('选择项目','github')" style="margin-top:20px;">
                                         <span class="tab_select_tit">选择项目</span>
                                     </div>
+
+                                <div class="loading_set" ng-show="!(state.github.link==='unlink')&&!(state.github.link==='link'&&!state.github.checked)" style="position:absolute;left:224px;bottom:100px;">
+                                    <div class="new-loading" style="width:114px;margin-top:20px;">
+                                        <img style="height:30px;width:30px;margin-left:5px;float:left;" src="pub/img/logo.gif" alt="">
+                                        <span style="color:#666;float:left;line-height:30px;margin-left:10px;">加载中...</span>
+                                    </div>
+                                </div>
+
                                 </div>
                                 <div style="clear:both"></div>
                             </uib-tab>
@@ -262,6 +280,12 @@
 
                                     <div class="tab_select" ng-show="state.gitlab.link==='link'&&!state.gitlab.checked" ng-click="openModal('选择项目','gitlab')" style="margin-top:20px;">
                                         <span class="tab_select_tit">选择项目</span>
+                                    </div>
+                                    <div class="loading_set" ng-show="!(state.gitlab.link==='unlink')&&!(state.gitlab.link==='link'&&!state.gitlab.checked)" style="position:absolute;left:224px;bottom:100px;">
+                                        <div class="new-loading" style="width:114px;margin-top:20px;">
+                                            <img style="height:30px;width:30px;margin-left:5px;float:left;" src="pub/img/logo.gif" alt="">
+                                            <span style="color:#666;float:left;line-height:30px;margin-left:10px;">加载中...</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div style="clear:both"></div>

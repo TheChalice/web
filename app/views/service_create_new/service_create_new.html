@@ -869,10 +869,10 @@
 
                             </div>
                             <div class="col-xs-2">
-                                {{container.resources.limits.cpu*dc.spec.replicas}}核
+                                {{container.resources.limits.cpu*dc.spec.replicas||0}}核
                             </div>
                             <div class="col-xs-2">
-                                {{container.resources.limits.memory*dc.spec.replicas}}GB
+                                {{container.resources.limits.memory*dc.spec.replicas||0}}GB
                             </div>
                         </div>
                     </div>

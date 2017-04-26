@@ -17,6 +17,8 @@ angular.module('console.build_create_new', [
             $scope.sValueBlure = function(){
                 if($scope.slider.value === 0){
                     $scope.slider.value = 1
+                }else if($scope.slider.value >60){
+                    $scope.slider.value=60
                 }
             }
             function initModal() {
@@ -240,20 +242,26 @@ angular.module('console.build_create_new', [
                 $scope.namerr.bigcode = false;
                     // console.log($scope.buildConfig.metadata.name);
                 var str = n;
-                if (/[A-Z]/.test(str.charAt(0))) {
-                    //alert(11)
-                    $scope.namerr.bigcode = true;
-                }else {
-                    if (dcnamer.test(n) || n == '') {
-                        angular.forEach($scope.buildConfiglist, function (build,k) {
-                            //angular.forEach($scope.serviceNameArr, function (build, i) {
-                            if (build.metadata.name === n) {
-                                $scope.namerr.repeated = true;
-                            }
-                        })
-                        //})
-                    } else {
-                        $scope.namerr.rexed = true;
+                //console.log('/[a-z]/.test(str.charAt(0))',/[a-z]/.test(str.charAt(0)));
+                if (n) {
+                    if (/[a-z]/.test(str.charAt(0))) {
+                        //alert(11)
+
+                        if (dcnamer.test(n) || n == '') {
+                            angular.forEach($scope.buildConfiglist, function (build,k) {
+                                //angular.forEach($scope.serviceNameArr, function (build, i) {
+                                if (build.metadata.name === n) {
+                                    $scope.namerr.repeated = true;
+                                }
+                            })
+                            //})
+                        } else {
+                            $scope.namerr.rexed = true;
+                        }
+
+                    }else {
+
+                        $scope.namerr.bigcode = true;
                     }
                 }
 
