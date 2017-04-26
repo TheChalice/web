@@ -26,14 +26,15 @@ angular.module("console.header", [
                         $(".zx_account_set").toggleClass("zx_account_set_hover");
                     });
                     $(document.body).click(function(e){
-                        var width = $('.header_per').width();
+                        var width = $('.zx_account_top').width();
                         var windowWidth = $(window).width();
-                        if(e.clientY>52||(e.clientY<52&&e.clientX<windowWidth-width)){
-                            $(".zx_account_set").removeClass("zx_account_set_hover");
-                        }
-                        // if($(e.target)!==$(".zx_account_set")&&$(e.target)!==$(".header_per")){
+                        // if(e.clientY>52||(e.clientY<52&&e.clientX<windowWidth-width)){
                         //     $(".zx_account_set").removeClass("zx_account_set_hover");
                         // }
+
+                        if(e.clientX<windowWidth-width&&e.clientY>52){
+                            $(".zx_account_set").removeClass("zx_account_set_hover");
+                        }
                     })
                     $scope.gotoorg= function () {
                         $state.go('console.org', {
@@ -573,4 +574,3 @@ angular.module("console.header", [
         };
 
     }]);
-
