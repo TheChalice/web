@@ -1594,7 +1594,7 @@ input:focus{border-color: #5b73eb!important;}
 /*输入框搜索公共 左边输入框 右边按钮*/
 #search_public_block {border:1px solid #c9c9c9;border-radius:2px;color:#5a6378;}
 #search_public_block .search_public_l{width:90%;height:24px;padding:18px 8px 16px;border:0;float:left;}
-.search_public_btn{height: 100%;background:#fff url(../img/search.png) no-repeat 0 12px!important;box-shadow: none;display:block;width:20px;height:34px;
+.search_public_btn{height: 100%;background:#fff url(../img/search.png) no-repeat 0 12px!important;box-shadow: none;display:block;width:20px;height:30px;
     float:right;margin-right:3px;cursor:pointer;}
 .search_public_btn:hover{height: 100%;background:#fff url(../img/search-focus.png) no-repeat 0 12px!important;}
 /*输入框搜索公共 左边输入框 右边按钮*/
