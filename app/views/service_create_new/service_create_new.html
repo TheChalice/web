@@ -593,8 +593,8 @@
                         <span class="two_detail">可以增加镜像中未定义的端口。</span>
                     </div>
                     <div class="input_set" style="float: none;padding-left:92px;">
-                        <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 106px;" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>默认端口</span>
-                        <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="container.isOwnerI=!container.isOwnerI"><i></i>自定义端口</span>
+                        <span class="checkbox_peizhi" ng-class="{'active': container.isOwnerI}" style="margin-right: 106px;" ng-click="checkCt(1,$index)"><i></i>默认端口</span>
+                        <span class="checkbox_peizhi" ng-class="{'active': !container.isOwnerI}" ng-click="checkCt(2,$index)"><i></i>自定义端口</span>
                     </div>
                     <div class="serImgTop" style="padding-left:92px;overflow: hidden;padding-top:8px;">
                         <div>容器端口</div>

@@ -16,6 +16,14 @@ angular.module('console.service.createnew', [
             } else {
                 $(".create_new_nav").removeClass("create_new_nav_new")
             }
+            $scope.checkCt = function(n,i){
+                if(n===1){
+                    $scope.dc.spec.template.spec.containers[i].isOwnerI=true;
+                }else{
+                    $scope.dc.spec.template.spec.containers[i].isOwnerI=false;
+                }
+
+            }
             $scope.btnText = {
                 one:'立即创建',
                 two:'创建中',

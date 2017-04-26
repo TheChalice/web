@@ -78,7 +78,7 @@ angular.module('console.build_create_new', [
             }
 
             $scope.slider = {
-                value: 30,
+                value: 60,
                 options: {
                     floor: 1,
                     ceil: 60,
