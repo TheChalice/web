@@ -59,12 +59,15 @@ angular.module('console.service', [
                     region:$rootScope.region
                 }, function (res) {
 
-                    if (item.metadata.name === $scope.items[idx].metadata.name) {
-                        $scope.data.splice(i,1)
-                        $scope.grid.total =  $scope.data.length;
-                        $scope.grid.page = 1;
-                        refresh(1);
-                    }
+                    angular.forEach($scope.data, function (item,i) {
+                        if (item.metadata.name === $scope.items[idx].metadata.name) {
+                            $scope.data.splice(i,1)
+                            $scope.grid.total =  $scope.data.length;
+                            $scope.grid.page = 1;
+                            refresh(1);
+                        }
+                    })
+
 
                 })
 
