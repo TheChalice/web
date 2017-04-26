@@ -483,10 +483,11 @@ a {
     border-top:1px solid #eaeaea;
     float: left;
     color: #5b73eb;
+    cursor: pointer;
 }
 .modal-footer .btn-newst:hover{
     background: #eef1fd;
-    color: #999;
+    color: #333;
 }
 .modal-default .modal-close {
 
