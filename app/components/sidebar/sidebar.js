@@ -16,8 +16,6 @@ angular.module("console.sidebar", [
                 var width = 0;
                 $(".create_new_nav").addClass("create_new_nav_new");
                 $(".create_new_nav2").addClass("create_new_nav_new");
-                $("#sidebar-container").addClass("sider_zx");
-                $("#sidebar-right-fixed").addClass("sidebar-fixed");
                 width = $(window).width()-168;
                 $(".zx_set_btn").on("click",function(){
                     //var width = 0;
@@ -101,6 +99,3 @@ angular.module("console.sidebar", [
             }]
         }
     }]);
-
-
-
