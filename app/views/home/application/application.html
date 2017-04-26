@@ -58,9 +58,10 @@
                                                                              ng-model="grid.txt"
                                                                              ng-keydown="search(grid.txt)"
                                                                              placeholder="搜索SaaS服务">
-                                                   <span class="input-group-btn">
-                                                       <a class="btn"></a>
-                                                   </span>
+                                                   <!--<span class="input-group-btn">-->
+                                                       <!--<a class="btn"></a>-->
+                                                   <!--</span>-->
+                                                                      <span class="search_public_btn"></span>
                                                                </div>
                                                         </div>
                                                  </div>
@@ -148,9 +149,10 @@
                                                  <div class="input-group col-sm-4  searchbar" id="sousuo">
                                                         <input type="text" class="form-control" ng-model="ctxt"
                                                                ng-focus="showTip=true;" placeholder="搜索镜像" ng-keyup="imagecenterreg('all', ctxt,$event)">
-                                                       <span class="input-group-btn">
-                                                           <a class="btn" ng-click="imagecenterreg('all', ctxt)"></a>
-                                                       </span>
+                                                       <!--<span class="input-group-btn">-->
+                                                           <!--<a class="btn" ng-click="imagecenterreg('all', ctxt)"></a>-->
+                                                       <!--</span>-->
+                                                        <span class="search_public_btn" ng-click="imagecenterreg('all', ctxt)"></span>
                                                  </div>
                                           </div>
                                           <div class="row">
