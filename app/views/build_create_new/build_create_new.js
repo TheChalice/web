@@ -17,6 +17,8 @@ angular.module('console.build_create_new', [
             $scope.sValueBlure = function(){
                 if($scope.slider.value === 0){
                     $scope.slider.value = 1
+                }else if($scope.slider.value >60){
+                    $scope.slider.value=60
                 }
             }
             function initModal() {
