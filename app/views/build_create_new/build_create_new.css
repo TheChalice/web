@@ -48,7 +48,7 @@ top:52px;left:168px;z-index:999;}
     width:466px;
     height:30px;
     padding-left:4px;
-    float:left;border:1px solid #d4d4d4;
+    float:left;border:1px solid #d4d4d4;font-size:12px;
 }
 .new_code_input:focus{
     border:1px solid #5b73eb;
@@ -400,3 +400,5 @@ margin-top:8px;margin-left:12px;-webkit-animation:create_rotate 1s linear infini
 .no_git{width:114px;height:126px;position:absolute;text-align:center;top:50%;left:50%;margin-left:-80px;margin-top:-61px;}
 .no_git_set{width:100px;height:100px;display:block;background:url("./img/no_git.png") no-repeat;margin:0 auto;}
 .no_git p{font-size:14px;color:#333;margin-top:4px;width:114px;text-align: center;}
+.drop_loading{background:url(../../views/build_create_new/img/loading1.png) no-repeat;width:16px;height:16px;display:inline-block;float:left;
+margin-top:6px;margin-left:10px;margin-right:6px;-webkit-animation:create_rotate 1s linear infinite;-moz-animation:create_rotate 1s linear infinite;animation:create_rotate 1s linear infinite;}
