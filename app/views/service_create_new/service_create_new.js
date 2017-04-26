@@ -662,8 +662,8 @@ angular.module('console.service.createnew', [
                     'height': height_child,
                     'width': width
                 });
-                $('.create_new_modal .content .backservice div.left > div').css('height', height_child);
-                $('.create_new_modal .content .backservice div.right > div').css('height', height_child);
+                $('.create_new_modal .content .backservice div.left > div').css('height', height_child-172);
+                $('.create_new_modal .content .backservice div.right > div').css('height', height_child-172);
                 $('.middle').css('height', height_child);
             }
 

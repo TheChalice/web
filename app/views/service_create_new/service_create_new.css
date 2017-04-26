@@ -624,6 +624,7 @@ ul,li{list-style:none;padding: 0}
     margin-top:20px;
     padding-top: 20px;
     position: relative;
+    padding-bottom: 50px;
 }
 .create_new_modal .content .backservice div.middle {
     height:1000px;
@@ -657,7 +658,7 @@ ul,li{list-style:none;padding: 0}
     width:200px;
     height:200px;
     position: absolute;
-    top:34%;
+    top:50%;
     left:50%;
     transform:translate(-50%,-50%);
 }
