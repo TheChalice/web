@@ -178,7 +178,7 @@ angular.module('console.service.createnew', [
                     //dfimage
                 }
             })
-            var dcnamer = /^[a-z]([a-z0-9-]{0,22})?[a-z0-9]$/;
+            var dcnamer = /^[a-z]([a-z0-9]{0,22}\-{0,1})?[a-z0-9]$/;
             $scope.secretblur= function (secret) {
                 if (secret.mountPath) {
                     if (secret.mountPath.indexOf('/') !== 0) {
