@@ -242,7 +242,7 @@ ul,li{list-style:none;padding: 0}
 .two_tab_l{width:184px;float:left;}
 .two_tab_pic{width:34px;height:34px;background:none;display:block;float:left;}
 .two_tab_tit{float:left;margin-left:10px;font-size:12px;width:124px;}
-.two_tab_tit span{width:100%;float:left;display:block;line-height:normal;}
+.two_tab_tit span{width:100%;float:left;display:block;line-height:normal;margin-top:10px;}
 .two_tab_tit span:nth-child(1){color:#333;}
 .two_tab_tit span:nth-child(2){color:#666;padding-top:2px;}
 .two_tab_r{float:left;margin-top:3px;margin-left:5px;}

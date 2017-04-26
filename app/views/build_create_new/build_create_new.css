@@ -80,7 +80,7 @@ top:52px;left:168px;z-index:999;}
 }
 .build_create_new .uib-first .tab-default .tab-content{
     padding:30px 40px;
-    min-height:160px;
+    min-height:160px;position:relative;
 }
 .link_github{
     cursor: pointer;
