@@ -9,6 +9,27 @@ angular.module('console.build.detail', [
     ])
     .controller('BuildDetailCtrl', ['repositorywebhook','buildLog','ImageStreamTag','deleteSecret', 'Ws', 'Sort', 'GLOBAL', '$rootScope', '$scope', '$log', '$state', '$stateParams', '$location', 'BuildConfig', 'Build', 'Confirm', 'UUID', 'WebhookLab', 'WebhookHub', 'WebhookLabDel', 'WebhookHubDel', 'ImageStream', 'WebhookLabget', 'WebhookGitget'
         , function (repositorywebhook,buildLog,ImageStreamTag,deleteSecret, Ws, Sort, GLOBAL, $rootScope, $scope, $log, $state, $stateParams, $location, BuildConfig, Build, Confirm, UUID, WebhookLab, WebhookHub, WebhookLabDel, WebhookHubDel, ImageStream, WebhookLabget, WebhookGitget) {
+            var checklength = function (str) {
+                var displayLength = 50;
+                //displayLength = this.attr("displayLength") || displayLength;
+                var text = str
+                if (!text) return "";
+                var result = "";
+                var count = 0;
+                for (var i = 0; i < displayLength; i++) {
+                    var _char = text.charAt(i);
+                    if (count >= displayLength)  break;
+                    if (/[^x00-xff]/.test(_char))  count++;  //双字节字符，//[u4e00-u9fa5]中文
+
+                    result += _char;
+                    count++;
+                }
+                if (result.length < text.length) {
+                    result += "...";
+                }
+                //this.text(result);
+                return result;
+            }
             $scope.grid = {};
             var loadBuildConfig = function () {
                 BuildConfig.get({namespace: $rootScope.namespace, name: $stateParams.name,region:$rootScope.region}, function (data) {
@@ -34,7 +55,7 @@ angular.module('console.build.detail', [
                         //console.log(parser.pathname);
                         data.spec.source.git.uri = 'https://' + parser.hostname + parser.pathname
                     }
-
+                    data.spec.source.git.newuri = checklength(data.spec.source.git.uri)
                     //var parser = document.createElement('a');
                     //
                     //parser.href = host;

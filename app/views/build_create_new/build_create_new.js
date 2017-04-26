@@ -14,7 +14,11 @@ angular.module('console.build_create_new', [
             } else {
                 $(".create_new_nav").removeClass("create_new_nav_new")
             }
-
+            $scope.sValueBlure = function(){
+                if($scope.slider.value === 0){
+                    $scope.slider.value = 1
+                }
+            }
             function initModal() {
                 var widthnav = $('.create_new_nav').width();
                 $('.code_new_modal').css('left', widthnav);
