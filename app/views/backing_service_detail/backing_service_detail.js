@@ -9,8 +9,9 @@ angular.module('console.backing_service_detail', [
     .controller('BackingServiceInstanceCtrl', ['newconfirm','market', 'delorders', 'orders', '$log', '$scope', '$rootScope', '$stateParams', 'BackingService', 'BackingServiceInstance', 'ServiceSelect', 'Confirm', 'BackingServiceInstanceBd', '$state', 'Toast', 'Ws'
         , function (newconfirm,market, delorders, orders, $log, $scope, $rootScope, $stateParams, BackingService, BackingServiceInstance, ServiceSelect, Confirm, BackingServiceInstanceBd, $state, Toast, Ws) {
             $scope.grid = {}
-            $scope.checkInfo = function(){
-                newconfirm.open('信息','详情');
+            $scope.checkInfo = function(message){
+
+                newconfirm.open('信息',message);
             }
             var cuename = $stateParams.name;
 

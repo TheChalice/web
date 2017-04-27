@@ -333,6 +333,20 @@ define([
                         }]
                     }
                 })
+                .state('console.apply_instance1', {
+                    url: '/apply_instance1/:name',
+                    templateUrl: 'views/apply_instance1/apply_instance1.html',
+                    controller: 'ApplyInstanceCtrl1',
+                    params: {
+                        plan: '',
+                        index:null
+                    },
+                    resolve: {
+                        dep: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load(['views/apply_instance1/apply_instance1.js'])
+                        }]
+                    }
+                })
                 .state('console.build_create_new', {
                     url: '/construction/create/new',
                     templateUrl: 'views/build_create_new/build_create_new.html',
