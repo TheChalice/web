@@ -78,12 +78,22 @@ angular.module('console.apply_instance1', [
                 };
             }
             $scope.wirtarr = [];
+            $scope.sValueBlure = function(wir){
+                //console.log(wir);
+                if(wir.rewirt.value < wir.default){
+                    wir.rewirt.value = wir.default
+                }else if(wir.rewirt.value >wir.max){
+                    wir.rewirt.value=wir.max
+                }
+            }
+            $scope.checkedplan=0;
             market.get({region: $rootScope.region,belong:$stateParams.name}, function (data) {
                 console.log('newdata', data);
                 $scope.bsimoney = angular.copy(data);
                 if (data.plans&&data.plans[0]) {
                     angular.forEach(data.plans, function (plan,i) {
                         if (plan.customize) {
+                            $scope.checkedplan=i
                             console.log(plan.customize);
                             for(var k in plan.customize){
 
@@ -170,6 +180,11 @@ angular.module('console.apply_instance1', [
                     angular.forEach(n, function (item,i) {
                         //console.log(item.rewirt.price);
                         $scope.allmoney=$scope.allmoney+item.price*((item.rewirt.value-item.default)/item.step)
+                        if ($scope.allmoney < 0) {
+                            $scope.allmoney=0
+                        }else if(!$scope.allmoney){
+                            $scope.allmoney=0
+                        }
                     })
                     //$scope.allmoney=node.price*((n.node-node.default)/node.step)+storage.price*((n.storage-storage.default)/storage.step)
                     //console.log($scope.allmoney);
@@ -190,7 +205,7 @@ angular.module('console.apply_instance1', [
                 })
                 checkout.create({
                     drytry: 0,
-                    plan_id: $scope.bsimoney.plans[1].plan_id,
+                    plan_id: $scope.bsimoney.plans[$scope.checkedplan].plan_id,
                     namespace: $rootScope.namespace,
                     region: $rootScope.region,
                     parameters: {

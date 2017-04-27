@@ -1555,6 +1555,7 @@ angular.module('console.service.createnew', [
                 angular.forEach($scope.dc.spec.template.spec.containers, function (item, i) {
 
                     if (item.resources.limits.cpu&&$scope.requests.cpu) {
+                        item.resources.limits.cpu=parseInt(item.resources.limits.cpu)
                         if (item.resources.limits.cpu > $scope.requests.cpu) {
                             item.resources.limits.cpu=parseInt($scope.requests.cpu)
                         }
@@ -1562,6 +1563,7 @@ angular.module('console.service.createnew', [
                         $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
                     if (item.resources.limits.memory&&$scope.requests.memory) {
+                        item.resources.limits.memory=parseInt(item.resources.limits.memory)
                         if (item.resources.limits.memory > $scope.requests.memory) {
                             item.resources.limits.memory=parseInt($scope.requests.memory)
                         }
@@ -2489,6 +2491,15 @@ angular.module('console.service.createnew', [
                 var clonedc = angular.copy($scope.dc);
                 clonedc.metadata.name=clonedc.metadata.name.replace(/^\s+|\s+$/g,"")
                 clonedc.spec.template.spec.volumes=[];
+                if ($scope.error.reqerr.cpuerr || $scope.error.reqerr.memoryerr) {
+                    angular.forEach(clonedc.spec.template.spec.containers, function (item, i) {
+                        if (clonedc.spec.template.spec.containers[i].resources && clonedc.spec.template.spec.containers[i].resources.limits) {
+                            clonedc.spec.template.spec.containers[i].resources.limits.cpu=0;
+                            clonedc.spec.template.spec.containers[i].resources.limits.memory=0;
+                        }
+
+                    })
+                }
                 angular.forEach(clonedc.spec.template.spec.containers, function (con, i) {
                     con.volumeMounts=[];
 

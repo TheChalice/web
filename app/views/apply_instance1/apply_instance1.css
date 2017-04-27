@@ -163,6 +163,13 @@ top:52px;left:168px;z-index:999;}
     border:1px solid #e5e5e5;
     float:left;
 }
+.minutes_code_example input{
+    height:30px;
+    width:55px;
+    border:1px solid #e5e5e5;
+    float:left;
+    padding-left:17px;
+}
 .minutes_code_example span{
     float:left;
     margin-left: 10px;

@@ -31,8 +31,8 @@
                 <p style="font-size: 14px;color: #666;line-height: 20px;margin-left:30px;">
                     {{data.spec.metadata.longDescription}}
                 </p>
-                <h3 style="font-size: 16px;color: #333;margin-top: 36px;margin-left:30px;margin-bottom:20px;">套餐列表</h3>
-                <div ng-include="'views/backing_service_detail/plan.html'" style="margin-left:30px;"></div>
+                <h3 ng-show="!data.candiy" style="font-size: 16px;color: #333;margin-top: 36px;margin-left:30px;margin-bottom:20px;">套餐列表</h3>
+                <div ng-show="!data.candiy" ng-include="'views/backing_service_detail/plan.html'" style="margin-left:30px;"></div>
             </uib-tab>
 
             <uib-tab index="2">

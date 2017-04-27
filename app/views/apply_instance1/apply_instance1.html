@@ -20,12 +20,12 @@
             </div>
         </div>
         <div class="create-code-block" ng-repeat="wir in wirtarr">
-            <p class="create_left">{{wir.name}}</p>
+            <p class="create_left">{{wir.desc}}</p>
             <div class="minutes_code" style="margin-top:-25px;">
-                <rzslider rz-slider-model="wir.rewirt.value" rz-slider-options="wir.rewirt.options" ></rzslider>
+                <rzslider rz-slider-model="wir.rewirt.value" rz-slider-options="wir.rewirt.options"></rzslider>
             </div>
             <div class = "minutes_code_example">
-                <div>{{wir.rewirt.value}}</div>
+                <input ng-model="wir.rewirt.value"  ng-blur="sValueBlure(wir)" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
                 <span>{{wir.unit}}</span>
             </div>
         </div>

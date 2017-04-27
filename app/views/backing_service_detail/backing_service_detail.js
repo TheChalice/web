@@ -36,7 +36,16 @@ angular.module('console.backing_service_detail', [
                     } else {
                         data.biancheng = true;
                     }
+
                     $scope.data = data;
+                    $scope.data.candiy=false
+                    if ($scope.data.spec.plans&&$scope.data.spec.plans.length > 0) {
+                        angular.forEach($scope.data.spec.plans, function (plan,i) {
+                            if (plan.metadata.customize !== null) {
+                                $scope.data.candiy=true
+                            }
+                        })
+                    }
                     var plans = data.spec.plans;
                     //$log.info("plan display", plans);
                     for (var i = 0; i < plans.length; i++) {

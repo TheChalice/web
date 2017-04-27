@@ -262,6 +262,7 @@ angular.module('console.build', [
 
         loadBuildConfigs();
         $scope.reload = function(){
+            $scope.grid.changestatus='全部';
             loadBuildConfigs();
 
         };
