@@ -183,9 +183,9 @@ top:52px;left:168px;z-index:999;}
 .select_block_one{padding:18px 10px 80px;border-top:1px solid #ddd;}
 .select_block_one .two_tab_detail{margin-bottom:16px;}
 
-.tab_build_image .two_tab_l{width:50%;-webkit-box-flex:1;float:none;}
-.tab_build_image .two_tab_r{width:50%;-webkit-box-flex:1;float:none;}
-.tab_build_image .two_tab_detail{width:30%;margin-right:0;padding:8px;display:-webkit-box;}
+.tab_build_image .two_tab_l{width:50%;float:left;}
+.tab_build_image .two_tab_r{width:48%;float:left;}
+.tab_build_image .two_tab_detail{width:30%;margin-right:0;padding:8px;}
 .tab_build_image .two_tab_detail ~ .two_tab_detail{margin-left:5%;}
 .tab_build_image .two_tab_detail:nth-child(3n+1){margin-left:0%;}
 .tab_build_image .two_tab_tit{margin-left:40px;float:none;}
@@ -260,7 +260,7 @@ top:52px;left:168px;z-index:999;}
 .build_create_new .rzslider .rz-ticks .rz-tick{background:none;font-size: 12px;color:#666;}
 .build_create_new .rzslider .rz-ticks .rz-tick.rz-selected{background:none;}
 .build_create_new .rzslider .rz-bubble{background:#000;border-radius:4px;padding:3px 8px;max-width:200px;color:#fff;font-size:12px;bottom:18px;
-    -webkit-transition: all 0.2s;-moz-transition: all 0.2s;transition: all 0.2s;}
+    -webkit-transition: all 0.2s;-moz-transition: all 0.2s;transition: all 0.2s;display:none;}
 .ser_slider{}
 .build_create_new .slider_right{float:left;width:354px;}
 .build_create_new .ser_slider .enduring_tit{font-size:12px;color:#7e7e7e;margin-top:60px;margin-bottom:20px;}
