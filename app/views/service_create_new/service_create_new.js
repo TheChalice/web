@@ -271,7 +271,11 @@ angular.module('console.service.createnew', [
                         if (!con.isOwnerI) {
 
                             angular.forEach(con.port, function (port) {
-                                $scope.conport.push({name:con.name,hostPort:port.hostPort})
+                                //console.log('port', port);
+                                if (port.hostPort&&port.containerPort) {
+                                    $scope.conport.push({name:con.name,hostPort:port.hostPort})
+                                }
+
                             })
                         }
                         if (con.resources.limits.cpu) {
@@ -1556,6 +1560,8 @@ angular.module('console.service.createnew', [
 
                     if (item.resources.limits.cpu&&$scope.requests.cpu) {
                         item.resources.limits.cpu=parseInt(item.resources.limits.cpu)
+                        console.log('item.resources.limits.cpu', item.resources.limits.cpu);
+                        console.log('$scope.requests.cpu', $scope.requests.cpu);
                         if (item.resources.limits.cpu > $scope.requests.cpu) {
                             item.resources.limits.cpu=parseInt($scope.requests.cpu)
                         }
@@ -1563,7 +1569,9 @@ angular.module('console.service.createnew', [
                         $scope.requests.usecpu =$scope.requests.usecpu+item.usecpu
                     }
                     if (item.resources.limits.memory&&$scope.requests.memory) {
+
                         item.resources.limits.memory=parseInt(item.resources.limits.memory)
+
                         if (item.resources.limits.memory > $scope.requests.memory) {
                             item.resources.limits.memory=parseInt($scope.requests.memory)
                         }
