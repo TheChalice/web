@@ -78,6 +78,14 @@ angular.module('console.apply_instance1', [
                 };
             }
             $scope.wirtarr = [];
+            $scope.sValueBlure = function(wir){
+                //console.log(wir);
+                if(wir.rewirt.value < wir.default){
+                    wir.rewirt.value = wir.default
+                }else if(wir.rewirt.value >wir.max){
+                    wir.rewirt.value=wir.max
+                }
+            }
             market.get({region: $rootScope.region,belong:$stateParams.name}, function (data) {
                 console.log('newdata', data);
                 $scope.bsimoney = angular.copy(data);
@@ -170,6 +178,11 @@ angular.module('console.apply_instance1', [
                     angular.forEach(n, function (item,i) {
                         //console.log(item.rewirt.price);
                         $scope.allmoney=$scope.allmoney+item.price*((item.rewirt.value-item.default)/item.step)
+                        if ($scope.allmoney < 0) {
+                            $scope.allmoney=0
+                        }else if(!$scope.allmoney){
+                            $scope.allmoney=0
+                        }
                     })
                     //$scope.allmoney=node.price*((n.node-node.default)/node.step)+storage.price*((n.storage-storage.default)/storage.step)
                     //console.log($scope.allmoney);
