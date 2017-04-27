@@ -36,7 +36,7 @@
 
                         <!--<a href="javascript:;" class="faa faa-times" uib-tooltip="删除" ng-click="delBsi($index,items.id)"></a>-->
                         <a href="javascript:;" class="fbb"  ng-click="delBsi($index,items.id)">删除</a>
-                        <a href="javascript:;" class="fbb" ng-click="checkInfo()">访问信息</a>
+                        <a href="javascript:;" class="fbb" ng-show="item.spec.provisioning.credentials" ng-click="checkInfo(item.spec.provisioning.credentials)">访问信息</a>
                     </div>
                 </div>
             </div>

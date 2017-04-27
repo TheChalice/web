@@ -49,8 +49,9 @@ angular.module('console.backing_service', [
     })
     .controller('BackingServiceCtrl', ['newconfirm','delorders','orders','$state', '$log', '$rootScope', '$scope', 'BackingService', 'BackingServiceInstance', 'ServiceSelect', 'BackingServiceInstanceBd', 'Confirm', 'Toast', 'Ws', '$filter',
         function (newconfirm,delorders,orders,$state, $log, $rootScope, $scope, BackingService, BackingServiceInstance, ServiceSelect, BackingServiceInstanceBd, Confirm, Toast, Ws, $filter) {
-            $scope.checkInfo = function(){
-                newconfirm.open('信息','详情');
+            $scope.checkInfo = function(message){
+
+                newconfirm.open('信息',message);
             }
             // 数组去重方法
             if ($state.params.index) {
@@ -73,6 +74,17 @@ angular.module('console.backing_service', [
                 BackingService.get({namespace: 'openshift', region: $rootScope.region}, function (data) {
                     $log.info('loadBs', data);
                     $scope.items = data.items;
+                    angular.forEach($scope.items, function (item,i) {
+                        $scope.items[i].candiy=false;
+                        if (item.spec.plans && item.spec.plans.length > 0) {
+                            angular.forEach(item.spec.plans, function (plan,k) {
+                                if (plan.metadata.customize!==null) {
+                                    $scope.items[i].candiy=true;
+                                }
+                            })
+                        }
+
+                    })
                     var arr = data.items;
                     //上方两个tab分组数组
                     //服务分类
