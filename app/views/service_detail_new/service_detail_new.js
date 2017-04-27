@@ -734,7 +734,7 @@ angular.module('console.service.detail', [
                     var match = image.match(/\/([^/]*)@sha256/);
                     return match[1];
                 };
-                angular.forEach($scope.dc.spec.template.spec.containers, function (item) {
+                angular.forEach($scope.dc.spec.template.spec.containers, function (item,i) {
                     if (item.resources.limits && item.resources.limits.memory) {
                         $scope.dc.spec.template.spec.containers[i].resources.limits.memory=item.resources.limits.memory.split('G')[0];
 

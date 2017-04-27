@@ -109,6 +109,7 @@ angular.module('console.service', [
 
             }
             $scope.reload=function(){
+               $scope.grid.changestatus='全部'
                 $state.reload();
             }
             var refresh = function (page) {

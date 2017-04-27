@@ -204,7 +204,7 @@
                                     <div class="two_tab_r">
                                         <span class="version_tit">分支</span>
                                         <div class="service_area_select two_radius service_build_change">
-                                            <div uib-dropdown on-toggle="toggled(open)" class="jx_toggle"  ng-click="gettag(checkedrepo)">
+                                            <div uib-dropdown on-toggle="toggled(open)" class="jx_toggle"  ng-click="gettag(checkedrepo,'github')">
                                                 <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
                                                     <span class="service_per_tit service_copy_tit two_tab_ellipsis">{{checkedrepo.checkbox||'默认'}}</span>
                                                     <b class="ser_bg_btn"></b>
@@ -215,6 +215,11 @@
                                                         <span class="service_per_tit service_copy_tit two_tab_ellipsis"
                                                             title="{{tag.name}}">{{tag.name}}
                                                         </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="zx_active" ng-show="!checkedrepo.tags">
+                                                        <a href="javascript:void(0);" style="padding:0;">
+                                                            <span style="width:76px;line-height:30px;" class="drop_name_tit drop_name_tit_two two_tab_ellipsis"><i class="drop_loading"></i>加载中</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -229,7 +234,7 @@
                                         <span class="tab_select_tit">选择项目</span>
                                     </div>
 
-                                <div class="loading_set" ng-show="!(state.github.link==='unlink')&&!(state.github.link==='link'&&!state.github.checked)" style="position:absolute;left:224px;bottom:100px;">
+                                <div class="loading_set" ng-show="!(state.github.link==='unlink')&&!(state.github.link==='link'&&!state.github.checked)&&!state.github.checked" style="position:absolute;left:224px;bottom:100px;">
                                     <div class="new-loading" style="width:114px;margin-top:20px;">
                                         <img style="height:30px;width:30px;margin-left:5px;float:left;" src="pub/img/logo.gif" alt="">
                                         <span style="color:#666;float:left;line-height:30px;margin-left:10px;">加载中...</span>
@@ -261,7 +266,7 @@
                                         <div class="two_tab_r">
                                             <span class="version_tit">分支</span>
                                             <div class="service_area_select two_radius service_build_change">
-                                                <div uib-dropdown on-toggle="toggled(open)" class="jx_toggle"  ng-click="gettag(checkedrepo)">
+                                                <div uib-dropdown on-toggle="toggled(open)" class="jx_toggle"  ng-click="gettag(checkedrepo,'gitlab')">
                                                     <a href="javascript:void(0);" class="service_block" uib-dropdown-toggle>
                                                         <span class="service_per_tit service_copy_tit two_tab_ellipsis">{{checkedrepo.checkbox||'默认'}}</span>
                                                         <b class="ser_bg_btn"></b>
@@ -270,6 +275,11 @@
                                                         <li class="zx_active" ng-repeat="tag in checkedrepo.tags"  ng-click="checkedrepo.checkbox=tag.name">
                                                             <a href="javascript:void(0);">
                                                                 <span class="service_per_tit service_copy_tit two_tab_ellipsis" title="{{tag.name}}">{{tag.name}}</span></a></li>
+                                                        <li class="zx_active" ng-show="!checkedrepo.tags">
+                                                            <a href="javascript:void(0);" style="padding:0;">
+                                                                <span style="width:76px;line-height:30px;" class="drop_name_tit drop_name_tit_two two_tab_ellipsis"><i class="drop_loading"></i>加载中</span>
+                                                            </a>
+                                                        </li>
                                                     </ul>
 
                                                 </div>
@@ -281,7 +291,7 @@
                                     <div class="tab_select" ng-show="state.gitlab.link==='link'&&!state.gitlab.checked" ng-click="openModal('选择项目','gitlab')" style="margin-top:20px;">
                                         <span class="tab_select_tit">选择项目</span>
                                     </div>
-                                    <div class="loading_set" ng-show="!(state.gitlab.link==='unlink')&&!(state.gitlab.link==='link'&&!state.gitlab.checked)" style="position:absolute;left:224px;bottom:100px;">
+                                    <div class="loading_set" ng-show="!(state.gitlab.link==='unlink')&&!(state.gitlab.link==='link'&&!state.gitlab.checked)&&!state.gitlab.checked" style="position:absolute;left:224px;bottom:100px;">
                                         <div class="new-loading" style="width:114px;margin-top:20px;">
                                             <img style="height:30px;width:30px;margin-left:5px;float:left;" src="pub/img/logo.gif" alt="">
                                             <span style="color:#666;float:left;line-height:30px;margin-left:10px;">加载中...</span>
