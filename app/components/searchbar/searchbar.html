@@ -5,9 +5,10 @@
                ng-focus="showTip=true;"
                ng-keydown="search('all',txt,$event)"
                placeholder="搜索关键字">
-        <span class="input-group-btn">
-            <a class="btn" ng-click="search('all', txt)"></a>
-        </span>
+        <!--<span class="input-group-btn">-->
+            <!--<a class="btn" ng-click="search('all', txt)"></a>-->
+        <!--</span>-->
+        <span class="search_public_btn" ng-click="search('all', txt)"></span>
     </div>
     <ul class="tip-board" ng-show="txt && showTip">
         <li>
