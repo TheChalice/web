@@ -20,8 +20,9 @@
             </div>
         </div>
         <div class="create-code-block" ng-repeat="wir in wirtarr">
-            <p class="create_left">{{wir.desc}}</p>
-            <div class="minutes_code" style="margin-top:-25px;">
+            <p class="create_left">{{wir.name}}</p>
+            <span class="create_right" style="clear:both">{{wir.desc}}</span>
+            <div class="minutes_code" style="margin-top:-20px;">
                 <rzslider rz-slider-model="wir.rewirt.value" rz-slider-options="wir.rewirt.options"></rzslider>
             </div>
             <div class = "minutes_code_example">
