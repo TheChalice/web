@@ -127,6 +127,9 @@ top:52px;left:168px;z-index:999;}
 .apply_instance .rzslider .rz-bar{height:10px;}
 .apply_instance .rzslider .rz-bar.rz-selection{background:#5b74eb;}
 .apply_instance .rzslider .rz-bar{background:#e6e9f2;}
+.apply_instance .rzslider .rz-pointer{
+    top:-15px;
+}
 .apply_instance .rzslider .rz-pointer:after,.apply_instance .rzslider .rz-pointer:hover:after,.rzslider .rz-pointer:active:after,.apply_instance .rzslider .rz-pointer .rz-active{background:none!important;}
 .apply_instance .rzslider .rz-pointer{background:#fff url(./img/vol_btn_hover.png) no-repeat;width:19px;height:20px;margin-top:8px;
     border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;-webkit-transition: all 0.03s;-moz-transition: all 0.03s;transition: all 0.03s;}
