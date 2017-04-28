@@ -230,6 +230,7 @@ angular.module('console.service.createnew', [
 
             }
             //conname
+            var envr = /^[A-Za-z_][A-Za-z0-9_]*/;
             $scope.$watch('dc.spec.template.spec.containers', function (n,o) {
                 if (n) {
                     $scope.stepup.twoerr=true;
