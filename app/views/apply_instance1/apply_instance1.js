@@ -202,7 +202,7 @@ angular.module('console.apply_instance1', [
                 //}
                 var customize={}
                 angular.forEach($scope.wirtarr,function(item,i){
-                    customize[item.name] = item.rewirt.value.toString()
+                    customize[item.name] = item.rewirt.value;
                 })
                 checkout.create({
                     drytry: 0,
