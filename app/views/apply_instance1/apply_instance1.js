@@ -71,7 +71,8 @@ angular.module('console.apply_instance1', [
                         translate: function (value, sliderId, label) {
                             switch (label) {
                                 default:
-                                    return value + cus.unit
+                                    //return value + cus.unit
+                                    return value +' '+cus.unit
                             }
                         }
                     }

@@ -289,8 +289,20 @@ angular.module('console.service.createnew', [
                             $scope.count();
                         }
 
-
-
+                        if (con.env&&con.env.length>0) {
+                             angular.forEach(con.env, function (env,i) {
+                                   env.namerr=false;
+                                         if (env.name) {
+                                              if (envr.test(env.name)) {
+                                                     env.namerr=false;
+                                              }else {
+                                                  //alert(111)
+                                                     env.namerr=true;
+                                              }
+                                               console.log('env.namerr',env.namerr);
+                                              }
+                                    })
+                                }
                     })
 
                     if ($scope.stepup.twoerr && $scope.stepup.hasimage) {
@@ -2523,9 +2535,23 @@ angular.module('console.service.createnew', [
                         delete clonedc.spec.template.spec.containers[i].args
                     }
                     angular.forEach(con.env, function (envd,j) {
-                        if (envd.name === '') {
-                            //console.log('envd.name', envd.name);
-                            delete clonedc.spec.template.spec.containers[i].env
+                        //if (envd.name === '') {
+                        //    //console.log('envd.name', envd.name);
+                        //    delete clonedc.spec.template.spec.containers[i].env
+                        //}
+                        if (envd) {
+                            if (envd.name === '') {
+                                //console.log('envd.name', envd.name);
+                                delete clonedc.spec.template.spec.containers[i].env
+                            }
+                            if (envd.namerr) {
+                                delete clonedc.spec.template.spec.containers[i].env
+                            }else {
+                                clonedc.spec.template.spec.containers[i].env[j]={
+                                    name:envd.name,
+                                    value:envd.value
+                                }
+                            }
                         }
                     })
                     console.log('con.env',con.env);
