@@ -194,7 +194,7 @@ angular.module('console.user', [
         amounts.get({size:500,page:1,namespace:$rootScope.namespace,status:'O',region:$rootScope.region}, function (data) {
             //console.log(data);
             if (data.amounts) {
-                data.amounts.reverse()
+                //data.amounts.reverse()
                 angular.forEach(data.amounts, function (amount,i) {
                     data.amounts[i].creation_time = amount.creation_time.replace(/Z/,$scope.clientTimeZone)
                     if (amount.description === "recharge") {
