@@ -58,7 +58,11 @@ angular.module('console.apply_instance1', [
                 }
             };
             function rewirt(cus,i){
-                console.log(cus);
+                console.log(cus.unit);
+                
+                if(!cus.unit){
+                    cus.unit="";            
+                }
                 cus.rewirt = {
                     value: cus.default,
                     options: {
@@ -71,7 +75,8 @@ angular.module('console.apply_instance1', [
                         translate: function (value, sliderId, label) {
                             switch (label) {
                                 default:
-                                    return value + cus.unit
+                                    //return value + cus.unit
+                                    return value +' '+cus.unit
                             }
                         }
                     }
@@ -96,7 +101,12 @@ angular.module('console.apply_instance1', [
                             $scope.checkedplan=i
                             console.log(plan.customize);
                             for(var k in plan.customize){
-
+                                if(!plan.customize[k].unit){
+                                data.plans[i].customize[k].unit=""
+                                }
+                                if(!plan.customize[k].desc){
+                                data.plans[i].customize[k].desc=""
+                                }
                                 rewirt(plan.customize[k]);
                                 plan.customize[k].name=k;
                                 $scope.wirtarr.push(plan.customize[k])
@@ -201,7 +211,7 @@ angular.module('console.apply_instance1', [
                 //}
                 var customize={}
                 angular.forEach($scope.wirtarr,function(item,i){
-                    customize[item.name] = item.rewirt.value.toString()
+                    customize[item.name] = item.rewirt.value;
                 })
                 checkout.create({
                     drytry: 0,

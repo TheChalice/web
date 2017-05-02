@@ -103,6 +103,7 @@ ul,li{list-style:none;padding: 0}
     -moz-transition:all .3s;transition:all .3s;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;position:relative;padding:6px 12px 6px;margin-left:10px;
     -webkit-animation:rotateZ 1.5s;-moz-animation:rotateZ 1.5s;animation:rotateZ 1.5s;
     -webkit-animation-iteration-count:0.3;-moz-animation-iteration-count:0.3;animation-iteration-count:0.3;}
+.error_block_tit_set{position:absolute;display:inline-block;margin-left:12px;}
 .error_block_tit p:before{position:absolute;content:"";width: 0;height: 0; border-top: 6px solid transparent; border-right: 6px solid #ee6461;border-bottom: 6px solid transparent;left:-5px;margin-top:3px;}
 @keyframes rotateZ {
     0%, 100% {

@@ -135,7 +135,7 @@ top:52px;left:168px;z-index:999;}
 .apply_instance .rzslider .rz-ticks .rz-tick{background:none;}
 .apply_instance .rzslider .rz-ticks .rz-tick.rz-selected{background:none;}
 .apply_instance .rzslider .rz-bubble{background:#000;border-radius:4px;padding:3px 8px;max-width:200px;color:#fff;font-size:12px;bottom:18px;
-    -webkit-transition: all 0.2s;-moz-transition: all 0.2s;transition: all 0.2s;}
+    -webkit-transition: all 0.2s;-moz-transition: all 0.2s;transition: all 0.2s; display:none}
 .ser_slider{}
 .apply_instance .slider_right{float:left;width:354px;}
 .apply_instance .ser_slider .enduring_tit{font-size:12px;color:#7e7e7e;margin-top:60px;margin-bottom:20px;}
@@ -149,7 +149,7 @@ top:52px;left:168px;z-index:999;}
 }
 .minutes_code_example{
     height:30px;
-    width:120px;
+    width:200px;
     float:left;
     margin-top:-47px;
     margin-left: 350px;
@@ -165,7 +165,7 @@ top:52px;left:168px;z-index:999;}
 }
 .minutes_code_example input{
     height:30px;
-    width:55px;
+    width:100px;
     border:1px solid #e5e5e5;
     float:left;
     padding-left:17px;
