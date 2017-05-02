@@ -63,6 +63,7 @@ angular.module('console.apply_instance1', [
                 if(!cus.unit){
                     cus.unit="";            
                 }
+                cus.copyvalue = cus.default
                 cus.rewirt = {
                     value: cus.default,
                     options: {
@@ -84,12 +85,12 @@ angular.module('console.apply_instance1', [
             }
             $scope.wirtarr = [];
             $scope.sValueBlure = function(wir){
-                //console.log(wir);
-                if(wir.rewirt.value < wir.default){
-                    wir.rewirt.value = wir.default
-                }else if(wir.rewirt.value >wir.max){
-                    wir.rewirt.value=wir.max
+                if(wir.copyvalue < wir.default){
+                    wir.copyvalue = wir.default
+                }else if(wir.copyvalue >wir.max){
+                    wir.copyvalue=wir.max
                 }
+                wir.rewirt.value=wir.copyvalue
             }
             $scope.checkedplan=0;
             market.get({region: $rootScope.region,belong:$stateParams.name}, function (data) {
@@ -190,6 +191,12 @@ angular.module('console.apply_instance1', [
                     angular.forEach(n, function (item,i) {
                         //console.log(item.rewirt.price);
                         $scope.allmoney=$scope.allmoney+item.price*((item.rewirt.value-item.default)/item.step)
+                        if (o[i]&&o[i].rewirt&&o[i].rewirt.value) {
+                            if (n[i].rewirt.value !== o[i].rewirt.value) {
+                                //alert(11)
+                                item.copyvalue=item.rewirt.value
+                            }
+                        }
                         if ($scope.allmoney < 0) {
                             $scope.allmoney=0
                         }else if(!$scope.allmoney){
