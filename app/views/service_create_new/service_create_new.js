@@ -2545,17 +2545,19 @@ angular.module('console.service.createnew', [
                                 //console.log('envd.name', envd.name);
                                 delete clonedc.spec.template.spec.containers[i].env
                             }
-                            if (envd.namerr) {
-                                delete clonedc.spec.template.spec.containers[i].env
-                            }else {
-                                clonedc.spec.template.spec.containers[i].env[j]={
-                                    name:envd.name,
-                                    value:envd.value
+                            if (envd.name) {
+                                if (envd.namerr) {
+                                    delete clonedc.spec.template.spec.containers[i].env
+                                }else {
+                                    clonedc.spec.template.spec.containers[i].env[j]={
+                                        name:envd.name,
+                                        value:envd.value
+                                    }
                                 }
                             }
                         }
                     })
-                    console.log('con.env',con.env);
+                    //console.log('con.env',con.env);
                     //if (clonedc.spec.template.spec.containers[i].env.length === 0) {
                     //    console.log('delete');
                     //    delete clonedc.spec.template.spec.containers[i].env

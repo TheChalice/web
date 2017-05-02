@@ -642,8 +642,8 @@
                     </ul>
                     <ul class="four_list" style="margin-top:10px;">
                         <li ng-repeat="envitem in container.env">
-                            <input ng-model="envitem.name" type="text" class="four_list_l" placeholder="">
-                            <input ng-model="envitem.value" type="text" class="four_list_r" placeholder="">
+                            <input ng-model="envitem.name" type="text"  oninput="this.value=this.value.replace(/^[^a-z]/g,'')" class="four_list_l" placeholder="">
+                            <input ng-model="envitem.value" type="text"  oninput="this.value=this.value.replace(/^[^a-z]/g,'')" class="four_list_r" placeholder="">
                             <a ng-click="delenv(container.env,$index)" ng-show="$index!==container.env.length-1" href="javascript:void(0)" class="ser_set ser_close two_radius"></a>
                             <a ng-click="addenv(container.env)" ng-show="$index===container.env.length-1" href="javascript:void(0)" class="ser_set ser_add two_radius"></a>
                             <div class="error_block_tit error_block_tit_set" ng-show="envitem.namerr">
