@@ -1609,7 +1609,7 @@ angular.module('console.service.detail', [
                 deletepod.delete({
                     namespace: $rootScope.namespace,
                     region:$rootScope.region,
-                    name: dc.metadata.name
+                    name: dc
 
                 }, function (data) {
 
