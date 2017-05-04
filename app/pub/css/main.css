@@ -664,7 +664,9 @@ a {
     font-size: 12px;
     line-height: 25px;
 }
-
+.well{
+    box-shadow: none;
+}
 .well.well-log {
     border: none;
     border-radius: 2px;
@@ -681,6 +683,9 @@ a {
     word-break: break-all;
     word-wrap: break-word;
     white-space: pre-wrap;
+}
+.well.well-log div{
+    word-wrap:break-word;
 }
 
 .icon25-collapse {
