@@ -155,13 +155,13 @@ define([
 
                                 //$rootScope.namespace = user.metadata.name;
                                 var namespace = Cookie.get('namespace');
-                                if (namespace) {
-                                    $rootScope.namespace = namespace;
-                                } else {
+                                //if (namespace) {
+                                //    $rootScope.namespace = namespace;
+                                //} else {
                                     //console.log('nonamespace');
                                     $rootScope.namespace = $rootScope.user.metadata.name;
                                     Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
-                                }
+                                //}
                                 //$rootScope.namespace = Cookie.get('namespace');
 
                                 //console.log('$rootScope.namespace', user);
