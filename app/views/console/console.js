@@ -23,22 +23,21 @@ angular.module('console', [
                 $rootScope.user = user;
             }
             $log.info('Console', $state.current.name);
-            var namespace = Cookie.get('namespace');
+            //var namespace = Cookie.get('namespace');
             var region = Cookie.get('region');
             if (region) {
                 $rootScope.region = region;
             } else {
-                console.log('noregion');
+                //console.log('noregion');
                 $rootScope.region = 'cn-north-1';
                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
             }
 
-            if (namespace) {
-                $rootScope.namespace = namespace;
-            } else {
-                //console.log('nonamespace');
+            if ($rootScope.user) {
                 $rootScope.namespace = $rootScope.user.metadata.name;
-                Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+            } else {
+                console.log('!!nonamespace!!');
+                // $state.reload();
             }
 
             //console.log('creatproject.user', $rootScope.user.metadata.name);

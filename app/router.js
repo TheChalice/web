@@ -154,7 +154,7 @@ define([
                                 //console.log('$rootScope.user', user);
 
                                 //$rootScope.namespace = user.metadata.name;
-                                var namespace = Cookie.get('namespace');
+                                //var namespace = Cookie.get('namespace');
                                 //if (namespace) {
                                 //    $rootScope.namespace = namespace;
                                 //} else {
