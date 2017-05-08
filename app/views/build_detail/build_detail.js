@@ -454,26 +454,25 @@ angular.module('console.build.detail', [
                         removeIs($scope.data.metadata.name);
                         removeBuilds($scope.data.metadata.name);
                         var host = $scope.data.spec.source.git.uri;
-                        if (!$scope.grid.checked) {
-                            if (getSourceHost(host) === 'github.com') {
-                                WebhookHubDel.del({
-                                    namespace: $rootScope.namespace,
-                                    build: $stateParams.name,
-                                    user: $scope.data.metadata.annotations.user,
-                                    repo: $scope.data.metadata.annotations.repo
-                                }, function (item1) {
-
-                                })
-                            } else {
-                                WebhookLabDel.del({
-                                    host: 'https://code.dataos.io',
-                                    namespace: $rootScope.namespace,
-                                    build: $stateParams.name,
-                                    repo: $scope.data.metadata.annotations.repo
-                                }, function (data2) {
-
-                                });
-                            }
+                        if (getSourceHost(host) === 'github.com') {
+                            repositorywebhook.get({source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
+                                console.log('1111111',data);
+                                if(data.id){
+                                    repositorywebhook.delete({id:data.id,source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
+                                        $scope.grid.checked = false;
+                                        console.log('lalala删github',res);
+                                    })
+                                }
+                            })
+                        } else {
+                            repositorywebhook.get({source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
+                                if(data.id){
+                                    repositorywebhook.delete({id:data.id,source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
+                                        console.log('lalala删gitlab',res);
+                                        $scope.grid.checked = false;
+                                    })
+                                }
+                            })
                         }
                         $state.go("console.build");
                     }, function (res) {
@@ -514,7 +513,7 @@ angular.module('console.build.detail', [
                         })
 
                     }else{
-                        repositorywebhook.get({source: 'github',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
+                        repositorywebhook.get({source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name}, function (data) {
                             repositorywebhook.delete({id:data.id,source: 'gitlab',ns:$scope.namespace,bc:$scope.data.metadata.name},{}, function (res) {
                                 console.log('lalala删gitlab',res);
                                 $scope.grid.checked = false;

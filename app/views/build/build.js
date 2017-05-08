@@ -8,7 +8,7 @@ angular.module('console.build', [
             ]
         }
     ])
-    .controller('BuildCtrl', ['ImageStream','deleteSecret','$rootScope', '$scope', '$log', '$state', '$stateParams', 'BuildConfig', 'Build', 'GLOBAL', 'Confirm', 'Sort', 'Ws', function (ImageStream,deleteSecret,$rootScope, $scope, $log, $state, $stateParams, BuildConfig, Build, GLOBAL, Confirm, Sort, Ws) {
+    .controller('BuildCtrl', ['ImageStream','deleteSecret','$rootScope', '$scope', '$log', '$state', '$stateParams', 'BuildConfig', 'Build', 'GLOBAL', 'Confirm', 'Sort', 'Ws','repositorywebhook', function (ImageStream,deleteSecret,$rootScope, $scope, $log, $state, $stateParams, BuildConfig, Build, GLOBAL, Confirm, Sort, Ws,repositorywebhook) {
         //复制到系统板
         $scope.copyCon = '复制';
         $scope.isCopy = false;
@@ -347,15 +347,36 @@ angular.module('console.build', [
                     $log.info("remove buildConfig success");
                     $scope.items.splice(idx,1);
 
-                    deleteSecret.delete({
-                        namespace: $rootScope.namespace,
-                        name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
-                        region:$rootScope.region
-                    }), {}, function (res) {
-
-                    }
+                    //deleteSecret.delete({
+                    //    namespace: $rootScope.namespace,
+                    //    name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
+                    //    region:$rootScope.region
+                    //}), {}, function (res) {
+                    //
+                    //}
                     removeIs(name);
                     removeBuilds(name);
+                    var host = bc.spec.source.git.uri;
+                    if (getSourceHost(host) === 'github.com') {
+                        repositorywebhook.get({source: 'github',ns:$rootScope.namespace,bc:bc.metadata.name}, function (data) {
+                            console.log('1111111',data);
+                            if(data.id){
+                                repositorywebhook.delete({id:data.id,source: 'github',ns:$rootScope.namespace,bc:bc.metadata.name},{}, function (res) {
+                                    //$scope.grid.checked = false;
+                                    console.log('lalala删github',res);
+                                })
+                            }
+                        })
+                    } else {
+                        repositorywebhook.get({source: 'gitlab',ns:$rootScope.namespace,bc:bc.metadata.name}, function (data) {
+                            if(data.id){
+                                repositorywebhook.delete({id:data.id,source: 'gitlab',ns:$rootScope.namespace,bc:bc.metadata.name},{}, function (res) {
+                                    console.log('lalala删gitlab',res);
+                                    //$scope.grid.checked = false;
+                                })
+                            }
+                        })
+                    }
                     //var host = bc.build.spec.source.git.uri;
                     //if (!$scope.grid.checked) {
                     //    if (getSourceHost(host) === 'github.com') {
