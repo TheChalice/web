@@ -4,8 +4,8 @@ angular.module('console.dashboard', [
             files: []
         }
     ])
-    .controller('dashboardCtrl', ['checkout','resourcequotas','Project', 'recharge', 'balance', '$http', '$log', '$rootScope', '$scope', 'Metrics', 'MetricsService', 'Pod', 'DeploymentConfig', 'BackingServiceInstance', 'account', 'market',
-        function (checkout,resourcequotas,Project, recharge, balance, $http, $log, $rootScope, $scope, Metrics, MetricsService, Pod, DeploymentConfig, BackingServiceInstance, account, market) {
+    .controller('dashboardCtrl', ['Cookie','checkout','resourcequotas','Project', 'recharge', 'balance', '$http', '$log', '$rootScope', '$scope', 'Metrics', 'MetricsService', 'Pod', 'DeploymentConfig', 'BackingServiceInstance', 'account', 'market',
+        function (Cookie,checkout,resourcequotas,Project, recharge, balance, $http, $log, $rootScope, $scope, Metrics, MetricsService, Pod, DeploymentConfig, BackingServiceInstance, account, market) {
             $scope.cpuData = [];
             $scope.memData = [];
             $scope.isdata = {};
@@ -37,7 +37,8 @@ angular.module('console.dashboard', [
                     $log.info("find project err", res);
                 });
             };
-
+            console.log('$rootScope.namespace', $rootScope.namespace);
+            console.log('Cookie',Cookie.get('namespace'));
             Project.get({region: $rootScope.region}, function (data) {
                 //$rootScope.projects = data.items;
                 //console.log('Project', Project);
