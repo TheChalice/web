@@ -36,8 +36,8 @@ angular.module('console', [
             if ($rootScope.user) {
                 $rootScope.namespace = $rootScope.user.metadata.name;
             } else {
-                //console.log('nonamespace');
-                $state.reload();
+                console.log('!!nonamespace!!');
+                // $state.reload();
             }
 
             //console.log('creatproject.user', $rootScope.user.metadata.name);
