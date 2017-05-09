@@ -513,7 +513,16 @@ angular.module('console.build_create_new', [
                     git='gitlab';
                 }else {
                     git='other'
+                    if ($scope.buildConfig.spec.source.git.uri) {
+                        var repos=$scope.buildConfig.spec.source.git.uri.split('/')
+                        var repo = repos[repos.length-1];
+                        if (repo.indexOf('.git')>-1) {
+                            repo=repo.split('.')[0]
+                        }
+                    }
+
                     $scope.buildConfig.metadata.annotations.isother='true';
+                    $scope.buildConfig.metadata.annotations.repo=repo||'';
                     $scope.buildConfig.needsrecte=true;
                     $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
                     $scope.buildConfig.spec.triggers = [];
