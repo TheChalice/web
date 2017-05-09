@@ -107,7 +107,10 @@ angular.module('console.build_create_new', [
             $scope.isComplete = false;
             $scope.isCreate = true;
             //业务逻辑
-
+            $scope.gitsecret={
+                username:'',
+                password:''
+            }
             $scope.buildConfig = {
                 metadata: {
                     name: "",
@@ -419,7 +422,7 @@ angular.module('console.build_create_new', [
             }
             function creatsecret(git){
                 console.log('increatsecret');
-                var basepwd = $base64.encode($scope.gitPwd);
+                var basepwd = $base64.encode($scope.gitsecret.password);
                 $scope.secret = {
                     "kind": "Secret",
                     "apiVersion": "v1",
@@ -431,8 +434,8 @@ angular.module('console.build_create_new', [
                     },
                     "type": "Opaque"
                 }
-                if ($scope.gitUsername) {
-                    var baseun = $base64.encode($scope.gitUsername);
+                if ($scope.gitsecret.username) {
+                    var baseun = $base64.encode($scope.gitsecret.username);
                     $scope.secret.data.username=baseun;
                 }
                 secretskey.create({
@@ -449,10 +452,10 @@ angular.module('console.build_create_new', [
                 //console.log('need');
                 console.log('git', git);
                 if (git === 'other') {
-                    console.log($scope.gitUsername, $scope.gitPwd);
-                    if ($scope.gitUsername && $scope.gitPwd) {
+                    console.log($scope.gitsecret.username, $scope.gitsecret.password);
+                    if ($scope.gitsecret.username && $scope.gitsecret.password) {
                         creatsecret(git)
-                    }else if($scope.gitPwd){
+                    }else if($scope.gitsecret.password){
                         creatsecret(git)
                     }else {
                         creatbuildchinfg(git);
