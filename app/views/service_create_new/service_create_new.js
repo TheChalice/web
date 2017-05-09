@@ -899,6 +899,7 @@ angular.module('console.service.createnew', [
                         $scope.service=res
                         //$scope.dc.spec.template.spec.containers[i].port=[];
                         for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
+
                             $scope.dc.spec.template.spec.containers[i].port=[];
 
                             if (res.metadata.annotations) {
@@ -929,7 +930,8 @@ angular.module('console.service.createnew', [
                             }
                         }
                         angular.forEach($scope.dc.spec.template.spec.containers, function (con,i) {
-                            if (con.isOwnerI!==false) {
+                            if (con.isOwnerI===false) {
+                            }else {
                                 con.isOwnerI=true
                             }
 
@@ -991,7 +993,9 @@ angular.module('console.service.createnew', [
                             repeated:true,
                             null:false
                         }
-
+                        if (con.env || con.volumeMounts.length > 0||con.args) {
+                            con.othersetting=true
+                        }
                         if (!con.env) {
                             con.env= [{name: '', value: ''}]
                         }
