@@ -346,14 +346,16 @@ angular.module('console.build', [
                 BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
                     $log.info("remove buildConfig success");
                     $scope.items.splice(idx,1);
+                    if (bc.metadata.annotations.isother === 'true') {
+                        deleteSecret.delete({
+                            namespace: $rootScope.namespace,
+                            name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
+                            region:$rootScope.region
+                        }), {}, function (res) {
 
-                    //deleteSecret.delete({
-                    //    namespace: $rootScope.namespace,
-                    //    name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
-                    //    region:$rootScope.region
-                    //}), {}, function (res) {
-                    //
-                    //}
+                        }
+                    }
+
                     removeIs(name);
                     removeBuilds(name);
                     var host = bc.spec.source.git.uri;

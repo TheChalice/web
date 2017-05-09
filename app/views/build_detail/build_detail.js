@@ -443,14 +443,16 @@ angular.module('console.build.detail', [
                 Confirm.open("删除构建", "确定要删除吗？", "", 'recycle').then(function () {
                     BuildConfig.remove({namespace: $rootScope.namespace, name: name,region:$rootScope.region}, {}, function () {
                         $log.info("remove buildConfig success");
+                        if ($scope.data.metadata.annotations.isother === 'true') {
+                            deleteSecret.delete({
+                                namespace: $rootScope.namespace,
+                                name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
+                                region:$rootScope.region
+                            }), {}, function (res) {
 
-                        deleteSecret.delete({
-                            namespace: $rootScope.namespace,
-                            name: "custom-git-builder-" + $rootScope.user.metadata.name + '-' + name,
-                            region:$rootScope.region
-                        }), {}, function (res) {
-
+                            }
                         }
+
                         removeIs($scope.data.metadata.name);
                         removeBuilds($scope.data.metadata.name);
                         var host = $scope.data.spec.source.git.uri;
