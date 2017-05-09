@@ -18,6 +18,7 @@ angular.module('console.create_config_volume', [
     $scope.grid = {
         configpost: false,
         keychongfu: false,
+        keybuhefa: false,
         keynull: false
     }
     var by = function (name) {
@@ -75,6 +76,7 @@ angular.module('console.create_config_volume', [
         //console.log(n);
         $scope.grid.keychongfu = false;
         $scope.grid.keynull = false;
+        $scope.grid.keybuhefa = false;
         if (n.metadata.name && n.configitems) {
 
             var arr = n.configitems.concat(n.configarr);
@@ -82,7 +84,8 @@ angular.module('console.create_config_volume', [
 
             if (arr && arr.length > 0) {
                 var kong = false;
-                var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+                // var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+                var r = /^\.?[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/;
                 angular.forEach(arr, function (item, i) {
 
                     if (!item.key || !item.value) {
@@ -95,9 +98,13 @@ angular.module('console.create_config_volume', [
                                 kong = true;
                             }
                         }
-                        // if (!r.test(arr[i].key)) {
-                        //     kong = true;
-                        // }
+
+                    }
+                    if(item.key){
+                        if (!r.test(arr[i].key)) {
+                            $scope.grid.keybuhefa = true;
+                            kong = true;
+                        }
                     }
                 });
                 if (!kong) {
