@@ -513,7 +513,7 @@ angular.module('console.build_create_new', [
                     git='gitlab';
                 }else {
                     git='other'
-                    $scope.buildConfig.metadata.annotations.isother=true;
+                    $scope.buildConfig.metadata.annotations.isother='true';
                     $scope.buildConfig.needsrecte=true;
                     $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
                     $scope.buildConfig.spec.triggers = [];
