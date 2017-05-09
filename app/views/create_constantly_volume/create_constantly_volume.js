@@ -6,13 +6,14 @@ angular.module('console.create_constantly_volume', [
 ]).controller('createconvolumeCtrl', ['persistent','Tip','checkout','market','Toast','$state', '$rootScope', 'volume', '$scope',
     function (persistent,Tip,checkout,market,Toast,$state, $rootScope, volume, $scope) {
         $scope.slider = {
-            value: 0,
+            value: 10,
             options: {
-                floor: 0,
+                floor: 10,
                 ceil: 200,
                 step: 10,
                 showSelectionBar: true,
                 showTicksValues:50,
+                ticksArray: [10,50,100,150,200],
                 translate: function(value, sliderId, label) {
                     switch (label) {
 
