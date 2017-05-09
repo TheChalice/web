@@ -18,7 +18,6 @@ angular.module('console.create_config_volume', [
     $scope.grid = {
         configpost: false,
         keychongfu: false,
-        keybuhefa: false,
         keynull: false
     }
     var by = function (name) {
@@ -76,7 +75,6 @@ angular.module('console.create_config_volume', [
         //console.log(n);
         $scope.grid.keychongfu = false;
         $scope.grid.keynull = false;
-        $scope.grid.keybuhefa = false;
         if (n.metadata.name && n.configitems) {
 
             var arr = n.configitems.concat(n.configarr);
@@ -97,10 +95,9 @@ angular.module('console.create_config_volume', [
                                 kong = true;
                             }
                         }
-                        if (!r.test(arr[i].key)) {
-                            $scope.grid.keybuhefa = true;
-                            kong = true;
-                        }
+                        // if (!r.test(arr[i].key)) {
+                        //     kong = true;
+                        // }
                     }
                 });
                 if (!kong) {
