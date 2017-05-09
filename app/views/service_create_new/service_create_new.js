@@ -2712,6 +2712,9 @@ angular.module('console.service.createnew', [
                     DeploymentConfig.get({namespace: $rootScope.namespace, name:$stateParams.dc ,region:$rootScope.region}, function (res) {
 
                         //clonedc.
+                        if (res.status.latestVersion) {
+                            clonedc.status.latestVersion=res.status.latestVersion+1
+                        }
                         clonedc.metadata.resourceVersion=res.metadata.resourceVersion
                         DeploymentConfig.put({
                             namespace: $rootScope.namespace,
