@@ -418,6 +418,7 @@ angular.module('console.build_create_new', [
                 });
             }
             function creatsecret(git){
+                console.log('increatsecret');
                 var basepwd = $base64.encode($scope.gitPwd);
                 $scope.secret = {
                     "kind": "Secret",
@@ -446,8 +447,9 @@ angular.module('console.build_create_new', [
             }
             function createbc(git,serect) {
                 //console.log('need');
+                console.log('git', git);
                 if (git === 'other') {
-
+                    console.log($scope.gitUsername, $scope.gitPwd);
                     if ($scope.gitUsername && $scope.gitPwd) {
                         creatsecret(git)
                     }else if($scope.gitPwd){
