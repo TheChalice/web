@@ -1483,7 +1483,9 @@ angular.module('console.service.detail', [
                     data.spec.replicas=1;
                 }
                 //console.log('DeploymentConfig', data);
-
+                if (data.status.latestVersion) {
+                    data.status.latestVersion=data.status.latestVersion+1
+                }
                 DeploymentConfig.put({namespace: $rootScope.namespace, region: $rootScope.region,name:$scope.dc.metadata.name}
                     ,data, function (data) {
                         console.log('DeploymentConfig', data);
