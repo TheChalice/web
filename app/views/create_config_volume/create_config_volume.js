@@ -95,9 +95,9 @@ angular.module('console.create_config_volume', [
                                 kong = true;
                             }
                         }
-                        if (!r.test(arr[i].key)) {
-                            kong = true;
-                        }
+                        // if (!r.test(arr[i].key)) {
+                        //     kong = true;
+                        // }
                     }
                 });
                 if (!kong) {
