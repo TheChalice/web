@@ -404,6 +404,7 @@ angular.module('console.build_create_new', [
                                 $state.go('console.build_detail', {name: $scope.buildConfig.metadata.name, from: 'create/new'})
                             }
                         }else {
+
                             $scope.creatpedding='down'
                             $state.go('console.build_detail', {name: $scope.buildConfig.metadata.name, from: 'create/new'})
                         }
@@ -416,8 +417,7 @@ angular.module('console.build_create_new', [
 
                 });
             }
-            function creatsecret(name){
-
+            function creatsecret(git){
                 var basepwd = $base64.encode($scope.gitPwd);
                 $scope.secret = {
                     "kind": "Secret",
@@ -430,7 +430,7 @@ angular.module('console.build_create_new', [
                     },
                     "type": "Opaque"
                 }
-                if (name === 'hasname') {
+                if ($scope.gitUsername) {
                     var baseun = $base64.encode($scope.gitUsername);
                     $scope.secret.data.username=baseun;
                 }
@@ -441,7 +441,7 @@ angular.module('console.build_create_new', [
                     $scope.buildConfig.spec.source.sourceSecret={
                         name:$scope.secret.metadata.name
                     }
-
+                    creatbuildchinfg(git);
                 })
             }
             function createbc(git,serect) {
@@ -449,9 +449,9 @@ angular.module('console.build_create_new', [
                 if (git === 'other') {
 
                     if ($scope.gitUsername && $scope.gitPwd) {
-                        creatsecret('hasname')
+                        creatsecret(git)
                     }else if($scope.gitPwd){
-                        creatsecret('noname')
+                        creatsecret(git)
                     }else {
                         creatbuildchinfg(git);
                     }
@@ -513,7 +513,8 @@ angular.module('console.build_create_new', [
                     git='gitlab';
                 }else {
                     git='other'
-                    $scope.buildConfig.needsrecte=true
+                    $scope.buildConfig.metadata.annotations.isother=true;
+                    $scope.buildConfig.needsrecte=true;
                     $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ':latest';
                     $scope.buildConfig.spec.triggers = [];
                 }
