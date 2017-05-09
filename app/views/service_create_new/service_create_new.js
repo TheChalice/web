@@ -900,13 +900,20 @@ angular.module('console.service.createnew', [
                         //$scope.dc.spec.template.spec.containers[i].port=[];
                         for (var i = 0; i < $scope.dc.spec.template.spec.containers.length; i++) {
                             $scope.dc.spec.template.spec.containers[i].port=[];
-                            for(var k in res.metadata.annotations){
-                                if (k.indexOf('dadafoundry.io/ports-')>-1) {
-                                    if (k.split('-')[1]===$scope.dc.spec.template.spec.containers[i].name) {
-                                        //console.log('k.split', k.split('-')[1],i);
-                                        $scope.dc.spec.template.spec.containers[i].isOwnerI=false;
+
+                            if (res.metadata.annotations) {
+                                console.log('k.split', res.metadata.annotations);
+                                for(var k in res.metadata.annotations){
+
+                                    if (k.indexOf('dadafoundry.io/ports-')>-1) {
+
+                                        if (k.split('-')[1]===$scope.dc.spec.template.spec.containers[i].name) {
+
+                                            $scope.dc.spec.template.spec.containers[i].isOwnerI=false;
+                                        }
                                     }
                                 }
+
                             }
 
                             for (var j = 0; j < res.spec.ports.length; j++) {
