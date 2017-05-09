@@ -419,29 +419,34 @@ angular.module('console.build_create_new', [
             function createbc(git,serect) {
                 //console.log('need');
                 if (git === 'other') {
-                    var baseun = $base64.encode($scope.gitUsername);
-                    var basepwd = $base64.encode($scope.gitPwd);
-                    $scope.secret = {
-                        "kind": "Secret",
-                        "apiVersion": "v1",
-                        "metadata": {
-                            "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
-                        },
-                        "data": {
-                            username: baseun,
-                            password: basepwd
-                        },
-                        "type": "Opaque"
-                    }
-                    secretskey.create({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region
-                    }, $scope.secret, function (item) {
-                        $scope.buildConfig.spec.source.sourceSecret={
-                            name:$scope.secret.metadata.name
+                    if ($scope.gitUsername && $scope.gitUsername) {
+                        var baseun = $base64.encode($scope.gitUsername);
+                        var basepwd = $base64.encode($scope.gitPwd);
+                        $scope.secret = {
+                            "kind": "Secret",
+                            "apiVersion": "v1",
+                            "metadata": {
+                                "name": "custom-git-builder-" + $rootScope.user.metadata.name + '-' + $scope.buildConfig.metadata.name
+                            },
+                            "data": {
+                                username: baseun,
+                                password: basepwd
+                            },
+                            "type": "Opaque"
                         }
+                        secretskey.create({
+                            namespace: $rootScope.namespace,
+                            region: $rootScope.region
+                        }, $scope.secret, function (item) {
+                            $scope.buildConfig.spec.source.sourceSecret={
+                                name:$scope.secret.metadata.name
+                            }
+
+                        })
+                    }else {
                         creatbuildchinfg(git);
-                    })
+                    }
+
 
                 }else {
                     if (serect === 'need') {
@@ -527,7 +532,14 @@ angular.module('console.build_create_new', [
                         createbc(git)
                     }
                 }, function (res) {
-                    $scope.isCreate = false;
+                    if (res.data.code == 409) {
+                        if ($scope.buildConfig.needsrecte) {
+                            createbc(git,'need')
+                        }else {
+                            createbc(git)
+                        }
+                    }
+                    //$scope.isCreate = false;
 
                 });
             }
