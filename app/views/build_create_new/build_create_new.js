@@ -507,10 +507,16 @@ angular.module('console.build_create_new', [
                 $scope.isCreate = false;
                 var git = null;
                 if ($scope.buildConfig.spec.source.git.ref) {
-                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + $scope.buildConfig.spec.source.git.ref;
+                    var ref = $scope.buildConfig.spec.source.git.ref
+                    if (ref.indexOf('/') > -1) {
+                        ref = ref.replace('/', '-')
+                    }
+                    $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + ref;
+                    console.log('change',$scope.buildConfig);
                 }else {
                     $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name +':latest';
                 }
+                console.log('changeend',$scope.buildConfig);
                 //console.log('$scope.openAuto', $scope.openAuto);
                 if (num === 1) {
                     git='github';
