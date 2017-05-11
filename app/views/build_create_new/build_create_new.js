@@ -508,7 +508,7 @@ angular.module('console.build_create_new', [
                 var git = null;
                 if ($scope.buildConfig.spec.source.git.ref) {
                     var ref = $scope.buildConfig.spec.source.git.ref
-                    if ($scope.buildConfig.spec.source.git.ref.indexOf('/') > -1) {
+                    if (ref.indexOf('/') > -1) {
                         ref = ref.replace('/', '-')
                     }
                     $scope.buildConfig.spec.output.to.name = $scope.buildConfig.metadata.name + ":" + ref;
