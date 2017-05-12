@@ -158,12 +158,12 @@
     <div class="create_new_content">
         <div class="create-code-block">
             <p class="create_left">构建名称 <i>*</i></p>
-            <input type="text" class="new_code_input" ng-model="buildConfig.metadata.name" maxlength="24" placeholder="2-24位小写字母、数字或中划线组成，以数字或小写字母结尾">
+            <input type="text" class="new_code_input" ng-model="buildConfig.metadata.name" maxlength="24" placeholder="2至24位，小写字母开头，允许包含数字或字符'-'，不能以'-'结尾">
             <span class="input_close" ng-show="buildConfig.metadata.name!==''"  ng-click="buildConfig.metadata.name=''" style="left:537px"></span>
             <span class="disable_tit ng-hide">服务名称暂不支持修改</span>
             <span class="btn_set_new error_btn" ng-show="namerr.repeated" style="margin-left:8px;"></span>
             <div class="error_block_tit" ng-show="namerr.rexed">
-                <p style="margin:0;" >2-24位小写字母、数字或中划线组成，以数字或小写字母结尾</p>
+                <p style="margin:0;" >2至24位，小写字母开头，允许包含数字或字符'-'，不能以'-'结尾</p>
             </div>
             <div class="error_block_tit" ng-show="namerr.bigcode">
                 <p style="margin:0;">以小写字母开头</p>
