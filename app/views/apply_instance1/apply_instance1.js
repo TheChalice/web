@@ -146,7 +146,7 @@ angular.module('console.apply_instance1', [
                 repeated:false,
                 bigcode:false
             }
-            var dcnamer = /^[a-z]([a-z0-9-]{0,22})?[a-z0-9]$/;
+            var dcnamer = /^[a-z][a-z0-9-]{0,22}[a-z0-9]$/
             $scope.$watch('bsi.metadata.name', function (n,o) {
                 if (n === o) {
                     return

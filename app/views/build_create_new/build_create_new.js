@@ -157,7 +157,7 @@ angular.module('console.build_create_new', [
                 }
             };
 
-            var dcnamer = /^[a-z]([a-z0-9-]{0,22})?[a-z0-9]$/;
+            var dcnamer = /^[a-z][a-z0-9-]{0,22}[a-z0-9]$/;
             $scope.$watch('checkgithubimage', function (n,o) {
                 if (n === o) {
                     return
