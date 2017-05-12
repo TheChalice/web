@@ -67,7 +67,7 @@ angular.module('console.apply_instance', [
             }
 
 
-            var r =/^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;
+            var r =/^[a-z][a-z0-9-]{0,22}[a-z0-9]$/;
             $scope.$watch('bsi.metadata.name', function (n, o) {
                 if (n === o) {
                     return;
