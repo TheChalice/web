@@ -115,6 +115,11 @@ define([
                     if (toState.name === 'console.plan' || toState.name === 'console.pay' || toState.name === 'console.noplan') {
                         //$rootScope.projects=false;
                         //alert(1)
+                        console.log('$(".zx_set_btn")',$(".zx_set_btn").hasClass("zx_set_btn_rotate"));
+                        if ($(".zx_set_btn").hasClass("zx_set_btn_rotate")) {
+                            $(".zx_set_btn").click()
+                        }
+
                         $rootScope.showsidebar = false;
                         $('#sidebar-right-fixed').css("marginLeft",0)
                     }else {
