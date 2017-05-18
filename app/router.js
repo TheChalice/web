@@ -159,6 +159,7 @@ define([
                                 //var nowsid = Cookie.get('connect.sid');
                                 var oldusername = Cookie.get('oldusername');
                                 var namespace = Cookie.get('namespace');
+                                console.log('oldusername', oldusername);
                                 if (!oldusername) {
                                     Cookie.set('oldusername', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
                                 }
