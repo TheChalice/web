@@ -30,7 +30,7 @@ angular.module('console', [
             } else {
                 //console.log('noregion');
                 $rootScope.region = 'cn-north-1';
-                Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
+                Cookie.set('region', $rootScope.region,  24 * 3600 * 1000);
             }
             var oldusername = Cookie.get('oldusername');
             var namespace = Cookie.get('namespace');
@@ -38,14 +38,14 @@ angular.module('console', [
 
             if (oldusername !== $rootScope.user.metadata.name) {
                 $rootScope.namespace = $rootScope.user.metadata.name;
-                Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                Cookie.set('namespace', $rootScope.namespace, 24 * 3600 * 1000);
             }else {
                 if (namespace) {
                     $rootScope.namespace = namespace;
                 } else {
                     //console.log('nonamespace');
                     $rootScope.namespace = $rootScope.user.metadata.name;
-                    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                    Cookie.set('namespace', $rootScope.namespace,  24 * 3600 * 1000);
                 }
             }
 

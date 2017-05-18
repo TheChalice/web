@@ -161,20 +161,20 @@ define([
                                 var namespace = Cookie.get('namespace');
                                 console.log('oldusername', oldusername);
                                 if (!oldusername) {
-                                    Cookie.set('oldusername', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
+                                    Cookie.set('oldusername', user.metadata.name,  24 * 3600 * 1000);
                                 }
 
                                 if (oldusername !== user.metadata.name) {
                                     $rootScope.namespace = user.metadata.name;
-                                    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
-                                    Cookie.set('oldusername', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
+                                    Cookie.set('namespace', $rootScope.namespace, 24 * 3600 * 1000);
+                                    Cookie.set('oldusername', user.metadata.name, 24 * 3600 * 1000);
                                 }else {
                                     if (namespace) {
                                         $rootScope.namespace = namespace;
                                     } else {
                                         //console.log('nonamespace');
                                         $rootScope.namespace = $rootScope.user.metadata.name;
-                                        Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                                        Cookie.set('namespace', $rootScope.namespace,   24 * 3600 * 1000);
                                     }
                                 }
 
@@ -184,14 +184,14 @@ define([
                                 //console.log('$rootScope.namespace', user);
                                 //Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
                                 $rootScope.region = 'cn-north-1';
-                                Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
+                                Cookie.set('region', $rootScope.region,  24 * 3600 * 1000);
                                 if (user.metadata&&user.metadata.name) {
                                     sessiontoken.get({},function (user) {
                                         var token = user['access_token'];
 
                                         if (user['access_token']) {
                                             //console.log('usertoken', token);
-                                            Cookie.set('df_access_token', token, 10 * 365 * 24 * 3600 * 1000);
+                                            Cookie.set('df_access_token', token,  24 * 3600 * 1000);
                                         }
                                         //account.get({namespace:$rootScope.namespace,region:$rootScope.region}, function (data) {
                                             //console.log('套餐', data);
