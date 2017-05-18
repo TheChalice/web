@@ -154,14 +154,30 @@ define([
                                 //console.log('$rootScope.user', user);
 
                                 //$rootScope.namespace = user.metadata.name;
+                                //console.log('sid',Cookie.get('connect.sid'));
+
+                                //var nowsid = Cookie.get('connect.sid');
+                                var oldusername = Cookie.get('oldusername');
                                 var namespace = Cookie.get('namespace');
-                                if (namespace) {
-                                    $rootScope.namespace = namespace;
-                                } else {
-                                    //console.log('nonamespace');
-                                    $rootScope.namespace = $rootScope.user.metadata.name;
-                                    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                                if (!oldusername) {
+                                    Cookie.set('oldusername', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
                                 }
+
+                                if (oldusername !== user.metadata.name) {
+                                    $rootScope.namespace = user.metadata.name;
+                                    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                                    Cookie.set('oldusername', user.metadata.name, 10 * 365 * 24 * 3600 * 1000);
+                                }else {
+                                    if (namespace) {
+                                        $rootScope.namespace = namespace;
+                                    } else {
+                                        //console.log('nonamespace');
+                                        $rootScope.namespace = $rootScope.user.metadata.name;
+                                        Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                                    }
+                                }
+
+
                                 //$rootScope.namespace = Cookie.get('namespace');
 
                                 //console.log('$rootScope.namespace', user);

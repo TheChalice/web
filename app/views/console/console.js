@@ -32,13 +32,23 @@ angular.module('console', [
                 $rootScope.region = 'cn-north-1';
                 Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
             }
+            var oldusername = Cookie.get('oldusername');
+            var namespace = Cookie.get('namespace');
 
-            if (namespace) {
-                $rootScope.namespace = namespace;
-            } else {
-                $rootScope.namespace =$rootScope.user.metadata.name;
+
+            if (oldusername !== $rootScope.user.metadata.name) {
+                $rootScope.namespace = $rootScope.user.metadata.name;
                 Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+            }else {
+                if (namespace) {
+                    $rootScope.namespace = namespace;
+                } else {
+                    //console.log('nonamespace');
+                    $rootScope.namespace = $rootScope.user.metadata.name;
+                    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
+                }
             }
+
 
             //console.log('creatproject.user', $rootScope.user.metadata.name);
             creatproject.create({'metadata': {
