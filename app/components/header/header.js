@@ -258,21 +258,21 @@ angular.module("console.header", [
                     //});
 
 
-                    account.get({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region,
-                        status: "consuming"
-                    }, function (data) {
-                        //console.log('套餐', data);
-                        //$rootScope.payment=data;
-                        if (data.purchased) {
+                    //account.get({
+                    //    namespace: $rootScope.namespace,
+                    //    region: $rootScope.region,
+                    //    status: "consuming"
+                    //}, function (data) {
+                    //    //console.log('套餐', data);
+                    //    //$rootScope.payment=data;
+                    //    if (data.purchased) {
                             $scope.cancreatorg = true
                             //跳转dashboard
-                        } else {
-                            $scope.cancreatorg = false
-                            //跳转购买套餐
-                        }
-                    })
+                    //    } else {
+                    //        $scope.cancreatorg = false
+                    //        //跳转购买套餐
+                    //    }
+                    //})
 
                     $scope.createOrg = function () {
                         Addmodal.open('创建组织', '组织名称', '', '', 'org').then(function (res) {

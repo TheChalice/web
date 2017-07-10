@@ -1,19 +1,19 @@
 <div class="apply-instance" style="background:#fff;padding:20px 40px 40px;">
-    <div class="loader" ng-show="!data">
-        <div class="loader-inner ball-clip-rotate-multiple">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-    <div class="loading-box" ng-show=applyloaded>
-        <div class="loader">
-            <div class="loader-inner ball-clip-rotate-multiple">
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-    </div>
-    <div ng-show="data">
+    <!--<div class="loader">-->
+    <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="loading-box" ng-show=applyloaded>-->
+    <!--<div class="loader">-->
+    <!--<div class="loader-inner ball-clip-rotate-multiple">-->
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div>
         <form class="form-horizontal" name="frm">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -50,21 +50,20 @@
                             <div style="" class="col-sm-4 apply_data_list" ng-repeat="plan in data">
                                 <div class="panel panel-default sub-panel panel-xxx panel_border"  ng-class="{'active': grid.checked == $index}"  ng-click="grid.checked = $index">
                                     <div class="panel-heading tac" style="height: 65px;padding-left: 0;padding-right: 0;">
-                                        <p class="subpanelname" style="margin: 0;">{{plan.plan_name}}</p>
+                                        <p class="subpanelname" style="margin: 0;">{{plan.name}}</p>
                                         <p style="font-size: 12px;">{{plan.detail}}</p>
                                     </div>
                                     <div class="panel-body tac">
                                         <p>{{plan.description}}</p>
                                         <p class="mb30">{{plan.description2}}</p>
-                                        <p><span class='href-orange fz28'>{{plan.price}}</span>元/月</p>
+                                        <p ng-show="plan.metadata.costs[0]"><span class='href-orange fz28'>{{plan.metadata.costs[0].amount.usd}}</span>元/月</p>
+                                        <p style="height: 40px;" ng-show="!plan.metadata.costs[0]"><span class='href-orange fz28'></span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-7"></div>
-                        <!--<div class="col-sm-5 fz12" style="width:86%;text-align:center;float:right;">您选择 "<span style="font-weight: bold;">{{data[grid.checked].plan_name}} 套餐</span>" 每月花费 <span class="href-orange fz16">{{data[grid.checked].price}}</span>元</div>-->
-
-                        <div class="col-sm-5 fz12" style="width:86%;text-align:center;float:right;">您选择 "<span style="font-weight: bold;">{{data[grid.checked].plan_name}} 套餐</span>"</div>
+                        <div class="col-sm-5 fz12" style="width:86%;text-align:center;float:right;">您选择 "<span style="font-weight: bold;">{{data[grid.checked].name}} 套餐</span>" 每月花费 <span class="href-orange fz16">{{data[grid.checked].metadata.costs[0].amount.usd||0}}</span>元</div>
                     </div>
                 </div>
             </div>

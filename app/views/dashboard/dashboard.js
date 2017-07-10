@@ -77,127 +77,127 @@ angular.module('console.dashboard', [
                 price: null,
                 planName: null
             }
-            account.get({
-                namespace: $rootScope.namespace,
-                region: $rootScope.region,
-            }, function (reso) {
-
-                if (!reso.subscriptions) {
-                    checkout.create({
-                        drytry:0,
-                        plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
-                        namespace: $rootScope.namespace,
-                        region:$rootScope.region
-                    }, function (data) {
-                        console.log('data', data);
-                        account.get({
-                            namespace: $rootScope.namespace,
-                            region: $rootScope.region,
-                        }, function (res) {
-                            $scope.balance=res.balance
-                            console.log('accountall',reso);
-                            market.get({region: $rootScope.region, type: 'resources'}, function (data) {
-                                //console.log('eeeeeeeeeeee',data);
-                                if (res.subscriptions.length > 1) {
-                                    account.get({
-                                        namespace: $rootScope.namespace,
-                                        region: $rootScope.region,
-                                        status:"consuming"
-                                    }, function (resin) {
-                                        angular.forEach(resin.subscriptions, function (item, k) {
-                                            if (item.type === "resources") {
-                                                angular.forEach(data.plans, function (plan, i) {
-                                                    if (item.plan_id === plan.plan_id) {
-                                                        $scope.plans.cpu =plan.description;
-                                                        $scope.plans.ram = plan.description2;
-                                                        $scope.plans.price = plan.price
-                                                        $scope.plans.planName = plan.plan_name;
-
-                                                    }
-                                                })
-                                            }
-
-                                        })
-                                    })
-                                }else {
-
-                                    $scope.plans.cpu =res.subscriptions[0].description;
-                                    $scope.plans.ram = res.subscriptions[0].description2;
-                                    $scope.plans.price = res.subscriptions[0].price
-                                    $scope.plans.planName = res.subscriptions[0].plan_name;
-
-                                }
-
-
-
-                                //for(var i = 0 ; i < data.plans.length; i++){
-                                //
-                                //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
-                                //        $scope.plans.cpu = data.plans[i].description;
-                                //        $scope.plans.ram = data.plans[i].description2;
-                                //        $scope.plans.price = data.plans[i].price
-                                //        $scope.plans.planName = data.plans[i].plan_name;
-                                //    }
-                                //}
-
-                            })
-                        })
-                    })
-                }else {
-                    $scope.balance=reso.balance;
-                    market.get({region: $rootScope.region, type: 'resources'}, function (data) {
-                        //console.log('eeeeeeeeeeee',data);
-
-                        if (reso.subscriptions.length > 1) {
-                            account.get({
-                                namespace: $rootScope.namespace,
-                                region: $rootScope.region,
-                                status:"consuming"
-                            }, function (resin) {
-                                angular.forEach(resin.subscriptions, function (item, k) {
-                                    if (item.type === "resources") {
-                                        angular.forEach(data.plans, function (plan, i) {
-                                            if (item.plan_id === plan.plan_id) {
-                                                $scope.plans.cpu =plan.description;
-                                                $scope.plans.ram = plan.description2;
-                                                $scope.plans.price = plan.price
-                                                $scope.plans.planName = plan.plan_name;
-
-                                            }
-                                        })
-                                    }
-
-                                })
-                            })
-                        }else {
-
-                            $scope.plans.cpu =reso.subscriptions[0].description;
-                            $scope.plans.ram = reso.subscriptions[0].description2;
-                            $scope.plans.price = reso.subscriptions[0].price
-                            $scope.plans.planName = reso.subscriptions[0].plan_name;
-                            console.log('$scope.plans',$scope.plans);
-                        }
-
-
-
-                        //for(var i = 0 ; i < data.plans.length; i++){
-                        //
-                        //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
-                        //        $scope.plans.cpu = data.plans[i].description;
-                        //        $scope.plans.ram = data.plans[i].description2;
-                        //        $scope.plans.price = data.plans[i].price
-                        //        $scope.plans.planName = data.plans[i].plan_name;
-                        //    }
-                        //}
-
-                    })
-                    $scope.balance=reso.balance
-                }
-                //$scope.balance=res.balance;
-
-
-
-            })
+            //account.get({
+            //    namespace: $rootScope.namespace,
+            //    region: $rootScope.region,
+            //}, function (reso) {
+            //
+            //    if (!reso.subscriptions) {
+            //        checkout.create({
+            //            drytry:0,
+            //            plan_id: '91115647-BB07-0F08-8C7B-2C66F3B2806A',
+            //            namespace: $rootScope.namespace,
+            //            region:$rootScope.region
+            //        }, function (data) {
+            //            console.log('data', data);
+            //            account.get({
+            //                namespace: $rootScope.namespace,
+            //                region: $rootScope.region,
+            //            }, function (res) {
+            //                $scope.balance=res.balance
+            //                console.log('accountall',reso);
+            //                market.get({region: $rootScope.region, type: 'resources'}, function (data) {
+            //                    //console.log('eeeeeeeeeeee',data);
+            //                    if (res.subscriptions.length > 1) {
+            //                        account.get({
+            //                            namespace: $rootScope.namespace,
+            //                            region: $rootScope.region,
+            //                            status:"consuming"
+            //                        }, function (resin) {
+            //                            angular.forEach(resin.subscriptions, function (item, k) {
+            //                                if (item.type === "resources") {
+            //                                    angular.forEach(data.plans, function (plan, i) {
+            //                                        if (item.plan_id === plan.plan_id) {
+            //                                            $scope.plans.cpu =plan.description;
+            //                                            $scope.plans.ram = plan.description2;
+            //                                            $scope.plans.price = plan.price
+            //                                            $scope.plans.planName = plan.plan_name;
+            //
+            //                                        }
+            //                                    })
+            //                                }
+            //
+            //                            })
+            //                        })
+            //                    }else {
+            //
+            //                        $scope.plans.cpu =res.subscriptions[0].description;
+            //                        $scope.plans.ram = res.subscriptions[0].description2;
+            //                        $scope.plans.price = res.subscriptions[0].price
+            //                        $scope.plans.planName = res.subscriptions[0].plan_name;
+            //
+            //                    }
+            //
+            //
+            //
+            //                    //for(var i = 0 ; i < data.plans.length; i++){
+            //                    //
+            //                    //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
+            //                    //        $scope.plans.cpu = data.plans[i].description;
+            //                    //        $scope.plans.ram = data.plans[i].description2;
+            //                    //        $scope.plans.price = data.plans[i].price
+            //                    //        $scope.plans.planName = data.plans[i].plan_name;
+            //                    //    }
+            //                    //}
+            //
+            //                })
+            //            })
+            //        })
+            //    }else {
+            //        $scope.balance=reso.balance;
+            //        market.get({region: $rootScope.region, type: 'resources'}, function (data) {
+            //            //console.log('eeeeeeeeeeee',data);
+            //
+            //            if (reso.subscriptions.length > 1) {
+            //                account.get({
+            //                    namespace: $rootScope.namespace,
+            //                    region: $rootScope.region,
+            //                    status:"consuming"
+            //                }, function (resin) {
+            //                    angular.forEach(resin.subscriptions, function (item, k) {
+            //                        if (item.type === "resources") {
+            //                            angular.forEach(data.plans, function (plan, i) {
+            //                                if (item.plan_id === plan.plan_id) {
+            //                                    $scope.plans.cpu =plan.description;
+            //                                    $scope.plans.ram = plan.description2;
+            //                                    $scope.plans.price = plan.price
+            //                                    $scope.plans.planName = plan.plan_name;
+            //
+            //                                }
+            //                            })
+            //                        }
+            //
+            //                    })
+            //                })
+            //            }else {
+            //
+            //                $scope.plans.cpu =reso.subscriptions[0].description;
+            //                $scope.plans.ram = reso.subscriptions[0].description2;
+            //                $scope.plans.price = reso.subscriptions[0].price
+            //                $scope.plans.planName = reso.subscriptions[0].plan_name;
+            //                console.log('$scope.plans',$scope.plans);
+            //            }
+            //
+            //
+            //
+            //            //for(var i = 0 ; i < data.plans.length; i++){
+            //            //
+            //            //    if(res.subscriptions&&res.subscriptions[0].plan_id === data.plans[i].plan_id){
+            //            //        $scope.plans.cpu = data.plans[i].description;
+            //            //        $scope.plans.ram = data.plans[i].description2;
+            //            //        $scope.plans.price = data.plans[i].price
+            //            //        $scope.plans.planName = data.plans[i].plan_name;
+            //            //    }
+            //            //}
+            //
+            //        })
+            //        $scope.balance=reso.balance
+            //    }
+            //    //$scope.balance=res.balance;
+            //
+            //
+            //
+            //})
 
             //balance.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
             //    $scope.balance = data
