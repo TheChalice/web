@@ -821,19 +821,19 @@ angular.module('console.backing_service', [
                         } else {
                             Confirm.open('删除后端服务实例', '您确定要删除该实例吗？此操作不可恢复', '', 'recycle', false).then(function () {
 
-                                orders.query({region:$rootScope.region,resource_name:$scope.myservice[id].item[idx].metadata.name,namespace:$rootScope.namespace,
-                                    status:'consuming'}, function (data) {
+                                //orders.query({region:$rootScope.region,resource_name:$scope.myservice[id].item[idx].metadata.name,namespace:$rootScope.namespace,
+                                    //status:'consuming'}, function (data) {
                                     //console.log('data',data);
-                                    if (data.length>0&&data[0].order.id) {
-                                        delorders.delete({id:data[0].order.id,action:"cancel",namespace:$rootScope.namespace}, function (data) {
-                                            //$state.go('console.resource_management', {index: 1})
-                                            console.log($scope.numservice);
-                                            $scope.numservice.splice(0, 1);
-                                            $scope.myservice[id].item.splice(idx, 1);
-                                            Toast.open('删除成功');
-                                        })
-
-                                    }else {
+                                    //if (data.length>0&&data[0].order.id) {
+                                    //    delorders.delete({id:data[0].order.id,action:"cancel",namespace:$rootScope.namespace}, function (data) {
+                                    //        //$state.go('console.resource_management', {index: 1})
+                                    //        console.log($scope.numservice);
+                                    //        $scope.numservice.splice(0, 1);
+                                    //        $scope.myservice[id].item.splice(idx, 1);
+                                    //        Toast.open('删除成功');
+                                    //    })
+                                    //
+                                    //}else {
                                         BackingServiceInstance.del({
                                             namespace: $rootScope.namespace,
                                             name: $scope.myservice[id].item[idx].metadata.name,
@@ -844,8 +844,8 @@ angular.module('console.backing_service', [
                                         }, function (res) {
                                             $log.info('err', res);
                                         })
-                                    }
-                                })
+                                    //}
+                                //})
 
                             });
                         }
