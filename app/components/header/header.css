@@ -264,7 +264,7 @@ overflow: hidden;max-width:100px;}
 .header_area_select{cursor:pointer;float:left;display:block;width:114px;height:52px;background:#383d41;}
 .header_area_select .header_per_tit{max-width:62px;}
 .header_area_select:hover{background:#333;}
-.zx_area_drop{width:114px;min-width:114px;top:52px;border:0;margin:0;border-radius:0;}
+.zx_area_drop{width:114px;min-width:130px;top:52px;border:0;margin:0;border-radius:0;max-height: 350px;overflow-y: auto;}
 .zx_area_drop li{width:114px;text-align:center;padding-left:0;border:0;color:#333;font-size:14px;}
 .zx_area_drop li a{height:42px!important;line-height:42px!important;}
 .zx_area_drop li:hover{background:#eef1fd;}
