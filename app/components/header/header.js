@@ -36,6 +36,7 @@ angular.module("console.header", [
                     //    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
                     //    $rootScope.region = id
                     //    Cookie.set('region', id, 10 * 365 * 24 * 3600 * 1000);
+
                     //   // console.log($state.current.name);
                     //    if ($state.current.name === 'console.dashboard') {
                     //        $state.reload();
