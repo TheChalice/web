@@ -13,7 +13,6 @@ angular.module('console.service.create', [
             $log.info('ServiceCreate');
             $('#sevicecreateinp').focus();
             $scope.$on('$viewContentLoaded', function () {
-
                 //console.log($('#sevicecreateinp'));
             });
             var r = /^[a-z][a-z0-9-]{2,28}[a-z0-9]$/;

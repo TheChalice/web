@@ -144,22 +144,7 @@ angular.module('console.image', [
                         }, function (err) {
                             $scope.repertorys.push({name: image, lasttag: null, canbuid: false});
                         })
-                        //$http.get('/registry/api/repositories/manifests', {
-                        //        params: {
-                        //            repo_name: image,
-                        //            tag: 'latest'
-                        //        }
-                        //    })
-                        //    .success(function (lasttag) {
-                        //
-                        //        $scope.repertorys.push({name: image, lasttag: lasttag, canbuid: true});
-                        //        //console.log($scope.repertorys.length,$scope.tipnum);
-                        //
-                        //    }).error(function (err) {
-                        //    $scope.repertorys.push({name: image, lasttag: null, canbuid: false});
-                        //
-                        //})
-                        //    })
+
                     })
                 } else {
                     $scope.repertoryspoj = $scope.repertoryscopy.slice(skip, skip + $scope.grid.size);
@@ -175,22 +160,7 @@ angular.module('console.image', [
                         }, function (err) {
                             $scope.repertorys.push({name: image, lasttag: null, canbuid: false});
                         })
-                        //$http.get('/registry/api/repositories/manifests', {
-                        //        params: {
-                        //            repo_name: image,
-                        //            tag: 'latest'
-                        //        }
-                        //    })
-                        //    .success(function (lasttag) {
-                        //
-                        //        $scope.repertorys.push({name: image, lasttag: lasttag, canbuid: true});
-                        //        //console.log($scope.repertorys.length,$scope.tipnum);
-                        //
-                        //    }).error(function (err) {
-                        //    $scope.repertorys.push({name: image, lasttag: null, canbuid: false});
-                        //
-                        //})
-                        //    })
+
                     })
 
                 }
@@ -216,18 +186,7 @@ angular.module('console.image', [
                         }, function (err) {
                             image.canbuid = false;
                         })
-                        //$http.get('/registry/api/repositories/manifests', {
-                        //        timeout: end.promise,
-                        //        params: {
-                        //            repo_name: image.name,
-                        //            tag: 'latest'
-                        //        }
-                        //    })
-                        //    .success(function (docdata) {
-                        //        image.lasttag = docdata;
-                        //    }).error(function (err) {
-                        //    image.canbuid = false;
-                        //})
+
 
                     })
 
@@ -242,18 +201,7 @@ angular.module('console.image', [
                         }, function (err) {
                             image.canbuid = false;
                         })
-                        //$http.get('/registry/api/repositories/manifests', {
-                        //        timeout: end.promise,
-                        //        params: {
-                        //            repo_name: image.name,
-                        //            tag: 'latest'
-                        //        }
-                        //    })
-                        //    .success(function (docdata) {
-                        //        image.lasttag = docdata;
-                        //    }).error(function (err) {
-                        //    image.canbuid = false;
-                        //})
+
 
                     })
                 } else {
@@ -266,18 +214,7 @@ angular.module('console.image', [
                         }, function (err) {
                             image.canbuid = false;
                         })
-                        //$http.get('/registry/api/repositories/manifests', {
-                        //        timeout: end.promise,
-                        //        params: {
-                        //            repo_name: image.name,
-                        //            tag: 'latest'
-                        //        }
-                        //    })
-                        //    .success(function (docdata) {
-                        //        image.lasttag = docdata;
-                        //    }).error(function (err) {
-                        //    image.canbuid = false;
-                        //})
+
 
                     })
 
@@ -320,15 +257,7 @@ angular.module('console.image', [
                 $scope.grid.myimagecopy = angular.copy($scope.testlist);
                 refresh(1, 'search');
             };
-            //$scope.$on('$viewContentLoaded', function(){
-            //    console.log('ok');
-            //});
-            //$scope.$watch('$viewContentLoaded', function(n,o) {
-            //    console.log(n);
-            //});
-            //$scope.load = function() {
-            //    console.log('ok');
-            //}
+
             $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
                 console.log('ok');
             })
