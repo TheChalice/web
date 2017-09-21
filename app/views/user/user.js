@@ -65,9 +65,9 @@ angular.module('console.user', ['kubernetesUI',
         }
         $scope.orgName = "seferfe";
 
-        market.get({region:$rootScope.region}, function (data) {
-            //console.log('套餐详情', data);
-        })
+        //market.get({region:$rootScope.region}, function (data) {
+        //    //console.log('套餐详情', data);
+        //})
 
         $scope.checkoutorg= function (namespace) {
             $rootScope.namespace = namespace;
@@ -256,28 +256,28 @@ angular.module('console.user', ['kubernetesUI',
         //    console.log(orders);
         //})
 
-        amounts.get({size:500,page:1,namespace:$rootScope.namespace,status:'O',region:$rootScope.region}, function (data) {
-            console.log(data);
-            if (data.amounts) {
-                data.amounts.reverse()
-                angular.forEach(data.amounts, function (amount,i) {
-                    data.amounts[i].creation_time = amount.creation_time.replace(/Z/,$scope.clientTimeZone)
-                    if (amount.description === "recharge") {
-                        data.amounts[i].description='充值'
-                    }else {
-                        data.amounts[i].description='扣费'
-                    }
-                })
-
-                $scope.myamounts = data.amounts||[];
-                //console.log('creation_time',data.amounts[0].creation_time);
-                $scope.amountdata =angular.copy(data.amounts)
-                $scope.grid.total = data.amounts.length;
-                refresh(1);
-            }
-
-
-        })
+        //amounts.get({size:500,page:1,namespace:$rootScope.namespace,status:'O',region:$rootScope.region}, function (data) {
+        //    console.log(data);
+        //    if (data.amounts) {
+        //        data.amounts.reverse()
+        //        angular.forEach(data.amounts, function (amount,i) {
+        //            data.amounts[i].creation_time = amount.creation_time.replace(/Z/,$scope.clientTimeZone)
+        //            if (amount.description === "recharge") {
+        //                data.amounts[i].description='充值'
+        //            }else {
+        //                data.amounts[i].description='扣费'
+        //            }
+        //        })
+        //
+        //        $scope.myamounts = data.amounts||[];
+        //        //console.log('creation_time',data.amounts[0].creation_time);
+        //        $scope.amountdata =angular.copy(data.amounts)
+        //        $scope.grid.total = data.amounts.length;
+        //        refresh(1);
+        //    }
+        //
+        //
+        //})
         $scope.sendemail = function (item) {
             //$http.post('/lapi/send_verify_email', {}).success(function () {
             //    //alert('激活邮件已发送!')
