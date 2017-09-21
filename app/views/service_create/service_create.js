@@ -1231,31 +1231,34 @@ angular.module('console.service.create', [
             };
 
             var bindService = function (dc) {
-                angular.forEach($scope.bsi.items, function (bsi) {
-                    var bindObj = {
-                        metadata: {
-                            name: bsi.metadata.name,
-                            annotations: {
-                                "dadafoundry.io/create-by": $rootScope.user.metadata.name
-                            }
-                        },
-                        resourceName: dc.metadata.name,
-                        bindResourceVersion: '',
-                        bindKind: 'DeploymentConfig'
-                    };
+                if ($scope.bsi) {
+                    angular.forEach($scope.bsi.items, function (bsi) {
+                        var bindObj = {
+                            metadata: {
+                                name: bsi.metadata.name,
+                                annotations: {
+                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                                }
+                            },
+                            resourceName: dc.metadata.name,
+                            bindResourceVersion: '',
+                            bindKind: 'DeploymentConfig'
+                        };
 
-                    if (bsi.bind) {  //未绑定设置为绑定
-                        BackingServiceInstance.bind.create({
-                            namespace: $rootScope.namespace,
-                            name: bsi.metadata.name,
-                            region: $rootScope.region
-                        }, bindObj, function (res) {
-                            $log.info("bind service success", res);
-                        }, function (res) {
-                            $log.info("bind service fail", res);
-                        });
-                    }
-                });
+                        if (bsi.bind) {  //未绑定设置为绑定
+                            BackingServiceInstance.bind.create({
+                                namespace: $rootScope.namespace,
+                                name: bsi.metadata.name,
+                                region: $rootScope.region
+                            }, bindObj, function (res) {
+                                $log.info("bind service success", res);
+                            }, function (res) {
+                                $log.info("bind service fail", res);
+                            });
+                        }
+                    });
+                }
+
             };
             // 创建服务
             var createService = function (dc) {
