@@ -966,16 +966,17 @@ a {
 
 .searchbar .btn {
     height: 100%;
-    background: url(../img/search.png) no-repeat 0 10px!important;
-    box-shadow: none;
+    background: url(../img/search.png) no-repeat 0 0px!important;
+    box-shadow: none;display:block;width:15px;height:15px!important;
 }
+.input-group-btn{padding:8px 0px;}
 
 .searchbar .btn:hover {
-    background: url(../img/search-focus.png) no-repeat 0 10px!important; ;
+    background: url(../img/search-focus.png) no-repeat 0 0px!important; ;
 }
 
-.search_btn .btn{background:url(../img/search.png) no-repeat 0 -1px!important;}
-.search_btn .btn:hover{background:url(../img/search.png) no-repeat 0 -1px!important;}
+.search_btn .btn{background:url(../img/search.png) no-repeat 0 0px!important;display:block;width:15px;height:15px!important;}
+.search_btn .btn:hover{background:url(../img/search.png) no-repeat 0 0px!important;}
 
 .searchbar .tip-board {
     border: 1px solid #c9c9c9;
@@ -1529,17 +1530,17 @@ a {
 .faa-edit{background:url(../img/ser-edit.png) no-repeat}
 .active .faa-edit,.faa-edit.active,.faa-edit:hover,.nav-link:hover .faa-edit{background-image:url(../img/ser-edith.png);background-size:contain}
 .ser-jia-edit{background:url(../img/ser-jia-edit.png) no-repeat}
-.active .ser-jia-edit,.ser-jia-edit.active,.ser-jia-edit:hover,.nav-link:hover .ser-jia-edit{background-image:url(../img/ser-jia-edit.png);background-size:contain}
+.active .ser-jia-edit,.ser-jia-edit.active,.ser-jia-edit:hover,.nav-link:hover .ser-jia-edit{background-image:url(../img/ser-jia-edith.png);background-size:contain}
 .faa-edited{background:url(../img/ser-edited.png) no-repeat}
-.active .faa-edited,.faa-edit.active,.faa-edited:hover,.nav-link:hover .faa-edited{background-image:url(../img/ser-edited.png);background-size:contain}
+.active .faa-edited,.faa-edit.active,.faa-edited:hover,.nav-link:hover .faa-edited{background-image:url(../img/ser-editedh.png);background-size:contain}
 .faa-target{background:url(../img/ser-target.png) no-repeat}
 .active .faa-target,.faa-target.active,.faa-target:hover,.nav-link:hover .faa-target{background-image:url(../img/ser-targeth.png);background-size:contain}
 .faa-jia-target{background:url(../img/faa-jia-target.png) no-repeat}
-.active .faa-jia-target,.faa-jia-target.active,.faa-jia-target:hover,.nav-link:hover .faa-jia-target{background-image:url(../img/faa-jia-target.png);background-size:contain}
+.active .faa-jia-target,.faa-jia-target.active,.faa-jia-target:hover,.nav-link:hover .faa-jia-target{background-image:url(../img/faa-jia-targeth.png);background-size:contain}
 .faa-jia-mark{background:url(../img/faa-jia-mark.png) no-repeat}
-.active .faa-jia-mark,.faa-jia-mark.active,.faa-jia-mark:hover,.nav-link:hover .faa-jia-mark{background-image:url(../img/faa-jia-mark.png);background-size:contain}
+.active .faa-jia-mark,.faa-jia-mark.active,.faa-jia-mark:hover,.nav-link:hover .faa-jia-mark{background-image:url(../img/faa-jia-markh.png);background-size:contain}
 .faa-jia-text{background:url(../img/faa-jia-text.png) no-repeat}
-.active .faa-jia-text,.faa-jia-text.active,.faa-jia-text:hover,.nav-link:hover .faa-jia-text{background-image:url(../img/faa-jia-text.png);background-size:contain}
+.active .faa-jia-text,.faa-jia-text.active,.faa-jia-text:hover,.nav-link:hover .faa-jia-text{background-image:url(../img/faa-jia-texth.png);background-size:contain}
 .faa-text{background:url(../img/ser-text.png) no-repeat}
 .active .faa-text,.faa-text.active,.faa-text:hover,.nav-link:hover .faa-text{background-image:url(../img/ser-text.png);background-size:contain}
 .faa-mark{background-image:url(../img/ser-markh.png)}
@@ -1561,3 +1562,8 @@ input:focus{border-color: #c9c9c9!important;}
 /*按钮颜色设置*/
 .build-jia{background:#55c45f;}
 .build-jia:hover{background-color: #469450;color:#fff!important;}
+
+.build_searchbar .btn{background:url(../img/search.png) no-repeat 0 -1px!important;}
+.build_searchbar .btn:hover {
+    background: url(../img/search-focus.png) no-repeat 0 -1px!important; ;
+}

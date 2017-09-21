@@ -85,15 +85,15 @@ angular.module('home', [])
                 }
             };
             $scope.consolein= function () {
-                account.get({namespace:$rootScope.namespace,region:$rootScope.region,status:"consuming"}, function (data) {
-                    //console.log('套餐', data);
-                    //$rootScope.payment=data;
-                    if (data.purchased) {
+                //account.get({namespace:$rootScope.namespace,region:$rootScope.region,status:"consuming"}, function (data) {
+                //    //console.log('套餐', data);
+                //    //$rootScope.payment=data;
+                //    if (data.purchased) {
                         $state.go("console.dashboard")
-                    }else{
-                        $state.go("console.noplan")
-                    }
-                })
+                //    }else{
+                //        $state.go("console.noplan")
+                //    }
+                //})
             }
             //console.log('$scope$scope$scope$scope',$scope)
             $rootScope.$on('$stateChangeStart',

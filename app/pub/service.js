@@ -1060,7 +1060,7 @@ define(['angular'], function (angular) {
 
                                     for (var i = 0; i < data.length; i++) {
                                         platform.query({id: data[i].project_id}, function (res) {
-                                            console.log('newchange', res);
+                                            //console.log('newchange', res);
                                             if (res) {
                                                 for (var j = 0; j < res.length; j++) {
                                                     var str = {
@@ -1079,7 +1079,7 @@ define(['angular'], function (angular) {
                                 //////镜像中心
                                 platform.query({id: 1}, function (data) {
                                     var arr2 = data;
-                                    platform.query({id: 58}, function (msg) {
+                                    platform.query({id: 5}, function (msg) {
                                         arr2 = arr2.concat(msg);
                                         for (var j = 0; j < arr2.length; j++) {
                                             var str2 = {

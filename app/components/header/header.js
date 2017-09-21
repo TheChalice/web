@@ -14,6 +14,16 @@ angular.module("console.header", [
             controller: ['$timeout','$log', 'Project', 'account', 'regions', 'Toast', 'Addmodal', '$http', '$location', 'orgList', '$rootScope', '$scope', '$window', '$state', 'Cookie', '$stateParams',
                 function ($timeout,$log, Project, account, regions, Toast, Addmodal, $http, $location, orgList, $rootScope, $scope, $window, $state, Cookie, $stateParams) {
                     ///////分区
+                    if(navigator.userAgent.indexOf("Firefox")>0) {
+                        $('#testjt').unbind('DOMMouseScroll');
+                        $('#testjt').bind('DOMMouseScroll', function (e) {
+                            if (e.detail > 0) {
+                                document.getElementById('testjt').scrollBy(0, 40);
+                            } else {
+                                document.getElementById('testjt').scrollBy(0, -40);
+                            }
+                        })
+                    }
                     //$scope.curregion = $rootScope.region;
                     //console.log('$rootScope.user',$rootScope.user);
                     //console.log('$rootScope.namespace',$rootScope.namespace);
@@ -26,6 +36,7 @@ angular.module("console.header", [
                     //    Cookie.set('namespace', $rootScope.namespace, 10 * 365 * 24 * 3600 * 1000);
                     //    $rootScope.region = id
                     //    Cookie.set('region', id, 10 * 365 * 24 * 3600 * 1000);
+
                     //   // console.log($state.current.name);
                     //    if ($state.current.name === 'console.dashboard') {
                     //        $state.reload();
@@ -248,21 +259,21 @@ angular.module("console.header", [
                     //});
 
 
-                    account.get({
-                        namespace: $rootScope.namespace,
-                        region: $rootScope.region,
-                        status: "consuming"
-                    }, function (data) {
-                        //console.log('套餐', data);
-                        //$rootScope.payment=data;
-                        if (data.purchased) {
+                    //account.get({
+                    //    namespace: $rootScope.namespace,
+                    //    region: $rootScope.region,
+                    //    status: "consuming"
+                    //}, function (data) {
+                    //    //console.log('套餐', data);
+                    //    //$rootScope.payment=data;
+                    //    if (data.purchased) {
                             $scope.cancreatorg = true
                             //跳转dashboard
-                        } else {
-                            $scope.cancreatorg = false
-                            //跳转购买套餐
-                        }
-                    })
+                    //    } else {
+                    //        $scope.cancreatorg = false
+                    //        //跳转购买套餐
+                    //    }
+                    //})
 
                     $scope.createOrg = function () {
                         Addmodal.open('创建组织', '组织名称', '', '', 'org').then(function (res) {

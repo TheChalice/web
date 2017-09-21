@@ -353,16 +353,16 @@ angular.module('console.service.detail', [
                     //console.log(res, $scope.dc.spec.template.spec.containers[0].resources.requests.memory);
                     if ($scope.dc.spec.template.spec.containers[0].resources && $scope.dc.spec.template.spec.containers[0].resources.limits) {
                         $scope.quota.doquota = true;
-                        if ($scope.dc.spec.template.spec.containers[0].resources.requests.cpu.indexOf('m') !== -1) {
+                        if ($scope.dc.spec.template.spec.containers[0].resources.requests&&$scope.dc.spec.template.spec.containers[0].resources.requests.cpu.indexOf('m') !== -1) {
                             $scope.quota.cpu = parseFloat($scope.dc.spec.template.spec.containers[0].resources.requests.cpu.replace('m', "")) / 1000;
-                        } else {
+                        } else if($scope.dc.spec.template.spec.containers[0].resources.requests) {
                             $scope.quota.cpu = $scope.dc.spec.template.spec.containers[0].resources.requests.cpu;
                         }
 
-                        if ($scope.dc.spec.template.spec.containers[0].resources.requests.memory.indexOf('Gi') !== -1) {
+                        if ($scope.dc.spec.template.spec.containers[0].resources.requests&&$scope.dc.spec.template.spec.containers[0].resources.requests.memory.indexOf('Gi') !== -1) {
                             $scope.quota.unit = 'GB';
                             $scope.quota.memory = $scope.dc.spec.template.spec.containers[0].resources.requests.memory.replace('Gi', "")
-                        } else if ($scope.dc.spec.template.spec.containers[0].resources.requests.memory.indexOf('Mi') !== -1) {
+                        } else if ($scope.dc.spec.template.spec.containers[0].resources.requests&&$scope.dc.spec.template.spec.containers[0].resources.requests.memory.indexOf('Mi') !== -1) {
                             $scope.quota.unit = 'MB';
                             $scope.quota.memory = $scope.dc.spec.template.spec.containers[0].resources.requests.memory.replace('Mi', "")
                         }
