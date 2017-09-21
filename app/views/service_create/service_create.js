@@ -1246,6 +1246,7 @@ angular.module('console.service.create', [
                     };
 
                     if (bsi.bind) {  //未绑定设置为绑定
+                        
                         BackingServiceInstance.bind.create({
                             namespace: $rootScope.namespace,
                             name: bsi.metadata.name,
