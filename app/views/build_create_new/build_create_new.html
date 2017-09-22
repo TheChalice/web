@@ -89,7 +89,7 @@
                             <div class="col-sm-10 bc" id="bc">
                                 <uib-tabset class="tab-default tab-jia-default" active="check">
                                     <!--gitlab-->
-                                    <uib-tab index="1" heading="GitLub" disable=true>
+                                    <uib-tab index="1" heading="GitLab" disable=true>
                                     <!--<uib-tab index="1"heading="代码仓库" ng-click="checkdTab(1)">-->
                                     <div class="tabinfo" style="height: 50px">
                                     <a  class="btn pull-right" ng-class="{'running':labrunning}" uib-tooltip="同步代码源"
@@ -504,12 +504,14 @@
     }
     #bc .disabled{
         /*background-color: #e6e9f2;*/
+        cursor: default;
     }
     #bc .disabled a:hover{
         color: #c7c7c7 !important;
     }
     #bc .disabled a{
         color: #c7c7c7 !important;
+        cursor: default;
     }
     #bc li.active>a{
         border: none;
