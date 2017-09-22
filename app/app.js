@@ -54,7 +54,12 @@ define([
             login_uri: '/login',
             signin_uri: '/signin',
             host_webhooks: 'http://hook.dataapp.c.citic/oapi/v1',
-            service_url:'<ROUTER_DOMAIN_SUFFIX>'
+            //service_url:'<ROUTER_DOMAIN_SUFFIX>'
+            service_url:'.cloud.new.dataos.io',
+            common_url:'<REGISTRY_PUBLIC_ADDR>',
+            //private_url:'registry.dataos.io',
+            private_url:'<REGISTRY_PRIVATE_ADDR>',
+
         })
         .constant('AUTH_EVENTS', {
             loginNeeded: 'auth-login-needed',

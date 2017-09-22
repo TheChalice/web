@@ -935,7 +935,8 @@ define(['angular'], function (angular) {
                 return $uibModal.open({
                     templateUrl: 'pub/tpl/modal_pull_image.html',
                     size: 'default',
-                    controller: ['$scope', '$uibModalInstance', '$log', function ($scope, $uibModalInstance, $log) {
+                    controller: ['$scope', '$uibModalInstance', '$log','Cookie','GLOBAL',
+                        function ($scope, $uibModalInstance, $log,Cookie,GLOBAL) {
                         //console.log(name)
                         //if (!yuorself) {
                         //    $scope.name = name.split('/')[1] ? name.split(':')[0] + ':' + name.split(':')[1].split('/')[1] : name;
@@ -946,7 +947,10 @@ define(['angular'], function (angular) {
                         //}
                         if (yuorself == 'project') {
                             $scope.name = name;
-                            $scope.cmd = 'docker pull registry.dataos.io/' + $rootScope.namespace + '/' + $scope.name;
+                            var tokens = Cookie.get('df_access_token').split(',');
+                            var token = tokens[0];
+                            //docker login -u chaizs -p xxzxczxadasd registry.dataos.io && docker pull
+                            $scope.cmd = 'docker login -u '+Cookie.get('namespace')+' -p '+token+' '+GLOBAL.private_url+' && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;
                         } else {
                             $scope.name = names.split('/')[1];
                             $scope.cmd = 'docker pull registry.dataos.io/' + name;
