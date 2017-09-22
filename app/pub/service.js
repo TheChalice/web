@@ -945,10 +945,12 @@ define(['angular'], function (angular) {
 
                         var names = name
                         //}
+                            $scope.privateurl = GLOBAL.private_url
                         if (yuorself == 'project') {
                             $scope.name = name;
                             var tokens = Cookie.get('df_access_token').split(',');
                             var token = tokens[0];
+
                             //docker login -u chaizs -p xxzxczxadasd registry.dataos.io && docker pull
                             $scope.cmd = 'docker login -u '+Cookie.get('namespace')+' -p '+token+' '+GLOBAL.private_url+' && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;
                         } else {

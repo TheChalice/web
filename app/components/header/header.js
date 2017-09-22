@@ -79,10 +79,12 @@ angular.module("console.header", [
 
                             angular.forEach(data.items, function (item, i) {
                                 if (item.metadata.name === $rootScope.namespace) {
-                                    $scope.projectname = item.metadata.annotations['openshift.io/display-name'] === '' ? item.metadata.name : item.metadata.annotations['openshift.io/display-name'];
-                                    // console.log($scope.projectname);
+
+                                    $scope.projectname = item.metadata.annotations['openshift.io/display-name'] === ''||!item.metadata.annotations['openshift.io/display-name'] ? item.metadata.name : item.metadata.annotations['openshift.io/display-name'];
+                                     console.log('item',item);
                                 }
                             })
+
                             angular.forEach(data.items, function (item, i) {
 
 
