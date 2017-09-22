@@ -123,7 +123,7 @@ angular.module('console.build_create_new', [
                     $scope.namerr.rexed = false;
                 }
             })
-            $scope.check=2
+            $scope.check=3
 
             //$scope.$watch('check', function (n, o) {
             //    if (n === o) {
@@ -829,7 +829,8 @@ angular.module('console.build_create_new', [
 
             //$scope.grid.labcon = true;
 
-            $scope.grid.ishide = false;
+            $scope.grid.ishide = true;
+            //$scope.grid.ishide = false;
 
             //$scope.loadlabOwner('click');
 
@@ -839,7 +840,7 @@ angular.module('console.build_create_new', [
 
             $scope.create = function() {
                 $scope.creating = true;
-                console.log('check',$scope.check);
+                //console.log('check',$scope.check);
                 if ($scope.check === 1) {
 
                     if ($scope.grid.user === null || $scope.grid.labbranch === null || $scope.grid.labproject === null) {
@@ -850,7 +851,7 @@ angular.module('console.build_create_new', [
                     }
                     //console.log($scope.urlerr);
                 }else if($scope.check === 2){
-                    console.log('grid',$scope.grid);
+                    //console.log('grid',$scope.grid);
                     if ($scope.grid.user === null || $scope.grid.project === null || $scope.grid.branch === null) {
                         $scope.urlerr = true;
                         return
