@@ -101,21 +101,9 @@
                                     <!--</div>-->
                                     <!--</uib-tab>-->
                                     <!--github-->
-                                    <uib-tab index="2" heading="GitHub" ng-click="checkdTab(2)">
-                                        <div class="tabinfo" style="height: 50px">
-                                            <a class="btn pull-right" ng-class="{'running':runninghub}"
-                                               uib-tooltip="同步代码源"
-                                               ng-click="refresh()" style="margin-top: -5px; margin-right: -10px">
-                                                <i class="fa fa-green fa-lg fa-refresh"></i>
-                                            </a>
-                                            <img style="float: left;margin-right: 20px;"
-                                                 src="views/build_create_new/img/github.png">
-                                    <span style="font-size:12px; height: 20px">Github 于 2008 年上线，目前，除了 Git 代码仓库托管以及基本的 Web 管理界面以外 、 还提供了订阅 、讨论组 、文本渲染 、
-                                    在线文件编辑器 、协作图谱（报表） 、代码片段分享（Gist）等功能。</span>
-                                        </div>
-                                    </uib-tab>
 
-                                    <uib-tab index="3" heading="Git仓库" ng-click="checkdTab(3)">
+
+                                    <uib-tab index="2" heading="Git仓库" ng-click="checkdTab(2)">
                                         <form class="form-horizontal">
                                             <p style="font-size: 12px;padding-bottom: 10px">如果是私有代码库，需要输入用户名口令。</p>
                                             <div class="form-group">
@@ -159,9 +147,23 @@
                                             </div>
                                         </form>
                                     </uib-tab>
+                                    <!--<uib-tab index="3" heading="GitHub" ng-click="checkdTab(3)">-->
+                                    <uib-tab index="3" heading="GitHub" disable="true">
+                                        <div class="tabinfo" style="height: 50px">
+                                            <a class="btn pull-right" ng-class="{'running':runninghub}"
+                                               uib-tooltip="同步代码源"
+                                               ng-click="refresh()" style="margin-top: -5px; margin-right: -10px">
+                                                <i class="fa fa-green fa-lg fa-refresh"></i>
+                                            </a>
+                                            <img style="float: left;margin-right: 20px;"
+                                                 src="views/build_create_new/img/github.png">
+                                            <span style="font-size:12px; height: 20px">Github 于 2008 年上线，目前，除了 Git 代码仓库托管以及基本的 Web 管理界面以外 、 还提供了订阅 、讨论组 、文本渲染 、
+                                    在线文件编辑器 、协作图谱（报表） 、代码片段分享（Gist）等功能。</span>
+                                        </div>
+                                    </uib-tab>
                                 </uib-tabset>
 
-                                <div class="is-box" ng-hide="grid.ishide">
+                                <div class="is-box" ng-hide="!grid.ishide">
 
                                     <div class="panel panel-default first col-md-4" style="margin-right:32px">
                                         <div class="panel-heading">
