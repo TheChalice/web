@@ -323,7 +323,7 @@ angular.module("console.header", [
 
                     $scope.backindex = function () {
                         $rootScope.whereclick = '首页';
-                        $state.go('home.index')
+                        $state.go('login')
                     }
 
                     $scope.gotomy = function () {
@@ -422,7 +422,7 @@ angular.module("console.header", [
                         $rootScope.user = null;
                         $rootScope.namespace = "";
                         //clearInterval($scope.timer);
-                        $state.go('home.index');
+                        $state.go('login');
 
                     };
                     $scope.change = false;
