@@ -202,7 +202,7 @@
 .df_h_area{background-image: url(img/area.png);}
 .df_area_active{background-image: url(img/area_active.png);margin-top:14px;}
 .df_h_per{background: url(img/person.png) no-repeat;margin-left:-1px;}
-.df_person_active{background-image: url(img/person_active.png);margin-top:16px;margin-left:-2px;}
+.df_person_active{background-image: url(img/person_active.png);margin-top:16px;margin-left:0px;}
 .df_q_active{background-image: url(img/q_active.png);margin-top:16px;}
 .df_qed_active{background-image: url(img/qed_active.png);margin-top:16px;}
 .df_quit{background-image: url(img/quit.png);margin-top:16px;}
