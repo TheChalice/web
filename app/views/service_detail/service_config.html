@@ -1031,38 +1031,38 @@
     </div>
     <hr style="margin-top: 20px;">
 
-    <div class="row">
-        <div class="col-md-2">
-            <h3>后端服务绑定</h3>
-        </div>
-        <div class="col-md-10" ng-if="!bsi.items.length">
-            <span>无</span>
-            <!--&lt;!&ndash;<a ui-sref="console.backing_service" class="href-add">&ndash;&gt;-->
-                <!--&lt;!&ndash;<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span style="font-size: 12px">创建</span>&ndash;&gt;-->
-            <!--&lt;!&ndash;</a>&ndash;&gt;-->
-        </div>
-        <div class="col-md-9" ng-if="bsi.items.length">
-            <div class="panel panel-default sub-panel">
-                <!--<div class="panel-heading">-->
-                    <!--后端服务实例-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-2">-->
+            <!--<h3>后端服务绑定</h3>-->
+        <!--</div>-->
+        <!--<div class="col-md-10" ng-if="!bsi.items.length">-->
+            <!--<span>无</span>-->
+            <!--&lt;!&ndash;&lt;!&ndash;<a ui-sref="console.backing_service" class="href-add">&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<i class="fa fa-plus-circle fa-lg"></i>&nbsp;&nbsp;<span style="font-size: 12px">创建</span>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;</a>&ndash;&gt;&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-md-9" ng-if="bsi.items.length">-->
+            <!--<div class="panel panel-default sub-panel">-->
+                <!--&lt;!&ndash;<div class="panel-heading">&ndash;&gt;-->
+                    <!--&lt;!&ndash;后端服务实例&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="panel-body" style="padding-bottom: 0;">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-6" ng-repeat="item in bsi.items">-->
+                            <!--<div class="tabandimage" ng-class="{'selected': item.bind}"-->
+                                 <!--ng-click="item.bind = !item.bind">-->
+                                <!--<i class="faa faa-image" style="float: left;margin-right: 10px;"></i>-->
+                                <!--<i class="faa faa-image-mark" ng-show="item.bind"></i>-->
+                                <!--<p style="margin: 10px 0 5px 0;">{{item.metadata.name}}</p>-->
+                                <!--<p>{{item.spec.provisioning.backingservice_name}}</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 <!--</div>-->
-                <div class="panel-body" style="padding-bottom: 0;">
-                    <div class="row">
-                        <div class="col-md-6" ng-repeat="item in bsi.items">
-                            <div class="tabandimage" ng-class="{'selected': item.bind}"
-                                 ng-click="item.bind = !item.bind">
-                                <i class="faa faa-image" style="float: left;margin-right: 10px;"></i>
-                                <i class="faa faa-image-mark" ng-show="item.bind"></i>
-                                <p style="margin: 10px 0 5px 0;">{{item.metadata.name}}</p>
-                                <p>{{item.spec.provisioning.backingservice_name}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<hr>-->
 
 
     <div class="row">
