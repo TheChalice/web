@@ -703,7 +703,8 @@ angular.module('console.service.create', [
                                     }
                                 ]
                             }
-                            container.image = 'registry.dataos.io/' + $stateParams.image.split(':')[0];
+                            //container.image = 'registry.dataos.io/' + $stateParams.image.split(':')[0];
+                            container.image = 'registry.dataos.io/' + $stateParams.image.split(':');
                             container.tag = $stateParams.image.split(':')[1];
                             container.strname = container.name = $stateParams.image.split(':')[0].replace('/', '-');
                             container.truename = $stateParams.image.split(':')[0].replace('/', '-');

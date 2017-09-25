@@ -47,7 +47,7 @@ define([
                 var regions = Cookie.get('region');
                 var tokenarr = tokens.split(',');
                 var region = regions.split('-')[2];
-                var token = tokenarr[region-1];
+                var token = tokenarr[region - 1];
 
                 params.name = params.name ? '/' + params.name : '';
                 if (params.pod) {
@@ -114,8 +114,7 @@ define([
         }])
 
         .factory('sessiontoken', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var sessiontoken = $resource('./sessiontoken', {
-            }, {});
+            var sessiontoken = $resource('./sessiontoken', {}, {});
             return sessiontoken;
         }])
 
@@ -140,7 +139,7 @@ define([
                 region: '@region'
             }, {
                 create: {method: 'POST'},
-                put:{method: 'PUT'}
+                put: {method: 'PUT'}
             });
             return Project;
         }])
@@ -320,9 +319,7 @@ define([
         }])
 
         .factory('creatproject', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var creatproject = $resource(GLOBAL.host + '/projectrequests', {
-
-            }, {
+            var creatproject = $resource(GLOBAL.host + '/projectrequests', {}, {
                 create: {method: 'POST'}
             });
             return creatproject;
@@ -417,7 +414,7 @@ define([
 
         .factory('createdeploy', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var createdeploy = $resource(GLOBAL.host_repos + '/gitlab/authorize/deploy?namespace=:namespace', {
-                namespace:'@namespace'
+                namespace: '@namespace'
             }, {
                 create: {method: 'POST'}
             });
@@ -508,6 +505,17 @@ define([
             var platform = $resource(GLOBAL.host_registry + '/repositories?project_id=:id', {id: '@id'});
             return platform;
         }])
+        .factory('pubregistry', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var pubregistry = $resource('/v2/_catalog', {});
+            return pubregistry;
+        }])
+        .factory('pubregistrytag', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var pubregistrytag = $resource('/v2/:namespace/:name/tags/list', {
+                namespace: '@namespace',
+                name: '@name'
+            });
+            return pubregistrytag;
+        }])
 
         .factory('regpro', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var regpro = $resource(GLOBAL.host_registry + '/projects', {});
@@ -552,12 +560,12 @@ define([
         .factory('deletepod', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var deletepod = $resource(GLOBAL.host_k8s + '/namespaces/:namespace/pods?labelSelector=deploymentconfig%3D:name&region=:region',
                 {
-                    name:'@name',
-                    region:'@region',
+                    name: '@name',
+                    region: '@region',
                     namespace: '@namespace'
                 }, {
-                delete: {method: 'DELETE'}
-            })
+                    delete: {method: 'DELETE'}
+                })
             return deletepod;
         }])
 

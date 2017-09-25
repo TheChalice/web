@@ -29,8 +29,8 @@ angular.module('console.image', [
 
         };
     })
-    .controller('ImageCtrl', ['regpro','platformone','ImageStream', '$filter', '$state', '$q', '$http', 'platform', '$rootScope', '$scope', '$log', 'ImageStreamTag', 'BuildConfig', 'Build', 'GLOBAL', 'Sort',
-        function (regpro,platformone,ImageStream, $filter, $state, $q, $http, platform, $rootScope, $scope, $log, ImageStreamTag, BuildConfig, Build, GLOBAL, Sort) {
+    .controller('ImageCtrl', ['pubregistrytag','pubregistry','regpro','platformone','ImageStream', '$filter', '$state', '$q', '$http', 'platform', '$rootScope', '$scope', '$log', 'ImageStreamTag', 'BuildConfig', 'Build', 'GLOBAL', 'Sort',
+        function (pubregistrytag,pubregistry,regpro,platformone,ImageStream, $filter, $state, $q, $http, platform, $rootScope, $scope, $log, ImageStreamTag, BuildConfig, Build, GLOBAL, Sort) {
             // 数组去重
             //console.log('$state', $state.params.index);
             if ($state.params.index) {
@@ -59,7 +59,20 @@ angular.module('console.image', [
             }
             // 分页对象
             var end = $q.defer();
+            $scope.primage = [];
+            pubregistry.get(function (data) {
+                angular.forEach(data.repositories, function (image,i) {
+                    var namespace=image.split('/')[0];
+                    var name=image.split('/')[1];
+                    $scope.primage.push({name:name,tags:[]})
+                    pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
+                        console.log('tag', tag);
+                        $scope.primage[i].tags=tag.tags
+                        console.log('$scope.primage', $scope.primage);
+                    })
+                })
 
+            })
             $scope.$on('$destroy', function () {
                 end.resolve();
             });

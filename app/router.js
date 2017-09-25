@@ -306,6 +306,16 @@ define([
                         }]
                     }
                 })
+                .state('console.primage_detail', {
+                    url: '/image/primage/:name',
+                    templateUrl: 'views/primage_detail/primage_detail.html',
+                    controller: 'prImageDetailCtrl',
+                    resolve: {
+                        dep: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load(['views/primage_detail/primage_detail.js'])
+                        }]
+                    }
+                })
                 .state('console.image_Public', {
                     url: '/image/imagePublic/:bc/:name',
                     templateUrl: 'views/image_Public/image_Public.html',

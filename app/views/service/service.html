@@ -58,7 +58,7 @@
                     <td>{{dc.ismn}}</td>
                     <td><span style="color: #f6a540">{{dc.status.replicas || 0}}</span>/{{dc.spec.replicas}}</td>
                     <td>
-                        <a class="href-orange" ng-if="dc.ismn=='正常'" href="http://{{dc.route.spec.host}}" target="_blank">{{dc.route.spec.host}}</a>
+                        <a class="href-orange" ng-if="dc.ismn=='正常'" href="{{dc.route.spec.host}}" target="_blank">{{dc.route.spec.host}}</a>
                         <a class="href-orange" style="color: #5B6177;cursor: no-drop;" ng-if="dc.ismn!=='正常'" target="_blank">{{dc.route.spec.host}}</a>
                     </td>
                     <td>{{dc.bsi || '未绑定'}}</td>
