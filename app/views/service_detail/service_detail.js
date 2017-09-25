@@ -1352,6 +1352,7 @@ angular.module('console.service.detail', [
                 if (data.type == 'ADDED') {
                     //$scope.rcs.items.shift(data.object);
                 } else if (data.type == "MODIFIED") {
+                    $scope.dc.status.replicas=data.object.status.replicas
                     getEnvs(data.object.spec.template.spec.containers);
                     loadBsi(data.object.metadata.name)
 
