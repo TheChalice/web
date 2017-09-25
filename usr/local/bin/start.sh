@@ -13,6 +13,7 @@ sed -i 's/<api_proxy_addr>/'$API_PROXY_ADDR'/g' /usr/local/openresty/nginx/conf/
 sed -i 's/<api_oauth_addr>/'$API_OAUTH_ADDR'/g' /usr/local/openresty/nginx/conf/nginx.conf
 sed -i 's/<api_metrics_addr>/'$API_METRICS_ADDR'/g' /usr/local/openresty/nginx/conf/nginx.conf
 sed -i 's/<api_gitter_addr>/'$API_GITTER_ADDR'/g' /usr/local/openresty/nginx/conf/nginx.conf
+sed -i 's/<api_volume_addr>/'$API_VOLUME_ADDR'/g' /usr/local/openresty/nginx/conf/nginx.conf
 
 
 
