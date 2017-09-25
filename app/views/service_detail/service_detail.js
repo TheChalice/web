@@ -1355,6 +1355,7 @@ angular.module('console.service.detail', [
                     $scope.dc.status.replicas=data.object.status.replicas
                     getEnvs(data.object.spec.template.spec.containers);
                     loadBsi(data.object.metadata.name)
+                    //loadPods(data.object)
 
 
                 }
@@ -1688,7 +1689,7 @@ angular.module('console.service.detail', [
                             $scope.pods.items[i].reason = "Terminating"
                         }
                         if ($scope.pods.items[i].reason == 'Running') {
-                            $scope.dc.status.replicas++;
+                            //$scope.dc.status.replicas++;
                         }
                     }
 
