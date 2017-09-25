@@ -77,11 +77,11 @@
 
                         <!--<p class="enduring_tit">您选择 <span class="price_one">{{slider.value}}</span> GB；每月花费 <san class="price_one">{{slider.value}}</san> 元</p>-->
                         <p class="enduring_tit">您选择 <span class="price_one">{{slider.value}}</span> GB</p>
-                        <div class="volume_modal">
+                        <div class="volume_modal" style="width: 80%;margin: 0 auto">
                             <rzslider rz-slider-model="slider.value" rz-slider-options="slider.options" ng-model="volume.size"></rzslider>
                         </div>
                         <small ng-if="grid.num" class="fa fa-info-circle err-tip" style="margin-top: 20px;">
-                            选择数值应在10-200之间(10的倍数)
+                            选择数值应在1-5之间(1的倍数)
                         </small>
                         <!--<img src="views/create_constantly_volume/img/images_43.png" id="arrow" ng-click="updateplan()">-->
                     </div>

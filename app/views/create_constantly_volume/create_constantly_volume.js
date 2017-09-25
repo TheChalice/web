@@ -5,14 +5,15 @@ angular.module('console.create_constantly_volume', [
     }
 ]).controller('createconvolumeCtrl', ['persistent','Tip','checkout','market','Toast','$state', '$rootScope', 'volume', '$scope',
     function (persistent,Tip,checkout,market,Toast,$state, $rootScope, volume, $scope) {
+
         $scope.slider = {
-            value: 0,
+            value: 1,
             options: {
-                floor: 0,
-                ceil: 200,
-                step: 10,
+                floor: 1,
+                ceil: 5,
+                step: 1,
                 showSelectionBar: true,
-                showTicksValues:50,
+                showTicksValues:1,
                 translate: function(value, sliderId, label) {
                     switch (label) {
 
@@ -22,6 +23,8 @@ angular.module('console.create_constantly_volume', [
                 }
             }
         };
+
+
 
         $scope.danwei = 'GB';
         $scope.grid = {
