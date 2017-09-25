@@ -233,7 +233,7 @@ angular.module('console.user', [
 
         $scope.addpeople = function () {
             Addmodal.open('邀请新成员', '用户名', '', $stateParams.useorg, 'people').then(function (res) {
-                Toast.open('邀请消息发送成功!');
+                Toast.open('已填加!');
                 loadOrg();
             })
         }
