@@ -36,23 +36,23 @@ angular.module('console.constantly_detail', [
                         Confirm.open("删除持久化卷", "删除持久化卷失败", "持久化卷已经挂载在容器中，您需要先停止服务，卸载持久化卷后，才能删除。", null,true)
 
                     }else {
-                        orders.query({region:$rootScope.region,resource_name:$stateParams.name,namespace:$rootScope.namespace,
-                            status:'consuming'}, function (data) {
-                            console.log('data',data);
-                            if (data.length>0&&data[0].order.id) {
-                                delorders.delete({id:data[0].order.id,action:"cancel",namespace:$rootScope.namespace}, function (data) {
-                                    $state.go('console.resource_management', {index: 1})
-                                })
-
-                            }else {
+                        //orders.query({region:$rootScope.region,resource_name:$stateParams.name,namespace:$rootScope.namespace,
+                        //    status:'consuming'}, function (data) {
+                        //    console.log('data',data);
+                        //    if (data.length>0&&data[0].order.id) {
+                        //        delorders.delete({id:data[0].order.id,action:"cancel",namespace:$rootScope.namespace}, function (data) {
+                        //            $state.go('console.resource_management', {index: 1})
+                        //        })
+                        //
+                        //    }else {
                                 delvolume.del({namespace: $rootScope.namespace,name:$stateParams.name}, function (res) {
                                     //console.log(res);
                                     $state.go('console.resource_management', {index: 1})
                                 }, function (err) {
 
                                 })
-                            }
-                        })
+                            //}
+                        //})
 
                     }
 
