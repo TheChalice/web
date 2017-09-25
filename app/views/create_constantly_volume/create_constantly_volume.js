@@ -186,7 +186,7 @@ angular.module('console.create_constantly_volume', [
                 $state.go('console.resource_management', {index: 1});
                 }, function (err) {
                     $scope.loaded = false;
-                    Toast.open('构建失败,请重试');
+                    Toast.open('创建失败,请重试');
                 })
 
             //}, function (err) {
