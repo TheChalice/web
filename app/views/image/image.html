@@ -50,16 +50,18 @@
                     <i class="myimage"></i>&nbsp;&nbsp;仓库镜像
                 </uib-tab-heading>
                 <div class="row image_jia_btn" style="margin-bottom: 25px;margin-left: 0;margin-right: 0;">
-                    <!--<div class="input-group col-sm-4 searchbar">-->
-                        <!--<input type="text" class="form-control" ng-model="txt"-->
-                               <!--ng-focus="showTip=true;" placeholder="搜索镜像" ng-keyup="search('all', txt)">-->
-                    <!--<span class="input-group-btn">-->
-                        <!--<a class="btn" ng-click="search('all', txt)"></a>-->
-                    <!--</span>-->
-                    <!--</div>-->
+                    <div class="row image_jia_btn" style="margin-bottom: 25px;margin-left: 0;margin-right: 0;">
+                        <div class="input-group col-sm-4 searchbar">
+                            <input type="text" class="form-control" ng-model="cktxt"
+                                   ng-focus="showTip=true;" placeholder="搜索镜像" ng-keyup="cksearch('all', cktxt)">
+                            <span class="input-group-btn">
+                        <a class="btn" ng-click="cksearch('all', cktxt)"></a>
+                    </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="row image_jia_btn">
-                    <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in primage">
+                    <div class="col-md-3 col-sm-4 col-xs-6" ng-repeat="item in newprimage">
                         <div class="thumbnail">
                             <div class="thumb-content">
                                 <div class="thumb-slide">
@@ -96,16 +98,17 @@
                             <!--</div>-->
                         </div>
                     </div>
+                    <div style="margin: 0 15px;text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;"
+                         ng-if="newprimage.length===0"><p class="blank_block">  <span class="blank_tit"> 没有查询到相关数据</span></p></div>
 
                     <!--<div style="margin: 0 15px;text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;"-->
                          <!--ng-if="testlist.length===0"><p class="blank_block">  <span class="blank_tit"> {{text1}}</span></p></div>-->
 
                 </div>
-                <div class="text-center" style="text-align:center;" ng-if="grid.total > 8">
+                <div class="text-center" style="text-align:center;" ng-if="grid.ckTotal > 12">
                     <uib-pagination
-                            ng-model="grid.page"
-                            ng-show='fyshow'
-                            total-items="grid.total"
+                            ng-model="grid.ckPage"
+                            total-items="grid.ckTotal"
                             items-per-page="grid.size"
                             class="pagination-sm"
                             boundary-links="false"

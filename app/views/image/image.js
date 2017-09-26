@@ -59,6 +59,32 @@ angular.module('console.image', [
             }
             // 分页对象
             var end = $q.defer();
+            $scope.grid = {
+                page: 1,
+                repertoryspage: 1,
+                imagecenterpage: 1,
+                ckPage:1,
+                size: 12,
+                copytest: {},
+                search: false
+            };
+            // 仓库镜像控制翻页
+            var ckRefresh = function (page, type) {
+                $(document.body).animate({
+                    scrollTop: 0
+                }, 200);
+                var skip = (page - 1) * $scope.grid.size;
+                if (type) {
+                    $scope.grid.search = true;
+                    $scope.newprimage = $scope.thisprimage.slice(skip, skip + $scope.grid.size);
+                    $scope.grid.ckTotal = $scope.thisprimage.length;
+                } else {
+                    $scope.newprimage = $scope.primage.slice(skip, skip + $scope.grid.size);
+                    $scope.grid.ckTotal = $scope.primage.length;
+                }
+
+
+            };
             $scope.primage = [];
             //console.log('primage', primage);
             var onlymyimage = []
@@ -75,28 +101,33 @@ angular.module('console.image', [
                     var name=image.split('/')[1];
                     $scope.primage.push({name:name,tags:[],image:image})
                     pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
-                        console.log('tag', tag);
-                        $scope.primage[i].tags=tag.tags
+                    //     console.log('tag', tag);
+                        $scope.primage[i].tags= i
                         console.log('$scope.primage', $scope.primage);
                     })
                 })
+            $scope.grid.ckTotal = $scope.primage.length;
+            ckRefresh(1);
 
             //})
             $scope.$on('$destroy', function () {
                 end.resolve();
             });
 
-            $scope.grid = {
-                page: 1,
-                repertoryspage: 1,
-                imagecenterpage: 1,
-                size: 12,
-                copytest: {},
-                search: false
-            };
+
             // 存储commit id 和 分支,angular修改数组内元素属性不能触发刷新
             $scope.gitStore = {};
             // 监视分页的页数控制换页
+            $scope.$watch('grid.ckPage', function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    if ($scope.grid.search) {
+                        ckRefresh(newVal, 'search');
+                    } else {
+                        ckRefresh(newVal);
+                    }
+
+                }
+            });
             $scope.$watch('grid.page', function (newVal, oldVal) {
                 if (newVal != oldVal) {
                     if ($scope.grid.search) {
@@ -107,7 +138,6 @@ angular.module('console.image', [
 
                 }
             });
-
             $scope.$watch('grid.repertoryspage', function (newVal, oldVal) {
                 if (newVal != oldVal) {
                     if ($scope.grid.search) {
@@ -145,6 +175,7 @@ angular.module('console.image', [
                 }
 
             };
+
             // regimage控制换页方法
             var repertorysrefresh = function (page, type) {
                 $(document.body).animate({
@@ -278,6 +309,27 @@ angular.module('console.image', [
                 $scope.testlist = imagearr;
                 $scope.grid.myimagecopy = angular.copy($scope.testlist);
                 refresh(1, 'search');
+            };
+            //仓库镜像搜索
+            $scope.cksearch = function (key, txt) {
+                if (!txt) {
+                    $scope.grid.search = false;
+                    ckRefresh(1);
+                    return;
+                }
+                var imagearr = [];
+                txt = txt.replace(/\//g, '\\/');
+                var reg = eval('/' + txt + '/');
+                if($scope.primage){
+                    for (var i = 0; i < $scope.primage.length; i++) {
+                        if (reg.test($scope.primage[i].name)) {
+                            imagearr.push($scope.primage[i]);
+                        }
+                    }
+                }
+                $scope.thisprimage = imagearr;
+                ckRefresh(1,'search');
+
             };
 
             $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
