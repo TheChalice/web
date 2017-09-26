@@ -101,8 +101,8 @@ angular.module('console.image', [
                     var name=image.split('/')[1];
                     $scope.primage.push({name:name,tags:[],image:image})
                     pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
-                    //     console.log('tag', tag);
-                        $scope.primage[i].tags= i
+                        console.log('tag', tag);
+                        $scope.primage[i].tags= tag.tags;
                         console.log('$scope.primage', $scope.primage);
                     })
                 })
