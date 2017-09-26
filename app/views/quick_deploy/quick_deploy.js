@@ -20,7 +20,7 @@ angular.module('console.quick_deploy', [
                         {
                             "from": {
                                 "kind": "DockerImage",
-                                "name": "registry.dataos.io/chaizs/go-web-demo"
+                                "name": ""
                             }
                         }
                     ]
