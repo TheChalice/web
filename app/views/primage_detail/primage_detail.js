@@ -16,8 +16,19 @@ angular.module('console.image_detail', [
                 console.log('tag', tag);
                 $scope.data = tag
                 $scope.tags=tag.tags
+
                 //console.log('$scope.primage', $scope.primage);
             })
+            $scope.pull = function (name) {
+                var s = $scope.data.name;
+                //console.log(name);
+                var str =s + ':' + name
+                ModalPullImage.open(str)
+                    .then(function (res) {
+
+                        //console.log("cmd1", res);
+                    });
+            };
 
 
         }]);

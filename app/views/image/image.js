@@ -615,31 +615,31 @@ angular.module('console.image', [
             //镜像中心
             $scope.serviceper = [{name: 'DataFoundry', class: 'df'}, {name: 'DockerHub', class: 'doc'}]
 
-            platform.query({id:1}, function (docdata) {
-                angular.forEach(docdata, function (docitem, i) {
-                    $scope.imagecenterDoc.push({
-                        name: docitem,
-                        lasttag: null,
-                        canbuild: true,
-                        class: 'doc'
-                    });
-                })
-                platform.query({id:5}, function (dfdata) {
-                    angular.forEach(dfdata, function (dfitem, k) {
-                        $scope.imagecenterDF.push({
-                            name: dfitem,
-                            lasttag: null,
-                            canbuild: true,
-                            class: 'df'
-                        });
-                    });
-                    $scope.imagecenterpoj = $scope.imagecenterDoc.concat($scope.imagecenterDF);
-                    //console.log('imagecenterpoj', $scope.imagecenterpoj);
-                    $scope.imagecentercopy = angular.copy($scope.imagecenterpoj);
-                    $scope.grid.imagecentertotal = $scope.imagecentercopy.length
-                    imagecenterrefresh(1);
-                })
-            })
+            //platform.query({id:1}, function (docdata) {
+            //    angular.forEach(docdata, function (docitem, i) {
+            //        $scope.imagecenterDoc.push({
+            //            name: docitem,
+            //            lasttag: null,
+            //            canbuild: true,
+            //            class: 'doc'
+            //        });
+            //    })
+            //    platform.query({id:5}, function (dfdata) {
+            //        angular.forEach(dfdata, function (dfitem, k) {
+            //            $scope.imagecenterDF.push({
+            //                name: dfitem,
+            //                lasttag: null,
+            //                canbuild: true,
+            //                class: 'df'
+            //            });
+            //        });
+            //        $scope.imagecenterpoj = $scope.imagecenterDoc.concat($scope.imagecenterDF);
+            //        //console.log('imagecenterpoj', $scope.imagecenterpoj);
+            //        $scope.imagecentercopy = angular.copy($scope.imagecenterpoj);
+            //        $scope.grid.imagecentertotal = $scope.imagecentercopy.length
+            //        imagecenterrefresh(1);
+            //    })
+            //})
             //$http.get('/registry/api/repositories', {timeout: end.promise, params: {project_id: 1}})
             //    .success(function (docdata) {
             //        angular.forEach(docdata, function (docitem, i) {

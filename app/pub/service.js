@@ -946,16 +946,17 @@ define(['angular'], function (angular) {
                         var names = name
                         //}
                             $scope.privateurl = GLOBAL.private_url
-                        if (yuorself == 'project') {
-                            $scope.name = name;
                             var tokens = Cookie.get('df_access_token').split(',');
                             var token = tokens[0];
+                        if (yuorself == 'project') {
+                            $scope.name = name;
+
 
                             //docker login -u chaizs -p xxzxczxadasd registry.dataos.io && docker pull
                             $scope.cmd = 'docker login -u '+Cookie.get('namespace')+' -p '+token+' '+GLOBAL.private_url+' && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;
                         } else {
-                            $scope.name = names.split('/')[1];
-                            $scope.cmd = 'docker pull registry.dataos.io/' + name;
+                            $scope.name = name;
+                            $scope.cmd = 'docker login  && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;;
                         }
 
                         $scope.cancel = function () {
@@ -978,8 +979,8 @@ define(['angular'], function (angular) {
                 return $uibModal.open({
                     templateUrl: 'pub/tpl/modal_choose_image.html',
                     size: 'default modal-lg',
-                    controller: ['platform','regpro','$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist',
-                        function (platform,regpro,$rootScope, $scope, $uibModalInstance, images, ImageStreamTag, ImageStream, $http, platformlist) {
+                    controller: ['pubregistrytag','pubregistry','platform','regpro','$rootScope', '$scope', '$uibModalInstance', 'images', 'ImageStreamTag', 'ImageStream', '$http', 'platformlist',
+                        function (pubregistrytag,pubregistry,platform,regpro,$rootScope, $scope, $uibModalInstance, images, ImageStreamTag, ImageStream, $http, platformlist) {
                         //console.log('images', images);
                         $scope.grid = {
                             cat: 0,
@@ -1081,28 +1082,48 @@ define(['angular'], function (angular) {
                                     }
                                 })
 
+
                             } else if (idx == 2) {
-                                //////镜像中心
-                                platform.query({id: 1}, function (data) {
-                                    var arr2 = data;
-                                    platform.query({id: 5}, function (msg) {
-                                        arr2 = arr2.concat(msg);
-                                        for (var j = 0; j < arr2.length; j++) {
-                                            var str2 = {
-                                                'name': arr2[j]
-                                            }
-                                            $scope.imgcon.items.push(str2);
-                                        }
-                                        $scope.images = $scope.imgcon;
+                                //////仓库镜像
+                                pubregistry.get(function (data) {
+                                    $scope.images.items=[]
+                                angular.forEach(data.repositories, function (image,i) {
+                                    var namespace=image.split('/')[0];
+                                    var name=image.split('/')[1];
+                                    if (namespace === $rootScope.namespace) {
+                                        $scope.images.items.push({name:image,tags:[]})
+                                        pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
+                                            console.log('tag', tag);
+                                            $scope.images.items[i].tags=tag.tags
+                                            console.log('$scope.primage', $scope.primage);
+                                        })
+                                    }
 
-
-                                    })
                                 })
 
-                                $scope.images = $scope.imgcon
+                                })
+                                //platform.query({id: 1}, function (data) {
+                                //    var arr2 = data;
+                                //    platform.query({id: 5}, function (msg) {
+                                //        arr2 = arr2.concat(msg);
+                                //        for (var j = 0; j < arr2.length; j++) {
+                                //            var str2 = {
+                                //                'name': arr2[j]
+                                //            }
+                                //            $scope.imgcon.items.push(str2);
+                                //        }
+                                //        $scope.images = $scope.imgcon;
+                                //
+                                //
+                                //    })
+                                //})
+                                //
+                                $scope.images = $scope.imgcon;
                                 //console.log(' $scope.imgcon $scope.imgcon $scope.imgcon', $scope.imgcon)
                             }
+                            console.log('$scope.images', $scope.images);
                         };
+
                         $scope.selectImage = function (idx) {
                             $scope.grid.version_x = null;
                             $scope.grid.version_y = null;
@@ -1146,23 +1167,38 @@ define(['angular'], function (angular) {
                                 })
                             } else if ($scope.grid.cat == 2) {
                                 $scope.grid.image = idx;
-                                platformlist.query({id: $scope.imgcon.items[idx].name}, function (tagmsg) {
-                                    console.log('tagmsg');
-                                    $scope.imgcon.items[idx].status = {};
-                                    $scope.imgcon.items[idx].status.tags = [];
-                                    for (var i = 0; i < tagmsg.length; i++) {
-                                        var tagmsgobj = {
-                                            'tag': tagmsg[i],
-                                            'items': tagmsg,
-                                            'ist': {
-                                                'imagesname': $scope.imgcon.items[idx].name + '/' + tagmsg[i],
-                                                'ispublicimage': true,
-                                            }
-                                        };
-                                        $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
-                                    }
-                                    $scope.imageTags = $scope.imgcon.items[idx].status.tags;
+                                $scope.imgcon.items[idx].status = {};
+                                $scope.imgcon.items[idx].status.tags = [];
+                                angular.forEach($scope.images.items[idx].tags, function (tag,i) {
+                                    var tagmsgobj = {
+                                        'tag': tag,
+                                        'items': $scope.images.items[idx].tags,
+                                        'ist': {
+                                            'imagesname': $scope.images.items[idx].name + '/' + tag,
+                                            'ispublicimage': true,
+                                        }
+                                    };
+                                    $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
                                 })
+                                $scope.imageTags = $scope.imgcon.items[idx].status.tags;
+
+                                //platformlist.query({id: $scope.imgcon.items[idx].name}, function (tagmsg) {
+                                //    console.log('tagmsg');
+                                //    $scope.imgcon.items[idx].status = {};
+                                //    $scope.imgcon.items[idx].status.tags = [];
+                                //    for (var i = 0; i < tagmsg.length; i++) {
+                                //        var tagmsgobj = {
+                                //            'tag': tagmsg[i],
+                                //            'items': tagmsg,
+                                //            'ist': {
+                                //                'imagesname': $scope.imgcon.items[idx].name + '/' + tagmsg[i],
+                                //                'ispublicimage': true,
+                                //            }
+                                //        };
+                                //        $scope.imgcon.items[idx].status.tags.push(tagmsgobj)
+                                //    }
+                                //    $scope.imageTags = $scope.imgcon.items[idx].status.tags;
+                                //})
 
                             }
                         };
