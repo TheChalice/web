@@ -11,14 +11,14 @@
             <div class="panel-heading">
             <span class="panel-title">
                 <span class="icon25 icon25-panel-repository">
-                </span>&nbsp;&nbsp;{{name}}
+                </span>&nbsp;&nbsp;{{data.name}}
             </span>
                 <a class="btn pull-right btn-green"
-                   ng-if="date.status.tags.length>0"
+                   ng-if="tags.length>0"
                    ng-disabled=false
                    ui-sref="console.service_create({image:data.name+':'+tags[0]})">部署最新版本</a>
                 <a class="btn pull-right btn-orange"
-                   ng-if="!date.status.tags.length"
+                   ng-if="!tags.length"
                    ng-disabled=true>暂无最新版本</a>
             </div>
             <div class="panel-body">
@@ -62,9 +62,9 @@
                                             <a class="icon25 icon25-download" uib-tooltip="拉取" href="javascript:;"
                                                ng-click="pull(item)"></a>
                                             <a class="icon25 icon25-start" uib-tooltip="部署"
-                                               ui-sref="console.service_create({image:data.name+':'+tags[0]})"></a>
-                                            <a class="icon25 icon25-delete" uib-tooltip="删除" href="javascript:;"
-                                               ng-click="delete($index)"></a>
+                                               ui-sref="console.service_create({image:data.name+':'+item})"></a>
+                                            <!--<a class="icon25 icon25-delete" uib-tooltip="删除" href="javascript:;"-->
+                                               <!--ng-click="delete($index)"></a>-->
                                             <!--<a class="icon25 icon25-start" uib-tooltip="部署" ui-sref="console.service_create()"></a>-->
                                         </div>
                                     </div>

@@ -293,6 +293,10 @@ define([
                     resolve: {
                         dep: ['$ocLazyLoad', function ($ocLazyLoad) {
                             return $ocLazyLoad.load(['views/image/image.js', 'views/image/image.css'])
+                        }],
+                        primage: ['pubregistry','regions', 'Cookie', '$rootScope', 'User', function (pubregistry,regions, Cookie, $rootScope, User) {
+
+                            return pubregistry.get().$promise;
                         }]
                     }
                 })

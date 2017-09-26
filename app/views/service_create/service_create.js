@@ -653,6 +653,7 @@ angular.module('console.service.create', [
                             //console.log(arr)
                             var container = angular.copy($scope.containerTpl);
                             container.image = arr[0] + "@" + arr[1];
+                            container.yesimage = arr[0] + "@" + arr[1];
                             container.tag = arr[2];
                             container.truename = arr[3];
                             container.strname = container.name = arr[3];
@@ -694,6 +695,7 @@ angular.module('console.service.create', [
                         } else {
                             // 公共镜像
                             var container = angular.copy($scope.containerTpl);
+                            console.log('$stateParams.image', $stateParams.image);
                             var arrtest = $stateParams.image.split(':');
                             if (arrtest.length > 2) {
                                 $scope.grid.imagePullSecrets = true;
@@ -703,8 +705,9 @@ angular.module('console.service.create', [
                                     }
                                 ]
                             }
-                            //container.image = 'registry.dataos.io/' + $stateParams.image.split(':')[0];
-                            container.image = 'registry.dataos.io/' + $stateParams.image.split(':');
+                            container.image = 'registry.dataos.io/' + $stateParams.image;
+                            container.yesimage = 'registry.dataos.io/' + $stateParams.image.split(':')[0];
+                            //container.image = 'registry.dataos.io/' + $stateParams.image.split(':');
                             container.tag = $stateParams.image.split(':')[1];
                             container.strname = container.name = $stateParams.image.split(':')[0].replace('/', '-');
                             container.truename = $stateParams.image.split(':')[0].replace('/', '-');
@@ -732,6 +735,7 @@ angular.module('console.service.create', [
 
 
                         $scope.dc.spec.template.spec.containers.push(container);
+
                         $scope.invalid.containerLength = false;
                     }
                 }
@@ -905,6 +909,7 @@ angular.module('console.service.create', [
                             var strname1 = str1[0] + '/' + str1[1];
                             container.truename = strname1.replace('/', "-");
                             container.image = 'registry.dataos.io/' + str1[0] + '/' + str1[1] + ':' + str1[2];
+                            container.yesimage = 'registry.dataos.io/' + str1[0] + '/' + str1[1] + ':' + str1[2];
                             var olsname = strname1.replace('/', "-");
                             if (idx > 0) {
                                 for (var i = 0; i < cons.length; i++) {
@@ -958,6 +963,7 @@ angular.module('console.service.create', [
                             var str = res.metadata.name.split(":");
                             //container.image = dockerImageIP[0]+':'+str[1];
                             container.image = res.image.dockerImageReference;
+                            container.yesimage = res.image.dockerImageReference;
                             var strname = str[0];
                             container.truename = str[0];
                             if (idx > 0) {
@@ -1737,6 +1743,7 @@ angular.module('console.service.create', [
                     delete clonedc.spec.template.spec.containers[i]["triggerImageTpl"];
                     delete clonedc.spec.template.spec.containers[i]["secretsobj"];
                     delete clonedc.spec.template.spec.containers[i]["truename"];
+                    delete clonedc.spec.template.spec.containers[i]["yesimage"];
                     delete clonedc.spec.template.spec.containers[i]["ref"];
                     delete clonedc.spec.template.spec.containers[i]["tag"];
                     delete clonedc.spec.template.spec.containers[i]["isshow"];

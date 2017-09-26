@@ -45,7 +45,7 @@
                     </uib-pagination>
                 </div>
             </uib-tab>
-            <uib-tab index="2" ng-show="false">
+            <uib-tab index="2">
                 <uib-tab-heading>
                     <i class="myimage"></i>&nbsp;&nbsp;仓库镜像
                 </uib-tab-heading>
@@ -74,7 +74,7 @@
                                             <a class="btn btn-green"
                                                ng-if='item.tags[0]'
                                                href="javascript:;"
-                                               ui-sref="console.service_create({image:item.status.tags[0].items[0].dockerImageReference+'@'+item.status.tags[0].tag+'@'+item.metadata.name,ports:item.status.tags[0].port})">部署最新版本</a>
+                                               ui-sref="console.service_create({image:item.image+':'+item.tags[0]})">部署最新版本</a>
                                             <a class="btn btn-gray"
                                                ng-if='!item.tags[0]'
                                                href="javascript:;"
@@ -97,8 +97,8 @@
                         </div>
                     </div>
 
-                    <div style="margin: 0 15px;text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;"
-                         ng-if="testlist.length===0"><p class="blank_block">  <span class="blank_tit"> {{text1}}</span></p></div>
+                    <!--<div style="margin: 0 15px;text-align: center;background:#f7f8fb;position:relative;border:1px solid #ccc;padding-top:15px;padding-bottom:15px;"-->
+                         <!--ng-if="testlist.length===0"><p class="blank_block">  <span class="blank_tit"> {{text1}}</span></p></div>-->
 
                 </div>
                 <div class="text-center" style="text-align:center;" ng-if="grid.total > 8">
