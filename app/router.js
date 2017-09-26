@@ -365,6 +365,16 @@ define([
                         }]
                     }
                 })
+                .state('console.quick_deploy', {
+                    url: '/quick/deploy',
+                    templateUrl: 'views/quick_deploy/quick_deploy.html',
+                    controller: 'QuickDeployCtrl',
+                    resolve: {
+                        dep: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load(['views/quick_deploy/quick_deploy.js'])
+                        }]
+                    }
+                })
                 .state('console.service_detail', {
                     url: '/service/:name',
                     params: {

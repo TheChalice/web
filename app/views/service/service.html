@@ -1,4 +1,9 @@
 <div id="service" style="background:#fff;padding:20px 40px 40px;">
+    <style>
+        #creat:focus {
+           color: #ffffff;
+        }
+    </style>
     <div class="alert alert-warning alert-dismissible sevice_alert_jia" style="background:#f5f5f5;border:0;box-shadow: none">
         <span class="close service_close" >&times;</span>
         <p style="font-size:12px;">如果需要使用持久化卷、配置卷和密钥，暂时需要在部署前提前创建。</p >
@@ -12,17 +17,39 @@
     </div>
     <div ng-if="items">
         <div style="margin-right:0;margin-left:-15px;">
-            <div class="col-sm-4 col-xs-4 serv_jia_btn">
-                <a class="btn btn-green" ui-sref="console.service_create" style="margin-right:20px;">
+            <div class="col-sm-4 col-xs-4 serv_jia_btn" style="" role="group" aria-label="">
+                <div class="btn-group" role="group">
+                <a class="btn btn-green" ui-sref="console.service_create">
                     <i class="fa fa-plus fa-lg"></i>
-                    <span class="hidden-xs"> 新建服务</span>
+                    <span class=""> 新建服务</span>
                 </a>
+                    <button type="button" id="creat" style="background-color: #55c45f;" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                        <!--Dropdown-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <ul class="dropdown-menu">
+                        <li ui-sref="console.service_create" ><a href="#">新建服务</a></li>
+                        <li ui-sref="console.quick_deploy"><a href="#">快速部署</a></li>
+                    </ul>
+                </div>
+
                 <a class="btn build-jia" ng-click="reload()" style="display:inline-block;">
                     <!-- height: 34px;width: 36px;padding: 5px 5px; jias 20161027 change-->
                     <i class="fa fa-refresh fa-lg"></i>
                 </a>
             </div>
-            <div class="input-group col-sm-4 col-sm-offset-8 searchbar">
+            <div class="col-sm-4">
+                <!--<a class="btn btn-green" ui-sref="console.quick_deploy" style="margin-right:20px;">-->
+                    <!--<i class="fa fa-plus fa-lg"></i>-->
+                    <!--<span class="hidden-xs"> 快速部署</span>-->
+                <!--</a>-->
+            </div>
+
+            <div class="input-group col-sm-4 searchbar">
                 <input type="text"
                        class="form-control"
                        placeholder="搜索服务名称"

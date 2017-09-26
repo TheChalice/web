@@ -1102,24 +1102,8 @@ define(['angular'], function (angular) {
                                 })
 
                                 })
-                                //platform.query({id: 1}, function (data) {
-                                //    var arr2 = data;
-                                //    platform.query({id: 5}, function (msg) {
-                                //        arr2 = arr2.concat(msg);
-                                //        for (var j = 0; j < arr2.length; j++) {
-                                //            var str2 = {
-                                //                'name': arr2[j]
-                                //            }
-                                //            $scope.imgcon.items.push(str2);
-                                //        }
-                                //        $scope.images = $scope.imgcon;
-                                //
-                                //
-                                //    })
-                                //})
-                                //
+
                                 $scope.images = $scope.imgcon;
-                                //console.log(' $scope.imgcon $scope.imgcon $scope.imgcon', $scope.imgcon)
                             }
                             console.log('$scope.images', $scope.images);
                         };

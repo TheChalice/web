@@ -325,6 +325,15 @@ define([
             return creatproject;
         }])
 
+        .factory('imagestreamimports', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var imagestreamimports = $resource(GLOBAL.host + '/namespaces/:namespace/imagestreamimports', {
+                namespace: '@namespace',
+            }, {
+                create: {method: 'POST'}
+            });
+            return imagestreamimports;
+        }])
+
         .factory('BackingService', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var BackingService = $resource(GLOBAL.host + '/namespaces/:namespace/backingservices/:name?region=:region', {
                 name: '@name',
