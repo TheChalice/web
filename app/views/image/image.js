@@ -64,7 +64,7 @@ angular.module('console.image', [
                 repertoryspage: 1,
                 imagecenterpage: 1,
                 ckPage:1,
-                size: 2,
+                size: 12,
                 copytest: {},
                 search: false
             };
@@ -88,7 +88,7 @@ angular.module('console.image', [
             $scope.primage = [];
             //console.log('primage', primage);
             var onlymyimage = []
-            angular.forEach(primage, function (image,i) {
+            angular.forEach(primage.repositories, function (image,i) {
                 if (image.split('/')[0] === $rootScope.namespace) {
                     onlymyimage.push(image)
                 }
