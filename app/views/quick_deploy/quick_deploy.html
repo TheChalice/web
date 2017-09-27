@@ -28,15 +28,14 @@
                                                 <span class="input-group-btn" style="position: absolute;right: 20px;top:0;z-index: 1;">
                                                     <a class="btn" ng-click="find()"></a>
                                                 </span>
-                                            <input style="z-index: 0" type="text" id="sevicecreateinp" name="serviceName"
+                                            <input autocomplete="off" style="z-index: 0" type="text" id="sevicecreateinp" name="serviceName"
                                                    ng-model="postobj.spec.images[0].from.name"
                                                    class="form-control input-block foucsinput"
                                                    type="text" name="name" class="form-control"
                                                    ng-keyup="myKeyup($event)"
                                                    placeholder="例如：nginx">
                                         </div>
-                                        <div class="col-md-4">
-                                        </div>
+
                                             <small ng-if="namerr.urlnull" class="fa fa-info-circle err-tip">请输入正确的镜像地址
                                             </small>
                                             <small ng-if="namerr.url" class="fa fa-info-circle err-tip">找不到镜像</small>
@@ -55,9 +54,9 @@
                                         </div>
 
                                         <div class="col-md-6" style="font-size:14px;color: #5a6378;">
-                                            <p><span>{{curl}}</span><span style="font-size: 10px;">&nbsp;{{creattime|dateRelative}},&nbsp;{{imagesizs}}Mi</span></p>
+                                            <p><span>{{curl}}</span><span>&nbsp;{{creattime|dateRelative}},&nbsp;&nbsp;{{imagesizs}}Mi</span></p>
                                             <p></p>
-                                            <p><span>{{fuwuname}}</span>&nbsp;导出端口&nbsp;{{strport}}</p>
+                                            <p><span>{{fuwuname}}</span>&nbsp;&nbsp;导出端口&nbsp;&nbsp;{{strport}}</p>
                                             <p></p>
                                         </div>
                                         <div class="col-md-4">
@@ -71,7 +70,7 @@
                                         <div class="col-md-6 input-group searchbar">
                                             <!--onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"-->
 
-                                            <input type="text" name="serviceName" ng-model="fuwuname"
+                                            <input autocomplete="off" type="text" name="serviceName" ng-model="fuwuname"
                                                    class="form-control input-block foucsinput"
                                                    onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"
                                                    type="text" name="name" class="form-control">
