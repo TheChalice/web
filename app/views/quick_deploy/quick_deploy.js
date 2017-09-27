@@ -101,6 +101,9 @@ angular.module('console.quick_deploy', [
                 }
             })
             $scope.find = function () {
+                if ($scope.postobj.spec.images[0].from.name === '') {
+                    return
+                }
                 $scope.postobj.spec.images[0].from.name = $scope.postobj.spec.images[0].from.name.replace(/^\s+|\s+$/g, "");
                 imagestreamimports.create({namespace: $rootScope.namespace}, $scope.postobj, function (images) {
                     if (images.status.images && images.status.images[0] && images.status.images[0].status) {
