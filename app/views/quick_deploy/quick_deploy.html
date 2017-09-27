@@ -32,19 +32,17 @@
                                                    ng-model="postobj.spec.images[0].from.name"
                                                    class="form-control input-block foucsinput"
                                                    type="text" name="name" class="form-control"
-                                                   placeholder="例如：datafoundry">
+                                                   ng-keyup="myKeyup($event)"
+                                                   placeholder="例如：nginx">
                                         </div>
                                         <div class="col-md-4">
                                         </div>
-                                            <!--<a ng-click='find()'>点我</a>-->
                                             <small ng-if="namerr.urlnull" class="fa fa-info-circle err-tip">请输入正确的镜像地址
                                             </small>
                                             <small ng-if="namerr.url" class="fa fa-info-circle err-tip">找不到镜像</small>
                                             <small ng-if="namerr.quanxian" class="fa fa-info-circle err-tip">没有访问权限
                                             </small>
-                                            <!--<small ng-show="frm.serviceName.$dirty && grid.rexnameerr" class="fa fa-info-circle err-tip">&nbsp;请输入小写英文字母</small>-->
-                                            <!--<small ng-show="frm.serviceName.$dirty && grid.createdcerr" class="fa fa-info-circle err-tip">&nbsp;服务名称不合法</small>-->
-                                            <!--<small ng-show="grid.servicenameerr" class="fa fa-info-circle err-tip">&nbsp;服务名称错误</small>-->
+
 
                                     </div>
                                     <hr style="visibility:visible;border-top:1px solid #dedede"/>
@@ -57,9 +55,9 @@
                                         </div>
 
                                         <div class="col-md-6" style="font-size:14px;color: #5a6378;">
-                                            <p><span>{{postobj.spec.images[0].from.name}}</span><span style="font-size: 10px;">&nbsp;{{creattime|dateRelative}}, {{imagesizs}}Mi</span></p>
+                                            <p><span>{{curl}}</span><span style="font-size: 10px;">&nbsp;{{creattime|dateRelative}},&nbsp;{{imagesizs}}Mi</span></p>
                                             <p></p>
-                                            <p><span>{{fuwuname}}</span>导出端口{{strport}}</p>
+                                            <p><span>{{fuwuname}}</span>&nbsp;导出端口&nbsp;{{strport}}</p>
                                             <p></p>
                                         </div>
                                         <div class="col-md-4">
@@ -75,10 +73,8 @@
 
                                             <input type="text" name="serviceName" ng-model="fuwuname"
                                                    class="form-control input-block foucsinput"
-                                                   ng-blur="nameblur()"
                                                    onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"
-                                                   ng-focus="namefocus()" type="text" name="name" class="form-control"
-                                                   placeholder="例如：datafoundry">
+                                                   type="text" name="name" class="form-control">
 
                                             <!--<small ng-show="frm.serviceName.$dirty && grid.rexnameerr" class="fa fa-info-circle err-tip">&nbsp;请输入小写英文字母</small>-->
                                             <!--<small ng-show="frm.serviceName.$dirty && grid.createdcerr" class="fa fa-info-circle err-tip">&nbsp;服务名称不合法</small>-->
@@ -102,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12" style="">
+                <div class="col-md-12" style="" ng-show="!namerr.canbuild">
                     <a href="javascript:;" ng-click="createDc()"
                        class="btn btn-block btn-orange"
                        style="color: white">

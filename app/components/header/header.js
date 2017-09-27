@@ -325,7 +325,7 @@ angular.module("console.header", [
 
                     $scope.backindex = function () {
                         $rootScope.whereclick = '首页';
-                        $state.go('login')
+                        //$state.go('login')
                     }
 
                     $scope.gotomy = function () {
