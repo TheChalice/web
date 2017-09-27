@@ -191,7 +191,8 @@ angular.module('console.quick_deploy', [
                             $scope.dc.spec.template.spec.containers[0].ports = angular.copy($scope.port)
                         }
                     }, function (err) {
-
+                        $scope.namerr.url = true;
+                        $scope.finding = false;
                     })
                 }
             }
