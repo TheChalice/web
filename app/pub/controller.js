@@ -18,19 +18,26 @@ define(['angular'], function (angular) {
                 //    Cookie.set('region', $rootScope.region, 10 * 365 * 24 * 3600 * 1000);
                 //    $state.go('console.dashboard');
                 //})
-                //Cookie.clear('namespace');
-                //Cookie.clear('df_access_token');
-                //Cookie.clear('region');
-                //$rootScope.region = '';
-                //$rootScope.user = '';
-                //$rootScope.namespace = "";
-                //$state.go('home.index');
+                Cookie.clear('namespace');
+                Cookie.clear('df_access_token');
+                Cookie.clear('region');
+                $rootScope.region = '';
+                $rootScope.user = '';
+                $rootScope.namespace = "";
+                $state.go('login');
             });
             $rootScope.$on(AUTH_EVENTS.loginSuccess, function () {
                 $log.info(AUTH_EVENTS.loginSuccess);
             });
             $rootScope.$on(AUTH_EVENTS.httpForbidden, function () {
                 $log.info(AUTH_EVENTS.httpForbidden);
+                Cookie.clear('namespace');
+                Cookie.clear('df_access_token');
+                Cookie.clear('region');
+                $rootScope.region = '';
+                $rootScope.user = '';
+                $rootScope.namespace = "";
+                $state.go('login');
                 //Cookie.clear('namespace');
                 //Cookie.clear('df_access_token');
                 //Cookie.clear('region');
