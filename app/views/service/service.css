@@ -33,3 +33,11 @@
 .blank_block{margin-bottom:0;}
 .blank_tit{font-size:14px;color:#5a6378;margin-left:10px;vertical-align:middle;}
 .serv_jia_btn{padding-left:15px!important;}
+
+.ser_drp_set{background-color: #55c45f;width:30px;border-left:1px solid rgba(0,0,0,.125)}
+
+.quick_menu{min-width:124px;}
+.quick_menu .quick_bs a{padding:0px;width:128px!important;background:#55c45f;display:block;height:34px!important;
+    line-height:34px!important;color:#fff;border-radius:4px;font-size:14px;text-indent:30px;}
+.quick_menu  .quick_bs a:focus,.quick_menu .quick_bs a:hover{background:#55c45f;color:#fff;}
+.btn-group.open .ser_drp_set{width:30px;}

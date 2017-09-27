@@ -21,9 +21,9 @@
                 <div class="btn-group" role="group">
                 <a class="btn btn-green" ui-sref="console.service_create">
                     <i class="fa fa-plus fa-lg"></i>
-                    <span class=""> 新建服务</span>
+                    <span class=""> 新建部署</span>
                 </a>
-                    <button type="button" id="creat" style="background-color: #55c45f;" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" id="creat" class="btn dropdown-toggle ser_drp_set" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
@@ -31,9 +31,9 @@
                         <!--Dropdown-->
                         <!--<span class="caret"></span>-->
                     <!--</button>-->
-                    <ul class="dropdown-menu">
-                        <li ui-sref="console.service_create" ><a href="#">新建服务</a></li>
-                        <li ui-sref="console.quick_deploy"><a href="#">快速部署</a></li>
+                    <ul class="dropdown-menu quick_menu">
+                        <!--<li ui-sref="console.service_create" ><a href="#">新建服务</a></li>-->
+                        <li class="quick_bs" ui-sref="console.quick_deploy"><a href="#">快速部署</a></li>
                     </ul>
                 </div>
 
