@@ -1,12 +1,89 @@
 <div class="service-create" style="margin-top:-30px">
+    <style>
+        .loadEffect {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f8b551;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -8px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 14px;
+            top: 14px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -8px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 14px;
+            right: 14px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -8px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 14px;
+            bottom: 14px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -8px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 14px;
+            left: 14px;
+            -webkit-animation-delay: 1.04s;
+        }
+    </style>
     <form name="frm">
         <div class="row">
             <div class="col-md-12">
                 <div class="info">
-                    <!--
-                        <p class="text-right" style="font-size:12px; margin-right: 110px">请填写配置,完成手动创建服务,您还可以</p>
-                        <a class="btn btn-skyblue pull-right" ng-click="" style="margin-top: -35px; margin-left: 40px">从模版创建</a>
-                    -->
+
                 </div>
 
                 <div class="col-md-12">
@@ -18,17 +95,20 @@
                                     快速部署
                                 </div>
                                 <hr style="visibility:visible; margin:0 18px;border-top:1px solid #dedede"/>
-                                <div class="panel-body" style="padding: 30px 40px;">
+
+                                <div class="panel-body" style="padding: 30px 40px 10px;">
                                     <div class="row">
                                         <div class="col-md-2" style="padding-top: 8px;">
                                             <h3 class="require" style="font-weight:normal;">镜像地址</h3>
                                         </div>
                                         <div class="col-md-6 input-group searchbar" style="position: relative;">
-                                                                    <!--onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"-->
-                                                <span class="input-group-btn" style="position: absolute;right: 20px;top:0;z-index: 1;">
+                                            <!--onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;"-->
+                                                <span class="input-group-btn"
+                                                      style="position: absolute;right: 20px;top:0;z-index: 1;">
                                                     <a class="btn" ng-click="find()"></a>
                                                 </span>
-                                            <input autocomplete="off" style="z-index: 0" type="text" id="sevicecreateinp" name="serviceName"
+                                            <input autocomplete="off" style="z-index: 0" type="text"
+                                                   id="sevicecreateinp" name="serviceName"
                                                    ng-model="postobj.spec.images[0].from.name"
                                                    class="form-control input-block foucsinput"
                                                    type="text" name="name" class="form-control"
@@ -36,25 +116,44 @@
                                                    placeholder="例如：nginx">
                                         </div>
 
-                                            <small ng-if="namerr.urlnull" class="fa fa-info-circle err-tip">请输入正确的镜像地址
-                                            </small>
-                                            <small ng-if="namerr.url" class="fa fa-info-circle err-tip">找不到镜像</small>
-                                            <small ng-if="namerr.quanxian" class="fa fa-info-circle err-tip">没有访问权限
-                                            </small>
+                                        <small ng-if="namerr.urlnull" class="fa fa-info-circle err-tip">请输入正确的镜像地址
+                                        </small>
+                                        <small ng-if="namerr.url" class="fa fa-info-circle err-tip">找不到镜像</small>
+                                        <small ng-if="namerr.quanxian" class="fa fa-info-circle err-tip">没有访问权限
+                                        </small>
 
 
                                     </div>
                                     <hr style="visibility:visible;border-top:1px solid #dedede"/>
-
+                                    <div style="text-align: center;margin-top: -30px;"ng-show="finding">
+                                    <!--<div style="text-align: center;" ng-show="finding">-->
+                                        <div>
+                                            <div class="loadEffect">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                            <span>正在获取镜像信息
+                                        </span>
+                                        </div>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="panel-body" style="padding: 30px 40px;" ng-show="hasurl">
+
+                                <div class="panel-body" style="padding: 10px 40px 30px; " ng-show="!finding&&hasurl">
                                     <div class="row" style="margin-bottom: 20px;">
                                         <div class="col-md-2" style="padding-top: 8px;">
                                             <h3 class="" style="font-weight:normal;">镜像详情</h3>
                                         </div>
 
                                         <div class="col-md-6" style="font-size:14px;color: #5a6378;">
-                                            <p><span>{{curl}}</span><span>&nbsp;{{creattime|dateRelative}},&nbsp;&nbsp;{{imagesizs}}Mi</span></p>
+                                            <p><span>{{curl}}</span><span>&nbsp;{{creattime|dateRelative}},&nbsp;&nbsp;{{imagesizs}}MiB</span>
+                                            </p>
                                             <p></p>
                                             <p><span>{{fuwuname}}</span>&nbsp;&nbsp;导出端口&nbsp;&nbsp;{{strport}}</p>
                                             <p></p>
@@ -79,8 +178,7 @@
                                             <!--<small ng-show="frm.serviceName.$dirty && grid.createdcerr" class="fa fa-info-circle err-tip">&nbsp;服务名称不合法</small>-->
                                             <!--<small ng-show="grid.servicenameerr" class="fa fa-info-circle err-tip">&nbsp;服务名称错误</small>-->
                                         </div>
-                                        <div class="col-md-4">
-                                        </div>
+
                                         <small ng-if="namerr.nil" class="fa fa-info-circle err-tip">请输入正确构建名称
                                         </small>
                                         <small ng-if="namerr.rexed" class="fa fa-info-circle err-tip">
@@ -105,6 +203,6 @@
                     </a>
                 </div>
             </div>
-            </div>
+        </div>
     </form>
 </div>

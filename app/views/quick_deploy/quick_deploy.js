@@ -62,9 +62,10 @@ angular.module('console.quick_deploy', [
             }
             $scope.hasport = false;
             $scope.hasurl = false;
+            $scope.finding = false;
             DeploymentConfig.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
                 $scope.servelist = data;
-                console.log('scope.servelist', $scope.servelist);
+                //console.log('scope.servelist', $scope.servelist);
             })
             $scope.$watch('fuwuname', function (n, o) {
                 if (n == o) {
@@ -101,103 +102,99 @@ angular.module('console.quick_deploy', [
                 }
             })
             $scope.find = function () {
-                if ($scope.postobj.spec.images[0].from.name === '') {
-                    return
-                }
-                $scope.postobj.spec.images[0].from.name = $scope.postobj.spec.images[0].from.name.replace(/^\s+|\s+$/g, "");
-                imagestreamimports.create({namespace: $rootScope.namespace}, $scope.postobj, function (images) {
-                    if (images.status.images && images.status.images[0] && images.status.images[0].status) {
-                        if (images.status.images[0].status.code && images.status.images[0].status.code === 401) {
-                            $scope.namerr.quanxian = true;
-                            return
-                        }
-                        if (images.status.images[0].status.code && images.status.images[0].status.code === 404) {
-                            $scope.namerr.url = true;
-                            return
-                        }
+                if (!$scope.finding) {
+                    $scope.finding = true;
+                    if ($scope.postobj.spec.images[0].from.name === '') {
+                        return
                     }
-                    $scope.namerr.canbuild = false;
-                    $scope.images = images;
-                    $scope.curl = $scope.postobj.spec.images[0].from.name;
-                    var name = $scope.postobj.spec.images[0].from.name.split('/')[$scope.postobj.spec.images[0].from.name.split('/').length - 1]
-                    $scope.fuwuname = name.split(':').length > 1 ? name.split(':')[0] : name;
-                    $scope.dc = {
-                        "kind": "DeploymentConfig",
-                        "apiVersion": "v1",
-                        "metadata": {
-                            "name": $scope.fuwuname,
-                            "labels": {"app": $scope.fuwuname},
-                            "annotations": {
-                                "openshift.io/generated-by": "OpenShiftWebConsole",
-                                "dadafoundry.io/create-by": $rootScope.user.metadata.name
+                    $scope.postobj.spec.images[0].from.name = $scope.postobj.spec.images[0].from.name.replace(/^\s+|\s+$/g, "");
+                    imagestreamimports.create({namespace: $rootScope.namespace}, $scope.postobj, function (images) {
+                        $scope.finding = false;
+                        if (images.status.images && images.status.images[0] && images.status.images[0].status) {
+                            if (images.status.images[0].status.code && images.status.images[0].status.code === 401) {
+                                $scope.namerr.quanxian = true;
+                                return
                             }
-                        },
-                        "spec": {
-                            "strategy": {"resources": {}},
-                            "triggers": [{
-                                "type": "ConfigChange"
+                            if (images.status.images[0].status.code && images.status.images[0].status.code === 404) {
+                                $scope.namerr.url = true;
+                                return
                             }
-                                //,
-                                //    {
-                                //    "type": "ImageChange",
-                                //    "imageChangeParams": {
-                                //        "automatic": true,
-                                //        "containerNames": ["go-web-demo"],
-                                //        "from": {"kind": "ImageStreamTag", "name": "go-web-demo:latest"}
-                                //    }
-                                //}
-                            ],
-                            "replicas": 1,
-                            "test": false,
-                            "selector": {
-                                "deploymentconfig": $scope.fuwuname,
-                                "app": $scope.fuwuname
-                            },
-                            "template": {
-                                "metadata": {
-                                    "labels": {"deploymentconfig": $scope.fuwuname, "app": $scope.fuwuname},
-                                    "annotations": {"openshift.io/generated-by": "OpenShiftWebConsole"}
-                                },
-                                "spec": {
-                                    "volumes": [],
-                                    "containers": [{
-                                        "name": $scope.fuwuname,
-                                        "image": $scope.postobj.spec.images[0].from.name,
-                                        //"ports": [{"containerPort": 8080, "protocol": "TCP"}]
-                                    }],
-                                    "resources": {}
+                        }
+                        $scope.namerr.canbuild = false;
+                        $scope.images = images;
+                        $scope.curl = $scope.postobj.spec.images[0].from.name;
+                        var name = $scope.postobj.spec.images[0].from.name.split('/')[$scope.postobj.spec.images[0].from.name.split('/').length - 1]
+                        $scope.fuwuname = name.split(':').length > 1 ? name.split(':')[0] : name;
+                        $scope.dc = {
+                            "kind": "DeploymentConfig",
+                            "apiVersion": "v1",
+                            "metadata": {
+                                "name": $scope.fuwuname,
+                                "labels": {"app": $scope.fuwuname},
+                                "annotations": {
+                                    "openshift.io/generated-by": "OpenShiftWebConsole",
+                                    "dadafoundry.io/create-by": $rootScope.user.metadata.name
                                 }
-                            }
-                        },
-                        "status": {}
-                    }
-                    $scope.creattime = images.status.images[0].image.dockerImageMetadata.Created
-                    $scope.imagesizs = (images.status.images[0].image.dockerImageMetadata.Size / 1024 / 1024).toFixed(2)
-                    $scope.hasurl = true;
-                    if (images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts) {
-                        var port = images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts;
-                        $scope.port = []
-                        $scope.strport = '';
-                        for (var k in port) {
-                            $scope.port.push({protocol: k.split('/')[1].toUpperCase(), containerPort: k.split('/')[0]})
-                            $scope.strport += k.split('/')[0] + '/' + k.split('/')[1].toUpperCase() + ',';
+                            },
+                            "spec": {
+                                "strategy": {"resources": {}},
+                                "triggers": [{
+                                    "type": "ConfigChange"
+                                }
+                                    //,
+                                    //    {
+                                    //    "type": "ImageChange",
+                                    //    "imageChangeParams": {
+                                    //        "automatic": true,
+                                    //        "containerNames": ["go-web-demo"],
+                                    //        "from": {"kind": "ImageStreamTag", "name": "go-web-demo:latest"}
+                                    //    }
+                                    //}
+                                ],
+                                "replicas": 1,
+                                "test": false,
+                                "selector": {
+                                    "deploymentconfig": $scope.fuwuname,
+                                    "app": $scope.fuwuname
+                                },
+                                "template": {
+                                    "metadata": {
+                                        "labels": {"deploymentconfig": $scope.fuwuname, "app": $scope.fuwuname},
+                                        "annotations": {"openshift.io/generated-by": "OpenShiftWebConsole"}
+                                    },
+                                    "spec": {
+                                        "volumes": [],
+                                        "containers": [{
+                                            "name": $scope.fuwuname,
+                                            "image": $scope.postobj.spec.images[0].from.name,
+                                            //"ports": [{"containerPort": 8080, "protocol": "TCP"}]
+                                        }],
+                                        "resources": {}
+                                    }
+                                }
+                            },
+                            "status": {}
                         }
-                        $scope.strport = $scope.strport.replace(/\,$/, "")
-                        //$scope.strport=
-                        console.log('$scope.strport', $scope.strport);
-                        //angular.forEach($scope.port, function (port,i) {
-                        //
-                        //})
-                        $scope.hasport = true;
-                        $scope.dc.spec.template.spec.containers[0].ports = angular.copy($scope.port)
-                    }
-                    //$scope.port=images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts;
-                    console.log('$scope.port', $scope.port);
-
-                }, function (err) {
-
-                })
-
+                        $scope.creattime = images.status.images[0].image.dockerImageMetadata.Created
+                        $scope.imagesizs = (images.status.images[0].image.dockerImageMetadata.Size / 1024 / 1024).toFixed(2)
+                        $scope.hasurl = true;
+                        if (images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts) {
+                            var port = images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts;
+                            $scope.port = []
+                            $scope.strport = '';
+                            for (var k in port) {
+                                $scope.port.push({protocol: k.split('/')[1].toUpperCase(), containerPort: k.split('/')[0]})
+                                $scope.strport += k.split('/')[0] + '/' + k.split('/')[1].toUpperCase() + ',';
+                            }
+                            $scope.strport = $scope.strport.replace(/\,$/, "")
+                            $scope.hasport = true;
+                            $scope.dc.spec.template.spec.containers[0].ports = angular.copy($scope.port)
+                        }
+                    }, function (err) {
+                        $scope.namerr.url = true;
+                        $scope.finding = false;
+                    })
+                }
             }
             $scope.myKeyup= function (e) {
                 var keycode = window.event?e.keyCode:e.which;
@@ -211,7 +208,6 @@ angular.module('console.quick_deploy', [
                 service.spec.selector.app = dc.metadata.name;
                 service.spec.selector.deploymentconfig = dc.metadata.name;
             };
-
             function creatdc() {
                 DeploymentConfig.get({
                     namespace: $rootScope.namespace,
@@ -238,12 +234,9 @@ angular.module('console.quick_deploy', [
                     })
 
             }
-
             var createService = function (dc) {
-
                 prepareService($scope.service, dc);
                 var ps = [];
-
                 angular.forEach($scope.port, function (port, i) {
                     var val = port.protocol.toUpperCase()
                     ps.push({
@@ -253,23 +246,20 @@ angular.module('console.quick_deploy', [
                         targetPort: parseInt(port.containerPort)
                     })
                 })
-
                 if (ps.length > 0) {
                     $scope.service.spec.ports = ps;
                 } else {
                     $scope.service.spec.ports = null;
                 }
-
-                //$log.info('$scope.service0-0-0-0-', $scope.service.spec.ports);
                 Service.get({
                     namespace: $rootScope.namespace,
                     region: $rootScope.region,
                     name: $scope.fuwuname
                 }, function (serve) {
-                    console.log('serve', serve);
+                    //console.log('serve', serve);
                     $scope.namerr.repeated = true;
                 }, function (err) {
-                    console.log('err', err.status);
+                    //console.log('err', err.status);
                     if (err.status === 404) {
                         Service.create({
                             namespace: $rootScope.namespace,
@@ -283,12 +273,9 @@ angular.module('console.quick_deploy', [
                             //$state.go('console.service_detail', {name: dc.metadata.name});
                         });
                     }
-
-
                 })
 
             };
-
             $scope.createDc = function () {
                 //angular.forEach($scope.servelist.items, function (serve, i) {
                 //    if (serve.metadata.name === $scope.fuwuname) {
