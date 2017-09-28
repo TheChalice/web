@@ -176,21 +176,26 @@ angular.module('console.quick_deploy', [
                             },
                             "status": {}
                         }
-                        $scope.creattime = images.status.images[0].image.dockerImageMetadata.Created
-                        $scope.imagesizs = (images.status.images[0].image.dockerImageMetadata.Size / 1024 / 1024).toFixed(2)
-                        $scope.hasurl = true;
-                        if (images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts) {
-                            var port = images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts;
-                            $scope.port = []
-                            $scope.strport = '';
-                            for (var k in port) {
-                                $scope.port.push({protocol: k.split('/')[1].toUpperCase(), containerPort: k.split('/')[0]})
-                                $scope.strport += k.split('/')[0] + '/' + k.split('/')[1].toUpperCase() + ',';
+                        if (images.status.images[0] && images.status.images[0].image.dockerImageMetadata) {
+                            $scope.creattime = images.status.images[0].image.dockerImageMetadata.Created
+                            $scope.imagesizs = (images.status.images[0].image.dockerImageMetadata.Size / 1024 / 1024).toFixed(2)
+                            $scope.hasurl = true;
+                            if (images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts) {
+                                var port = images.status.images[0].image.dockerImageMetadata.Config.ExposedPorts;
+                                $scope.port = []
+                                $scope.strport = '';
+                                for (var k in port) {
+                                    $scope.port.push({protocol: k.split('/')[1].toUpperCase(), containerPort: k.split('/')[0]})
+                                    $scope.strport += k.split('/')[0] + '/' + k.split('/')[1].toUpperCase() + ',';
+                                }
+                                $scope.strport = $scope.strport.replace(/\,$/, "")
+                                $scope.hasport = true;
+                                $scope.dc.spec.template.spec.containers[0].ports = angular.copy($scope.port)
                             }
-                            $scope.strport = $scope.strport.replace(/\,$/, "")
-                            $scope.hasport = true;
-                            $scope.dc.spec.template.spec.containers[0].ports = angular.copy($scope.port)
+                        }else {
+                            $scope.namerr.url = true;
                         }
+
                     }, function (err) {
                         $scope.namerr.url = true;
                         $scope.finding = false;
