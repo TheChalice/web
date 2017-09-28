@@ -600,6 +600,8 @@ angular.module('console.service.create', [
                     if ($stateParams.image.metadata) {
                         var container = angular.copy($scope.containerTpl);
                         container.image = $stateParams.image.metadata.name;
+                        container.yesimage = $stateParams.image.metadata.name;
+
                         //console.log($stateParams.image.metadata.name)
                         if ($stateParams.image.tag) {
                             container.tag = $stateParams.image.tag.name;
@@ -963,7 +965,7 @@ angular.module('console.service.create', [
                             var str = res.metadata.name.split(":");
                             //container.image = dockerImageIP[0]+':'+str[1];
                             container.image = res.image.dockerImageReference;
-                            container.image = res.image.dockerImageReference;
+                            container.yesimage = res.image.dockerImageReference;
                             var strname = str[0];
                             container.truename = str[0];
                             if (idx > 0) {

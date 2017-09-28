@@ -2566,6 +2566,15 @@ angular.module('console.service.detail', [
 
                         if (dc.spec.template.spec.containers[i].hasOwnProperty("isimageChange")) {
                             if (!dc.spec.template.spec.containers[i].triggerImageTpl && dc.spec.template.spec.containers[i].isimageChange) {
+                                var obj = angular.copy(dc.spec.template.spec.containers[i])
+                                if (obj.image.split('@sha256').length > 1) {
+                                   var imagedname =  obj.image.split('@sha256')[0];
+                                    imagedname=imagedname.split('/')[imagedname.split('/').length-1];
+                                    console.log('imagedname', imagedname);
+                                }else {
+                                    var imagedname= obj.imagename ;
+                                }
+                                console.log('dc.spec.template.spec.containers[i]',obj);
                                 dc.spec.template.spec.containers[i].triggerImageTpl = {
                                     "type": "ImageChange",
                                     "imageChangeParams": {
@@ -2575,7 +2584,7 @@ angular.module('console.service.detail', [
                                         ],
                                         "from": {
                                             "kind": "ImageStreamTag",
-                                            "name": dc.spec.template.spec.containers[i].imagename + ":" + dc.spec.template.spec.containers[i].tag  //ruby-hello-world:latest
+                                            "name": imagedname + ":" + dc.spec.template.spec.containers[i].tag  //ruby-hello-world:latest
                                         }
                                     }
                                 };
