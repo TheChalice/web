@@ -945,16 +945,17 @@ define(['angular'], function (angular) {
 
                         var names = name
                         //}
-                            $scope.privateurl = GLOBAL.private_url
+
                             var tokens = Cookie.get('df_access_token').split(',');
                             var token = tokens[0];
                         if (yuorself == 'project') {
                             $scope.name = name;
-
+                            $scope.privateurl = GLOBAL.private_url
 
                             //docker login -u chaizs -p xxzxczxadasd registry.dataos.io && docker pull
                             $scope.cmd = 'docker login -u '+Cookie.get('namespace')+' -p '+token+' '+GLOBAL.private_url+' && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;
                         } else {
+                            $scope.privateurl = GLOBAL.common_url
                             $scope.name = name;
                             $scope.cmd = 'docker login  && docker pull '+GLOBAL.common_url+'/' + $rootScope.namespace + '/' + $scope.name;;
                         }

@@ -707,8 +707,8 @@ angular.module('console.service.create', [
                                     }
                                 ]
                             }
-                            container.image = GLOBAL.private_url+'/' + $stateParams.image;
-                            container.yesimage = GLOBAL.private_url+'/' + $stateParams.image.split(':')[0];
+                            container.image = GLOBAL.common_url+'/' + $stateParams.image;
+                            container.yesimage = GLOBAL.common_url+'/' + $stateParams.image.split(':')[0];
                             //container.image = 'registry.dataos.io/' + $stateParams.image.split(':');
                             container.tag = $stateParams.image.split(':')[1];
                             container.strname = container.name = $stateParams.image.split(':')[0].replace('/', '-');
@@ -910,8 +910,8 @@ angular.module('console.service.create', [
                             var str1 = res.imagesname.split("/");
                             var strname1 = str1[0] + '/' + str1[1];
                             container.truename = strname1.replace('/', "-");
-                            container.image = GLOBAL.private_url +'/'+ str1[0] + '/' + str1[1] + ':' + str1[2];
-                            container.yesimage = GLOBAL.private_url+'/' + str1[0] + '/' + str1[1] + ':' + str1[2];
+                            container.image = GLOBAL.common_url +'/'+ str1[0] + '/' + str1[1] + ':' + str1[2];
+                            container.yesimage = GLOBAL.common_url+'/' + str1[0] + '/' + str1[1] + ':' + str1[2];
                             var olsname = strname1.replace('/', "-");
                             if (idx > 0) {
                                 for (var i = 0; i < cons.length; i++) {
