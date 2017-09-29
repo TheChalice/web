@@ -935,6 +935,7 @@ define(['angular'], function (angular) {
                 return $uibModal.open({
                     templateUrl: 'pub/tpl/modal_pull_image.html',
                     size: 'default',
+                    keyboard: false,
                     controller: ['$scope', '$uibModalInstance', '$log','Cookie','GLOBAL',
                         function ($scope, $uibModalInstance, $log,Cookie,GLOBAL) {
                         //console.log(name)
@@ -942,7 +943,7 @@ define(['angular'], function (angular) {
                         //    $scope.name = name.split('/')[1] ? name.split(':')[0] + ':' + name.split(':')[1].split('/')[1] : name;
                         //
                         //} else {
-
+                       $scope.copyCon = '复制';
                         var names = name
                         //}
 
@@ -965,9 +966,11 @@ define(['angular'], function (angular) {
                         };
                         $scope.success = function () {
                             $log.info('Copied!');
-                            $uibModalInstance.close(true);
+                            $scope.copyCon = '已复制';
+                            //$uibModalInstance.close(true);
                         };
                         $scope.fail = function (err) {
+                            alert(2);
                             $scope.tip = '该浏览器不支持复制，请手动选中输入框中内容，通过 Ctrl+C 复制';
                             $log.error('Error!', err);
                         };
