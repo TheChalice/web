@@ -970,7 +970,6 @@ define(['angular'], function (angular) {
                             //$uibModalInstance.close(true);
                         };
                         $scope.fail = function (err) {
-                            alert(2);
                             $scope.tip = '该浏览器不支持复制，请手动选中输入框中内容，通过 Ctrl+C 复制';
                             $log.error('Error!', err);
                         };
