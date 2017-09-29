@@ -1531,8 +1531,8 @@ define(['angular'], function (angular) {
                     //}
                     //localStorage.setItem('codenum','0')
                     function denglu() {
-
                         $http(req).success(function (data) {
+                            alert(1);
                             //var arrstr = data.join(',');
                             var arr = []
                             //console.log(data);
@@ -1546,7 +1546,7 @@ define(['angular'], function (angular) {
                             var arrstr = arr.join(',');
                             //console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&",arrstr);
                             Cookie.set('df_access_token', arrstr, 23 * 3600 * 1000);
-                            //console.log(Cookie.get('df_access_token'));
+                            console.log(Cookie.get('df_access_token'));
 
                             Cookie.set('region', credentials.region, 24 * 3600 * 1000);
                             $rootScope.region = Cookie.get('region');
@@ -1594,7 +1594,9 @@ define(['angular'], function (angular) {
                                 //inputDaovoice();
                             });
 
-                        }).error(function (data) {
+                        }).error(
+
+                            function (data) {
                             //console.log(data);
                             //if (data.code == 401) {
                             //  //$rootScope.user=false;
