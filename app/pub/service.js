@@ -956,7 +956,7 @@ define(['angular'], function (angular) {
                             $scope.cmd = 'docker login -u '+Cookie.get('namespace')+' -p '+token+' '+GLOBAL.private_url+' && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;
                         } else {
                             $scope.name = name;
-                            $scope.cmd = 'docker login  && docker pull '+GLOBAL.private_url+'/' + $rootScope.namespace + '/' + $scope.name;;
+                            $scope.cmd = 'docker login  && docker pull '+GLOBAL.common_url+'/' + $rootScope.namespace + '/' + $scope.name;;
                         }
 
                         $scope.cancel = function () {
