@@ -30,14 +30,14 @@ define(['angular'], function (angular) {
                 $log.info(AUTH_EVENTS.loginSuccess);
             });
             $rootScope.$on(AUTH_EVENTS.httpForbidden, function () {
-                $log.info(AUTH_EVENTS.httpForbidden);
-                Cookie.clear('namespace');
-                Cookie.clear('df_access_token');
-                Cookie.clear('region');
-                $rootScope.region = '';
-                $rootScope.user = '';
-                $rootScope.namespace = "";
-                $state.go('login');
+                $log.info(AUTH_EVENTS.httpForbidden,"to do san.");
+                // Cookie.clear('namespace');
+                // Cookie.clear('df_access_token');
+                // Cookie.clear('region');
+                // $rootScope.region = '';
+                // $rootScope.user = '';
+                // $rootScope.namespace = "";
+                // $state.go('login');
                 //Cookie.clear('namespace');
                 //Cookie.clear('df_access_token');
                 //Cookie.clear('region');
