@@ -697,7 +697,7 @@ angular.module('console.service.create', [
                         } else {
                             // 公共镜像
                             var container = angular.copy($scope.containerTpl);
-                            console.log('$stateParams.image', $stateParams.image);
+                            //console.log('$stateParams.image', $stateParams.image);
                             var arrtest = $stateParams.image.split(':');
                             if (arrtest.length > 2) {
                                 $scope.grid.imagePullSecrets = true;
@@ -960,12 +960,14 @@ angular.module('console.service.create', [
                         } else {
                             // 私有镜像
                             //var dockerImageIP  = res.image.dockerImageReference.split('@');
+                            console.log('imageres', res);
                             container.isimageChange = true;
                             container.isshow = true;
                             delete container["imagePullSecrets"];
                             var str = res.metadata.name.split(":");
                             //container.image = dockerImageIP[0]+':'+str[1];
                             container.image = res.image.dockerImageReference;
+
                             container.yesimage = res.image.dockerImageReference;
                             var strname = str[0];
                             container.truename = str[0];
@@ -1549,7 +1551,7 @@ angular.module('console.service.create', [
                                 return false;
                             }
                         } else if (containers[i].doset === 'TCP') {
-                            console.log('tcpSocket',containers[i].readinessProbe.tcpSocket);
+                            //console.log('tcpSocket',containers[i].readinessProbe.tcpSocket);
                             if (containers[i].readinessProbe.tcpSocket.port !== null&&containers[i].readinessProbe.initialDelaySeconds && containers[i].readinessProbe.timeoutSeconds) {
                                 containers[i].cadoerr = false;
                             } else {
