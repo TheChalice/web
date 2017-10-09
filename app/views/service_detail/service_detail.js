@@ -2934,6 +2934,7 @@ angular.module('console.service.detail', [
                             // console.log('====', $scope.pod)
                         };
                         preparePod($scope.pod);
+                        $scope.result='';
                         var watchpod = function (resourceVersion, contair) {
                             Ws.watch({
                                 api: 'k8s',
@@ -2949,11 +2950,15 @@ angular.module('console.service.detail', [
                                 //updateRcs(data);
                                 //console.log(data);
                                 if (res.data && typeof res.data == "string") {
-                                    $scope.result += $base64.decode(res.data);
-                                    var html = ansi_ups.ansi_to_html($scope.result);
-                                    $scope.log = $sce.trustAsHtml(html);
-                                    loglast()
-                                    $scope.$apply();
+                                    if ($base64.decode(res.data) !== undefined) {
+                                        //console.log('$scope.result',$scope.result);
+                                        $scope.result += $base64.decode(res.data);
+                                        var html = ansi_ups.ansi_to_html($scope.result);
+                                        $scope.log = $sce.trustAsHtml(html);
+                                        loglast()
+                                        $scope.$apply();
+                                    }
+
 
                                 }
 
