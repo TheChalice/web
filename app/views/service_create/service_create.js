@@ -908,24 +908,31 @@ angular.module('console.service.create', [
                             /////公共镜像
                             container.isimageChange = false;
                             container.isshow = false;
-                            var str1 = res.imagesname.split("/");
-                            var strname1 = str1[0] + '/' + str1[1];
+                            //var str1 = res.imagesname.split("/");
+                            var tag =res.imagesname.split("/")[res.imagesname.split("/").length-1];
+                            var strname1 = res.imagesname.split('/'+tag)[0]
+                            //var strname1 = str1[0] + '/' + str1[1];
                             container.truename = strname1.replace('/', "-");
-                            container.image = GLOBAL.common_url +'/'+ str1[0] + '/' + str1[1] + ':' + str1[2];
-                            container.yesimage = GLOBAL.common_url+'/' + str1[0] + '/' + str1[1] + ':' + str1[2];
+                            container.image = GLOBAL.common_url +'/'+ strname1 + ':' + tag;
+                            container.yesimage = GLOBAL.common_url+'/' + strname1 + ':' + tag;
+                            //var str1 = res.imagesname.split("/");
+                            //var strname1 = str1[0] + '/' + str1[1];
+                            //container.truename = strname1.replace('/', "-");
+                            //container.image = GLOBAL.common_url +'/'+ str1[0] + '/' + str1[1] + ':' + str1[2];
+                            //container.yesimage = GLOBAL.common_url+'/' + str1[0] + '/' + str1[1] + ':' + str1[2];
                             var olsname = strname1.replace('/', "-");
                             if (idx > 0) {
                                 for (var i = 0; i < cons.length; i++) {
                                     if (i != idx) {
                                         if (container.name && cons[i].name == container.name) {
-                                            strname1 = str1[0] + '/' + str1[1] + idx;
+                                            strname1 = strname1 + idx;
                                         }
                                     }
                                 }
                             } else {
                                 for (var i = 1; i < cons.length; i++) {
                                     if (container.name && cons[i].name == container.name) {
-                                        strname1 = str1[0] + '/' + str1[1] + idx;
+                                        strname1 = strname1 + idx;
                                     }
                                 }
                             }
@@ -933,7 +940,8 @@ angular.module('console.service.create', [
                             if (!container.name) {
                                 container.name = strname1.replace('/', "-");
                             }
-                            container.tag = str1[2];
+                            container.tag = tag;
+                            //container.tag = str1[2];
                             imagetag = 'dadafoundry.io/image-' + container.name;
                             ////仓库镜像
                             if (res.imagePullSecrets) {
@@ -955,7 +963,7 @@ angular.module('console.service.create', [
                                 }
                             };
                             container.port = []
-                            $scope.dc.metadata.annotations[imagetag] = container.truename + ":" + str1[2];
+                            $scope.dc.metadata.annotations[imagetag] = container.truename + ":" + tag;
 
                         } else {
                             // 私有镜像
