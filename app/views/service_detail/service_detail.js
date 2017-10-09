@@ -2896,7 +2896,7 @@ angular.module('console.service.detail', [
                             }
                             return match[1];
                         };
-
+                        //console.log($scope.container);
                         var preparePod = function (pod) {
                             var status = pod.status.containerStatuses;
                             var statusMap = {};
@@ -3100,8 +3100,9 @@ angular.module('console.service.detail', [
                                 $scope.grid.cpu = false;
                             });
                         };
-                        //console.log('$scope.container', obj.name);
+                        console.log('$scope.container', obj.name);
                         $scope.container = obj.name;
+                        $scope.containername=obj.name;
                         $scope.getLog(obj.name);
                         //terminal(o.name);
                         getMetrics(pod, obj);

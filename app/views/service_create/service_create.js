@@ -931,6 +931,7 @@ angular.module('console.service.create', [
                                     }
                                 }
                             } else {
+
                                 for (var i = 1; i < cons.length; i++) {
                                     if (container.name && cons[i].name == container.name) {
                                         strname1 = strname1 + idx;
