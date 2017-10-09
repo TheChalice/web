@@ -268,7 +268,8 @@ define(['angular', 'moment'], function (angular, moment) {
                 }
                 var match = image.match(/\/([^/]*)@sha256/);
                 if (!match) {
-                    return image.replace(/:.*/, '');
+                    return image
+                    //return image.replace(/:.*/, '');
                 }
                 return match[1];
             };
