@@ -8,8 +8,8 @@ angular.module('console.build.detail', [
             ]
         }
     ])
-    .controller('BuildDetailCtrl', ['ImageStreamTag', 'deleteSecret', 'Ws', 'Sort', 'GLOBAL', '$rootScope', '$scope', '$log', '$state', '$stateParams', '$location', 'BuildConfig', 'Build', 'Confirm', 'UUID', 'WebhookLab', 'WebhookHub', 'WebhookLabDel', 'WebhookHubDel', 'ImageStream', 'WebhookLabget', 'WebhookGitget'
-        , function (ImageStreamTag, deleteSecret, Ws, Sort, GLOBAL, $rootScope, $scope, $log, $state, $stateParams, $location, BuildConfig, Build, Confirm, UUID, WebhookLab, WebhookHub, WebhookLabDel, WebhookHubDel, ImageStream, WebhookLabget, WebhookGitget) {
+    .controller('BuildDetailCtrl', ['$sce','ansi_ups','ImageStreamTag', 'deleteSecret', 'Ws', 'Sort', 'GLOBAL', '$rootScope', '$scope', '$log', '$state', '$stateParams', '$location', 'BuildConfig', 'Build', 'Confirm', 'UUID', 'WebhookLab', 'WebhookHub', 'WebhookLabDel', 'WebhookHubDel', 'ImageStream', 'WebhookLabget', 'WebhookGitget'
+        , function ($sce,ansi_ups,ImageStreamTag, deleteSecret, Ws, Sort, GLOBAL, $rootScope, $scope, $log, $state, $stateParams, $location, BuildConfig, Build, Confirm, UUID, WebhookLab, WebhookHub, WebhookLabDel, WebhookHubDel, ImageStream, WebhookLabget, WebhookGitget) {
             $scope.grid = {};
 
             //console.log('路由',$state);
@@ -547,7 +547,9 @@ angular.module('console.build.detail', [
                                         result += res[k];
                                     }
                                 }
-                                data.object.buildLog = result;
+                                var html = ansi_ups.ansi_to_html(result);
+                                data.object.buildLog = $sce.trustAsHtml(html)
+                                //data.object.buildLog = result;
                                 $scope.databuild.items[i] = data.object;
                                 loglast()
                             }, function () {
@@ -599,11 +601,15 @@ angular.module('console.build.detail', [
                             result += res[k];
                         }
                     }
-                    o.buildLog = result;
+                    var html = ansi_ups.ansi_to_html(result);
+                    o.buildLog = $sce.trustAsHtml(html)
+                    //o.buildLog = result;
                     loglast()
                 }, function (res) {
                     //console.log("res", res);
-                    o.buildLog = res.data.message;
+                    var html = ansi_ups.ansi_to_html(res.data.message);
+                    o.buildLog = $sce.trustAsHtml(html)
+                    //o.buildLog = res.data.message;
                 });
             };
 
