@@ -1035,9 +1035,7 @@ angular.module('console.service.create', [
                         $scope.portsArr = [];
                         //路由端口需清空
                         //$scope.grid.port = '端口';
-                        if ($scope.portsArr[0] && $scope.portsArr[0].hostPort) {
-                            $scope.grid.port = $scope.portsArr[0].hostPort;
-                        }
+
                         //console.log($scope.dc.spec.template.spec.containers);
                         //console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
                         angular.forEach($scope.dc.spec.template.spec.containers, function (ports, i) {
@@ -1055,6 +1053,11 @@ angular.module('console.service.create', [
                             }
                             //delete $scope.dc.spec.template.spec.containers[i].port
                         })
+                        if ($scope.portsArr.length > 0) {
+                            if ($scope.portsArr[0] && $scope.portsArr[0].hostPort) {
+                                $scope.grid.port = $scope.portsArr[0].hostPort;
+                            }
+                        }
 
 
                         var conlength = $scope.dc.spec.template.spec.containers
