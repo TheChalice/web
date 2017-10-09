@@ -915,6 +915,7 @@ angular.module('console.service.create', [
                             container.truename = strname1.replace('/', "-");
                             container.image = GLOBAL.common_url +'/'+ strname1 + ':' + tag;
                             container.yesimage = GLOBAL.common_url+'/' + strname1 + ':' + tag;
+                            console.log('container.yesimage', container.yesimage);
                             //var str1 = res.imagesname.split("/");
                             //var strname1 = str1[0] + '/' + str1[1];
                             //container.truename = strname1.replace('/', "-");
