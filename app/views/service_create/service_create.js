@@ -1028,7 +1028,8 @@ angular.module('console.service.create', [
                             container.port = [];
                             angular.forEach(res.image.dockerImageMetadata.Config.ExposedPorts, function (item, i) {
                                 container.port.push(i)
-                            })
+                            });
+
 
                         }
 
