@@ -889,6 +889,7 @@ angular.module('console.service.create', [
                     //console.log('container2',container);
                     var cons = $scope.dc.spec.template.spec.containers;
                     ImageSelect.open().then(function (res) {
+                        $scope.chooesimage = false;
                         //console.log("imageStreamTag2", res);
                         var imagetag = '';
                         container.ports = [];

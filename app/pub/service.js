@@ -1104,7 +1104,7 @@ define(['angular'], function (angular) {
 
                                 })
 
-                                $scope.images = $scope.imgcon;
+                                $scope.imgcon = $scope.images;
                             }
                             console.log('$scope.images', $scope.images);
                         };
