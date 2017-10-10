@@ -103,7 +103,7 @@ angular.module('console.image', [
                     pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
                         //console.log('tag', tag);
                         $scope.primage[i].tags= tag.tags;
-                        console.log('$scope.primage', $scope.primage);
+                        //console.log('$scope.primage', $scope.primage);
                     })
                 })
             $scope.grid.ckTotal = $scope.primage.length;
@@ -333,7 +333,7 @@ angular.module('console.image', [
             };
 
             $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-                console.log('ok');
+                //console.log('ok');
             })
             //共有镜像搜索
             $scope.text2='您还没有构建镜像，构建完成后，可以在这里查看构建镜像';

@@ -958,7 +958,7 @@ define(['angular'], function (angular) {
                         } else {
                             $scope.privateurl = GLOBAL.common_url
                             $scope.name = name;
-                            $scope.cmd = 'docker login  && docker pull '+GLOBAL.common_url+'/' + $rootScope.namespace + '/' + $scope.name;;
+                            $scope.cmd = 'docker pull '+GLOBAL.common_url+'/'  + $scope.name;;
                         }
 
                         $scope.cancel = function () {

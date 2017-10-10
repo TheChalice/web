@@ -14,7 +14,7 @@ angular.module('console.image_detail', [
             var name=$stateParams.name.split('/')[1];
 
             pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
-                console.log('tag', tag);
+                //console.log('tag', tag);
                 $scope.data = tag
                 $scope.tags=tag.tags
 
