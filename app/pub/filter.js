@@ -266,6 +266,7 @@ define(['angular', 'moment'], function (angular, moment) {
                 if (!image) {
                     return "";
                 }
+                console.log('image', image);
                 var match = image.match(/\/([^/]*)@sha256/);
                 if (!match) {
 
