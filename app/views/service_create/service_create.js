@@ -708,7 +708,8 @@ angular.module('console.service.create', [
                                 ]
                             }
                             container.image = GLOBAL.common_url+'/' + $stateParams.image;
-                            container.yesimage = GLOBAL.common_url+'/' + $stateParams.image.split(':')[0];
+                            container.yesimage = GLOBAL.common_url+'/' + $stateParams.image;
+                            console.log('container.yesimage', container.yesimage);
                             //container.image = 'registry.dataos.io/' + $stateParams.image.split(':');
                             container.tag = $stateParams.image.split(':')[1];
                             container.strname = container.name = $stateParams.image.split(':')[0].replace('/', '-');
