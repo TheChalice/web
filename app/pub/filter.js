@@ -266,13 +266,14 @@ define(['angular', 'moment'], function (angular, moment) {
                 if (!image) {
                     return "";
                 }
-                console.log('image', image);
+
                 var match = image.match(/\/([^/]*)@sha256/);
                 if (!match) {
 
                     //return image
                     var tag = image.split(':')[image.split(':').length-1];
-                    var imagename = image.split(':'+tag)[0]
+                    var imagename = image.split(':'+tag)[0];
+                    console.log('image11', imagename);
                     return imagename;
                 }
                 return match[1];
