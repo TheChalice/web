@@ -1093,7 +1093,7 @@ define(['angular'], function (angular) {
                                 angular.forEach(data.repositories, function (image,i) {
                                     var namespace=image.split('/')[0];
                                     var name=image.split('/')[1];
-                                    if (namespace === $rootScope.namespace) {
+                                    //if (namespace === $rootScope.namespace) {
                                         //$scope.images.items.push({name:image,tags:[]})
                                         pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
                                             console.log('tag', tag);
@@ -1101,7 +1101,7 @@ define(['angular'], function (angular) {
                                             //$scope.images.items[i].tags=tag.tags
                                             //console.log('$scope.primage', $scope.primage);
                                         })
-                                    }
+                                    //}
 
                                 })
 

@@ -89,9 +89,9 @@ angular.module('console.image', [
             //console.log('primage', primage);
             var onlymyimage = []
             angular.forEach(primage.repositories, function (image,i) {
-                if (image.split('/')[0] === $rootScope.namespace) {
+                //if (image.split('/')[0] === $rootScope.namespace) {
                     onlymyimage.push(image)
-                }
+                //}
             })
             //console.log('image', onlymyimage);
 
