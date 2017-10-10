@@ -914,7 +914,7 @@ angular.module('console.service.create', [
                             //var strname1 = str1[0] + '/' + str1[1];
                             container.truename = strname1.replace('/', "-");
                             container.image = GLOBAL.common_url +'/'+ strname1 + ':' + tag;
-                            container.yesimage = GLOBAL.common_url+'/' + strname1;
+                            container.yesimage = GLOBAL.common_url+'/' + strname1 + ':' + tag;
                             console.log('container.yesimage', container.yesimage);
                             //var str1 = res.imagesname.split("/");
                             //var strname1 = str1[0] + '/' + str1[1];
@@ -1030,36 +1030,36 @@ angular.module('console.service.create', [
                             angular.forEach(res.image.dockerImageMetadata.Config.ExposedPorts, function (item, i) {
                                 container.port.push(i)
                             });
+                            $scope.portsArr = [];
+                            //路由端口需清空
+                            //$scope.grid.port = '端口';
 
+                            //console.log($scope.dc.spec.template.spec.containers);
+                            //console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
+                            angular.forEach($scope.dc.spec.template.spec.containers, function (ports, i) {
+                                if (ports.port) {
+                                    angular.forEach(ports.port, function (port, k) {
+                                        var strarr = port.split('/');
+                                        var val = strarr[1].toUpperCase();
+                                        $scope.portsArr.push({
+                                            containerPort: parseInt(strarr[0]),
+                                            hostPort: parseInt(strarr[0]),
+                                            protocol: val,
+                                            //open: true
+                                        });
+                                    })
+                                }
+                                //delete $scope.dc.spec.template.spec.containers[i].port
+                            })
+                            if ($scope.portsArr.length > 0) {
+                                if ($scope.portsArr[0] && $scope.portsArr[0].hostPort) {
+                                    $scope.grid.port = $scope.portsArr[0].hostPort;
+                                }
+                            }
 
                         }
 
-                        $scope.portsArr = [];
-                        //路由端口需清空
-                        //$scope.grid.port = '端口';
 
-                        //console.log($scope.dc.spec.template.spec.containers);
-                        //console.log('$scope.dc.spec.template.spec.containers', $scope.dc.spec.template.spec.containers);
-                        angular.forEach($scope.dc.spec.template.spec.containers, function (ports, i) {
-                            if (ports.port) {
-                                angular.forEach(ports.port, function (port, k) {
-                                    var strarr = port.split('/');
-                                    var val = strarr[1].toUpperCase();
-                                    $scope.portsArr.push({
-                                        containerPort: parseInt(strarr[0]),
-                                        hostPort: parseInt(strarr[0]),
-                                        protocol: val,
-                                        //open: true
-                                    });
-                                })
-                            }
-                            //delete $scope.dc.spec.template.spec.containers[i].port
-                        })
-                        if ($scope.portsArr.length > 0) {
-                            if ($scope.portsArr[0] && $scope.portsArr[0].hostPort) {
-                                $scope.grid.port = $scope.portsArr[0].hostPort;
-                            }
-                        }
 
 
                         var conlength = $scope.dc.spec.template.spec.containers
