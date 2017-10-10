@@ -270,7 +270,7 @@ define(['angular', 'moment'], function (angular, moment) {
                 if (!match) {
 
                     //return image
-                    return image.replace(/:.*$/, '');
+                    return image;
                 }
                 return match[1];
             };
