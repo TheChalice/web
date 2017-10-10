@@ -99,9 +99,9 @@ angular.module('console.image', [
                 angular.forEach(onlymyimage, function (image,i) {
                     var namespace=image.split('/')[0];
                     var name=image.split('/')[1];
-                    $scope.primage.push({name:name,tags:[],image:image})
+                    $scope.primage.push({name:image,tags:[],image:image})
                     pubregistrytag.get({namespace:namespace,name:name}, function (tag) {
-                        console.log('tag', tag);
+                        //console.log('tag', tag);
                         $scope.primage[i].tags= tag.tags;
                         console.log('$scope.primage', $scope.primage);
                     })
