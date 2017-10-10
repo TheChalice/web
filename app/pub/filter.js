@@ -270,7 +270,9 @@ define(['angular', 'moment'], function (angular, moment) {
                 if (!match) {
 
                     //return image
-                    return image;
+                    var tag = image.split(':')[image.split(':').length-1];
+                    var imagename = image.split(':'+tag)[0]
+                    return imagename;
                 }
                 return match[1];
             };
