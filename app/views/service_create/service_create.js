@@ -1781,7 +1781,7 @@ angular.module('console.service.create', [
                     $scope.horiz.metadata.name = name;
                     $scope.horiz.metadata.labels.app = name;
                     $scope.horiz.spec.scaleTargetRef.name = name;
-                    $scope.horiz.spec.minReplicas = parseInt($scope.horiz.spec.minReplicas)||dc.spec.replicas;
+                    $scope.horiz.spec.minReplicas = dc.spec.replicas;
                     $scope.horiz.spec.maxReplicas = parseInt($scope.horiz.spec.maxReplicas)||dc.spec.replicas;
                     $scope.horiz.spec.targetCPUUtilizationPercentage = parseInt($scope.horiz.spec.targetCPUUtilizationPercentage)||80;
                     horizontalpodautoscalers.create({namespace: $rootScope.namespace}, $scope.horiz, function (data) {

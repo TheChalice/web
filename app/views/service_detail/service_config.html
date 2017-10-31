@@ -711,33 +711,35 @@
             <h3>弹性伸缩</h3>
         </div>
         <div class="col-md-10">
-            <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <!--<label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
             <c-checkbox checked="quota.rubustCheck"></c-checkbox>
 
             <hr>
             <div>
 
                 <!--<br>-->
-                <div ng-show="!quota.rubustCheck">
-                    <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input ng-model="dc.spec.replicas" name="cdm" min="1" max="10" style="width: 80px;display: inline-block;"
-                           type="text" class="form-control">
-                </div>
-                <div ng-show="quota.rubustCheck">
-                    <label style="font-size: 12px; font-weight: normal;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                            <span style="font-size: 12px">POD最小数量
-                                <input ng-model="horiz.spec.minReplicas"
-                                       ng-keyup="mustnum($event,horiz.spec.minReplicas,10)"
-
-                                       style="width: 80px;display: inline-block;"
-                                       type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
+                <!--<div>-->
+                    <span style="font-size: 12px;">POD数量
+                    <input ng-model="dc.spec.replicas" name="cdm" min="1" max="10"
+                           style="width: 80px;display: inline-block;"
+                           ng-keyup="mustnum($event,dc.spec.replicas,10)"
+                           type="text" class="form-control"></span>
+                <!--</div>-->
+                <span ng-show="quota.rubustCheck">
+                    <!--<label style="font-size: 12px; font-weight: normal;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
+                    <!--<br>-->
+                            <!--<span style="font-size: 12px">POD数量-->
+                                <!--<input ng-model="dc.spec.replicas"-->
+                                       <!--ng-keyup="mustnum($event,dc.spec.replicas,10)"-->
+                                       <!--style="width: 80px;display: inline-block;"-->
+                                       <!--type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>-->
                             <span style="font-size: 12px">POD最大数量
                                 <input ng-model="horiz.spec.maxReplicas"
                                        ng-keyup="mustnum($event,horiz.spec.maxReplicas,10)"
-                                       ng-class="{'input-error':horiz.spec.maxReplicas<horiz.spec.minReplicas}"
+                                       ng-class="{'input-error':horiz.spec.maxReplicas-0<dc.spec.replicas-0}"
                                        style="width: 80px;display: inline-block;"
                                        type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
-                            <span  style="font-size: 12px">CPU平均利用率
+                            <span  style="font-size: 12px">CPU阀值
                                 <!--<div class="input-group">-->
                                     <input ng-model="horiz.spec.targetCPUUtilizationPercentage"
                                            ng-keyup="mustnum($event,horiz.spec.targetCPUUtilizationPercentage,100)"
@@ -748,7 +750,7 @@
 
                             </span>
 
-                </div>
+                </span>
                 <hr style="visibility:visible;"/>
             </div>
             <label ng-show="false" style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
