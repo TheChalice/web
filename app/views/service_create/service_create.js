@@ -1680,13 +1680,13 @@ angular.module('console.service.create', [
                             }
                             //console.log($scope.dc.spec.template.spec.containers[i].resources);
 
-                        } else {
-                            delete $scope.dc.spec.template.spec.containers[i].resources
                         }
 
 
                     })
 
+                }else {
+                    delete $scope.dc.spec.template.spec.containers[i].resources
                 }
 
                 if (!$scope.namerr.nil && !$scope.namerr.rexed && !$scope.namerr.repeated) {
@@ -1775,15 +1775,15 @@ angular.module('console.service.create', [
                 //console.log($scope.grid.rubustCheck);
                 if ($scope.quota.rubustCheck) {
                     //alert(1);
-                    $scope.horiz.spec.targetCPUUtilizationPercentage = $scope.horiz.spec.targetCPUUtilizationPercentage === null ? $scope.horiz.spec.targetCPUUtilizationPercentage : 80;
-                    $scope.horiz.spec.minReplicas = $scope.horiz.spec.minReplicas === null ? $scope.horiz.spec.targetCPUUtilizationPercentage : 1;
+                    //$scope.horiz.spec.targetCPUUtilizationPercentage = $scope.horiz.spec.targetCPUUtilizationPercentage === null ? $scope.horiz.spec.targetCPUUtilizationPercentage : 80;
+                    //$scope.horiz.spec.minReplicas = $scope.horiz.spec.minReplicas === null ? $scope.horiz.spec.targetCPUUtilizationPercentage : 1;
                     var name = dc.metadata.name;
                     $scope.horiz.metadata.name = name;
                     $scope.horiz.metadata.labels.app = name;
                     $scope.horiz.spec.scaleTargetRef.name = name;
-                    $scope.horiz.spec.minReplicas = parseInt($scope.horiz.spec.minReplicas);
-                    $scope.horiz.spec.maxReplicas = parseInt($scope.horiz.spec.maxReplicas);
-                    $scope.horiz.spec.targetCPUUtilizationPercentage = parseInt($scope.horiz.spec.targetCPUUtilizationPercentage);
+                    $scope.horiz.spec.minReplicas = parseInt($scope.horiz.spec.minReplicas)||dc.spec.replicas;
+                    $scope.horiz.spec.maxReplicas = parseInt($scope.horiz.spec.maxReplicas)||dc.spec.replicas;
+                    $scope.horiz.spec.targetCPUUtilizationPercentage = parseInt($scope.horiz.spec.targetCPUUtilizationPercentage)||80;
                     horizontalpodautoscalers.create({namespace: $rootScope.namespace}, $scope.horiz, function (data) {
 
                     })

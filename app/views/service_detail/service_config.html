@@ -708,30 +708,48 @@
 
     <div class="row">
         <div class="col-md-2" style="padding-top: 10px;">
-            <h3>服务高可用</h3>
+            <h3>弹性伸缩</h3>
         </div>
         <div class="col-md-10">
-            <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input ng-model="dc.spec.replicas" name="cdm" min="1" max="10" style="width: 80px;display: inline-block;"
-                   type="text" class="form-control">
+            <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <c-checkbox checked="quota.rubustCheck"></c-checkbox>
+
             <hr>
-            <div ng-if="false">
-                <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <c-checkbox checked="rubustCheck"></c-checkbox>
-                <br>
-                <div ng-if="rubustCheck">
-                    <label style="font-size: 12px; font-weight: normal;  margin-top: 35px;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <span style="font-size: 12px">POD最小数量  <input name="cdm" min="1" max="10"
-                                                                  style="width: 80px;display: inline-block;"
-                                                                  type="text" class="form-control"></span>
-                    <span style="font-size: 12px">POD最大数量  <input name="cdm" min="1" max="10"
-                                                                  style="width: 80px;display: inline-block;"
-                                                                  type="text" class="form-control"></span>
-                    <span style="font-size: 12px">CPU平均利用率 <input name="cdm" min="1" max="10"
-                                                                  style="width: 80px;display: inline-block;"
-                                                                  type="text" class="form-control"></span>
+            <div>
+
+                <!--<br>-->
+                <div ng-show="!quota.rubustCheck">
+                    <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input ng-model="dc.spec.replicas" name="cdm" min="1" max="10" style="width: 80px;display: inline-block;"
+                           type="text" class="form-control">
                 </div>
-                <hr>
+                <div ng-show="quota.rubustCheck">
+                    <label style="font-size: 12px; font-weight: normal;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <span style="font-size: 12px">POD最小数量
+                                <input ng-model="horiz.spec.minReplicas"
+                                       ng-keyup="mustnum($event,horiz.spec.minReplicas,10)"
+
+                                       style="width: 80px;display: inline-block;"
+                                       type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
+                            <span style="font-size: 12px">POD最大数量
+                                <input ng-model="horiz.spec.maxReplicas"
+                                       ng-keyup="mustnum($event,horiz.spec.maxReplicas,10)"
+                                       ng-class="{'input-error':horiz.spec.maxReplicas<horiz.spec.minReplicas}"
+                                       style="width: 80px;display: inline-block;"
+                                       type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
+                            <span  style="font-size: 12px">CPU平均利用率
+                                <!--<div class="input-group">-->
+                                    <input ng-model="horiz.spec.targetCPUUtilizationPercentage"
+                                           ng-keyup="mustnum($event,horiz.spec.targetCPUUtilizationPercentage,100)"
+                                           style="width: 80px;display: inline-block;"
+                                           type="text" class="form-control" placeholder="80">
+                                    <span>%</span>
+                                <!--</div>-->
+
+                            </span>
+
+                </div>
+                <hr style="visibility:visible;"/>
             </div>
             <label ng-show="false" style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <div ng-show="false" class="dropdown dropdown-select" style="width: 200px;">
@@ -1110,50 +1128,140 @@
     </div>
     <hr>
 
-    <div class="row" ng-show="false">
+    <div class="row">
         <div class="col-md-2" style="padding-top: 5px">
             <h3>配额限制</h3>
         </div>
         <div class="col-md-10">
             <c-checkbox checked="quota.doquota"></c-checkbox>
             <br>
-            <div ng-if="quota.doquota">
+            <div ng-show="quota.doquota">
+                <div class="col-md-12" style="padding: 0;margin-top: 10px;">CPU</div>
                 <div class="col-md-12" style="padding: 0;">
-                    <div class="col-md-4"style="padding: 0;">
-                        <input class="form-control" ng-model="quota.cpu" style="margin-top: 10px; width: 100%;" type="text" name="num" required>
-                        <small class="fa fa-info-circle err-tip" ng-if="grid.cpuerr" style="margin-top: 20px;">
-                            提示：您输入数量超过可用数量</small>
-                        <small class="fa fa-info-circle err-tip" ng-if="grid.cpunumerr" style="margin-top: 20px;">
-                            提示：您输入数数值不合法</small>
-                    </div>
-                    <div class="col-md-2"style="padding: 0;text-align: center;line-height: 54px;">
-
-                       <span ng-if="grid.cpunum">可用CPU:{{grid.cpunum}}个</span>
-                    </div>
                     <div class="col-md-3"style="padding: 0;">
-                        <input class="form-control" ng-model="quota.memory" style="margin-top: 10px; width: 100%;" type="text" name="num" required>
-                        <small class="fa fa-info-circle err-tip" ng-if="grid.memoryerr" style="margin-top: 20px;">
-                            提示：您输入数量超过可用数量</small>
-                        <small class="fa fa-info-circle err-tip" ng-if="grid.memorynumerr" style="margin-top: 20px;">
-                            提示：您输入数数值不合法</small>
+                        <input class="form-control"
+                               placeholder="最小值"
+                               onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)"
+                               ng-model="quota.cpu.request.cpuquota"
+                               style="margin-top: 10px; width: 100%;"
+                               type="text"
+                               name="num">
                     </div>
                     <div class="col-md-1"style="padding: 0;">
                         <div class="dropdown">
-                            <button id="btnout" class="btn btn-default dropdown-toggle select" style="margin-top: 10px;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                {{quota.unit}}
+                            <button class="btnout btn btn-default dropdown-toggle select" style="margin-top: 10px;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{quota.cpu.request.cpuunit}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" style="min-width:auto;" aria-labelledby="dropdownMenu1">
-                                <li><a ng-click="quota.unit='MB'">MB</a></li>
-                                <li><a ng-click="quota.unit='GB'">GB</a></li>
+                                <li ng-show="quota.cpu.request.cpuunit=='millcores'"><a ng-click="quota.cpu.request.cpuunit='cores'">cores</a></li>
+                                <li ng-show="quota.cpu.request.cpuunit=='cores'"><a ng-click="quota.cpu.request.cpuunit='millcores'">millcores</a></li>
                             </ul>
                         </div>
 
                     </div>
-                    <div class="col-md-2"style="padding: 0;text-align: center;line-height: 54px;">
-                        <span ng-if="grid.megnum">可用内存:{{grid.megnum}}GB</span>
+                    <div class="col-md-2" style="padding: 0;text-align: center;line-height: 54px;">
+                        <span  ng-show="grid.quota">可用CPU:{{grid.cpunum}}个</span>
+                    </div>
+                    <div class="col-md-3"style="padding: 0;">
+                        <input class="form-control"
+                               ng-class="{'input-error':quotaerr.cpuminbig}"
+                               placeholder="最大值"
+                               onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)"
+                               ng-model="quota.cpu.limit.cpuquota"
+                               style="margin-top: 10px; width: 100%;"
+                               type="text"
+                               name="num">
+                        <!--<small class="fa fa-info-circle err-tip" ng-if="grid.cpuerr" style="margin-top: 20px;">-->
+                        <!--提示：您输入数量超过可用数量</small>-->
+                        <!--<small class="fa fa-info-circle err-tip" ng-if="grid.cpunullerr" style="margin-top: 20px;">-->
+                        <!--提示：您输入cpu为空</small>-->
+                        <!--<small class="fa fa-info-circle err-tip" ng-if="grid.cpunumerr" style="margin-top: 20px;">-->
+                        <!--提示：您输入数数值不合法</small>-->
+                    </div>
+                    <div class="col-md-1"style="padding: 0;">
+                        <div class="dropdown">
+                            <button class="btnout btn btn-default dropdown-toggle select"
+                                    style="margin-top: 10px;" type="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="true">
+                                {{quota.cpu.limit.cpuunit}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="min-width:auto;" aria-labelledby="dropdownMenu1">
+                                <li ng-show="quota.cpu.limit.cpuunit=='millcores'"><a ng-click="quota.cpu.limit.cpuunit='cores'">cores</a></li>
+                                <li ng-show="quota.cpu.limit.cpuunit=='cores'"><a ng-click="quota.cpu.limit.cpuunit='millcores'">millcores</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2" style="padding: 0;text-align: center;line-height: 54px;">
+
+                        <span  ng-show="grid.quota">可用CPU:{{grid.cpunum}}个</span>
                     </div>
                 </div>
+
+                <div class="col-md-12" style="padding: 0;margin-top: 10px;">MEMORRY</div>
+                <div class="col-md-12" style="padding: 0;">
+                    <div class="col-md-3"style="padding: 0;">
+                        <input class="form-control"
+                               placeholder="最小值"
+                               onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)"
+                               ng-model="quota.memory.request.memoryquota"
+                               style="margin-top: 10px; width: 100%;"
+                               type="text"
+                               name="num">
+                    </div>
+                    <div class="col-md-1"style="padding: 0;">
+                        <div class="dropdown">
+                            <button class="btnout btn btn-default dropdown-toggle select" style="margin-top: 10px;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{quota.memory.request.memoryunit}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="min-width:auto;" aria-labelledby="dropdownMenu1">
+                                <li ng-show="quota.memory.request.memoryunit=='GB'">
+                                    <a ng-click="quota.memory.request.memoryunit='MB'">MB</a>
+                                </li>
+                                <li ng-show="quota.memory.request.memoryunit=='MB'">
+                                    <a ng-click="quota.memory.request.memoryunit='GB'">GB</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2" style="padding: 0;text-align: center;line-height: 54px;">
+
+                        <span  ng-show="grid.quota">可用CPU:{{grid.cpunum}}个</span>
+                    </div>
+                    <div class="col-md-3"style="padding: 0;">
+                        <input class="form-control"
+                               ng-class="{'input-error':quotaerr.memoryminbig}"
+                               placeholder="最大值"
+                               onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)"
+                               ng-model="quota.memory.limit.memoryquota"
+                               style="margin-top: 10px; width: 100%;"
+                               type="text"
+                               name="num">
+                    </div>
+                    <div class="col-md-1"style="padding: 0;">
+                        <div class="dropdown">
+                            <button class="btnout btn btn-default dropdown-toggle select" style="margin-top: 10px;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{quota.memory.limit.memoryunit}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="min-width:auto;" aria-labelledby="dropdownMenu1">
+                                <li ng-show="quota.memory.limit.memoryunit=='GB'"><a ng-click="quota.memory.limit.memoryunit='MB'">MB</a></li>
+                                <li ng-show="quota.memory.limit.memoryunit=='MB'"><a ng-click="quota.memory.limit.memoryunit='GB'">GB</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2" style="padding: 0;text-align: center;line-height: 54px;">
+
+                        <span  ng-show="grid.quota">可用CPU:{{grid.cpunum}}个</span>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
@@ -1215,6 +1323,33 @@
     <small ng-show="grid.serviceConflict" class="fa fa-info-circle err-tip">&nbsp;服务端口冲突，请修改</small>
     <button class="btn btn-orange btn-block" ng-click="updateDc()">更新(会自动触发重新部署)</button>
     <style>
+
+        .file-input {
+            position: absolute;
+            width: 54px;
+            height: 34px;
+            top: 0;
+            right: 0;
+            filter: alpha(opacity:0);
+            opacity: 0;
+        }
+        .btnout {
+            background: #e0e0e0;!important;
+            color: #000;!important;
+        }
+        .btnout:focus {
+            background: #e0e0e0;!important;
+        }
+        .btnout:hover {
+            color: black;!important;
+        }
+        .faa-zn-size{
+            background-size:contain;
+        }
+        .dropdown-menu > li > a{height:auto!important;}
+
+
+
         .timee ul > li {
             margin: 0;
             margin-bottom: 20px;

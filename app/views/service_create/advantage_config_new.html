@@ -7,40 +7,41 @@
         <div class="panel-body" style="padding: 30px 40px;">
             <div class="row">
                 <div class="col-md-2" style="padding-top: 8px;">
-                    <h3 style="font-weight:normal;">策略</h3>
+                    <h3 style="font-weight:normal;">弹性伸缩</h3>
                 </div>
                 <div class="col-md-10">
-                    <div ng-show="!quota.rubustCheck">
-                        <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <input ng-model="dc.spec.replicas" min="0" max="10" style="width: 80px;display: inline-block;"
-                               type="number" class="form-control">
-                    </div>
+                    <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <c-checkbox checked="quota.rubustCheck"></c-checkbox>
 
-                    <hr style=""/>
+                    <hr>
                     <div>
-                        <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <c-checkbox checked="quota.rubustCheck"></c-checkbox>
-                        <br>
+
+                        <!--<br>-->
+                        <div ng-show="!quota.rubustCheck">
+                            <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <input ng-model="dc.spec.replicas" name="cdm" min="1" max="10" style="width: 80px;display: inline-block;"
+                                   type="text" class="form-control">
+                        </div>
                         <div ng-show="quota.rubustCheck">
-                            <label style="font-size: 12px; font-weight: normal;  margin-top: 35px;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <label style="font-size: 12px; font-weight: normal;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             <span style="font-size: 12px">POD最小数量
                                 <input ng-model="horiz.spec.minReplicas"
                                        ng-keyup="mustnum($event,horiz.spec.minReplicas,10)"
 
                                        style="width: 80px;display: inline-block;"
-                                       type="text" class="form-control"></span>
+                                       type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
                             <span style="font-size: 12px">POD最大数量
                                 <input ng-model="horiz.spec.maxReplicas"
                                        ng-keyup="mustnum($event,horiz.spec.maxReplicas,10)"
                                        ng-class="{'input-error':horiz.spec.maxReplicas<horiz.spec.minReplicas}"
                                        style="width: 80px;display: inline-block;"
-                                       type="text" class="form-control"></span>
+                                       type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
                             <span  style="font-size: 12px">CPU平均利用率
                                 <!--<div class="input-group">-->
                                     <input ng-model="horiz.spec.targetCPUUtilizationPercentage"
                                            ng-keyup="mustnum($event,horiz.spec.targetCPUUtilizationPercentage,100)"
                                            style="width: 80px;display: inline-block;"
-                                           type="text" class="form-control">
+                                           type="text" class="form-control" placeholder="80">
                                     <span>%</span>
                                 <!--</div>-->
 
@@ -49,22 +50,21 @@
                         </div>
                         <hr style="visibility:visible;"/>
                     </div>
-                    <!--<label ng-show="false" style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
-                    <!--<div ng-show="false" class="dropdown dropdown-select" style="width: 200px;">-->
-                        <!--<button class="btn dropdown-toggle" data-toggle="dropdown">-->
-                            <!--<span>{{dc.spec.template.spec.restartPolicy}}</span>-->
-                            <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li>-->
-                                <!--<a href="javascript:;"-->
-                                   <!--ng-click="dc.spec.template.spec.restartPolicy = 'Always'">Always</a>-->
-                                <!--<a href="javascript:;" ng-click="dc.spec.template.spec.restartPolicy = 'OnFailure'">OnFailure</a>-->
-                                <!--<a href="javascript:;"-->
-                                   <!--ng-click="dc.spec.template.spec.restartPolicy = 'Never'">Never</a>-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
+                    <label ng-show="false" style="font-size: 12px; font-weight: normal;">重启策略&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <div ng-show="false" class="dropdown dropdown-select" style="width: 200px;">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            <span>{{dc.spec.template.spec.restartPolicy}}</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="javascript:;" ng-click="dc.spec.template.spec.restartPolicy = 'Always'">Always</a>
+                                <a href="javascript:;"
+                                   ng-click="dc.spec.template.spec.restartPolicy = 'OnFailure'">OnFailure</a>
+                                <a href="javascript:;" ng-click="dc.spec.template.spec.restartPolicy = 'Never'">Never</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!--<hr style="margin-top: 20px;visibility:visible;">-->

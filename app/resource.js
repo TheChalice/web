@@ -260,11 +260,13 @@ define([
             return ReplicationController;
         }])
         .factory('horizontalpodautoscalers', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
-            var horizontalpodautoscalers = $resource(GLOBAL.host_newk8s + '/namespaces/:namespace/horizontalpodautoscalers', {
+            var horizontalpodautoscalers = $resource(GLOBAL.host_newk8s + '/namespaces/:namespace/horizontalpodautoscalers/:name', {
                 namespace: '@namespace',
+                name: '@name',
             }, {
                 create: {method: 'POST'},
-                put: {method: 'PUT'}
+                put: {method: 'PUT'},
+                delete: {method: "DELETE"}
             });
             return horizontalpodautoscalers;
         }])
