@@ -463,10 +463,10 @@
                     <!--<i class="faa faa-check"></i>&nbsp;自动运行-->
                 <!--</a>-->
             <!--</div>-->
-            <!--<div class="col-md-12" style="padding-left: 15px;margin-top: 0px;">-->
-                <!--<small class="fa fa-info-circle err-tip">&nbsp;请填写完整信息-->
-                <!--</small>-->
-            <!--</div>-->
+            <div class="col-md-12" ng-show="quotaerr.cpuend" style="padding-left: 15px;margin-top: 0px;">
+                <small class="fa fa-info-circle err-tip">&nbsp;请设置cpu配额
+                </small>
+            </div>
             <div class="col-md-6" style="padding-right: 40px;">
                 <!--<a href="javascript:;"-->
                    <!--class="btn btn-block" ng-click="frm.$valid && jump(!grid.checked)"-->

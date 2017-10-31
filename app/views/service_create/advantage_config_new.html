@@ -10,7 +10,7 @@
                     <h3 style="font-weight:normal;">策略</h3>
                 </div>
                 <div class="col-md-10">
-                    <div ng-show="!grid.rubustCheck">
+                    <div ng-show="!quota.rubustCheck">
                         <label style="font-size: 12px; font-weight: normal;">POD数量&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <input ng-model="dc.spec.replicas" min="0" max="10" style="width: 80px;display: inline-block;"
                                type="number" class="form-control">
@@ -19,18 +19,20 @@
                     <hr style=""/>
                     <div>
                         <label style="font-size: 12px; font-weight: normal;">自动伸缩&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <c-checkbox checked="grid.rubustCheck"></c-checkbox>
+                        <c-checkbox checked="quota.rubustCheck"></c-checkbox>
                         <br>
-                        <div ng-show="grid.rubustCheck">
+                        <div ng-show="quota.rubustCheck">
                             <label style="font-size: 12px; font-weight: normal;  margin-top: 35px;">资源阈值&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             <span style="font-size: 12px">POD最小数量
                                 <input ng-model="horiz.spec.minReplicas"
                                        ng-keyup="mustnum($event,horiz.spec.minReplicas,10)"
+
                                        style="width: 80px;display: inline-block;"
                                        type="text" class="form-control"></span>
                             <span style="font-size: 12px">POD最大数量
                                 <input ng-model="horiz.spec.maxReplicas"
                                        ng-keyup="mustnum($event,horiz.spec.maxReplicas,10)"
+                                       ng-class="{'input-error':horiz.spec.maxReplicas<horiz.spec.minReplicas}"
                                        style="width: 80px;display: inline-block;"
                                        type="text" class="form-control"></span>
                             <span  style="font-size: 12px">CPU平均利用率
@@ -392,7 +394,7 @@
                 <div class="col-md-10">
                     <c-checkbox checked="quota.doquota"></c-checkbox>
                     <br>
-                    <div ng-if="quota.doquota">
+                    <div ng-show="quota.doquota">
                         <div class="col-md-12" style="padding: 0;margin-top: 10px;">CPU</div>
                         <div class="col-md-12" style="padding: 0;">
                             <div class="col-md-3"style="padding: 0;">
@@ -422,6 +424,7 @@
                             </div>
                             <div class="col-md-3"style="padding: 0;">
                                 <input class="form-control"
+                                       ng-class="{'input-error':quotaerr.cpuminbig}"
                                        placeholder="最大值"
                                        onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)"
                                        ng-model="quota.cpu.limit.cpuquota"
@@ -490,6 +493,7 @@
                             </div>
                             <div class="col-md-3"style="padding: 0;">
                                 <input class="form-control"
+                                       ng-class="{'input-error':quotaerr.memoryminbig}"
                                        placeholder="最大值"
                                        onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)"
                                        ng-model="quota.memory.limit.memoryquota"
