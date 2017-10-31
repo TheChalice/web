@@ -8,8 +8,8 @@ angular.module('console.service.create', [
             ]
         }
     ])
-    .controller('ServiceCreateCtrl', ['GLOBAL','resourcequotas','$http', 'by', 'diploma', 'Confirm', 'Toast', '$rootScope', '$state', '$scope', '$log', '$stateParams', 'ImageStream', 'DeploymentConfig', 'ImageSelect', 'BackingServiceInstance', 'BackingServiceInstanceBd', 'ReplicationController', 'Route', 'Secret', 'Service', 'ChooseSecret', '$base64', 'secretskey', 'serviceaccounts',
-        function (GLOBAL,resourcequotas,$http, by, diploma, Confirm, Toast, $rootScope, $state, $scope, $log, $stateParams, ImageStream, DeploymentConfig, ImageSelect, BackingServiceInstance, BackingServiceInstanceBd, ReplicationController, Route, Secret, Service, ChooseSecret, $base64, secretskey, serviceaccounts) {
+    .controller('ServiceCreateCtrl', ['horizontalpodautoscalers', 'GLOBAL', 'resourcequotas', '$http', 'by', 'diploma', 'Confirm', 'Toast', '$rootScope', '$state', '$scope', '$log', '$stateParams', 'ImageStream', 'DeploymentConfig', 'ImageSelect', 'BackingServiceInstance', 'BackingServiceInstanceBd', 'ReplicationController', 'Route', 'Secret', 'Service', 'ChooseSecret', '$base64', 'secretskey', 'serviceaccounts',
+        function (horizontalpodautoscalers, GLOBAL, resourcequotas, $http, by, diploma, Confirm, Toast, $rootScope, $state, $scope, $log, $stateParams, ImageStream, DeploymentConfig, ImageSelect, BackingServiceInstance, BackingServiceInstanceBd, ReplicationController, Route, Secret, Service, ChooseSecret, $base64, secretskey, serviceaccounts) {
             $log.info('ServiceCreate');
             $('#sevicecreateinp').focus();
             $scope.$on('$viewContentLoaded', function () {
@@ -45,7 +45,7 @@ angular.module('console.service.create', [
             };
 
             $scope.delprot = function (idx) {
-                console.log($scope.portsArr);
+                //console.log($scope.portsArr);
                 if ($scope.portsArr[0] && $scope.portsArr[0].hostPort) {
                     $scope.grid.port = $scope.portsArr[0].hostPort;
                 }
@@ -95,10 +95,26 @@ angular.module('console.service.create', [
                 },
                 status: {}
             };
-
+            $scope.horiz = {
+                "apiVersion": "autoscaling/v1",
+                "kind": "HorizontalPodAutoscaler",
+                "metadata": {"name": null, "labels": {"app": null}},
+                "spec": {
+                    "scaleTargetRef": {
+                        "kind": "DeploymentConfig",
+                        "name": null,
+                        "apiVersion": "extensions/v1beta1",
+                        "subresource": "scale"
+                    },
+                    "minReplicas": null,
+                    "maxReplicas": null,
+                    "targetCPUUtilizationPercentage": null
+                }
+            }
             // console.log('$rootScope',$rootScope);
 
             $scope.grid = {
+                rubustCheck:false,
                 ports: [],
                 port: 0,
                 cname: '系统域名',
@@ -128,14 +144,42 @@ angular.module('console.service.create', [
                 isserviceName: false,
                 isimageChange: true,
                 servicenameerr: false,
-                imagePullSecrets: false
+                imagePullSecrets: false,
+                quota: true,
             };
+            $scope.strategy = {
+                min: null,
+                max: null,
+                cpuuse: null
+
+            }
 
             $scope.quota = {
                 doquota: false,
-                unit: 'GB',
-                cpu: null,
-                memory: null
+                //memunit: 'GB',
+                //cpuunit: 'millcores',
+                //cpu: null,
+                //memory: null,
+                cpu: {
+                    request: {
+                        cpuunit: 'millcores',
+                        cpuquota: null
+                    },
+                    limit: {
+                        cpuunit: 'millcores',
+                        cpuquota: null
+                    }
+                },
+                memory: {
+                    request: {
+                        memoryunit: 'MB',
+                        memoryquota: null
+                    },
+                    limit: {
+                        memoryunit: 'MB',
+                        memoryquota: null
+                    }
+                }
             }
 
             $scope.$watch('portsArr', function (n, o) {
@@ -147,82 +191,85 @@ angular.module('console.service.create', [
                 }
                 //console.log('端口',n);
             }, true)
-            var rex =/^[0-9]{0,}\.{0,1}\d{1,2}$/;
-            $scope.$watch('quota', function (n, o) {
-                if (n === o) {
-                    return;
-                }
-                if ($scope.grid.cpunum || $scope.grid.megnum) {
-                    //console.log(n.cpu, $scope.grid.cpunum);
-                    //console.log(n.memory, $scope.grid.megnum);
-                    //console.log(n);
-                    if (!$scope.quota.doquota) {
-                        $scope.grid.cpunum = null;
-                        $scope.grid.megnum = null;
-                        return;
-                    }
-                    if (n.cpu) {
-                        if (n.cpu.indexOf('.') !== 0) {
-                            //alert(1)
-                            if (rex.test(n.cpu)) {
-                                $scope.grid.cpunumerr = false;
-                                //console.log('合法');
-                            }else {
-                                $scope.grid.cpunumerr = true;
-                            }
-                        }else {
-                            $scope.grid.cpunumerr = true;
-                        }
-                        $scope.grid.cpunullerr=false;
-                        $scope.grid.memorynullerr=false;
-                        //parseFloat($scope.quota.memory)
-                        if (n && parseFloat(n.cpu) > parseFloat($scope.grid.cpunum)) {
-                            //console.log('bug');
-                            $scope.grid.cpuerr = true;
-                        } else {
-                            $scope.grid.cpuerr = false;
-                        }
-                    }
-
-                    //console.log($scope.quota.unit);
-                    if (n && n.memory) {
-                        if (n.memory.indexOf('.') !== 0) {
-                            //alert(1)
-                            if (rex.test(n.memory)) {
-                                $scope.grid.memorynumerr = false;
-                                //console.log('合法');
-                            }else {
-                                $scope.grid.memorynumerr = true;
-                            }
-                        }else {
-                            $scope.grid.memorynumerr = true;
-                        }
-                        if ($scope.quota.unit === 'MB') {
-                            if (parseFloat(n.memory) > ($scope.grid.megnum * 1000)) {
-                                $scope.grid.memoryerr = true;
-                            } else {
-                                $scope.grid.memoryerr = false;
-                            }
-                        } else if ($scope.quota.unit === 'GB') {
-                            if (parseFloat(n.memory) > $scope.grid.megnum) {
-                                $scope.grid.memoryerr = true;
-                            } else {
-                                $scope.grid.memoryerr = false;
-                            }
-                        }
-                    } else {
-                        $scope.grid.memoryerr = false;
-                    }
-                }
-            }, true);
-            resourcequotas.get({namespace: $rootScope.namespace,region:$rootScope.region}, function (data) {
-                if (data.items && data.items[0] && data.items[0].spec) {
-                    $scope.grid.cpunum = data.items[0].spec.hard['requests.cpu']
-                    var gi = data.items[0].spec.hard['requests.memory'].replace('Gi', '')
-                    var mb = parseInt(gi) * 1000;
-                    var gb = mb / 1024;
-                    $scope.grid.megnum = gi;
-                }
+            var rex = /^[0-9]{0,}\.{0,1}\d{1,2}$/;
+            //$scope.$watch('quota', function (n, o) {
+            //    if (n === o) {
+            //        return;
+            //    }
+            //    if ($scope.grid.cpunum || $scope.grid.megnum) {
+            //        //console.log(n.cpu, $scope.grid.cpunum);
+            //        //console.log(n.memory, $scope.grid.megnum);
+            //        //console.log(n);
+            //        if (!$scope.quota.doquota) {
+            //            $scope.grid.cpunum = null;
+            //            $scope.grid.megnum = null;
+            //            return;
+            //        }
+            //        if (n.cpu) {
+            //            if (n.cpu.indexOf('.') !== 0) {
+            //                //alert(1)
+            //                if (rex.test(n.cpu)) {
+            //                    $scope.grid.cpunumerr = false;
+            //                    //console.log('合法');
+            //                }else {
+            //                    $scope.grid.cpunumerr = true;
+            //                }
+            //            }else {
+            //                $scope.grid.cpunumerr = true;
+            //            }
+            //            $scope.grid.cpunullerr=false;
+            //            $scope.grid.memorynullerr=false;
+            //            //parseFloat($scope.quota.memory)
+            //            if (n && parseFloat(n.cpu) > parseFloat($scope.grid.cpunum)) {
+            //                //console.log('bug');
+            //                $scope.grid.cpuerr = true;
+            //            } else {
+            //                $scope.grid.cpuerr = false;
+            //            }
+            //        }
+            //
+            //        //console.log($scope.quota.unit);
+            //        if (n && n.memory) {
+            //            if (n.memory.indexOf('.') !== 0) {
+            //                //alert(1)
+            //                if (rex.test(n.memory)) {
+            //                    $scope.grid.memorynumerr = false;
+            //                    //console.log('合法');
+            //                }else {
+            //                    $scope.grid.memorynumerr = true;
+            //                }
+            //            }else {
+            //                $scope.grid.memorynumerr = true;
+            //            }
+            //            if ($scope.quota.unit === 'MB') {
+            //                if (parseFloat(n.memory) > ($scope.grid.megnum * 1000)) {
+            //                    $scope.grid.memoryerr = true;
+            //                } else {
+            //                    $scope.grid.memoryerr = false;
+            //                }
+            //            } else if ($scope.quota.unit === 'GB') {
+            //                if (parseFloat(n.memory) > $scope.grid.megnum) {
+            //                    $scope.grid.memoryerr = true;
+            //                } else {
+            //                    $scope.grid.memoryerr = false;
+            //                }
+            //            }
+            //        } else {
+            //            $scope.grid.memoryerr = false;
+            //        }
+            //    }
+            //}, true);
+            resourcequotas.get({namespace: $rootScope.namespace, region: $rootScope.region}, function (data) {
+                //console.log('data.items', data.items);
+                //if (data.items && data.items[0] && data.items[0].spec) {
+                //    $scope.grid.cpunum = data.items[0].spec.hard['requests.cpu'];
+                //    var gi = data.items[0].spec.hard['requests.memory'].replace('Gi', '')
+                //    var mb = parseInt(gi) * 1000;
+                //    var gb = mb / 1024;
+                //    $scope.grid.megnum = gi;
+                //}else {
+                $scope.grid.quota = false;
+                //}
             })
             //$http.get('/api/v1/namespaces/' + $rootScope.namespace + '/resourcequotas?region=' + $rootScope.region).success(function (data) {
             //    //console.log('配额', data.items[0].spec.hard['requests.cpu']);
@@ -707,8 +754,8 @@ angular.module('console.service.create', [
                                     }
                                 ]
                             }
-                            container.image = GLOBAL.common_url+'/' + $stateParams.image;
-                            container.yesimage = GLOBAL.common_url+'/' + $stateParams.image;
+                            container.image = GLOBAL.common_url + '/' + $stateParams.image;
+                            container.yesimage = GLOBAL.common_url + '/' + $stateParams.image;
                             console.log('container.yesimage', container.yesimage);
                             //container.image = 'registry.dataos.io/' + $stateParams.image.split(':');
                             container.tag = $stateParams.image.split(':')[1];
@@ -910,12 +957,12 @@ angular.module('console.service.create', [
                             container.isimageChange = false;
                             container.isshow = false;
                             //var str1 = res.imagesname.split("/");
-                            var tag =res.imagesname.split("/")[res.imagesname.split("/").length-1];
-                            var strname1 = res.imagesname.split('/'+tag)[0]
+                            var tag = res.imagesname.split("/")[res.imagesname.split("/").length - 1];
+                            var strname1 = res.imagesname.split('/' + tag)[0]
                             //var strname1 = str1[0] + '/' + str1[1];
                             container.truename = strname1.replace('/', "-");
-                            container.image = GLOBAL.common_url +'/'+ strname1 + ':' + tag;
-                            container.yesimage = GLOBAL.common_url+'/' + strname1+ ':' + tag ;
+                            container.image = GLOBAL.common_url + '/' + strname1 + ':' + tag;
+                            container.yesimage = GLOBAL.common_url + '/' + strname1 + ':' + tag;
                             console.log('container.yesimage', container.yesimage);
                             //var str1 = res.imagesname.split("/");
                             //var strname1 = str1[0] + '/' + str1[1];
@@ -1059,8 +1106,6 @@ angular.module('console.service.create', [
                             }
 
                         }
-
-
 
 
                         var conlength = $scope.dc.spec.template.spec.containers
@@ -1341,6 +1386,7 @@ angular.module('console.service.create', [
 
             var prepareDc = function (dc) {
                 var name = dc.metadata.name;
+
                 dc.metadata.labels.app = name;
                 dc.spec.selector.app = name;
                 dc.spec.selector.deploymentconfig = name;
@@ -1567,7 +1613,7 @@ angular.module('console.service.create', [
                             }
                         } else if (containers[i].doset === 'TCP') {
                             //console.log('tcpSocket',containers[i].readinessProbe.tcpSocket);
-                            if (containers[i].readinessProbe.tcpSocket.port !== null&&containers[i].readinessProbe.initialDelaySeconds && containers[i].readinessProbe.timeoutSeconds) {
+                            if (containers[i].readinessProbe.tcpSocket.port !== null && containers[i].readinessProbe.initialDelaySeconds && containers[i].readinessProbe.timeoutSeconds) {
                                 containers[i].cadoerr = false;
                             } else {
                                 containers[i].cadoerr = true;
@@ -1584,6 +1630,38 @@ angular.module('console.service.create', [
                 }
                 return true;
             };
+            $scope.mustnum = function (e, num, quate) {
+
+                if (quate === 10) {
+                    var patrn = /^([1-9]||10)$/ig;
+                } else if (quate === 100) {
+                    var patrn = /^(\d|[1-9]\d|100)$/;
+                } else {
+                    var patrn = /^\d+$/;
+                }
+                //
+
+                if (patrn.test(num)) {
+                    console.log('t', e.currentTarget.value);
+                } else {
+                    //console.log('f',num);
+                    e.currentTarget.value = null
+                }
+
+
+            }
+            function geshihuan(unit, num) {
+                if (unit === 'millcores') {
+                    return num ? parseFloat(num) + 'm' : '';
+                } else if (unit === 'cores') {
+                    return num ? parseFloat(num) : '';
+                } else if (unit === 'MB') {
+                    return num ? parseFloat(num) + 'Mi' : '';
+                } else if (unit === 'GB') {
+                    return num ? parseFloat(num) + 'Gi' : '';
+                }
+            }
+
             // 创建dc
             $scope.createDc = function () {
                 //console.log($scope.dc.spec.template.spec.containers);
@@ -1598,13 +1676,13 @@ angular.module('console.service.create', [
                     //console.log($scope.quota.cpu, $scope.quota.memory);
                     if (!$scope.grid.cpuerr && !$scope.grid.memoryerr) {
                         if (!$scope.quota.cpu) {
-                            $scope.grid.cpunullerr=true
+                            $scope.grid.cpunullerr = true
                             return
-                        }else if(!$scope.quota.memory){
-                            $scope.grid.memorynullerr=true;
+                        } else if (!$scope.quota.memory) {
+                            $scope.grid.memorynullerr = true;
                             return
                         }
-                    }else {
+                    } else {
                         return
                     }
 
@@ -1621,52 +1699,13 @@ angular.module('console.service.create', [
                 }
                 //console.log('验证',valid($scope.dc));
                 angular.forEach($scope.dc.spec.template.spec.containers, function (ports, i) {
-
-                    //console.log('$scope.dc', $scope.dc);
-
-
-
-                    // console.log('验证',$scope.dc);
-                    //var dccopy =  angular.copy($scope.dc)
-
                     if ($scope.quota.doquota) {
-                        if ($scope.quota.cpu || $scope.quota.memory) {
 
-                            //$scope.dc.spec.template.spec.containers[i].resources.limits.cpu = parseFloat($scope.grid.cpunum);
-                            //$scope.dc.spec.template.spec.containers[i].resources.limits.memory = $scope.grid.megnum + 'Gi';
-                            //if ($scope.quota.unit === 'MB') {
-                            //    $scope.dc.spec.template.spec.containers[i].resources.requests.memory = parseFloat($scope.quota.memory) + 'Mi';
-                            //} else if ($scope.quota.unit === 'GB') {
-                            //    $scope.dc.spec.template.spec.containers[i].resources.requests.memory = parseFloat($scope.quota.memory) + 'Gi';
-                            //}
-                            //
-                            //$scope.dc.spec.template.spec.containers[i].resources.requests.cpu = parseFloat($scope.quota.cpu);
-                            $scope.dc.spec.template.spec.containers[i].resources.limits.cpu = parseFloat($scope.quota.cpu);
-                            if ($scope.quota.unit === 'MB') {
-                                if (parseFloat($scope.quota.memory) / 1000 < $scope.grid.megnum) {
-                                    $scope.dc.spec.template.spec.containers[i].resources.requests.memory = parseFloat($scope.quota.memory) + 'Mi';
-                                } else {
-                                    $scope.dc.spec.template.spec.containers[i].resources.requests.memory = parseFloat($scope.grid.megnum) + 'Gi';
-                                }
-                                $scope.dc.spec.template.spec.containers[i].resources.limits.memory = parseFloat($scope.quota.memory) + 'Mi';
-                            } else if ($scope.quota.unit === 'GB') {
-                                if (parseFloat($scope.quota.memory) < $scope.grid.megnum) {
-                                    $scope.dc.spec.template.spec.containers[i].resources.requests.memory = parseFloat($scope.quota.memory) + 'Gi';
-                                } else {
-                                    $scope.dc.spec.template.spec.containers[i].resources.requests.memory = parseFloat($scope.grid.megnum) + 'Gi';
-                                }
-                                $scope.dc.spec.template.spec.containers[i].resources.limits.memory = parseFloat($scope.quota.memory) + 'Gi';
-                            }
-                            if (parseFloat($scope.quota.cpu) < parseFloat($scope.grid.cpunum)) {
-                                $scope.dc.spec.template.spec.containers[i].resources.requests.cpu = parseFloat($scope.quota.cpu);
-                            } else {
-                                $scope.dc.spec.template.spec.containers[i].resources.requests.cpu = parseFloat($scope.grid.cpunum);
-                            }
-
-
-                        } else {
-                            delete $scope.dc.spec.template.spec.containers[i].resources
-                        }
+                        //if ($scope.quota.cpu || $scope.quota.memory) {
+                        $scope.dc.spec.template.spec.containers[i].resources.requests.cpu = geshihuan($scope.quota.cpu.request.cpuunit, $scope.quota.cpu.request.cpuquota)
+                        $scope.dc.spec.template.spec.containers[i].resources.limits.cpu = geshihuan($scope.quota.cpu.limit.cpuunit, $scope.quota.cpu.limit.cpuquota)
+                        $scope.dc.spec.template.spec.containers[i].resources.requests.memory = geshihuan($scope.quota.memory.request.memoryunit, $scope.quota.memory.request.memoryquota)
+                        $scope.dc.spec.template.spec.containers[i].resources.limits.memory = geshihuan($scope.quota.memory.limit.memoryunit, $scope.quota.memory.limit.memoryquota)
                     } else {
                         delete $scope.dc.spec.template.spec.containers[i].resources
                     }
@@ -1704,6 +1743,9 @@ angular.module('console.service.create', [
                 })
                 //$rootScope.lding = true;
                 var dc = angular.copy($scope.dc);
+
+
+
                 //console.log('xiugaiDC--------------------------',dc);
                 //for(var i = 0 ;i < dc.spec.template.spec.containers.length;i++ ){
                 //  if(dc.spec.template.spec.containers[i].isimageChange == false){
@@ -1743,6 +1785,20 @@ angular.module('console.service.create', [
                 prepareVolume(dc);
                 prepareTrigger(dc);
                 prepareEnv(dc);
+                console.log($scope.grid.rubustCheck);
+                if ($scope.grid.rubustCheck) {
+                    //alert(1);
+                    var name = dc.metadata.name;
+                    $scope.horiz.metadata.name=name;
+                    $scope.horiz.metadata.labels.app=name;
+                    $scope.horiz.spec.scaleTargetRef.name=name;
+                    $scope.horiz.spec.minReplicas=parseInt($scope.horiz.spec.minReplicas);
+                    $scope.horiz.spec.maxReplicas=parseInt($scope.horiz.spec.maxReplicas);
+                    $scope.horiz.spec.targetCPUUtilizationPercentage=parseInt($scope.horiz.spec.targetCPUUtilizationPercentage);
+                    horizontalpodautoscalers.create({namespace: $rootScope.namespace},$scope.horiz, function (data) {
+
+                    })
+                }
 
                 //if (!$scope.grid.auto) {
                 //  dc.spec.replicas = 0;

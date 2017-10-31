@@ -259,6 +259,15 @@ define([
             });
             return ReplicationController;
         }])
+        .factory('horizontalpodautoscalers', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
+            var horizontalpodautoscalers = $resource(GLOBAL.host_newk8s + '/namespaces/:namespace/horizontalpodautoscalers', {
+                namespace: '@namespace',
+            }, {
+                create: {method: 'POST'},
+                put: {method: 'PUT'}
+            });
+            return horizontalpodautoscalers;
+        }])
 
         .factory('Service', ['$resource', 'GLOBAL', function ($resource, GLOBAL) {
             var Service = $resource(GLOBAL.host_k8s + '/namespaces/:namespace/services/:name?region=:region', {
@@ -394,7 +403,13 @@ define([
                 buckets: '@buckets',
                 start: '@start'
             });
+            Metrics.network = $resource(GLOBAL.host_hawkular + '/network/:network/data', {
+                network: '@network',
+                buckets: '@buckets',
+                start: '@start'
+            });
             Metrics.mem.all = $resource(GLOBAL.host_hawkular + '/gauges/data', {tags: '@tags', buckets: '@buckets'});
+            Metrics.network.all = $resource(GLOBAL.host_hawkular + '/gauges/data', {tags: '@tags', buckets: '@buckets'});
             Metrics.cpu.all = $resource(GLOBAL.host_hawkular + '/counters/data', {tags: '@tags', buckets: '@buckets'});
             return Metrics;
         }])

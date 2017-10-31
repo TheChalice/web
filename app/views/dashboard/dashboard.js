@@ -204,6 +204,96 @@ angular.module('console.dashboard', [
             //    //console.log('balance', data);
             //});
 
+            var netChart = function () {
+                return {
+                    options: {
+                        chart: {
+                            type: 'areaspline'
+
+                        },
+                        title: {
+                            text: name,
+                            align: 'left',
+                            x: 0,
+                            style: {
+                                fontSize: '12px'
+                            }
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#666',
+                            borderWidth: 0,
+                            shadow: false,
+                            style: {
+                                color: '#fff'
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        }
+                    },
+                    series: [{
+                        name: 'network_tx',
+                        fillColor: {
+                            linearGradient: { x1: 0, y1:1 , x2: 0, y2: 0 }, //横向渐变效果 如果将x2和y2值交换将会变成纵向渐变效果
+                            stops: [
+                                [0, Highcharts.Color('#333').setOpacity(0.5).get('rgba')],
+                                [1, Highcharts.Color('#333').setOpacity(0.8).get('rgba')]
+                            ]
+                        },
+                        lineColor:'#fff',
+                        fillOpacity: 0.6,
+                        marker: {
+                            enabled: false
+                        },
+                        data: $scope.nettxdata,
+                        pointStart: (new Date()).getTime() + 3600 * 1000,
+                        pointInterval: 15 * 60 * 1000 //时间间隔
+                    },{
+                        name: 'network_rx',
+                        fillColor: {
+                            linearGradient: { x1: 0, y1:1 , x2: 0, y2: 0 }, //横向渐变效果 如果将x2和y2值交换将会变成纵向渐变效果
+                            stops: [
+                                [0, Highcharts.Color('#b3d4fc').setOpacity(0.5).get('rgba')],
+                                [1, Highcharts.Color('#b3d4fc').setOpacity(0.8).get('rgba')]
+                            ]
+                        },
+                        lineColor:'#fff',
+                        fillOpacity: 0.6,
+                        marker: {
+                            enabled: false
+                        },
+                        yAxis: 0,
+                        data: $scope.netrxdata,
+                        pointStart: (new Date()).getTime() + 3600 * 1000,
+                        pointInterval: 15 * 60 * 1000 //时间间隔
+                    }],
+                    xAxis: {
+                        // categories: ['12:00','14:00', '16:00', '18:00', '20:00', '22:00', '24:00'],
+                        type: 'datetime',
+                        gridLineWidth: 1
+                    },
+                    yAxis: [{
+                        // gridLineDashStyle: 'ShortDash',
+                        title: {
+                            text: 'network (KB／s)',
+                            style: {
+                                color: '#bec0c7'
+                            }
+                        }
+
+                    }],
+                    size: {
+                        height: 230,
+                        width: 950
+                    },
+                    func: function (chart) {
+                        //setup some logic for the chart
+                    }
+                };
+            };
             var setChart = function () {
                 return {
                     options: {
@@ -415,6 +505,30 @@ angular.module('console.dashboard', [
                 f = Math.round(x * 10000) / 10000;
                 return f;
             }
+            //https://hawkular-metrics.new.dataos.io/hawkular/metrics/gauges/pod/b2fc3818-ad7d-11e7-ad35-fa163e095b60/network/rx_rate/data?bucketDuration=120000ms&start=-60mn
+            Metrics.network.all.query({
+                tags: 'descriptor_name:network/tx_rate,pod_namespace:' + $rootScope.namespace,
+                buckets: 30
+            }, function (networktx) {
+                Metrics.network.all.query({
+                    tags: 'descriptor_name:network/rx_rate,pod_namespace:' + $rootScope.namespace,
+                    buckets: 30
+                }, function (networkrx) {
+
+                    $scope.nettxdata = [];
+                    $scope.netrxdata = [];
+                    angular.forEach(networkrx, function (input,i) {
+                        $scope.nettxdata.push(Math.round(input.avg * 100) / 100)
+                    })
+                    angular.forEach(networktx, function (input,i) {
+                        $scope.netrxdata.push(Math.round(input.avg * 100) / 100)
+                    })
+
+                    console.log('$scope.nettxdata', $scope.nettxdata);
+                    $scope.chartnetConfig = netChart();
+                    console.log('$scope.netrxdata', $scope.netrxdata);
+                })
+            })
 
             Metrics.cpu.all.query({
                 tags: 'descriptor_name:cpu/usage,pod_namespace:' + $rootScope.namespace,
@@ -422,7 +536,7 @@ angular.module('console.dashboard', [
             }, function (res) {
                 // $log.info('metrics cpu all', res);
                 $scope.cpuData = prepareData('CPU', res);
-
+                console.log('$scope.cpuData', $scope.cpuData);
                 angular.forEach($scope.cpuData, function (item, i) {
 
 
@@ -525,6 +639,7 @@ angular.module('console.dashboard', [
                             }
                             // $scope.pieConfigCpu = setPieChart('CPU', data.items[0].spec.hard['limits.cpu']+'GB', cpunums, true,'#f6a540');
                             $scope.chartConfig = setChart();
+
                             $scope.isdata.CpuorMem = true;
                             $scope.isdata.charts = true;
 
@@ -573,6 +688,7 @@ angular.module('console.dashboard', [
                                 $scope.pieConfigMem = setPieChart('内存', memnum + 'MB', 0, false);
 
                                 $scope.chartConfig = setChart();
+                                //$scope.chartnetConfig = netChart();
                                 $scope.isdata.CpuorMem = true;
                                 $scope.isdata.charts = true;
                             } else {
@@ -580,6 +696,7 @@ angular.module('console.dashboard', [
                                 $scope.pieConfigCpu = setPieChart('CPU', 'N/A', 0);
                                 $scope.pieConfigMem = setPieChart('内存', 'N/A', 0);
                                 $scope.chartConfig = setChart();
+                                //$scope.chartnetConfig = netChart();
                                 $scope.isdata.CpuorMem = true;
                                 $scope.isdata.charts = true;
                             }

@@ -42,6 +42,7 @@ define([
             size: 10,
             host: '/oapi/v1',
             host_k8s: '/api/v1',
+            host_newk8s: '/apis/autoscaling/v1',
             host_repos: '/v1/repos',
             host_registry: '/registry/api',
             host_lapi: '/lapi',

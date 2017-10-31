@@ -5,11 +5,13 @@ define(['angular', 'moment'], function (angular, moment) {
     return angular.module('myApp.filter', [])
         .filter('dateRelative', [function() {
             // dropSuffix will tell moment whether to include the "ago" text
+            console.log('timestamp', 1);
             return function(timestamp, dropSuffix) {
 
                 if (!timestamp) {
                     return "-";
                 }
+
                 return moment(timestamp).fromNow(dropSuffix);
             };
         }])
