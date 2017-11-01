@@ -2599,7 +2599,7 @@ angular.module('console.service.detail', [
 
                 }else
                 {
-                    horizontalpodautoscalers.delete({namespace: $rootScope.namespace,name:name}, $scope.horiz, function (data) {
+                    horizontalpodautoscalers.delete({namespace: $rootScope.namespace,name:dc.metadata.name}, $scope.horiz, function (data) {
                         //alert(11)
                     })
                 }

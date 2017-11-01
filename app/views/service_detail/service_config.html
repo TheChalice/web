@@ -738,8 +738,8 @@
                                        ng-keyup="mustnum($event,horiz.spec.maxReplicas,10)"
                                        ng-class="{'input-error':horiz.spec.maxReplicas-0<dc.spec.replicas-0}"
                                        style="width: 80px;display: inline-block;"
-                                       type="text" class="form-control" placeholder="{{dc.spec.replicas}}"></span>
-                            <span  style="font-size: 12px">CPU阀值
+                                       type="text" class="form-control" value="{{dc.spec.replicas}}" placeholder="{{dc.spec.replicas}}"></span>
+                            <span style="font-size: 12px">CPU阀值
                                 <!--<div class="input-group">-->
                                     <input ng-model="horiz.spec.targetCPUUtilizationPercentage"
                                            ng-keyup="mustnum($event,horiz.spec.targetCPUUtilizationPercentage,100)"
