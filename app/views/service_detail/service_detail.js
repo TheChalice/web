@@ -399,7 +399,7 @@ angular.module('console.service.detail', [
                         $scope.horiz=hor;
                     })
                     console.log($scope.dc.spec.template.spec.containers[0].resources);
-                    if ($scope.dc.spec.template.spec.containers[0].resources) {
+                    if ($scope.dc.spec.template.spec.containers[0].resources&&$scope.dc.spec.template.spec.containers[0].resources.requests) {
 
 
                         if ($scope.dc.spec.template.spec.containers[0].resources.requests.cpu) {
