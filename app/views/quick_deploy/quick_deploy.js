@@ -126,6 +126,8 @@ angular.module('console.quick_deploy', [
                         $scope.curl = $scope.postobj.spec.images[0].from.name;
                         var name = $scope.postobj.spec.images[0].from.name.split('/')[$scope.postobj.spec.images[0].from.name.split('/').length - 1]
                         $scope.fuwuname = name.split(':').length > 1 ? name.split(':')[0] : name;
+                        $scope.tag=name.split(':').length > 1 ?name.split(':')[1]:'latest';
+
                         $scope.dc = {
                             "kind": "DeploymentConfig",
                             "apiVersion": "v1",
@@ -176,6 +178,8 @@ angular.module('console.quick_deploy', [
                             },
                             "status": {}
                         }
+                        var imagetag = 'dadafoundry.io/image-' +  $scope.postobj.spec.images[0].from.name;
+                        $scope.dc.metadata.annotations[imagetag] = $scope.fuwuname + ":" + $scope.tag;
                         if (images.status.images[0] && images.status.images[0].image.dockerImageMetadata) {
                             $scope.creattime = images.status.images[0].image.dockerImageMetadata.Created
                             $scope.imagesizs = (images.status.images[0].image.dockerImageMetadata.Size / 1024 / 1024).toFixed(2)
@@ -237,7 +241,7 @@ angular.module('console.quick_deploy', [
                             }
                         });
                     }
-                    })
+                })
 
             }
             var createService = function (dc) {
